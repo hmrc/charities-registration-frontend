@@ -17,9 +17,8 @@
 package navigation
 
 import base.SpecBase
-import base.data.constants.AddressModelConstants.*
-import controllers.addressLookup.routes as addressLookupRoutes
-import controllers.authorisedOfficials.routes as authOfficialRoutes
+import controllers.addressLookup.{routes => addressLookupRoutes}
+import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
 import models.authOfficials.OfficialsPosition
 import models.{CharityName, CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode}

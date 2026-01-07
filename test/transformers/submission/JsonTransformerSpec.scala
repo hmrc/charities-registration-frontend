@@ -56,26 +56,22 @@ class JsonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers
           .set(
             CharityOfficialAddressLookupPage,
-            AddressModel(
-              Seq("7", "Morrison street", "line3", "line4"),
-              Some("G58AN"),
-              gbCountryModel
-            )
+            addressAllLines
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |   "common": {
             |    "addressDetails": {
             |      "officialAddress": {
-            |        "postcode": "G58AN",
-            |        "addressLine1": "7",
-            |        "addressLine2": "Morrison street",
-            |        "addressLine3": "line3",
-            |        "addressLine4": "line4",
+            |        "postcode": "$ukPostcode",
+            |        "addressLine1": "$line1",
+            |        "addressLine2": "$line2",
+            |        "addressLine3": "$line3",
+            |        "addressLine4": "${town.get}",
             |        "nonUKAddress": false
             |      }
             |     }
@@ -99,7 +95,7 @@ class JsonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers
           .set(
             CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street"), None, inCountryModel)
+            address.copy(postcode = None, country = inCountryModel)
           )
           .success
           .value
@@ -110,8 +106,8 @@ class JsonTransformerSpec extends SpecBase {
             |   "common": {
             |    "addressDetails": {
             |      "officialAddress": {
-            |        "addressLine1": "7",
-            |        "addressLine2": "Morrison street",
+            |        "addressLine1": "$line1",
+            |        "addressLine2": "$line2",
             |        "nonUKAddress": true,
             |        "nonUKCountry":"$inCountryCode"
             |      }
@@ -138,7 +134,7 @@ class JsonTransformerSpec extends SpecBase {
           val userAnswers = emptyUserAnswers
             .set(
               CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7 Morrison street", " ", "  ", "   "), Some("NonUKCode"), inCountryModel)
+              addressModelMin.copy(postcode = Some("NonUKCode"), country = inCountryModel)
             )
             .success
             .value
@@ -149,8 +145,8 @@ class JsonTransformerSpec extends SpecBase {
               |   "common": {
               |    "addressDetails": {
               |      "officialAddress": {
-              |        "addressLine1": "7 Morrison street",
-              |        "addressLine2": "NonUKCode",
+              |        "addressLine1": "$maxLine",
+              |        "addressLine2": "$nonUkPostcode",
               |        "nonUKAddress": true,
               |        "nonUKCountry":"$inCountryCode"
               |      }
@@ -175,11 +171,7 @@ class JsonTransformerSpec extends SpecBase {
           val userAnswers = emptyUserAnswers
             .set(
               CharityOfficialAddressLookupPage,
-              AddressModel(
-                Seq("7", "Morrison street", "address line 3", "address line 4"),
-                Some("NonUKCode"),
-                inCountryModel
-              )
+              addressAllLines.copy(postcode = Some(nonUkPostcode), country = inCountryModel)
             )
             .success
             .value
@@ -190,10 +182,10 @@ class JsonTransformerSpec extends SpecBase {
               |   "common": {
               |    "addressDetails": {
               |      "officialAddress": {
-              |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
-              |        "addressLine3": "address line 3",
-              |        "addressLine4": "address line 4, NonUKCode",
+              |        "addressLine1": "$line1",
+              |        "addressLine2": "$line2",
+              |        "addressLine3": "$line3",
+              |        "addressLine4": "${town.get}, $nonUkPostcode",
               |        "nonUKAddress": true,
               |        "nonUKCountry": "$inCountryCode"
               |      }
@@ -219,8 +211,8 @@ class JsonTransformerSpec extends SpecBase {
             .set(
               CharityOfficialAddressLookupPage,
               AddressModel(
-                Seq("7", "Morrison street", "address line 3", "address line 4 with more than 35 characters"),
-                Some("NonUKCode"),
+                Seq(line1, line2, line3, maxLine),
+                Some(nonUkPostcode),
                 inCountryModel
               )
             )
@@ -233,10 +225,10 @@ class JsonTransformerSpec extends SpecBase {
               |   "common": {
               |    "addressDetails": {
               |      "officialAddress": {
-              |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
-              |        "addressLine3": "address line 3",
-              |        "addressLine4": "address line 4 with more than 35 characters",
+              |        "addressLine1": "$line1",
+              |        "addressLine2": "$line2",
+              |        "addressLine3": "$line3",
+              |        "addressLine4": "$maxLine",
               |        "nonUKAddress": true,
               |        "nonUKCountry": "$inCountryCode"
               |      }
@@ -262,8 +254,8 @@ class JsonTransformerSpec extends SpecBase {
             .set(
               CharityOfficialAddressLookupPage,
               AddressModel(
-                Seq("7", "Morrison street", "address line 3", ""),
-                Some("NonUKCode"),
+                Seq(line1, line2, line3, ""),
+                Some(nonUkPostcode),
                 inCountryModel
               )
             )
@@ -276,10 +268,10 @@ class JsonTransformerSpec extends SpecBase {
               |   "common": {
               |    "addressDetails": {
               |      "officialAddress": {
-              |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
-              |        "addressLine3": "address line 3",
-              |        "addressLine4": "NonUKCode",
+              |        "addressLine1": "$line1",
+              |        "addressLine2": "$line2",
+              |        "addressLine3": "$line3",
+              |        "addressLine4": "$nonUkPostcode",
               |        "nonUKAddress": true,
               |        "nonUKCountry": "$inCountryCode"
               |      }
@@ -305,8 +297,8 @@ class JsonTransformerSpec extends SpecBase {
             .set(
               CharityOfficialAddressLookupPage,
               AddressModel(
-                Seq("7", "Morrison street", "address line 3"),
-                Some("NonUKCode"),
+                Seq(line1, line2, line3),
+                Some(nonUkPostcode),
                 inCountryModel
               )
             )
@@ -319,10 +311,10 @@ class JsonTransformerSpec extends SpecBase {
               |   "common": {
               |    "addressDetails": {
               |      "officialAddress": {
-              |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
-              |        "addressLine3": "address line 3",
-              |        "addressLine4": "NonUKCode",
+              |        "addressLine1": "$line1",
+              |        "addressLine2": "$line2",
+              |        "addressLine3": "$line3",
+              |        "addressLine4": "$nonUkPostcode",
               |        "nonUKAddress": true,
               |        "nonUKCountry": "$inCountryCode"
               |      }
@@ -348,8 +340,8 @@ class JsonTransformerSpec extends SpecBase {
             .set(
               CharityOfficialAddressLookupPage,
               AddressModel(
-                Seq("7", "Morrison street", "", "address line 3"),
-                Some("NonUKCode"),
+                Seq(line1, line2, "", line3),
+                Some(nonUkPostcode),
                 inCountryModel
               )
             )
@@ -362,10 +354,10 @@ class JsonTransformerSpec extends SpecBase {
               |   "common": {
               |    "addressDetails": {
               |      "officialAddress": {
-              |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
-              |        "addressLine3": "address line 3",
-              |        "addressLine4": "NonUKCode",
+              |        "addressLine1": "$line1",
+              |        "addressLine2": "$line2",
+              |        "addressLine3": "$line3",
+              |        "addressLine4": "$nonUkPostcode",
               |        "nonUKAddress": true,
               |        "nonUKCountry": "$inCountryCode"
               |      }
@@ -390,7 +382,7 @@ class JsonTransformerSpec extends SpecBase {
           val userAnswers = emptyUserAnswers
             .set(
               CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street", "", " "), Some("NonUKCode"), inCountryModel)
+              AddressModel(Seq(line1, line2, "", " "), Some(nonUkPostcode), inCountryModel)
             )
             .success
             .value
@@ -401,9 +393,9 @@ class JsonTransformerSpec extends SpecBase {
               |   "common": {
               |    "addressDetails": {
               |      "officialAddress": {
-              |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
-              |        "addressLine3": "NonUKCode",
+              |        "addressLine1": "$line1",
+              |        "addressLine2": "$line2",
+              |        "addressLine3": "$nonUkPostcode",
               |        "nonUKAddress": true,
               |        "nonUKCountry": "$inCountryCode"
               |      }
@@ -428,7 +420,7 @@ class JsonTransformerSpec extends SpecBase {
           val userAnswers = emptyUserAnswers
             .set(
               CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some("NonUKCode"), inCountryModel)
+              AddressModel(Seq(line1, line2), Some(nonUkPostcode), inCountryModel)
             )
             .success
             .value
@@ -439,9 +431,9 @@ class JsonTransformerSpec extends SpecBase {
               |   "common": {
               |    "addressDetails": {
               |      "officialAddress": {
-              |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
-              |        "addressLine3": "NonUKCode",
+              |        "addressLine1": "$line1",
+              |        "addressLine2": "$line2",
+              |        "addressLine3": "$nonUkPostcode",
               |        "nonUKAddress": true,
               |        "nonUKCountry": "$inCountryCode"
               |      }
@@ -471,8 +463,8 @@ class JsonTransformerSpec extends SpecBase {
           .set(
             CharityOfficialAddressLookupPage,
             AddressModel(
-              Seq("7", "Morrison street", "line3", "line4"),
-              Some("G58AN"),
+              Seq(line1, line2, line3, town.get),
+              Some(ukPostcode),
               gbCountryModel
             )
           )
@@ -485,11 +477,11 @@ class JsonTransformerSpec extends SpecBase {
             |   "common": {
             |    "addressDetails": {
             |      "charityCorrespondenceAddress": {
-            |        "postcode": "G58AN",
-            |        "addressLine1": "7",
-            |        "addressLine2": "Morrison street",
-            |        "addressLine3": "line3",
-            |        "addressLine4": "line4",
+            |        "postcode": "$ukPostcode",
+            |        "addressLine1": "$line1",
+            |        "addressLine2": "$line2",
+            |        "addressLine3": "$line3",
+            |        "addressLine4": "${town.get}",
             |        "nonUKAddress": false
             |      }
             |     }

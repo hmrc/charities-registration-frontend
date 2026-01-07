@@ -16,12 +16,12 @@
         "officialsDOB": "2000-12-11",
         "officialAddress": {
           "lines": [
-            "2",
-            "Dubai Main Road",
-            "line3",
-            "line4"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSLINE3__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "G27JD",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -56,8 +56,8 @@
     },
     "charityOfficialAddress": {
       "lines": [
-        "7",
-        "Morrison street"
+        "__ADDRESSLINE1__",
+        "__ADDRESSLINE2__"
       ],
       "country": {
         "code": "__INCOUNTRYCODE__",
@@ -93,9 +93,9 @@
         "officialsDOB": "2000-12-11",
         "officialAddress": {
           "lines": [
-            "3",
-            "Morrison Street",
-            "Bill Tower"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSLINE3__"
           ],
           "country": {
             "code": "__ITCOUNTRYCODE__",

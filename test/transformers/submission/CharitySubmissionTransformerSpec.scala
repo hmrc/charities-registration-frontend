@@ -62,7 +62,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, itCountryModel)
+            addressWithTown.copy(postcode = None, country = itCountryModel)
           )
         )
         .flatMap(_.set(OtherOfficialsNamePage(1), personNameWithoutMiddle))
@@ -73,7 +73,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, itCountryModel)
+            addressWithTown.copy(postcode = None, country = itCountryModel)
           )
         )
         .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold))
@@ -111,18 +111,14 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             CharityOfficialAddressLookupPage,
-            AddressModel(
-              Seq("7", "Morrison street", "line3", "line4"),
-              Some("G58AN"),
-              gbCountryModel
-            )
+            addressAllLines
           )
         )
         .flatMap(_.set(CanWeSendToThisAddressPage, false))
         .flatMap(
           _.set(
             CharityPostalAddressLookupPage,
-            AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), gbCountryModel)
+            address
           )
         )
         .flatMap(_.set(CharityNamePage, charityName))
@@ -134,7 +130,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, itCountryModel)
+            addressWithTown.copy(postcode = None, country = itCountryModel)
           )
         )
         .flatMap(_.set(OtherOfficialsNamePage(1), personNameWithoutMiddle))
@@ -145,7 +141,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, itCountryModel)
+            addressWithTown.copy(postcode = None, country = itCountryModel)
           )
         )
         .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland, Other)))

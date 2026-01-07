@@ -27,9 +27,7 @@ class CanWeSendToThisAddressPageSpec extends PageBehaviours {
   "CanWeSendToThisAddressPage" must {
 
     beRetrievable[Boolean](CanWeSendToThisAddressPage)
-
     beSettable[Boolean](CanWeSendToThisAddressPage)
-
     beRemovable[Boolean](CanWeSendToThisAddressPage)
 
     "cleanup" when {
@@ -37,7 +35,7 @@ class CanWeSendToThisAddressPageSpec extends PageBehaviours {
       val userAnswer = UserAnswers("id", Json.obj())
         .set(
           CharityPostalAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)
+          address
         )
         .success
         .value

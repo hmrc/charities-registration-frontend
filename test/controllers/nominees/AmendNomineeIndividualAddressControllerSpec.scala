@@ -66,21 +66,17 @@ class AmendNomineeIndividualAddressControllerSpec extends SpecBase with BeforeAn
   private val controller: AmendNomineeIndividualAddressController = inject[AmendNomineeIndividualAddressController]
 
   private val requestArgs                   = Seq(
-    "line1"    -> "23",
-    "line2"    -> "Morrison street",
+    "line1"    -> line1,
+    "line2"    -> line2,
     "line3"    -> "",
-    "town"     -> "Glasgow",
-    "postcode" -> "G58AN",
+    "town"     -> town.get,
+    "postcode" -> ukPostcode,
     "country"  -> gbCountryCode
   )
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(
       NomineeIndividualAddressLookupPage,
-      AddressModel(
-        Seq("7", "Morrison street near riverview gardens", "South side", "Glasgow"),
-        Some("G58AN"),
-        gbCountryModel
-      )
+      addressAllLines
     )
     .flatMap(_.set(IndividualNomineeNamePage, personNameWithMiddle))
     .success
@@ -90,14 +86,7 @@ class AmendNomineeIndividualAddressControllerSpec extends SpecBase with BeforeAn
 
     "return OK and the correct view for a GET" in {
 
-      val amendNomineeIndividualAddress = AmendAddressModel(
-        "7",
-        Some("Morrison street near riverview gardens"),
-        Some("South side"),
-        "Glasgow",
-        "G58AN",
-        gbCountryCode
-      )
+      val amendNomineeIndividualAddress = toAmendAddressModel(addressAllLines)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
@@ -121,7 +110,7 @@ class AmendNomineeIndividualAddressControllerSpec extends SpecBase with BeforeAn
       val userAnswers = localUserAnswers
         .set(
           AmendAddressPage,
-          AmendAddressModel("23", Some("Morrison street"), Some(""), "Glasgow", "G58AN", gbCountryCode)
+          toAmendAddressModel(addressAllLines)
         )
         .success
         .value

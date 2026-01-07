@@ -23,7 +23,7 @@ import views.html.common.ConfirmAddressView
 class ConfirmAddressViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix: String                      = "charityOfficialAddress"
-  private val charityInformationAddressLookup: List[String] = List("12", "Banner Way", "ZZ1 1ZZ")
+  private val charityInformationAddressLookup: List[String] = List(line1, line2, ukPostcode)
 
   private val view: ConfirmAddressView = viewFor[ConfirmAddressView](Some(emptyUserAnswers))
 

@@ -63,14 +63,12 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[AuditService].toInstance(mockAuditService),
         bind[CharitiesConnector].toInstance(mockCharitiesConnector)
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
     reset(mockAuditService)
     reset(mockCharitiesConnector)
   }
@@ -80,10 +78,6 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
   "Charities Registration Service" must {
 
     "redirect to next page if acknowledgement reference is already present" in {
-
-      when(mockUserAnswerService.get(AcknowledgementReferencePage))
-        .thenReturn(Future.successful(Some(userAnswersWithAcknowledgement)))
-
       val result = service.register(Json.obj(), noEmailPost = false)(dataRequestWithAcknowledgement, hc, ec)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad.url)
@@ -91,9 +85,6 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
     }
 
     "redirect to the next page after valid registration response and noEmailPost is disabled" in {
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
       when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
         Future.successful(Right(RegistrationResponse("765432")))
       )
@@ -105,15 +96,12 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad.url)
       verify(mockCharitiesConnector, times(1)).registerCharities(any(), any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
 
       verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
       verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
     }
 
     "redirect to the next page after valid registration response noEmailPost is enabled" in {
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
       when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
         Future.successful(Right(RegistrationResponse("765432")))
       )
@@ -124,15 +112,12 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
       verify(mockCharitiesConnector, times(1)).registerCharities(any(), any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
 
       verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
       verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
     }
 
     "redirect to the technical difficulties page if registration connector failed" in {
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
-
       when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
         Future.successful(Left(RequestNotAccepted))
       )
@@ -142,30 +127,10 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       }
 
       verify(mockCharitiesConnector, times(1)).registerCharities(any(), any())(any(), any())
-      verify(mockUserAnswerService, never()).set(any())(any(), any())
-      verify(mockAuditService, never()).sendEvent(any())(any(), any())
-    }
-
-    "redirect to the technical difficulties page if UserAnswer Repository failed" in {
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
-
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.failed(new RuntimeException("failed")))
-      when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
-        Future.successful(Right(RegistrationResponse("765432")))
-      )
-
-      intercept[UnexpectedFailureException] {
-        await(service.register(expectedJsonObject, noEmailPost = false)(fakeDataRequest, hc, ec))
-      }
-
-      verify(mockCharitiesConnector, times(1)).registerCharities(any(), any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
       verify(mockAuditService, never()).sendEvent(any())(any(), any())
     }
 
     "redirect to the technical difficulties page if submission data is missing keys that need to be transformed " in {
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = intercept[UnexpectedFailureException] {
         await(service.register(Json.obj(), noEmailPost = true)(fakeDataRequest, hc, ec))

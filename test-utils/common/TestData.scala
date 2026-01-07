@@ -16,19 +16,7 @@
 
 package common
 
-import models.{
-  BankDetails,
-  CharityContactDetails,
-  CharityName,
-  CharityOtherRegulatorDetails,
-  Country,
-  FcoCountry,
-  Name,
-  Passport,
-  PhoneNumber,
-  SelectTitle,
-  withNameToString
-}
+import models.{BankDetails, CharityContactDetails, CharityName, CharityOtherRegulatorDetails, Country, FcoCountry, Name, Passport, PhoneNumber, SelectTitle, withNameToString}
 import models.nominees.OrganisationNomineeContactDetails
 import models.addressLookup.{AddressModel, AmendAddressModel, CountryModel}
 
@@ -68,15 +56,15 @@ trait TestData extends ModelGenerators {
     rollNumber = Some(rollNumber)
   )
 
-  val nino: String = ninoGen.sample.get
+  val nino: String           = ninoGen.sample.get
   val ninoWithSpaces: String =
     s"${nino.slice(0, 2)} ${nino.slice(2, 4)} ${nino.slice(4, 6)} ${nino.slice(6, 8)} ${nino.slice(8, 9)}"
 
-  val nino2: String = ninoGen.sample.get
+  val nino2: String           = ninoGen.sample.get
   val nino2WithSpaces: String =
     s"${nino2.slice(0, 2)} ${nino2.slice(2, 4)} ${nino2.slice(4, 6)} ${nino2.slice(6, 8)} ${nino2.slice(8, 9)}"
 
-  val nino3: String = ninoGen.sample.get
+  val nino3: String           = ninoGen.sample.get
   val nino3WithSpaces: String =
     s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
 
@@ -84,8 +72,8 @@ trait TestData extends ModelGenerators {
 
   val passport: Passport = Passport(passportNumber, "GB", LocalDate.now)
 
-  val daytimePhone: String = exampleFixedLineGen.sample.get
-  val mobileNumber: String = exampleMobileGen.sample.get
+  val daytimePhone: String      = exampleFixedLineGen.sample.get
+  val mobileNumber: String      = exampleMobileGen.sample.get
   val phoneNumbers: PhoneNumber = PhoneNumber(daytimePhone, Some(mobileNumber))
 
   val daytimePhoneWithIntCode: String      = exampleFixedLineIntGen.sample.get
@@ -169,25 +157,25 @@ trait TestData extends ModelGenerators {
   val chCountryTuple: (String, String) = (chCountry.code, chCountry.name)
   val (chCountryCode, chCountryName)   = chCountryTuple
 
-  val jan1st1111: LocalDate = LocalDate.of(1111, 1, 1)
-  val jan2nd2000: LocalDate = LocalDate.of(2000, 1, 2)
+  val jan1st1111: LocalDate  = LocalDate.of(1111, 1, 1)
+  val jan2nd2000: LocalDate  = LocalDate.of(2000, 1, 2)
   val dec11th2000: LocalDate = LocalDate.of(2000, 12, 11)
-  val jan1st2002: LocalDate = LocalDate.of(2002, 1, 1)
-  val apr1st2017: LocalDate = LocalDate.of(2017, 4, 1)
-  val jun1st2017: LocalDate = LocalDate.of(2017, 6, 1)
-  val nov1st2017: LocalDate = LocalDate.of(2017, 11, 1)
+  val jan1st2002: LocalDate  = LocalDate.of(2002, 1, 1)
+  val apr1st2017: LocalDate  = LocalDate.of(2017, 4, 1)
+  val jun1st2017: LocalDate  = LocalDate.of(2017, 6, 1)
+  val nov1st2017: LocalDate  = LocalDate.of(2017, 11, 1)
   val jun30tt2017: LocalDate = LocalDate.of(2017, 6, 30)
-  val feb1st2018: LocalDate = LocalDate.of(2018, 2, 1)
-  val jan1st2019: LocalDate = LocalDate.of(2019, 1, 1)
-  val jan1st2020: LocalDate = LocalDate.of(2020, 1, 1)
-  val sep1st2020: LocalDate = LocalDate.of(2020, 9, 1)
+  val feb1st2018: LocalDate  = LocalDate.of(2018, 2, 1)
+  val jan1st2019: LocalDate  = LocalDate.of(2019, 1, 1)
+  val jan1st2020: LocalDate  = LocalDate.of(2020, 1, 1)
+  val sep1st2020: LocalDate  = LocalDate.of(2020, 9, 1)
   val sep14th2020: LocalDate = LocalDate.of(2020, 9, 14)
   val sep22nd2020: LocalDate = LocalDate.of(2020, 9, 22)
   val sep23rd2020: LocalDate = LocalDate.of(2020, 9, 23)
-  val nov1st2020: LocalDate = LocalDate.of(2020, 11, 1)
+  val nov1st2020: LocalDate  = LocalDate.of(2020, 11, 1)
   val dec25th2020: LocalDate = LocalDate.of(2020, 12, 25)
-  val today: LocalDate      = LocalDate.now()
-  val futureDate: LocalDate = today.plusYears(1)
+  val today: LocalDate       = LocalDate.now()
+  val futureDate: LocalDate  = today.plusYears(1)
 
   val addressId: String     = "Address Id"
   val line1: String         = "Test 1"
@@ -255,7 +243,7 @@ trait TestData extends ModelGenerators {
   val personName3WithMiddle: Name    = Name(SelectTitle.Ms, "Firstname3", Some("Middle3"), "Lastname3")
   val personName4WithoutMiddle: Name = Name(SelectTitle.Ms, "Firstname4", None, "Lastname4")
   val personName4WithMiddle: Name    = Name(SelectTitle.Ms, "Firstname4", Some("Middle4"), "Lastname4")
-  
+
   def replacePlaceholders(inString: String): String =
     inString
       .replaceAll("__ACCOUNTNAME__", accountName)

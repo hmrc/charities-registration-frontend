@@ -331,7 +331,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .value
 
         val expectedJson =
-         s"""{
+          s"""{
             |    "aboutOrgCommon": {
             |        "otherDocument": "Other Documents for Charity",
             |        "effectiveDate": "${jan1st2019.toString}"

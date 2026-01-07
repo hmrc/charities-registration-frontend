@@ -50,10 +50,10 @@ object CharitiesStub extends WireMockMethods {
 
   def stubUserAnswerGet(ua: UserAnswers, userId: String): StubMapping =
     when(method = GET, uri = s"$getUserAnswer$userId").thenReturn(status = OK, body = Json.toJson(ua))
-    
+
   def stubUserAnswerGet(status: Int, userId: String): StubMapping =
     when(method = GET, uri = s"$getUserAnswer$userId").thenReturn(status = status, body = Json.toJson("{}"))
-    
+
   def stubUserAnswerGet(jsObject: JsObject, userId: String): StubMapping =
     when(method = GET, uri = s"$getUserAnswer$userId").thenReturn(status = OK, body = jsObject)
 }

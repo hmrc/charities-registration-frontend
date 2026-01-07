@@ -24,7 +24,12 @@ import play.api.libs.json.*
 
 import java.time.LocalDateTime
 
-class MongoDateTimeFormatsSpec extends AnyWordSpec with Matchers with OptionValues with MongoDateTimeFormats with TestData {
+class MongoDateTimeFormatsSpec
+    extends AnyWordSpec
+    with Matchers
+    with OptionValues
+    with MongoDateTimeFormats
+    with TestData {
 
   private val date: LocalDateTime = feb1st2018.atStartOfDay
   private val dateMillis: Long    = 1517443200000L

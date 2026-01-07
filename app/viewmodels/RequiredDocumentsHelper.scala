@@ -99,4 +99,22 @@ object RequiredDocumentsHelper {
       case nonZero if nonZero.nonEmpty => Some(("requiredDocuments.foreignAddresses.answerTrue", formatNames(nonZero)))
       case _                           => None
     }
+
+  def getForeignOfficialsMessages(names: List[Name])(implicit messages: Messages): Option[(String, String)] =
+    names match {
+      case nonZero if nonZero.nonEmpty => Some(("requiredDocuments.foreignAddresses.answerTrue", formatNames(nonZero)))
+      case _                           => None
+    }
+
+  def getRequiredDocuments(docs: Map[String, Boolean]): Seq[String] =
+    Seq(s"${requiredDocumentsKey}governingDocumentName.answerTrue") ++ docs
+      .map { (k, v) =>
+        (k, v) match {
+          case ("isFinancialAccounts", false)            => None
+          case ("noRegulatorUniformedYouthGroup", false) => None
+          case _                                         => Some(requiredDocumentsKey + k + (if (v) ".answerTrue" else ".answerAlternative"))
+        }
+      }
+      .toSeq
+      .flatten
 }

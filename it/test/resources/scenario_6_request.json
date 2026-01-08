@@ -70,7 +70,7 @@
 
         },
         "officialsPosition": "23",
-        "officialsDOB": "__JULY3RD2002__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -114,7 +114,7 @@
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "__JULY3RD2002__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": false,
         "officialAddress": {
           "lines": [
@@ -149,7 +149,7 @@
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "__JAN1ST2019__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -184,7 +184,7 @@
 
         },
         "officialsPosition": "23",
-        "officialsDOB": "__JULY3RD2002__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -229,7 +229,7 @@
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "__DEC31TH1999__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": false,
         "officialAddress": {
           "lines": [
@@ -256,7 +256,7 @@
         }
       }
     ],
-    "whenGoverningDocumentApproved": "__JAN1ST2019__",
+    "whenGoverningDocumentApproved": "__GOVDOCAPPROVED__",
     "isSection2Completed": true,
     "isAddAnotherOfficial": true,
     "isSection5Completed": true,
@@ -285,17 +285,17 @@
         },
         "organisationPreviousAddress": {
           "lines": [
-            "4 Other Place",
-            "Some District",
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
             "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSTOWN__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
           }
         },
-        "organisationAuthorisedPersonDOB": "__JULY3RD2002__",
+        "organisationAuthorisedPersonDOB": "__OFFICIALSDOB__",
         "organisationAddress": {
           "lines": [
             "__ADDRESSLINE1__",

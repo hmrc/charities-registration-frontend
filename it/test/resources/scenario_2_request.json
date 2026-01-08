@@ -9,7 +9,7 @@
           "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "01",
-        "officialsDOB": "__JAN11TH2001__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -32,7 +32,7 @@
         "officialsNino": "__NINOWITHSPACE1__"
       }
     ],
-    "whenGoverningDocumentApproved": "__NOV11TH2001__",
+    "whenGoverningDocumentApproved": "__GOVDOCAPPROVED__",
     "isSection2Completed": true,
     "charitablePurposes": [
       "other",
@@ -145,7 +145,7 @@
           "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "02",
-        "officialsDOB": "__JAN11TH2001__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -174,7 +174,7 @@
           "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "03",
-        "officialsDOB": "__FEB2ND2001__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [

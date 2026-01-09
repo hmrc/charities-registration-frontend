@@ -56,7 +56,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
         .flatMap(_.set(AuthorisedOfficialsNamePage(1), personNameWithoutMiddle))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
-        .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse(dec11th2000.toString)))
+        .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse(officialsDOB.toString)))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), phoneNumbers))
         .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
@@ -67,7 +67,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         )
         .flatMap(_.set(OtherOfficialsNamePage(1), personNameWithoutMiddle))
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
-        .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse(dec11th2000.toString)))
+        .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse(officialsDOB.toString)))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), phoneNumbers))
         .flatMap(_.set(OtherOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
@@ -81,7 +81,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
         .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
         .flatMap(
-          _.set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2020))(
+          _.set(AccountingPeriodEndDatePage, MonthDay.from(datesMin))(
             MongoDateTimeFormats.localDayMonthWrite
           ).flatMap(_.set(IsFinancialAccountsPage, true))
             .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
@@ -124,7 +124,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(_.set(CharityNamePage, charityName))
         .flatMap(_.set(AuthorisedOfficialsNamePage(1), personNameWithoutMiddle))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
-        .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse(dec11th2000.toString)))
+        .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse(officialsDOB.toString)))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), phoneNumbers))
         .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
@@ -135,7 +135,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         )
         .flatMap(_.set(OtherOfficialsNamePage(1), personNameWithoutMiddle))
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
-        .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse(dec11th2000.toString)))
+        .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse(officialsDOB.toString)))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), phoneNumbers))
         .flatMap(_.set(OtherOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
@@ -172,7 +172,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
             )
         )
         .flatMap(
-          _.set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2020))(
+          _.set(AccountingPeriodEndDatePage, MonthDay.from(datesMin))(
             MongoDateTimeFormats.localDayMonthWrite
           ).flatMap(_.set(IsFinancialAccountsPage, true))
             .flatMap(

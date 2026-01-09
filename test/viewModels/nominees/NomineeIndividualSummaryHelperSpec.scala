@@ -51,7 +51,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
       .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, dayOfMonth)))
       .flatMap(_.set(IndividualNomineesPhoneNumberPage, phoneNumbers))
       .flatMap(_.set(IsIndividualNomineeNinoPage, true))
-      .flatMap(_.set(IndividualNomineesNinoPage, "AB123123A"))
+      .flatMap(_.set(IndividualNomineesNinoPage, nino))
       .flatMap(_.set(NomineeIndividualAddressLookupPage, ConfirmedAddressConstants.address))
       .flatMap(_.set(IsIndividualNomineePreviousAddressPage, true))
       .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, ConfirmedAddressConstants.address))
@@ -179,7 +179,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeNino mustBe Some(
           summaryListRow(
             messages("individualNomineesNino.checkYourAnswersLabel"),
-            HtmlContent("AB123123A"),
+            HtmlContent(nino),
             Some(messages("individualNomineesNino.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineesNinoController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

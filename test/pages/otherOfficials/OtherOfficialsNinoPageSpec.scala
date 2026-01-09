@@ -23,9 +23,7 @@ class OtherOfficialsNinoPageSpec extends PageBehaviours {
   "OtherOfficialsNinoPage" must {
 
     beRetrievable[String](OtherOfficialsNinoPage(0))
-
     beSettable[String](OtherOfficialsNinoPage(0))
-
     beRemovable[String](OtherOfficialsNinoPage(0))
   }
 

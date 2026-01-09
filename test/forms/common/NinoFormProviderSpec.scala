@@ -54,7 +54,7 @@ class NinoFormProviderSpec extends StringFieldBehaviours {
 
   "AuthorisedOfficialsNINOFormProvider" must {
 
-    val nino = "QQ 12 345 6C"
+    val nino = nino2
 
     "apply nationlInsuranceNumber correctly" in {
 
@@ -77,14 +77,14 @@ class NinoFormProviderSpec extends StringFieldBehaviours {
 
   "validateNINO" must {
 
-    "valid for QQ12 345 6C" in {
+    s"valid for $nino2" in {
 
-      "QQ12 345 6C" must fullyMatch regex formProvider.ninoPattern
+      nino2 must fullyMatch regex formProvider.ninoPattern
     }
 
-    "valid for 1Q12 345 6C" in {
+    s"valid for w$nino3" in {
 
-      "1Q12 345 6C" mustNot fullyMatch regex formProvider.ninoPattern
+      "w"+nino3 mustNot fullyMatch regex formProvider.ninoPattern
     }
   }
 

@@ -28,14 +28,15 @@ import viewmodels.SummaryListRowHelper
 import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
 
 import java.time.LocalDate
+import utils.ImplicitDateFormatter
 
-class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
+class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHelper with ImplicitDateFormatter {
 
   private val helper = new GoverningDocumentSummaryHelper(
     UserAnswers("id")
       .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head)
       .flatMap(_.set(GoverningDocumentNamePage, governingDocument))
-      .flatMap(_.set(WhenGoverningDocumentApprovedPage, jan2nd2000))
+      .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
       .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
       .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Governing document change"))
       .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))
@@ -82,7 +83,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.dateApprovedGoverningDocumentRow mustBe Some(
           summaryListRow(
             messages("whenGoverningDocumentApproved.checkYourAnswersLabel"),
-            HtmlContent("2 January 2000"),
+            HtmlContent(dayToString(govDocApprovedDate, dayOfWeek = false)),
             Some(messages("whenGoverningDocumentApproved.checkYourAnswersLabel")),
             regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

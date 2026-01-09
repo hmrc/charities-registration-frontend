@@ -12,7 +12,7 @@
       "ccni",
       "otherRegulator"
     ],
-    "publicBenefits": "Charity Purpose",
+    "publicBenefits": "__PUBLICBENEFIT__",
     "charityOfficialAddress": {
       "lines": [
         "__ADDRESSLINE1__",
@@ -43,7 +43,7 @@
       "emailAddress": "__CHARITYEMAIL__"
     },
     "isCharityRegulator": true,
-    "sectionsChangedGoverningDocument": "Section one",
+    "sectionsChangedGoverningDocument": "__GOVERNINGDOCUMENTCHANGE__",
     "isBankStatements": false,
     "accountingPeriodEndDate": "--04-01",
     "isSection9Completed": true,
@@ -56,11 +56,11 @@
         "overseasCountry": "__FRCOUNTRYCODE__"
       }
     ],
-    "scottishRegulatorRegNumber": "SC012344",
+    "scottishRegulatorRegNumber": "__SCREGULATORNUMBER__",
     "selectGoverningDocument": "6",
     "canWeSendLettersToThisAddress": false,
     "estimatedIncome": 123.12,
-    "charityCommissionRegistrationNumber": "7654321",
+    "charityCommissionRegistrationNumber": "__CCREGISTRATIONNUMBER__",
     "otherOfficials": [
       {
         "officialsPhoneNumber": {
@@ -70,7 +70,7 @@
 
         },
         "officialsPosition": "23",
-        "officialsDOB": "__JULY3RD2002__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -86,9 +86,9 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Bobby",
-          "middleName": "Ge",
-          "lastName": "Tables"
+          "firstName": "__PERSONFIRSTNAME__",
+          "middleName": "__PERSONMIDDLENAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "isOfficialsPreviousAddress": true,
         "officialPreviousAddress": {
@@ -114,7 +114,7 @@
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "__JULY3RD2002__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": false,
         "officialAddress": {
           "lines": [
@@ -130,9 +130,9 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Alex",
-          "middleName": "Je",
-          "lastName": "David"
+          "firstName": "__PERSON2FIRSTNAME__",
+          "middleName": "__PERSON2MIDDLENAME__",
+          "lastName": "__PERSON2LASTNAME__"
         },
         "isOfficialsPreviousAddress": false,
         "officialsPassport": {
@@ -149,7 +149,7 @@
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "__JAN1ST2019__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -165,15 +165,15 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Jamie",
-          "middleName": "Le",
-          "lastName": "White"
+          "firstName": "__PERSONFIRSTNAME__",
+          "middleName": "__PERSONMIDDLENAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "isOfficialsPreviousAddress": false,
         "officialsNino": "__NINOWITHSPACE2__"
       }
     ],
-    "otherFundRaising": "1234",
+    "otherFundRaising": "__OTHERFUNDRAISING__",
     "authorisedOfficials": [
       {
         "isOfficialPreviousAddress": true,
@@ -184,7 +184,7 @@
 
         },
         "officialsPosition": "23",
-        "officialsDOB": "__JULY3RD2002__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -201,9 +201,9 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Bobby",
-          "middleName": "Ge",
-          "lastName": "Tables"
+          "firstName": "__PERSONFIRSTNAME__",
+          "middleName": "__PERSONMIDDLENAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "officialPreviousAddress": {
           "lines": [
@@ -229,7 +229,7 @@
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "__DEC31TH1999__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": false,
         "officialAddress": {
           "lines": [
@@ -245,9 +245,9 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Alex",
-          "middleName": "Je",
-          "lastName": "David"
+          "firstName": "__PERSON2FIRSTNAME__",
+          "middleName": "__PERSON2MIDDLENAME__",
+          "lastName": "__PERSON2LASTNAME__"
         },
         "officialsPassport": {
           "passportNumber": "__PASSPORTNUMBER__",
@@ -256,18 +256,18 @@
         }
       }
     ],
-    "whenGoverningDocumentApproved": "__JAN1ST2019__",
+    "whenGoverningDocumentApproved": "__GOVDOCAPPROVED__",
     "isSection2Completed": true,
     "isAddAnotherOfficial": true,
     "isSection5Completed": true,
     "actualIncome": 420,
     "charityOtherRegulatorDetails": {
-      "regulatorName": "ORegulatorName",
-      "registrationNumber": "123456789"
+      "regulatorName": "__CREGULATORNAME__",
+      "registrationNumber": "__CREGULATORNUMBER__"
     },
     "isApprovedGoverningDocument": true,
     "selectFundRaising": [
-      "other"
+      "__OTHERFUNDRAISING__"
     ],
     "nominee": {
       "chooseNominee": false,
@@ -279,23 +279,23 @@
         "organisationName": "__NOMINEEORGANISATIONNAME__",
         "organisationAuthorisedPersonName": {
           "title": "0001",
-          "firstName": "John",
-          "middleName": "De",
-          "lastName": "Britto"
+          "firstName": "__PERSONMIDDLENAME__",
+          "middleName": "__PERSONLASTNAME__",
+          "lastName": "__PERSON2LASTNAME__"
         },
         "organisationPreviousAddress": {
           "lines": [
-            "4 Other Place",
-            "Some District",
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
             "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSTOWN__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
           }
         },
-        "organisationAuthorisedPersonDOB": "__JULY3RD2002__",
+        "organisationAuthorisedPersonDOB": "__OFFICIALSDOB__",
         "organisationAddress": {
           "lines": [
             "__ADDRESSLINE1__",
@@ -319,10 +319,10 @@
         }
       }
     },
-    "charitableObjectives": "Donate",
+    "charitableObjectives": "__CHARITYOBJECTIVE__",
     "isSection8Completed": true,
     "isSection7Completed": true,
-    "whyNoBankStatement": "123 no",
+    "whyNoBankStatement": "__WHYNOBANKSTETEMENT__",
     "charityName": {
       "fullName": "__CHARITYFULLNAME__",
       "operatingName": "__CHARITYOPERATINGNAME__"
@@ -345,7 +345,7 @@
     "anotherCountry": false,
     "emailOrPost": true,
     "isSection1Completed": true,
-    "nIRegulatorRegNumber": "654321",
+    "nIRegulatorRegNumber": "__NIREGULATORNUMBER__",
     "isFinancialAccounts": true
   },
   "lastUpdated":{"$date":1611678637692},

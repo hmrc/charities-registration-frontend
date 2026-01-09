@@ -239,7 +239,7 @@ trait TestData extends ModelGenerators {
       addressModel.postcode.get,
       addressModel.country.code
     )
-
+ 
   val personNameWithoutMiddle: Name  = Name(SelectTitle.Mr, "Firstname", None, "Lastname")
   val personNameWithMiddle: Name     = Name(SelectTitle.Mr, "Firstname", Some("Middle"), "Lastname")
   val personName2WithoutMiddle: Name = Name(SelectTitle.Ms, "Firstname2", None, "Lastname2")
@@ -290,14 +290,12 @@ trait TestData extends ModelGenerators {
       .replaceAll("__WHYNOREGULATOR__", whyNoRegulator)
       .replaceAll("__WHYNOTREGISTERED__", whyNotRegistered)
       .replaceAll("__GOVERNINGDOCUMENTCHANGE__", governingDocumentChange)
-      .replaceAll("__PERSONNAMEWITHOUTMIDDLE__", personNameWithoutMiddle)
-      .replaceAll("__PERSONNAMEWITHMIDDLE__", personNameWithMiddle)
-      .replaceAll("__PERSONNAME2WITHOUTMIDDLE__", personName2WithoutMiddle)
-      .replaceAll("__PERSONNAME2WITHMIDDLE__", personName2WithMiddle)
-      .replaceAll("__PERSONNAME3WITHOUTMIDDLE__", personName3WithoutMiddle)
-      .replaceAll("__PERSONNAME3WITHOUTMIDDLE__", personName3WithoutMiddle)
-      .replaceAll("__PERSONNAME4WITHOUTMIDDLE__", personName4WithoutMiddle)
-      .replaceAll("__PERSONNAME4WITHMIDDLE__", personName4WithMiddle)
+      .replaceAll("__PERSONFIRSTNAME__", personNameWithMiddle.firstName)
+      .replaceAll("__PERSONMIDDLENAME__", personNameWithMiddle.middleName)
+      .replaceAll("__PERSONLASTNAME__", personNameWithMiddle.lastName)
+      .replaceAll("__PERSON2FIRSTNAME__", personName2WithMiddle.firstName)
+      .replaceAll("__PERSON2MIDDLENAME__", personName2WithMiddle.middleName)
+      .replaceAll("__PERSON2LASTNAME__", personName2WithMiddle.lastName)
       .replaceAll("__CCREGISTRATIONNUMBER__", charityCommissionRegistrationNumber)
       .replaceAll("__SCREGULATORNUMBER__", scottishRegulatorRegistrationNumber)
       .replaceAll("__NIREGULATORNUMBER__", niRegulatorRegistrationNumber)

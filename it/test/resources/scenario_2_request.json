@@ -26,8 +26,8 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Steve",
-          "lastName": "Waugh"
+          "firstName": "__PERSONFIRSTNAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "officialsNino": "__NINOWITHSPACE1__"
       }
@@ -51,15 +51,15 @@
     ],
     "isAddAnotherOfficial": false,
     "charityRegulator": [
-      "otherRegulator"
+      "__CREGULATORNAME__"
     ],
     "charityEstablishedIn": "1",
     "hasCharityChangedPartsOfGoverningDocument": true,
     "isSection5Completed": true,
     "actualIncome": 100.0,
     "charityOtherRegulatorDetails": {
-      "regulatorName": "John",
-      "registrationNumber": "Ceana"
+      "regulatorName": "__PERSONFIRSTNAME__",
+      "registrationNumber": "__CREGULATORNUMBER__"
     },
     "charityOfficialAddress": {
       "lines": [
@@ -89,7 +89,7 @@
     ],
     "selectFundRaising": [
       "donations",
-      "fundraising"
+      "__OTHERFUNDRAISING__"
     ],
     "charitableObjectives": "Test",
     "isSection8Completed": true,
@@ -162,8 +162,8 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Mark",
-          "lastName": "Waugh"
+          "firstName": "__PERSON2FIRSTNAME__",
+          "lastName": "__PERSON2LASTNAME__"
         },
         "isOfficialsPreviousAddress": false,
         "officialsNino": "__NINOWITHSPACE1__"
@@ -190,8 +190,8 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Steve",
-          "lastName": "Waugh"
+          "firstName": "__PERSONFIRSTNAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "isOfficialsPreviousAddress": false,
         "officialsNino": "__NINOWITHSPACE2__"

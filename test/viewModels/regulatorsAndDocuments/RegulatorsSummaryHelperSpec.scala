@@ -38,7 +38,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
       .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
       .flatMap(_.set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails))
       .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.values.head))
-      .flatMap(_.set(WhyNotRegisteredWithCharityPage, "office closed"))
+      .flatMap(_.set(WhyNotRegisteredWithCharityPage, whyNotRegistered))
       .success
       .value
   )
@@ -180,7 +180,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
         helper.whyNotRegisteredCharityRow mustBe Some(
           summaryListRow(
             messages("whyNotRegisteredWithCharity.checkYourAnswersLabel"),
-            HtmlContent("office closed"),
+            HtmlContent(whyNotRegistered),
             Some(messages("whyNotRegisteredWithCharity.checkYourAnswersLabel")),
             regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

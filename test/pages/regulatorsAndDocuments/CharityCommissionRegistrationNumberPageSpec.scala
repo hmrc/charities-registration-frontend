@@ -23,9 +23,7 @@ class CharityCommissionRegistrationNumberPageSpec extends PageBehaviours {
   "CharityCommissionRegistrationNumberPage" must {
 
     beRetrievable[String](CharityCommissionRegistrationNumberPage)
-
     beSettable[String](CharityCommissionRegistrationNumberPage)
-
     beRemovable[String](CharityCommissionRegistrationNumberPage)
   }
 }

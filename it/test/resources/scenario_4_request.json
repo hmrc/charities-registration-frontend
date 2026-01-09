@@ -27,8 +27,8 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Steve",
-          "lastName": "Waugh"
+          "firstName": "__PERSONFIRSTNAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "officialsNino": "__NINOWITHSPACE1__"
       }
@@ -49,8 +49,8 @@
     "isSection5Completed": true,
     "actualIncome": 100.0,
     "charityOtherRegulatorDetails": {
-      "regulatorName": "John",
-      "registrationNumber": "Ceana"
+      "regulatorName": "__PERSONLASTNAME__",
+      "registrationNumber": "__CREGULATORNUMBER__"
     },
     "charityOfficialAddress": {
       "lines": [
@@ -65,7 +65,7 @@
         "name": "____GBCOUNTRYNAME__"
       }
     },
-    "publicBenefits": "Test",
+    "publicBenefits": "__PUBLICBENEFIT__",
     "bankDetails": {
       "accountName": "__ACCOUNTNAME__",
       "sortCode": "__SORTCODE__",
@@ -81,9 +81,9 @@
     ],
     "selectFundRaising": [
       "donations",
-      "fundraising"
+      "__OTHERFUNDRAISING__"
     ],
-    "charitableObjectives": "Test",
+    "charitableObjectives": "__CHARITYOBJECTIVE__",
     "isSection8Completed": true,
     "charityContactDetails": {
       "daytimePhone": "__DAYTIMEPHONEINT__",
@@ -98,18 +98,18 @@
       "fullName": "__CHARITYFULLNAME__",
       "operatingName": "__CHARITYOPERATINGNAME__"
     },
-    "whyNoBankStatement": "Test",
+    "whyNoBankStatement": "__WHYNOBANKSTETEMENT__",
     "accountingPeriodEndDate": "--11-11",
     "isSection6Completed": true,
     "addAnotherOtherOfficial": false,
     "isSection9Completed": true,
     "isSection4Completed": true,
     "isSection1Completed": true,
-    "scottishRegulatorRegNumber": "SC012345",
-    "nIRegulatorRegNumber": "123456",
+    "scottishRegulatorRegNumber": "__SCREGULATORNUMBER__",
+    "nIRegulatorRegNumber": "__NIREGULATORNUMBER__",
     "selectGoverningDocument": "1",
     "canWeSendLettersToThisAddress": true,
-    "charityCommissionRegistrationNumber": "123456",
+    "charityCommissionRegistrationNumber": "__CCREGISTRATIONNUMBER__",
     "estimatedIncome": 100.0,
     "otherOfficials": [
       {
@@ -135,8 +135,8 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Mark",
-          "lastName": "Waugh"
+          "firstName": "__PERSON2FIRSTNAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "isOfficialsPreviousAddress": false,
         "officialsNino": "__NINOWITHSPACE1__"
@@ -163,8 +163,8 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Steve",
-          "lastName": "Waugh"
+          "firstName": "__PERSONFIRSTNAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "isOfficialsPreviousAddress": false,
         "officialsNino": "__NINOWITHSPACE2__"

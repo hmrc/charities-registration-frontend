@@ -38,9 +38,9 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
 
   private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
-  private val year       = 1991
-  private val month      = 1
-  private val dayOfMonth = 2
+  private val year       = 2000
+  private val month      = 12
+  private val dayOfMonth = 11
 
   lazy val mockCountryService: CountryService = mock(classOf[CountryService])
   when(mockCountryService.find(meq(gbCountryCode))(any())).thenReturn(Some(gbCountry))
@@ -68,7 +68,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
   private val helperNino = new NomineeOrganisationSummaryHelper(mockCountryService)(
     baseUserAnswers
       .set(IsOrganisationNomineeNinoPage, true)
-      .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, "AB123123A"))
+      .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, nino))
       .success
       .value
   )
@@ -266,8 +266,8 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.authorisedPersonDOB mustBe Some(
           summaryListRow(
             messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel"),
-            HtmlContent("2 January 1991"),
-            Some(messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel")),
+            HtmlContent(officialsDOB.format(dateFormatter)),
+              Some(messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonDOBController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
         )
@@ -294,7 +294,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.authorisedPersonNino mustBe Some(
           summaryListRow(
             messages("organisationAuthorisedPersonNino.checkYourAnswersLabel"),
-            HtmlContent("AB123123A"),
+            HtmlContent(nino),
             Some(messages("organisationAuthorisedPersonNino.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonNinoController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

@@ -23,9 +23,7 @@ class IsOtherOfficialNinoPageSpec extends PageBehaviours {
   "IsOtherOfficialNinoPage" must {
 
     beRetrievable[Boolean](IsOtherOfficialNinoPage(0))
-
     beSettable[Boolean](IsOtherOfficialNinoPage(0))
-
     beRemovable[Boolean](IsOtherOfficialNinoPage(0))
   }
 }

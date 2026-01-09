@@ -58,7 +58,7 @@ class NIRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAfterEac
 
   private val controller: NIRegulatorRegNumberController = inject[NIRegulatorRegNumberController]
 
-  private val requestArgs = Seq("nIRegistrationNumber" -> "123456")
+  private val requestArgs = Seq("nIRegistrationNumber" -> niRegulatorRegistrationNumber)
 
   "NIRegulatorRegNumber Controller " must {
 

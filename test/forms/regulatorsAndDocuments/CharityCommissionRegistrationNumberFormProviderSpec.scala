@@ -54,7 +54,7 @@ class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBeh
 
   "CharityCommissionRegistrationNumberFormProvider" must {
 
-    val charityCommissionRegistrationNumber = "1234567"
+    val charityCommissionRegistrationNumber = charityRegistrationNumber
 
     "apply CharityCommissionRegistrationNumber correctly" in {
 

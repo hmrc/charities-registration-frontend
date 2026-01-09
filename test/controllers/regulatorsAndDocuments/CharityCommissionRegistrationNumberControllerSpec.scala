@@ -61,7 +61,7 @@ class CharityCommissionRegistrationNumberControllerSpec extends SpecBase with Be
   private val controller: CharityCommissionRegistrationNumberController =
     inject[CharityCommissionRegistrationNumberController]
 
-  private val requestArgs = Seq("registrationNumber" -> "1234567")
+  private val requestArgs = Seq("registrationNumber" -> charityCommissionRegistrationNumber)
 
   "CharityCommissionRegistrationNumber Controller " must {
 

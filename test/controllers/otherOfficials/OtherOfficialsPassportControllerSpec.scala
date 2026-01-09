@@ -64,7 +64,7 @@ class OtherOfficialsPassportControllerSpec extends SpecBase with BeforeAndAfterE
   private val controller: OtherOfficialsPassportController = inject[OtherOfficialsPassportController]
 
   private val requestArgs                   = Seq(
-    "passportNumber"   -> "123",
+    "passportNumber"   -> passportNumber,
     "country"          -> gbCountryName,
     "expiryDate.year"  -> futureDate.getYear.toString,
     "expiryDate.month" -> futureDate.getMonthValue.toString,

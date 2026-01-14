@@ -26,9 +26,7 @@ class IsCharityRegulatorPageSpec extends PageBehaviours {
   "IsCharityRegulatorPage" must {
 
     beRetrievable[Boolean](IsCharityRegulatorPage)
-
     beSettable[Boolean](IsCharityRegulatorPage)
-
     beRemovable[Boolean](IsCharityRegulatorPage)
 
     "cleanup" when {
@@ -41,7 +39,7 @@ class IsCharityRegulatorPageSpec extends PageBehaviours {
             .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
             .flatMap(_.set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails))
             .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other))
-            .flatMap(_.set(WhyNotRegisteredWithCharityPage, "notRegisteredReason"))
+            .flatMap(_.set(WhyNotRegisteredWithCharityPage, whyNotRegistered))
         )
         .success
         .value

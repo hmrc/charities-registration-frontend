@@ -29,9 +29,7 @@ class CharityOtherRegulatorDetailsPageSpec extends PageBehaviours {
     }
 
     beRetrievable[CharityOtherRegulatorDetails](CharityOtherRegulatorDetailsPage)
-
     beSettable[CharityOtherRegulatorDetails](CharityOtherRegulatorDetailsPage)
-
     beRemovable[CharityOtherRegulatorDetails](CharityOtherRegulatorDetailsPage)
   }
 }

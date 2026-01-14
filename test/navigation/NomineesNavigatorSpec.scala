@@ -669,7 +669,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OrganisationAuthorisedPersonNinoPage,
             NormalMode,
-            emptyUserAnswers.set(OrganisationAuthorisedPersonNinoPage, "AA123456A").success.value
+            emptyUserAnswers.set(OrganisationAuthorisedPersonNinoPage, nino).success.value
           ) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
 
@@ -1354,7 +1354,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OrganisationAuthorisedPersonNinoPage,
             CheckMode,
-            emptyUserAnswers.set(OrganisationAuthorisedPersonNinoPage, "AA123456A").success.value
+            emptyUserAnswers.set(OrganisationAuthorisedPersonNinoPage, nino).success.value
           ) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
 

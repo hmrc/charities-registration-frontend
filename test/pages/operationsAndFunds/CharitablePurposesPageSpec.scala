@@ -30,9 +30,7 @@ class CharitablePurposesPageSpec extends PageBehaviours {
   "CharityRegulatorPage" must {
 
     beRetrievable[Set[CharitablePurposes]](CharitablePurposesPage)
-
     beSettable[Set[CharitablePurposes]](CharitablePurposesPage)
-
     beRemovable[Set[CharitablePurposes]](CharitablePurposesPage)
 
   }

@@ -13,7 +13,7 @@
           "daytimePhone": "__DAYTIMEPHONE__",
           "mobilePhone": "__MOBILEPHONE__"
         },
-        "officialsDOB": "__DEC11TH2000__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "officialAddress": {
           "lines": [
             "__ADDRESSLINE1__",
@@ -29,14 +29,14 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Albert",
-          "middleName": "G",
-          "lastName": "Einstien"
+          "firstName": "__PERSONFIRSTNAME__",
+          "middleName": "__PERSONMIDDLENAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "officialsNino": "__NINOWITHSPACE1__"
       }
     ],
-    "whenGoverningDocumentApproved": "__JULY1ST2014__",
+    "whenGoverningDocumentApproved": "__GOVDOCAPPROVED__",
     "charitablePurposes": [
       "amateurSport",
       "animalWelfare"
@@ -44,7 +44,7 @@
     "hasCharityChangedPartsOfGoverningDocument": false,
     "isCharityRegulator": false,
     "selectWhyNoRegulator": "1",
-    "governingDocumentName": "Other Documents for Charity",
+    "governingDocumentName": "__GOVERNINGDOCUMENT__",
     "charityName": {
       "fullName": "__CHARITYFULLNAME__"
     },
@@ -64,7 +64,7 @@
         "name": "__INCOUNTRYNAME__"
       }
     },
-    "publicBenefits": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66",
+    "publicBenefits": "__PUBLICBENEFIT__",
     "isApprovedGoverningDocument": false,
     "operatingLocation": [
       "1"
@@ -81,7 +81,7 @@
     ],
     "selectGoverningDocument": "1",
     "charityEstablishedIn": "1",
-    "charitableObjectives": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66",
+    "charitableObjectives": "__CHARITYOBJECTIVE__",
     "canWeSendLettersToThisAddress": true,
     "otherOfficials": [
       {
@@ -90,7 +90,7 @@
           "daytimePhone": "__DAYTIMEPHONE__",
           "mobilePhone": "__MOBILEPHONE__"
         },
-        "officialsDOB": "__DEC11TH2000__",
+        "officialsDOB": "__OFFICIALSDOB__",
         "officialAddress": {
           "lines": [
             "__ADDRESSLINE1__",
@@ -104,8 +104,8 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "David",
-          "lastName": "Beckham"
+          "firstName": "__PERSON2FIRSTNAME__",
+          "lastName": "__PERSON2LASTNAME__"
         },
         "officialsNino": "__NINOWITHSPACE1__"
       }

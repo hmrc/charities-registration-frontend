@@ -60,7 +60,7 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
 
   private val controller: AuthorisedOfficialsDOBController = inject[AuthorisedOfficialsDOBController]
 
-  private val requestArgs                   = Seq("date.year" -> "2001", "date.month" -> "1", "date.day" -> "1")
+  private val requestArgs                   = Seq("date.year" -> "2000", "date.month" -> "12", "date.day" -> "11")
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
     .success
@@ -85,7 +85,7 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(AuthorisedOfficialsDOBPage(0), jan1st2019).success.value
+      val userAnswers = localUserAnswers.set(AuthorisedOfficialsDOBPage(0), officialsDOB).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

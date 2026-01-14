@@ -31,8 +31,8 @@ class MongoDateTimeFormatsSpec
     with MongoDateTimeFormats
     with TestData {
 
-  private val date: LocalDateTime = feb1st2018.atStartOfDay
-  private val dateMillis: Long    = 1517443200000L
+  private val date: LocalDateTime = correctFormatDate.atStartOfDay
+  private val dateMillis: Long    = 1600819200000L
   private val json: JsObject      = Json.obj(
     f"$$date" -> dateMillis
   )

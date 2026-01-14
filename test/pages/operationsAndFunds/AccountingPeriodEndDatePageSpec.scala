@@ -25,7 +25,7 @@ import pages.behaviours.PageBehaviours
 class AccountingPeriodEndDatePageSpec extends PageBehaviours {
 
   implicit lazy val arbitraryLocalDate: Arbitrary[MonthDay] = Arbitrary {
-    MonthDay.from(jan1st2019)
+    MonthDay.from(correctFormatDate)
   }
 
   "AccountingPeriodEndDate" must {

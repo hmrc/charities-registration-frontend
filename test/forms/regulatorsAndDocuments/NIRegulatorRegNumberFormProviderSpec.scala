@@ -52,7 +52,7 @@ class NIRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
   "NIRegulatorRegNumberFormProvider" must {
 
-    val nIRegulatorRegNumber = "123456"
+    val nIRegulatorRegNumber = niRegulatorRegistrationNumber
 
     "apply NIRegulatorRegNumber correctly" in {
 
@@ -77,7 +77,7 @@ class NIRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
     "valid for 123456" in {
 
-      "123456" must fullyMatch regex formProvider.validateRegistrationNumberNI
+      niRegulatorRegistrationNumber must fullyMatch regex formProvider.validateRegistrationNumberNI
     }
 
     "valid for 01632 960" in {

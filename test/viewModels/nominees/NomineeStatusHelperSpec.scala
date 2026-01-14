@@ -102,7 +102,7 @@ class NomineeStatusHelperSpec extends SpecBase {
     .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, dayOfMonth)))
     .flatMap(_.set(IndividualNomineesPhoneNumberPage, phoneNumbers))
     .flatMap(_.set(IsIndividualNomineeNinoPage, true))
-    .flatMap(_.set(IndividualNomineesNinoPage, "AB123123A"))
+    .flatMap(_.set(IndividualNomineesNinoPage, nino))
     .flatMap(_.set(NomineeIndividualAddressLookupPage, ConfirmedAddressConstants.address))
     .flatMap(_.set(IsIndividualNomineePreviousAddressPage, false))
     .flatMap(_.set(IsIndividualNomineePaymentsPage, false))
@@ -124,7 +124,7 @@ class NomineeStatusHelperSpec extends SpecBase {
     )
     .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, dayOfMonth)))
     .flatMap(_.set(IsOrganisationNomineeNinoPage, true))
-    .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, "AB123123A"))
+    .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, nino))
     .success
     .value
 

@@ -60,7 +60,7 @@ class OrganisationAuthorisedPersonDOBControllerSpec extends SpecBase with Before
 
   private val controller: OrganisationAuthorisedPersonDOBController = inject[OrganisationAuthorisedPersonDOBController]
 
-  private val requestArgs                   = Seq("date.year" -> "2001", "date.month" -> "1", "date.day" -> "1")
+  private val requestArgs                   = Seq("date.year" -> "2001", "date.month" -> "12", "date.day" -> "11")
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(OrganisationAuthorisedPersonNamePage, personNameWithMiddle)
     .success
@@ -86,7 +86,7 @@ class OrganisationAuthorisedPersonDOBControllerSpec extends SpecBase with Before
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers =
-        localUserAnswers.set(OrganisationAuthorisedPersonDOBPage, jan1st2019).success.value
+        localUserAnswers.set(OrganisationAuthorisedPersonDOBPage, officialsDOB).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

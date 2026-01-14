@@ -71,7 +71,7 @@ class GoverningDocumentSummaryControllerSpec extends SpecBase with BeforeAndAfte
           Some(
             emptyUserAnswers
               .set(SelectGoverningDocumentPage, SelectGoverningDocument.TrustDeed)
-              .flatMap(_.set(WhenGoverningDocumentApprovedPage, jan1st2019))
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
               .success
               .value

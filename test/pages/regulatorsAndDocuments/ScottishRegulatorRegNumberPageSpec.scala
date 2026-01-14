@@ -23,9 +23,7 @@ class ScottishRegulatorRegNumberPageSpec extends PageBehaviours {
   "ScottishRegulatorRegNumberPage" must {
 
     beRetrievable[String](ScottishRegulatorRegNumberPage)
-
     beSettable[String](ScottishRegulatorRegNumberPage)
-
     beRemovable[String](ScottishRegulatorRegNumberPage)
   }
 }

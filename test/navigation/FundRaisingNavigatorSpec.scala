@@ -393,7 +393,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 AccountingPeriodEndDatePage,
-                MonthDay.from(LocalDate.parse(jan1st2019))
+                MonthDay.from(LocalDate.parse(correctFormatDate))
               )(MongoDateTimeFormats.localDayMonthWrite)
               .success
               .value
@@ -773,7 +773,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
             AccountingPeriodEndDatePage,
             CheckMode,
             emptyUserAnswers
-              .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse(jan1st2019)))(
+              .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse(correctFormatDate)))(
                 MongoDateTimeFormats.localDayMonthWrite
               )
               .success

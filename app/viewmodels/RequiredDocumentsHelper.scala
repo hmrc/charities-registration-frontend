@@ -108,11 +108,11 @@ object RequiredDocumentsHelper {
 
   def getRequiredDocuments(docs: Map[String, Boolean]): Seq[String] =
     Seq(s"${requiredDocumentsKey}governingDocumentName.answerTrue") ++ docs
-      .map { (k, v) =>
-        (k, v) match {
+      .map { (documentType, answer) =>
+        (documentType, answer) match {
           case ("isFinancialAccounts", false)            => None
           case ("noRegulatorUniformedYouthGroup", false) => None
-          case _                                         => Some(requiredDocumentsKey + k + (if (v) ".answerTrue" else ".answerAlternative"))
+          case _                                         => Some(requiredDocumentsKey + documentType + (if (answer) ".answerTrue" else ".answerAlternative"))
         }
       }
       .toSeq

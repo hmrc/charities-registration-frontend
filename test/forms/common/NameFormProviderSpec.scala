@@ -143,7 +143,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
   "AuthorisedOfficialsNameFormProvider" must {
 
-    val authorisedOfficialsName = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+    val authorisedOfficialsName = personNameWithMiddle
 
     "apply AuthorisedOfficialsName correctly" in {
 

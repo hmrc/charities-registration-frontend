@@ -16,7 +16,7 @@
 
 package viewModels.operationsAndFunds
 
-import java.time.{LocalDate, MonthDay}
+import java.time.MonthDay
 
 import base.SpecBase
 import base.data.messages.BaseMessages
@@ -53,7 +53,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
       )
       .flatMap(_.set(IsBankStatementsPage, true))
       .flatMap(
-        _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-10-01")))(
+        _.set(AccountingPeriodEndDatePage, MonthDay.from(correctFormatDate))(
           MongoDateTimeFormats.localDayMonthWrite
         )
       )

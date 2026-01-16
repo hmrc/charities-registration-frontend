@@ -19,15 +19,15 @@ package controllers.authorisedOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.addressLookup.AddressModel
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, UserAnswers}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.AuthorisedOfficialPreviousAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.ConfirmAddressView
 
@@ -53,7 +53,7 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
   private val controller: ConfirmAuthorisedOfficialsPreviousAddressController =
     inject[ConfirmAuthorisedOfficialsPreviousAddressController]
   private val messageKeyPrefix                                                = "authorisedOfficialPreviousAddress"
-  private val authorisedOfficialPreviousAddressLookup                         = List("12", "Banner Way", gbCountryName)
+  private val authorisedOfficialPreviousAddressLookup                         = List(line1, line2, gbCountryName)
 
   "ConfirmAuthorisedOfficialsPreviousAddressController Controller" must {
 
@@ -63,11 +63,11 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(
                 _.set(
                   AuthorisedOfficialPreviousAddressLookupPage(0),
-                  AddressModel(List("12", "Banner Way"), None, gbCountryModel)
+                  address.copy(postcode = None)
                 )
               )
               .success
@@ -86,7 +86,7 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
           controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(0),
           controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController
             .initializeJourney(0, NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
@@ -94,21 +94,17 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val authorisedOfficialPreviousAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
+      val authorisedOfficialPreviousAddressMax = List(line1, maxLine, gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(
                 _.set(
                   AuthorisedOfficialPreviousAddressLookupPage(0),
-                  AddressModel(
-                    List("12", "Banner Way near south riverview gardens"),
-                    None,
-                    gbCountryModel
-                  )
+                  addressModelMax.copy(postcode = None)
                 )
               )
               .success
@@ -128,7 +124,7 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
             .onPageLoad(NormalMode, 0),
           controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController
             .initializeJourney(0, NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())

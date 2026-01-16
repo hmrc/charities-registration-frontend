@@ -29,22 +29,22 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
   "The implicit date formatter" should {
 
     "format dates in correct style" in {
-      val result: String = "1 April 2017"
-      dateToString(LocalDate.of(2017, 4, 1)) mustBe result
+      val result: String = "23 September 2020"
+      dateToString(correctFormatDate) mustBe result
     }
 
     "format dates far in the past in the correct style" in {
       val result: String = "1 January 1111"
-      dateToString(LocalDate.of(1111, 1, 1)) mustBe result
+      dateToString(farInThePastDate) mustBe result
     }
     "format months with single digit values in correct style" in {
-      val result: String = "30 June 2017"
-      dateToString(LocalDate.of(2017, 6, 30)) mustBe result
+      val result: String = "10 June 2015"
+      dateToString(singleDigitMonthDate) mustBe result
     }
 
     "format days with single digit values in correct style" in {
-      val result: String = "1 June 2017"
-      dateToString(LocalDate.of(2017, 6, 1)) mustBe result
+      val result: String = "1 April 2017"
+      dateToString(singleDigitDayDate) mustBe result
     }
 
     "format string DateTimes in correct style" in {
@@ -62,42 +62,42 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
 
     "format dates with single digit values in correct style" in {
       val result: String = "1 Ebrill 2017"
-      dateToString(LocalDate.of(2017, 4, 1))(localMessages) mustBe result
+      dateToString(singleDigitDayDate)(localMessages) mustBe result
     }
 
     "format months in correct style" in {
-      val result: String = "30 Mehefin 2017"
-      dateToString(LocalDate.of(2017, 6, 30))(localMessages) mustBe result
+      val result: String = "10 Mehefin 2015"
+      dateToString(singleDigitMonthDate)(localMessages) mustBe result
     }
 
     "format MonthDay in correct style" in {
-      val result: String = "30 Mehefin"
+      val result: String = "10 Mehefin"
       monthToString(
         MonthDay.from(
-          LocalDate.of(2017, 6, 30)
+          singleDigitMonthDate
         )
       )(localMessages) mustBe result
     }
 
     "format MonthDay with single digit values in correct style" in {
-      val result: String = "1 Tachwedd"
+      val result: String = "1 Ebrill"
       monthToString(
-        MonthDay.from(LocalDate.of(2017, 11, 1))
+        MonthDay.from(singleDigitDayDate)
       )(localMessages) mustBe result
     }
 
     "for invalid lang" in {
       implicit val localRequest: FakeRequest[?] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "QQ"))
       implicit lazy val localMessages: Messages = messagesApi.preferred(localRequest)
-      val result: String                        = "1 April 2017"
-      dateToString(LocalDate.of(2017, 4, 1))(localMessages) mustBe result
+      val result: String                        = "1 January 2003"
+      dateToString(datesMin)(localMessages) mustBe result
     }
 
     "for no lang" in {
       implicit val localRequest: FakeRequest[?] = FakeRequest()
       implicit lazy val localMessages: Messages = messagesApi.preferred(localRequest)
-      val result: String                        = "1 April 2017"
-      dateToString(LocalDate.of(2017, 4, 1))(localMessages) mustBe result
+      val result: String                        = "1 January 2003"
+      dateToString(datesMin)(localMessages) mustBe result
     }
 
   }
@@ -105,30 +105,30 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
   "The date formatter" should {
 
     "format dates in correct style" in {
-      val result: String = "Monday 14 September 2020"
-      dayToString(LocalDate.of(2020, 9, 14)) mustBe result
+      val result: String = "Wednesday 23 September 2020"
+      dayToString(correctFormatDate) mustBe result
     }
 
     "format dates in correct style for day prior to 20" in {
-      val result: String = "Tuesday 1 September 2020"
-      dayToString(LocalDate.of(2020, 9, 1)) mustBe result
+      val result: String = "Monday 14 September 2020"
+      dayToString(lessThan20Date) mustBe result
     }
 
     "format dates in correct style for day after 20" in {
-      val result: String = "Tuesday 22 September 2020"
-      dayToString(LocalDate.of(2020, 9, 22)) mustBe result
+      val result: String = "Thursday 24 September 2020"
+      dayToString(moreThan20Date) mustBe result
     }
 
     "format dates in correct style for day ending with 3" in {
       val result: String = "Wednesday 23 September 2020"
-      dayToString(LocalDate.of(2020, 9, 23)) mustBe result
+      dayToString(correctFormatDate) mustBe result
     }
 
     "format dates in correct style for Welsh" in {
       val welshRequest            = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
       val welshMessages: Messages = messagesApi.preferred(welshRequest)
       val result: String          = "Dydd Mercher 23 Medi 2020"
-      dayToString(LocalDate.of(2020, 9, 23))(welshMessages) mustBe result
+      dayToString(correctFormatDate)(welshMessages) mustBe result
     }
 
     "format dates in correct style for Welsh without day of week" in {
@@ -136,7 +136,7 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
       val welshMessages: Messages = messagesApi.preferred(welshRequest)
       val result: String          = "23 Medi 2020"
       dayToString(
-        date = LocalDate.of(2020, 9, 23),
+        date = correctFormatDate,
         dayOfWeek = false
       )(welshMessages) mustBe result
     }

@@ -20,7 +20,7 @@ import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.nominees.routes as nomineesRoutes
-import models.{BankDetails, CheckMode, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
+import models.{BankDetails, CheckMode, Name, Passport, PhoneNumber, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq as meq}
 import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage}
@@ -47,11 +47,11 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
   private val helper = new NomineeIndividualSummaryHelper(mockCountryService)(
     UserAnswers("id")
-      .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+      .set(IndividualNomineeNamePage, personNameWithoutMiddle)
       .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, dayOfMonth)))
       .flatMap(_.set(IndividualNomineesPhoneNumberPage, phoneNumbers))
       .flatMap(_.set(IsIndividualNomineeNinoPage, true))
-      .flatMap(_.set(IndividualNomineesNinoPage, "AB123123A"))
+      .flatMap(_.set(IndividualNomineesNinoPage, nino))
       .flatMap(_.set(NomineeIndividualAddressLookupPage, ConfirmedAddressConstants.address))
       .flatMap(_.set(IsIndividualNomineePreviousAddressPage, true))
       .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, ConfirmedAddressConstants.address))
@@ -70,7 +70,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeName mustBe Some(
           summaryListRow(
             messages("individualNomineeName.checkYourAnswersLabel"),
-            HtmlContent("Mr John Jones"),
+            HtmlContent("Mr Firstname Lastname"),
             Some(messages("individualNomineeName.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineeNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -179,7 +179,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeNino mustBe Some(
           summaryListRow(
             messages("individualNomineesNino.checkYourAnswersLabel"),
-            HtmlContent("AB123123A"),
+            HtmlContent(nino),
             Some(messages("individualNomineesNino.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineesNinoController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -193,7 +193,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeAddress mustBe Some(
           summaryListRow(
             messages("nomineeIndividualAddress.checkYourAnswersLabel"),
-            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
+            Text(s"$line1, $line2, $ukPostcode, $gbCountryName"),
             Some(messages("nomineeIndividualAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.NomineeIndividualAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink
@@ -222,7 +222,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineePreviousAddress mustBe Some(
           summaryListRow(
             messages("nomineeIndividualPreviousAddress.checkYourAnswersLabel"),
-            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
+            Text(s"$line1, $line2, $ukPostcode, $gbCountryName"),
             Some(messages("nomineeIndividualPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink

@@ -19,11 +19,11 @@ package viewModels.otherOfficials
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
-import controllers.otherOfficials.{routes => otherOfficials}
+import controllers.otherOfficials.routes as otherOfficials
 import models.authOfficials.OfficialsPosition
-import models.{CheckMode, Index, Name, PhoneNumber, SelectTitle, UserAnswers}
+import models.{CheckMode, Index, Name, PhoneNumber, UserAnswers}
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
-import pages.otherOfficials._
+import pages.otherOfficials.*
 import play.api.i18n.Messages
 import play.api.mvc.Cookie
 import play.api.test.FakeRequest
@@ -41,7 +41,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
   private val dayOfMonth = 2
 
   private val otherOfficialDetails: UserAnswers = emptyUserAnswers
-    .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+    .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
     .success
     .value
     .set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth))
@@ -87,7 +87,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialNamesRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsName.checkYourAnswersLabel"),
-            HtmlContent("Mr John Jones"),
+            HtmlContent("Mr Firstname Lastname"),
             Some(messages("otherOfficialsName.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -192,7 +192,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialAddressRow mustBe Some(
           summaryListRow(
             messages("otherOfficialAddress.checkYourAnswersLabel"),
-            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
+            Text(s"$line1, $line2, $ukPostcode, $gbCountryName"),
             Some(messages("otherOfficialAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OtherOfficialsAddressLookupController
               .initializeJourney(0, CheckMode) -> BaseMessages.changeLink
@@ -229,7 +229,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         ).otherOfficialPreviousAddressRow mustBe Some(
           summaryListRow(
             messages("otherOfficialPreviousAddress.checkYourAnswersLabel"),
-            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
+            Text(s"$line1, $line2, $ukPostcode, $gbCountryName"),
             Some(messages("otherOfficialPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController
               .initializeJourney(0, CheckMode) -> BaseMessages.changeLink
@@ -248,7 +248,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         ).otherOfficialPreviousAddressRow mustBe Some(
           summaryListRow(
             welshMessages("otherOfficialPreviousAddress.checkYourAnswersLabel"),
-            Text("Test 1, Test 2, AA00 0AA, Y Deyrnas Unedig"),
+            Text(s"$line1, $line2, $ukPostcode, Y Deyrnas Unedig"),
             Some(welshMessages("otherOfficialPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController
               .initializeJourney(0, CheckMode) -> BaseMessages.changeLinkWelsh

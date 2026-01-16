@@ -32,18 +32,9 @@ import java.time.LocalDate
 class NomineesNavigatorSpec extends SpecBase {
 
   private val navigator: NomineesNavigator              = inject[NomineesNavigator]
-  private val nomineeName: Name                         = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+  private val nomineeName: Name                         = personNameWithMiddle
   private val IndividualNomineePhoneNumber: PhoneNumber = phoneNumbers
   private val minYear                                   = 16
-  private val address: AddressModel                     =
-    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)
-  private val addressMax: AddressModel                  = AddressModel(
-    Seq("7", "Morrison street near riverview gardens"),
-    Some("G58AN"),
-    gbCountryModel
-  )
-  private val minAddressLines: AddressModel             =
-    AddressModel(Seq("7 Morrison street"), Some("G58AN"), gbCountryModel)
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
@@ -273,7 +264,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             NomineeIndividualAddressLookupPage,
             NormalMode,
-            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, addressMax).success.value
+            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, addressModelMax).success.value
           ) mustBe
             nomineesRoutes.AmendNomineeIndividualAddressController.onPageLoad(NormalMode)
         }
@@ -282,7 +273,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             NomineeIndividualAddressLookupPage,
             NormalMode,
-            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, minAddressLines).success.value
+            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, addressModelMin).success.value
           ) mustBe
             nomineesRoutes.AmendNomineeIndividualAddressController.onPageLoad(NormalMode)
         }
@@ -348,7 +339,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             NomineeIndividualPreviousAddressLookupPage,
             NormalMode,
-            emptyUserAnswers.set(NomineeIndividualPreviousAddressLookupPage, addressMax).success.value
+            emptyUserAnswers.set(NomineeIndividualPreviousAddressLookupPage, addressModelMax).success.value
           ) mustBe
             nomineesRoutes.AmendNomineeIndividualPreviousAddressController.onPageLoad(NormalMode)
         }
@@ -476,7 +467,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OrganisationNomineeAddressLookupPage,
             NormalMode,
-            emptyUserAnswers.set(OrganisationNomineeAddressLookupPage, addressMax).success.value
+            emptyUserAnswers.set(OrganisationNomineeAddressLookupPage, addressModelMax).success.value
           ) mustBe
             nomineesRoutes.AmendNomineeOrganisationAddressController.onPageLoad(NormalMode)
         }
@@ -550,7 +541,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OrganisationNomineePreviousAddressLookupPage,
             NormalMode,
-            emptyUserAnswers.set(OrganisationNomineePreviousAddressLookupPage, addressMax).success.value
+            emptyUserAnswers.set(OrganisationNomineePreviousAddressLookupPage, addressModelMax).success.value
           ) mustBe
             nomineesRoutes.AmendNomineeOrganisationPreviousAddressController.onPageLoad(NormalMode)
         }
@@ -678,7 +669,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OrganisationAuthorisedPersonNinoPage,
             NormalMode,
-            emptyUserAnswers.set(OrganisationAuthorisedPersonNinoPage, "AA123456A").success.value
+            emptyUserAnswers.set(OrganisationAuthorisedPersonNinoPage, nino).success.value
           ) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
 
@@ -944,7 +935,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             NomineeIndividualAddressLookupPage,
             CheckMode,
-            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, addressMax).success.value
+            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, addressModelMax).success.value
           ) mustBe
             nomineesRoutes.AmendNomineeIndividualAddressController.onPageLoad(CheckMode)
         }
@@ -1009,7 +1000,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             NomineeIndividualPreviousAddressLookupPage,
             CheckMode,
-            emptyUserAnswers.set(NomineeIndividualPreviousAddressLookupPage, addressMax).success.value
+            emptyUserAnswers.set(NomineeIndividualPreviousAddressLookupPage, addressModelMax).success.value
           ) mustBe
             nomineesRoutes.AmendNomineeIndividualPreviousAddressController.onPageLoad(CheckMode)
         }
@@ -1134,7 +1125,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OrganisationNomineeAddressLookupPage,
             CheckMode,
-            emptyUserAnswers.set(OrganisationNomineeAddressLookupPage, addressMax).success.value
+            emptyUserAnswers.set(OrganisationNomineeAddressLookupPage, addressModelMax).success.value
           ) mustBe
             nomineesRoutes.AmendNomineeOrganisationAddressController.onPageLoad(CheckMode)
         }
@@ -1199,7 +1190,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OrganisationNomineePreviousAddressLookupPage,
             CheckMode,
-            emptyUserAnswers.set(OrganisationNomineePreviousAddressLookupPage, addressMax).success.value
+            emptyUserAnswers.set(OrganisationNomineePreviousAddressLookupPage, addressModelMax).success.value
           ) mustBe
             nomineesRoutes.AmendNomineeOrganisationPreviousAddressController.onPageLoad(CheckMode)
         }
@@ -1363,7 +1354,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OrganisationAuthorisedPersonNinoPage,
             CheckMode,
-            emptyUserAnswers.set(OrganisationAuthorisedPersonNinoPage, "AA123456A").success.value
+            emptyUserAnswers.set(OrganisationAuthorisedPersonNinoPage, nino).success.value
           ) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
 

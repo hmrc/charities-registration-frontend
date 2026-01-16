@@ -23,9 +23,7 @@ class RegulatorsSummaryPageSpec extends PageBehaviours {
   "RegulatorsSummaryPage" must {
 
     beRetrievable[String](RegulatorsSummaryPage)
-
     beSettable[String](RegulatorsSummaryPage)
-
     beRemovable[String](RegulatorsSummaryPage)
   }
 }

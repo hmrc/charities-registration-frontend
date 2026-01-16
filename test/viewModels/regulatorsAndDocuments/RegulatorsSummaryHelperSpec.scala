@@ -33,12 +33,12 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
     UserAnswers("id")
       .set(IsCharityRegulatorPage, true)
       .flatMap(_.set(CharityRegulatorPage, CharityRegulator.values.toSet))
-      .flatMap(_.set(CharityCommissionRegistrationNumberPage, "123456"))
-      .flatMap(_.set(ScottishRegulatorRegNumberPage, "SC123456"))
-      .flatMap(_.set(NIRegulatorRegNumberPage, "123456"))
-      .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("test", "123423")))
+      .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
+      .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
+      .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
+      .flatMap(_.set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails))
       .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.values.head))
-      .flatMap(_.set(WhyNotRegisteredWithCharityPage, "office closed"))
+      .flatMap(_.set(WhyNotRegisteredWithCharityPage, whyNotRegistered))
       .success
       .value
   )
@@ -91,7 +91,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
         helper.charityCommissionRegRow mustBe Some(
           summaryListRow(
             messages("charityCommissionRegistrationNumber.checkYourAnswersLabel"),
-            HtmlContent("123456"),
+            HtmlContent(charityCommissionRegistrationNumber),
             Some(messages("charityCommissionRegistrationNumber.checkYourAnswersLabel")),
             regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(
               CheckMode
@@ -108,7 +108,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
         helper.scottishRegulatorRegRow mustBe Some(
           summaryListRow(
             messages("scottishRegulatorRegNumber.checkYourAnswersLabel"),
-            HtmlContent("SC123456"),
+            HtmlContent(s"$scottishRegulatorRegistrationNumber"),
             Some(messages("scottishRegulatorRegNumber.checkYourAnswersLabel")),
             regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -123,7 +123,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
         helper.nIRegulatorRegRow mustBe Some(
           summaryListRow(
             messages("nIRegulatorRegNumber.checkYourAnswersLabel"),
-            HtmlContent("123456"),
+            HtmlContent(niRegulatorRegistrationNumber),
             Some(messages("nIRegulatorRegNumber.checkYourAnswersLabel")),
             regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -138,7 +138,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
         helper.regulatorNameRow mustBe Some(
           summaryListRow(
             messages("charityOtherRegulatorDetails.name.checkYourAnswersLabel"),
-            HtmlContent(s"test"),
+            HtmlContent(charityRegulatorName),
             Some(messages("charityOtherRegulatorDetails.name.checkYourAnswersLabel")),
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -150,7 +150,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
         helper.regulatorRegistrationNumberRow mustBe Some(
           summaryListRow(
             messages("charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel"),
-            HtmlContent(s"${"123423"}"),
+            HtmlContent(chartyRegulatorRegistrationNumber),
             Some(messages("charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel")),
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -180,7 +180,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
         helper.whyNotRegisteredCharityRow mustBe Some(
           summaryListRow(
             messages("whyNotRegisteredWithCharity.checkYourAnswersLabel"),
-            HtmlContent("office closed"),
+            HtmlContent(whyNotRegistered),
             Some(messages("whyNotRegisteredWithCharity.checkYourAnswersLabel")),
             regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

@@ -16,7 +16,7 @@
 
 package viewModels.operationsAndFunds
 
-import java.time.{LocalDate, MonthDay}
+import java.time.MonthDay
 
 import base.SpecBase
 import models.operations.{CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
@@ -33,7 +33,7 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
     .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12)))
     .flatMap(_.set(ActualIncomePage, BigDecimal.valueOf(11123.12)))
     .flatMap(
-      _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-10-01")))(
+      _.set(AccountingPeriodEndDatePage, MonthDay.from(correctFormatDate))(
         MongoDateTimeFormats.localDayMonthWrite
       )
     )

@@ -21,18 +21,18 @@ import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.addressLookup.AddressModel
 import models.regulators.SelectGoverningDocument
 import models.requests.DataRequest
-import models.{Country, Index, Name, SelectTitle, UserAnswers}
+import models.{Country, Index, Name, UserAnswers}
 import org.mockito.Mockito.reset
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.OrganisationNomineeNamePage
-import pages.regulatorsAndDocuments._
-import pages.sections._
+import pages.regulatorsAndDocuments.*
+import pages.sections.*
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.mvc._
-import play.api.test.Helpers._
+import play.api.mvc.*
+import play.api.test.Helpers.*
 import service.UserAnswerService
 
 import javax.inject.Inject
@@ -69,7 +69,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
   private val addressUserAnswers: UserAnswers                    = emptyUserAnswers
     .set(
       AuthorisedOfficialsNamePage(0),
-      Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+      personNameWithMiddle
     )
     .success
     .value
@@ -139,7 +139,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
         emptyUserAnswers
           .set(
             CharityOfficialAddressLookupPage,
-            AddressModel(List("12", "Banner Way"), Some("NE128UZ"), gbCountryModel)
+            address
           )
           .success
           .value

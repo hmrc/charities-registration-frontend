@@ -48,7 +48,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
             .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other)
             .flatMap(
               _.set(GoverningDocumentNamePage, "Test Document")
-                .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+                .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
                 .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
             )
             .success
@@ -62,7 +62,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
             .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other)
             .flatMap(
               _.set(GoverningDocumentNamePage, "Test Document")
-                .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+                .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
                 .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
                 .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
             )
@@ -89,7 +89,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
             .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other)
             .flatMap(
               _.set(GoverningDocumentNamePage, "Test Document")
-                .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+                .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
                 .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
                 .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
             )
@@ -104,7 +104,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
             .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other)
             .flatMap(
               _.set(GoverningDocumentNamePage, "Test Document")
-                .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+                .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
                 .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
                 .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
                 .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Test Change"))
@@ -133,7 +133,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
             emptyUserAnswers
               .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other)
               .flatMap(_.set(GoverningDocumentNamePage, "Test Document"))
-              .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
               .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))
               .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Test Change"))
@@ -147,7 +147,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
           emptyUserAnswers
             .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other)
             .flatMap(_.set(GoverningDocumentNamePage, "Test Document"))
-            .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+            .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
             .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
             .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))
             .success
@@ -159,7 +159,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           emptyUserAnswers
             .set(SelectGoverningDocumentPage, SelectGoverningDocument.TrustDeed)
-            .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+            .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
             .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
             .success
             .value
@@ -170,7 +170,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           emptyUserAnswers
             .set(SelectGoverningDocumentPage, SelectGoverningDocument.TrustDeed)
-            .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+            .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
             .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
             .flatMap(_.set(GoverningDocumentNamePage, "Test Document"))
             .success
@@ -193,7 +193,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
           helper.checkComplete(
             emptyUserAnswers
               .set(SelectGoverningDocumentPage, SelectGoverningDocument.RoyalCharacter)
-              .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
               .flatMap(
                 _.set(IsApprovedGoverningDocumentPage, true)
                   .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
@@ -208,7 +208,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
           helper.checkComplete(
             emptyUserAnswers
               .set(SelectGoverningDocumentPage, SelectGoverningDocument.RoyalCharacter)
-              .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
               .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
               .flatMap(_.set(GoverningDocumentNamePage, "Test Document"))
@@ -236,7 +236,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
           helper.checkComplete(
             emptyUserAnswers
               .set(SelectGoverningDocumentPage, SelectGoverningDocument.RulesConstitution)
-              .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
               .flatMap(
                 _.set(IsApprovedGoverningDocumentPage, true)
                   .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))
@@ -252,7 +252,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
           helper.checkComplete(
             emptyUserAnswers
               .set(SelectGoverningDocumentPage, SelectGoverningDocument.RulesConstitution)
-              .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
               .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))
               .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Test Change"))
@@ -266,7 +266,7 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           emptyUserAnswers
             .set(SelectGoverningDocumentPage, SelectGoverningDocument.RulesConstitution)
-            .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+            .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))
             .flatMap(
               _.set(IsApprovedGoverningDocumentPage, true)
                 .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))

@@ -51,7 +51,7 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
   private val view: ConfirmAddressView                          = injector.instanceOf[ConfirmAddressView]
   private val controller: ConfirmCharityPostalAddressController = inject[ConfirmCharityPostalAddressController]
   private val messageKeyPrefix                                  = "charityPostalAddress"
-  private val charityInformationAddressLookup                   = List("12", "Banner Way", gbCountry.name)
+  private val charityInformationAddressLookup                   = List(line1, line2, gbCountry.name)
 
   "ConfirmCharityPostalAddressController Controller" must {
 
@@ -63,7 +63,7 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
             emptyUserAnswers
               .set(
                 CharityPostalAddressLookupPage,
-                AddressModel(List("12", "Banner Way"), None, gbCountryModel)
+                address.copy(postcode = None)
               )
               .success
               .value
@@ -88,7 +88,7 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val charityInformationAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
+      val charityInformationAddressMax = List(line1, maxLine, gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -96,11 +96,7 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
             emptyUserAnswers
               .set(
                 CharityPostalAddressLookupPage,
-                AddressModel(
-                  List("12", "Banner Way near south riverview gardens"),
-                  None,
-                  gbCountryModel
-                )
+                addressModelMax.copy(postcode = None)
               )
               .success
               .value

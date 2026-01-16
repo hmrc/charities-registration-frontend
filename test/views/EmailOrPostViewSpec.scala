@@ -34,7 +34,7 @@ class EmailOrPostViewSpec extends YesNoViewBehaviours {
     view.apply(
       form,
       Seq("requiredDocuments.governingDocumentName.answerTrue"),
-      Some(("requiredDocuments.foreignAddresses.answerTrue", "John Smith"))
+      Some(("requiredDocuments.foreignAddresses.answerTrue", "Firstname Lastname"))
     )(
       fakeRequest,
       messages,
@@ -44,7 +44,7 @@ class EmailOrPostViewSpec extends YesNoViewBehaviours {
   private def viewViaRender(form: Form[Boolean]): HtmlFormat.Appendable = view.render(
     form,
     Seq("requiredDocuments.governingDocumentName.answerTrue"),
-    Some(("requiredDocuments.foreignAddresses.answerTrue", "John Smith")),
+    Some(("requiredDocuments.foreignAddresses.answerTrue", "Firstname Lastname")),
     fakeRequest,
     messages,
     frontendAppConfig
@@ -53,7 +53,7 @@ class EmailOrPostViewSpec extends YesNoViewBehaviours {
   private def viewViaF(form: Form[Boolean]): HtmlFormat.Appendable = view.f(
     form,
     Seq("requiredDocuments.governingDocumentName.answerTrue"),
-    Some(("requiredDocuments.foreignAddresses.answerTrue", "John Smith"))
+    Some(("requiredDocuments.foreignAddresses.answerTrue", "Firstname Lastname"))
   )(fakeRequest, messages, frontendAppConfig)
 
   "EmailOrPostView" when {
@@ -71,7 +71,12 @@ class EmailOrPostViewSpec extends YesNoViewBehaviours {
         behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p")
 
         behave like pageWithBulletedPoint(view, "requiredDocuments.governingDocumentName.answerTrue", 1)
-        behave like pageWithBulletedPoint(view, "requiredDocuments.foreignAddresses.answerTrue", 2, Some("John Smith"))
+        behave like pageWithBulletedPoint(
+          view,
+          "requiredDocuments.foreignAddresses.answerTrue",
+          2,
+          Some("Firstname Lastname")
+        )
 
         behave like yesNoPage(form, createView, messageKeyPrefix, section = section, isEmailOrPost = true)
 

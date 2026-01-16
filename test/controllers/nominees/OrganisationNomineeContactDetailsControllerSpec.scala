@@ -61,7 +61,7 @@ class OrganisationNomineeContactDetailsControllerSpec extends SpecBase with Befo
   private val controller: OrganisationNomineeContactDetailsController =
     inject[OrganisationNomineeContactDetailsController]
 
-  private val requestArgs = Seq("phoneNumber" -> "0123123123", "email" -> organisationEmail)
+  private val requestArgs = Seq("phoneNumber" -> daytimePhone, "email" -> organisationEmail)
 
   private val company = "TestCompany"
 

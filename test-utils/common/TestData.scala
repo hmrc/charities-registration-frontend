@@ -16,9 +16,21 @@
 
 package common
 
-import models.{BankDetails, CharityContactDetails, CharityName, Country, FcoCountry, Passport, PhoneNumber}
+import models.{
+  BankDetails,
+  CharityContactDetails,
+  CharityName,
+  CharityOtherRegulatorDetails,
+  Country,
+  FcoCountry,
+  Name,
+  Passport,
+  PhoneNumber,
+  SelectTitle,
+  withNameToString
+}
 import models.nominees.OrganisationNomineeContactDetails
-import models.addressLookup.CountryModel
+import models.addressLookup.{AddressModel, AmendAddressModel, CountryModel}
 
 import java.time.LocalDate
 
@@ -56,18 +68,22 @@ trait TestData extends ModelGenerators {
     rollNumber = Some(rollNumber)
   )
 
-  val nino: String            = ninoGen.sample.get
-  val ninoWithSpaces: String  =
+  val nino: String = ninoGen.sample.get
+  val ninoWithSpaces: String =
     s"${nino.slice(0, 2)} ${nino.slice(2, 4)} ${nino.slice(4, 6)} ${nino.slice(6, 8)} ${nino.slice(8, 9)}"
-  val nino2: String           = ninoGen.sample.get
+
+  val nino2: String = ninoGen.sample.get
   val nino2WithSpaces: String =
     s"${nino2.slice(0, 2)} ${nino2.slice(2, 4)} ${nino2.slice(4, 6)} ${nino2.slice(6, 8)} ${nino2.slice(8, 9)}"
-  val nino3: String           = ninoGen.sample.get
+
+  val nino3: String = ninoGen.sample.get
+
   val nino3WithSpaces: String =
     s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
 
   val passportNumber: String = passportGen.sample.get
-  val passport: Passport     = Passport(passportNumber, "GB", LocalDate.now)
+
+  val passport: Passport = Passport(passportNumber, "GB", LocalDate.now)
 
   val daytimePhone: String      = exampleFixedLineGen.sample.get
   val mobileNumber: String      = exampleMobileGen.sample.get
@@ -82,6 +98,18 @@ trait TestData extends ModelGenerators {
 
   val charityName: CharityName                = CharityName(charityFullName, Some(charityOperatingName))
   val charityNameNoOperatingName: CharityName = charityName.copy(operatingName = None)
+
+  val charityRegistrationNumber: String = charityRegistrationGen.sample.get
+
+  val charityCommissionRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
+  val scottishRegulatorRegistrationNumber: String = "SC" + charityRegulatorRegistrationGen.sample.get
+  val niRegulatorRegistrationNumber: String       = charityRegulatorRegistrationGen.sample.get
+
+  val charityRegulatorName: String              = "Regulator name"
+  val chartyRegulatorRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
+
+  val charityRegulatorDetails: CharityOtherRegulatorDetails =
+    CharityOtherRegulatorDetails(charityRegulatorName, chartyRegulatorRegistrationNumber)
 
   val charityEmail      = "charity@example.com"
   val organisationEmail = "company@example.com"
@@ -142,6 +170,86 @@ trait TestData extends ModelGenerators {
   val chCountryTuple: (String, String) = (chCountry.code, chCountry.name)
   val (chCountryCode, chCountryName)   = chCountryTuple
 
+  val today: LocalDate = LocalDate.now()
+  val futureDate: LocalDate = today.plusYears(1)
+  val farInThePastDate: LocalDate = LocalDate.of(1111, 1, 1)
+  val officialsDOB: LocalDate = LocalDate.of(2000, 12, 11)
+  val govDocApprovedDate: LocalDate = LocalDate.of(2014, 7, 1)
+  val singleDigitMonthDate: LocalDate = LocalDate.of(2015, 6, 10)
+  val singleDigitDayDate: LocalDate = LocalDate.of(2017, 4, 1)
+  val correctFormatDate: LocalDate = LocalDate.of(2020, 9, 23)
+  val moreThan20Date: LocalDate = LocalDate.of(2020, 9, 24)
+  val lessThan20Date: LocalDate = LocalDate.of(2020, 9, 14)
+  val datesMin: LocalDate = LocalDate.of(2003, 1, 1)
+  val datesMax: LocalDate = LocalDate.of(2004, 1, 1)
+
+  val addressId: String     = "Address Id"
+  val line1: String         = "Test 1"
+  val line2: String         = "Test 2"
+  val line3: String         = "Test Area"
+  val maxLine: String       = "Testttt Street near TestTest Gardens"
+  val ukPostcode: String    = "ZY11 1AA"
+  val nonUkPostcode: String = "NonUKCode"
+  val town: Option[String]  = Some("TestTown")
+
+  val address: AddressModel =
+    AddressModel(
+      Seq(line1, line2),
+      Some(ukPostcode),
+      gbCountryModel
+    )
+
+  val addressAllLines: AddressModel =
+    AddressModel(
+      Seq(line1, line2, line3, town.get),
+      Some(ukPostcode),
+      gbCountryModel
+    )
+
+  val addressModelMax: AddressModel =
+    AddressModel(
+      Seq(line1, maxLine),
+      Some(ukPostcode),
+      gbCountryModel
+    )
+
+  val addressModelMin: AddressModel =
+    AddressModel(Seq(maxLine), Some(ukPostcode), gbCountryModel)
+
+  val addressModelMinWithTown: AddressModel =
+    addressModelMin.copy(lines = addressModelMin.lines :+ town.get)
+
+  val addressWithTown: AddressModel =
+    address.copy(lines = address.lines :+ town.get)
+
+  val addressWithTownAnd3Lines: AddressModel =
+    address.copy(lines = address.lines :+ line3 :+ town.get)
+
+  val addressModelMaxWithTown: AddressModel =
+    addressModelMax.copy(lines = addressModelMax.lines :+ town.get)
+
+  def toAmendAddressModel(
+    addressModel: AddressModel,
+    maybeTown: Option[String] = None
+  ): AmendAddressModel =
+    AmendAddressModel(
+      addressModel.lines.head,
+      addressModel.lines.slice(1, 2).headOption,
+      addressModel.lines.slice(2, 3).headOption,
+      addressModel.lines.slice(3, 4).headOption.orElse(maybeTown).getOrElse(""),
+      addressModel.postcode.get,
+      addressModel.country.code
+    )
+ 
+  val personNameWithoutMiddle: Name  = Name(SelectTitle.Mr, "Firstname", None, "Lastname")
+  val personNameWithMiddle: Name     = Name(SelectTitle.Mr, "Firstname", Some("Middle"), "Lastname")
+  val personName2WithoutMiddle: Name = Name(SelectTitle.Ms, "Firstname2", None, "Lastname2")
+  val personName2WithMiddle: Name    = Name(SelectTitle.Ms, "Firstname2", Some("Middle2"), "Lastname2")
+  val personName3WithoutMiddle: Name = Name(SelectTitle.Mrs, "Firstname3", None, "Lastname3")
+  val personName3WithMiddle: Name    = Name(SelectTitle.Ms, "Firstname3", Some("Middle3"), "Lastname3")
+  val personName4WithoutMiddle: Name = Name(SelectTitle.Ms, "Firstname4", None, "Lastname4")
+  val personName4WithMiddle: Name    = Name(SelectTitle.Ms, "Firstname4", Some("Middle4"), "Lastname4")
+  
   def replacePlaceholders(inString: String): String =
     inString
       .replaceAll("__ACCOUNTNAME__", accountName)
@@ -183,4 +291,23 @@ trait TestData extends ModelGenerators {
       .replaceAll("__WHYNOREGULATOR__", whyNoRegulator)
       .replaceAll("__WHYNOTREGISTERED__", whyNotRegistered)
       .replaceAll("__GOVERNINGDOCUMENTCHANGE__", governingDocumentChange)
+      .replaceAll("__PERSONFIRSTNAME__", personNameWithMiddle.firstName)
+      .replaceAll("__PERSONMIDDLENAME__", personNameWithMiddle.middleName)
+      .replaceAll("__PERSONLASTNAME__", personNameWithMiddle.lastName)
+      .replaceAll("__PERSON2FIRSTNAME__", personName2WithMiddle.firstName)
+      .replaceAll("__PERSON2MIDDLENAME__", personName2WithMiddle.middleName)
+      .replaceAll("__PERSON2LASTNAME__", personName2WithMiddle.lastName)
+      .replaceAll("__CCREGISTRATIONNUMBER__", charityCommissionRegistrationNumber)
+      .replaceAll("__SCREGULATORNUMBER__", scottishRegulatorRegistrationNumber)
+      .replaceAll("__NIREGULATORNUMBER__", niRegulatorRegistrationNumber)
+      .replaceAll("__CREGULATORNAME__", charityRegulatorName)
+      .replaceAll("__CREGULATORNUMBER__", chartyRegulatorRegistrationNumber)
+      .replaceAll("__GOVDOCAPPROVEDDATE__", govDocApprovedDate.toString)
+      .replaceAll("__OFFICIALSDOB__", officialsDOB.toString)
+      .replaceAll("__ADDRESSLINE1__", line1)
+      .replaceAll("__ADDRESSLINE2__", line2)
+      .replaceAll("__ADDRESSLINE3__", line3)
+      .replaceAll("__ADDRESSMAXLINE__", maxLine)
+      .replaceAll("__ADDRESSTOWN__", town.get)
+      .replaceAll("__ADDRESSUKPOSTCODE__", ukPostcode)
 }

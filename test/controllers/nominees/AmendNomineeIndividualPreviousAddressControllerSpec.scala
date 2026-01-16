@@ -20,11 +20,11 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.AmendAddressFormProvider
 import models.addressLookup.{AddressModel, AmendAddressModel}
-import models.{Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Name, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.NomineeIndividualPreviousAddressLookupPage
 import pages.contactDetails.AmendAddressPage
@@ -32,7 +32,7 @@ import pages.nominees.IndividualNomineeNamePage
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.{CountryService, UserAnswerService}
 import views.html.common.AmendAddressView
 
@@ -67,23 +67,19 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
     inject[AmendNomineeIndividualPreviousAddressController]
 
   private val requestArgs                   = Seq(
-    "line1"    -> "23",
-    "line2"    -> "Morrison street",
+    "line1"    -> line1,
+    "line2"    -> line2,
     "line3"    -> "",
-    "town"     -> "Glasgow",
-    "postcode" -> "G58AN",
+    "town"     -> town.get,
+    "postcode" -> ukPostcode,
     "country"  -> gbCountryCode
   )
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(
       NomineeIndividualPreviousAddressLookupPage,
-      AddressModel(
-        Seq("7", "Morrison street near riverview gardens", "Glasgow"),
-        Some("G58AN"),
-        gbCountryModel
-      )
+      addressModelMaxWithTown
     )
-    .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")))
+    .flatMap(_.set(IndividualNomineeNamePage, personNameWithMiddle))
     .success
     .value
 
@@ -92,7 +88,7 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
     "return OK and the correct view for a GET" in {
 
       val amendNomineeIndividualPreviousAddress =
-        AmendAddressModel("7", Some("Morrison street near riverview gardens"), None, "Glasgow", "G58AN", gbCountryCode)
+        toAmendAddressModel(addressModelMax, town)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
@@ -104,7 +100,7 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
         form.fill(amendNomineeIndividualPreviousAddress),
         messageKeyPrefix,
         controllers.nominees.routes.AmendNomineeIndividualPreviousAddressController.onSubmit(NormalMode),
-        Some("Jim John Jones"),
+        Some(personNameWithMiddle.getFullName),
         countries = Seq(gbCountryTuple)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
@@ -116,7 +112,7 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
       val userAnswers = localUserAnswers
         .set(
           AmendAddressPage,
-          AmendAddressModel("23", Some("Morrison street"), Some(""), "Glasgow", "G58AN", gbCountryCode)
+          toAmendAddressModel(address, town)
         )
         .success
         .value
@@ -134,7 +130,7 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
     "populate the view correctly on a GET when the question has previously been answered is empty" in {
 
       val userAnswers = emptyUserAnswers
-        .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+        .set(IndividualNomineeNamePage, personNameWithMiddle)
         .success
         .value
 
@@ -146,7 +142,7 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
         form,
         messageKeyPrefix,
         controllers.nominees.routes.AmendNomineeIndividualPreviousAddressController.onSubmit(NormalMode),
-        Some("Jim John Jones"),
+        Some(personNameWithMiddle.getFullName),
         countries = Seq(gbCountryTuple)
       )(fakeRequest, messages, frontendAppConfig).toString
 

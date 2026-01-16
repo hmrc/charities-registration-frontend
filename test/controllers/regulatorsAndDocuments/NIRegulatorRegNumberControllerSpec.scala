@@ -58,7 +58,7 @@ class NIRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAfterEac
 
   private val controller: NIRegulatorRegNumberController = inject[NIRegulatorRegNumberController]
 
-  private val requestArgs = Seq("nIRegistrationNumber" -> "123456")
+  private val requestArgs = Seq("nIRegistrationNumber" -> niRegulatorRegistrationNumber)
 
   "NIRegulatorRegNumber Controller " must {
 
@@ -75,7 +75,7 @@ class NIRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAfterEac
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(NIRegulatorRegNumberPage, "123456").success.value
+      val userAnswers = emptyUserAnswers.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

@@ -12,14 +12,14 @@
       "ccni",
       "otherRegulator"
     ],
-    "publicBenefits": "Charity Purpose",
+    "publicBenefits": "__PUBLICBENEFIT__",
     "charityOfficialAddress": {
       "lines": [
-        "4 Other Place",
-        "Some District",
-        "Anytown"
+        "__ADDRESSLINE1__",
+        "__ADDRESSLINE2__",
+        "__ADDRESSTOWN__"
       ],
-      "postcode": "ZZ1 1ZZ",
+      "postcode": "__ADDRESSUKPOSTCODE__",
       "country": {
         "code": "__GBCOUNTRYCODE__",
         "name": "__GBCOUNTRYNAME__"
@@ -37,13 +37,13 @@
     ],
     "charityContactDetails": {
       "daytimePhone": "__DAYTIMEPHONE__"
-,
+    ,
       "mobilePhone": "__MOBILEPHONE__"
-,
+    ,
       "emailAddress": "__CHARITYEMAIL__"
     },
     "isCharityRegulator": true,
-    "sectionsChangedGoverningDocument": "Section one",
+    "sectionsChangedGoverningDocument": "__GOVERNINGDOCUMENTCHANGE__",
     "isBankStatements": false,
     "accountingPeriodEndDate": "--04-01",
     "isSection9Completed": true,
@@ -56,29 +56,29 @@
         "overseasCountry": "__FRCOUNTRYCODE__"
       }
     ],
-    "scottishRegulatorRegNumber": "SC012344",
+    "scottishRegulatorRegNumber": "__SCREGULATORNUMBER__",
     "selectGoverningDocument": "6",
     "canWeSendLettersToThisAddress": false,
     "estimatedIncome": 123.12,
-    "charityCommissionRegistrationNumber": "7654321",
+    "charityCommissionRegistrationNumber": "__CCREGISTRATIONNUMBER__",
     "otherOfficials": [
       {
         "officialsPhoneNumber": {
           "daytimePhone": "__DAYTIMEPHONE__"
-,
+        ,
           "mobilePhone": "__MOBILEPHONE__"
 
         },
         "officialsPosition": "23",
-        "officialsDOB": "2002-07-03",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
-            "4 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -86,19 +86,19 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Bobby",
-          "middleName": "Ge",
-          "lastName": "Tables"
+          "firstName": "__PERSONFIRSTNAME__",
+          "middleName": "__PERSONMIDDLENAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "isOfficialsPreviousAddress": true,
         "officialPreviousAddress": {
           "lines": [
-            "Flat 1",
-            "7 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSLINE3__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -109,20 +109,20 @@
       {
         "officialsPhoneNumber": {
           "daytimePhone": "__DAYTIMEPHONE__"
-,
+        ,
           "mobilePhone": "__MOBILEPHONE__"
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "2002-07-03",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": false,
         "officialAddress": {
           "lines": [
-            "4 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -130,9 +130,9 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Alex",
-          "middleName": "Je",
-          "lastName": "David"
+          "firstName": "__PERSON2FIRSTNAME__",
+          "middleName": "__PERSON2MIDDLENAME__",
+          "lastName": "__PERSON2LASTNAME__"
         },
         "isOfficialsPreviousAddress": false,
         "officialsPassport": {
@@ -144,20 +144,20 @@
       {
         "officialsPhoneNumber": {
           "daytimePhone": "__DAYTIMEPHONE__"
-,
+        ,
           "mobilePhone": "__MOBILEPHONE__"
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "1998-10-30",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
-            "4 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -165,35 +165,35 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Jamie",
-          "middleName": "Le",
-          "lastName": "White"
+          "firstName": "__PERSONFIRSTNAME__",
+          "middleName": "__PERSONMIDDLENAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "isOfficialsPreviousAddress": false,
         "officialsNino": "__NINOWITHSPACE2__"
       }
     ],
-    "otherFundRaising": "1234",
+    "otherFundRaising": "__OTHERFUNDRAISING__",
     "authorisedOfficials": [
       {
         "isOfficialPreviousAddress": true,
         "officialsPhoneNumber": {
           "daytimePhone": "__DAYTIMEPHONE__"
-,
+        ,
           "mobilePhone": "__MOBILEPHONE__"
 
         },
         "officialsPosition": "23",
-        "officialsDOB": "2002-07-03",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
-            "Flat 1",
-            "7 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSLINE3__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -201,18 +201,18 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Bobby",
-          "middleName": "Ge",
-          "lastName": "Tables"
+          "firstName": "__PERSONFIRSTNAME__",
+          "middleName": "__PERSONMIDDLENAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "officialPreviousAddress": {
           "lines": [
-            "Flat 1",
-            "7 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSLINE3__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -224,20 +224,20 @@
         "isOfficialPreviousAddress": false,
         "officialsPhoneNumber": {
           "daytimePhone": "__DAYTIMEPHONE__"
-,
+        ,
           "mobilePhone": "__MOBILEPHONE__"
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "1999-12-31",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": false,
         "officialAddress": {
           "lines": [
-            "4 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -245,9 +245,9 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Alex",
-          "middleName": "Je",
-          "lastName": "David"
+          "firstName": "__PERSON2FIRSTNAME__",
+          "middleName": "__PERSON2MIDDLENAME__",
+          "lastName": "__PERSON2LASTNAME__"
         },
         "officialsPassport": {
           "passportNumber": "__PASSPORTNUMBER__",
@@ -256,18 +256,18 @@
         }
       }
     ],
-    "whenGoverningDocumentApproved": "2019-01-01",
+    "whenGoverningDocumentApproved": "__GOVDOCAPPROVED__",
     "isSection2Completed": true,
     "isAddAnotherOfficial": true,
     "isSection5Completed": true,
     "actualIncome": 420,
     "charityOtherRegulatorDetails": {
-      "regulatorName": "ORegulatorName",
-      "registrationNumber": "123456789"
+      "regulatorName": "__CREGULATORNAME__",
+      "registrationNumber": "__CREGULATORNUMBER__"
     },
     "isApprovedGoverningDocument": true,
     "selectFundRaising": [
-      "other"
+      "__OTHERFUNDRAISING__"
     ],
     "nominee": {
       "chooseNominee": false,
@@ -279,30 +279,30 @@
         "organisationName": "__NOMINEEORGANISATIONNAME__",
         "organisationAuthorisedPersonName": {
           "title": "0001",
-          "firstName": "John",
-          "middleName": "De",
-          "lastName": "Britto"
+          "firstName": "__PERSONMIDDLENAME__",
+          "middleName": "__PERSONLASTNAME__",
+          "lastName": "__PERSON2LASTNAME__"
         },
         "organisationPreviousAddress": {
           "lines": [
-            "4 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSTOWN__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
           }
         },
-        "organisationAuthorisedPersonDOB": "2002-07-03",
+        "organisationAuthorisedPersonDOB": "__OFFICIALSDOB__",
         "organisationAddress": {
           "lines": [
-            "4 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -319,10 +319,10 @@
         }
       }
     },
-    "charitableObjectives": "Donate",
+    "charitableObjectives": "__CHARITYOBJECTIVE__",
     "isSection8Completed": true,
     "isSection7Completed": true,
-    "whyNoBankStatement": "123 no",
+    "whyNoBankStatement": "__WHYNOBANKSTETEMENT__",
     "charityName": {
       "fullName": "__CHARITYFULLNAME__",
       "operatingName": "__CHARITYOPERATINGNAME__"
@@ -331,12 +331,12 @@
     "addAnotherOtherOfficial": true,
     "charityPostalAddress": {
       "lines": [
-        "Flat 1",
-        "7 Other Place",
-        "Some District",
-        "Anytown"
+        "__ADDRESSLINE1__",
+        "__ADDRESSLINE2__",
+        "__ADDRESSLINE3__",
+        "__ADDRESSTOWN__"
       ],
-      "postcode": "ZZ1 1ZZ",
+      "postcode": "__ADDRESSUKPOSTCODE__",
       "country": {
         "code": "__GBCOUNTRYCODE__",
         "name": "__GBCOUNTRYNAME__"
@@ -345,7 +345,7 @@
     "anotherCountry": false,
     "emailOrPost": true,
     "isSection1Completed": true,
-    "nIRegulatorRegNumber": "654321",
+    "nIRegulatorRegNumber": "__NIREGULATORNUMBER__",
     "isFinancialAccounts": true
   },
   "lastUpdated":{"$date":1611678637692},

@@ -19,17 +19,17 @@ package controllers.nominees
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.DateOfBirthFormProvider
-import models.{Name, NormalMode, Passport, SelectTitle, UserAnswers}
+import models.{Name, NormalMode, Passport, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.nominees.{OrganisationAuthorisedPersonNamePage, OrganisationAuthorisedPersonPassportPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.{CountryService, UserAnswerService}
 import views.html.common.PassportView
 
@@ -67,12 +67,12 @@ class OrganisationAuthorisedPersonPassportControllerSpec extends SpecBase with B
   private val requestArgs                   = Seq(
     "passportNumber"   -> passport.passportNumber,
     "country"          -> passport.country,
-    "expiryDate.year"  -> passport.expiryDate.getYear.toString,
+    "expiryDate.year"  -> passport.expiryDate.plusYears(1).getYear.toString,
     "expiryDate.month" -> passport.expiryDate.getMonthValue.toString,
-    "expiryDate.day"   -> passport.expiryDate.plusDays(1).getDayOfMonth.toString
+    "expiryDate.day"   -> passport.expiryDate.getDayOfMonth.toString
   )
   private val localUserAnswers: UserAnswers = emptyUserAnswers
-    .set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .set(OrganisationAuthorisedPersonNamePage, personNameWithMiddle)
     .success
     .value
 
@@ -88,7 +88,7 @@ class OrganisationAuthorisedPersonPassportControllerSpec extends SpecBase with B
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.nominees.routes.OrganisationAuthorisedPersonPassportController.onSubmit(NormalMode),
         Seq(gbCountryTuple)
@@ -100,7 +100,7 @@ class OrganisationAuthorisedPersonPassportControllerSpec extends SpecBase with B
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(OrganisationAuthorisedPersonPassportPage, passport.copy(expiryDate = passport.expiryDate.plusDays(1)))
+        .set(OrganisationAuthorisedPersonPassportPage, passport.copy(expiryDate = passport.expiryDate.plusYears(1)))
         .success
         .value
 

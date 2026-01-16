@@ -59,7 +59,7 @@ class CharityOtherRegulatorDetailsControllerSpec extends SpecBase with BeforeAnd
 
   private val controller: CharityOtherRegulatorDetailsController = inject[CharityOtherRegulatorDetailsController]
 
-  private val requestArgs = Seq("regulatorName" -> "ORegulatorName", "registrationNumber" -> "1234567")
+  private val requestArgs = Seq("regulatorName" -> charityRegulatorName, "registrationNumber" -> charityRegistrationNumber)
 
   "CharityOtherRegulatorDetails Controller " must {
 
@@ -77,7 +77,7 @@ class CharityOtherRegulatorDetailsControllerSpec extends SpecBase with BeforeAnd
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers
-        .set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "1234567"))
+        .set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails)
         .success
         .value
 

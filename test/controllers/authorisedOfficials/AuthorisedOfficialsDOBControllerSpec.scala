@@ -17,20 +17,19 @@
 package controllers.authorisedOfficials
 
 import base.SpecBase
-import base.data.constants.DateConstants.january1st2002
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.DateOfBirthFormProvider
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.authorisedOfficials.{AuthorisedOfficialsDOBPage, AuthorisedOfficialsNamePage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.DateOfBirthView
 
@@ -61,9 +60,9 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
 
   private val controller: AuthorisedOfficialsDOBController = inject[AuthorisedOfficialsDOBController]
 
-  private val requestArgs                   = Seq("date.year" -> "2001", "date.month" -> "1", "date.day" -> "1")
+  private val requestArgs                   = Seq("date.year" -> "2000", "date.month" -> "12", "date.day" -> "11")
   private val localUserAnswers: UserAnswers = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
     .success
     .value
 
@@ -77,7 +76,7 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.authorisedOfficials.routes.AuthorisedOfficialsDOBController.onSubmit(NormalMode, Index(0))
       )(fakeRequest, messages, frontendAppConfig).toString
@@ -86,7 +85,7 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(AuthorisedOfficialsDOBPage(0), january1st2002).success.value
+      val userAnswers = localUserAnswers.set(AuthorisedOfficialsDOBPage(0), officialsDOB).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

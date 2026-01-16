@@ -21,7 +21,7 @@ import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.nominees.routes as nomineesRoutes
 import models.nominees.OrganisationNomineeContactDetails
-import models.{BankDetails, CheckMode, Name, Passport, SelectTitle, UserAnswers}
+import models.{BankDetails, CheckMode, Name, Passport, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq as meq}
 import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
@@ -38,9 +38,9 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
 
   private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
-  private val year       = 1991
-  private val month      = 1
-  private val dayOfMonth = 2
+  private val year       = 2000
+  private val month      = 12
+  private val dayOfMonth = 11
 
   lazy val mockCountryService: CountryService = mock(classOf[CountryService])
   when(mockCountryService.find(meq(gbCountryCode))(any())).thenReturn(Some(gbCountry))
@@ -56,7 +56,10 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     .flatMap(_.set(IsOrganisationNomineePaymentsPage, true))
     .flatMap(_.set(OrganisationNomineesBankDetailsPage, bankDetails))
     .flatMap(
-      _.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+      _.set(
+        OrganisationAuthorisedPersonNamePage,
+        personNameWithoutMiddle
+      )
     )
     .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, dayOfMonth)))
     .success
@@ -65,7 +68,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
   private val helperNino = new NomineeOrganisationSummaryHelper(mockCountryService)(
     baseUserAnswers
       .set(IsOrganisationNomineeNinoPage, true)
-      .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, "AB123123A"))
+      .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, nino))
       .success
       .value
   )
@@ -133,7 +136,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineeAddress mustBe Some(
           summaryListRow(
             messages("organisationNomineeAddress.checkYourAnswersLabel"),
-            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
+            Text(s"$line1, $line2, $ukPostcode, $gbCountryName"),
             Some(messages("organisationNomineeAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OrganisationNomineeAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink
@@ -164,7 +167,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineePreviousAddress mustBe Some(
           summaryListRow(
             messages("nomineeOrganisationPreviousAddress.checkYourAnswersLabel"),
-            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
+            Text(s"$line1, $line2, $ukPostcode, $gbCountryName"),
             Some(messages("nomineeOrganisationPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink
@@ -249,7 +252,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.authorisedPersonName mustBe Some(
           summaryListRow(
             messages("organisationAuthorisedPersonName.checkYourAnswersLabel"),
-            HtmlContent("Mr John Jones"),
+            HtmlContent("Mr Firstname Lastname"),
             Some(messages("organisationAuthorisedPersonName.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -263,8 +266,8 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.authorisedPersonDOB mustBe Some(
           summaryListRow(
             messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel"),
-            HtmlContent("2 January 1991"),
-            Some(messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel")),
+            HtmlContent(officialsDOB.format(dateFormatter)),
+              Some(messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonDOBController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
         )
@@ -291,7 +294,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.authorisedPersonNino mustBe Some(
           summaryListRow(
             messages("organisationAuthorisedPersonNino.checkYourAnswersLabel"),
-            HtmlContent("AB123123A"),
+            HtmlContent(nino),
             Some(messages("organisationAuthorisedPersonNino.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonNinoController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

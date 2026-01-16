@@ -37,7 +37,7 @@ class SelectWhyNoRegulatorPageSpec extends PageBehaviours {
     "cleanup" when {
       val userAnswer = UserAnswers("id", Json.obj())
         .set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other)
-        .flatMap(_.set(WhyNotRegisteredWithCharityPage, "office closed"))
+        .flatMap(_.set(WhyNotRegisteredWithCharityPage, whyNotRegistered))
         .success
         .value
 

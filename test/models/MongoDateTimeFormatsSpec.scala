@@ -16,18 +16,18 @@
 
 package models
 
-import base.data.constants.DateConstants.feb1st2018
+import common.TestData
 import org.scalatest.OptionValues
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import play.api.libs.json._
+import play.api.libs.json.*
 
 import java.time.LocalDateTime
 
-class MongoDateTimeFormatsSpec extends AnyWordSpec with Matchers with OptionValues with MongoDateTimeFormats {
+class MongoDateTimeFormatsSpec extends AnyWordSpec with Matchers with OptionValues with MongoDateTimeFormats with TestData {
 
-  private val date: LocalDateTime = feb1st2018.atStartOfDay
-  private val dateMillis: Long    = 1517443200000L
+  private val date: LocalDateTime = correctFormatDate.atStartOfDay
+  private val dateMillis: Long    = 1600819200000L
   private val json: JsObject      = Json.obj(
     f"$$date" -> dateMillis
   )

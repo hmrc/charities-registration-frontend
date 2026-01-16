@@ -65,21 +65,17 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
   private val controller: AmendCharityPostalAddressController = inject[AmendCharityPostalAddressController]
 
   private val requestArgs                   = Seq(
-    "line1"    -> "23",
-    "line2"    -> "Morrison street",
+    "line1"    -> line1,
+    "line2"    -> line2,
     "line3"    -> "",
-    "town"     -> "Paris",
+    "town"     -> town.get,
     "postcode" -> "",
     "country"  -> frCountryCode
   )
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(
       CharityPostalAddressLookupPage,
-      AddressModel(
-        Seq("7 Morrison street near riverview gardens", "Glasgow"),
-        Some("G58AN"),
-        gbCountryModel
-      )
+      addressModelMinWithTown
     )
     .success
     .value
@@ -89,7 +85,7 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
     "return OK and the correct view for a GET" in {
 
       val amendCharitiesPostalAddress =
-        AmendAddressModel("7 Morrison street near riverview gardens", None, None, "Glasgow", "G58AN", gbCountryCode)
+        toAmendAddressModel(addressModelMin, town)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
@@ -112,7 +108,7 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
       val userAnswers = localUserAnswers
         .set(
           AmendAddressPage,
-          AmendAddressModel("23", Some("Morrison street"), None, "Glasgow", "G58AN", gbCountryCode)
+          toAmendAddressModel(address, town)
         )
         .success
         .value

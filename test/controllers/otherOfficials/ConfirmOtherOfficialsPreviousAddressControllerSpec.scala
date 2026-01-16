@@ -19,15 +19,15 @@ package controllers.otherOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.addressLookup.AddressModel
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, UserAnswers}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.OtherOfficialPreviousAddressLookupPage
 import pages.otherOfficials.OtherOfficialsNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.ConfirmAddressView
 
@@ -53,7 +53,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
   private val controller: ConfirmOtherOfficialsPreviousAddressController =
     inject[ConfirmOtherOfficialsPreviousAddressController]
   private val messageKeyPrefix                                           = "otherOfficialPreviousAddress"
-  private val otherOfficialPreviousAddressLookup                         = List("12", "Banner Way", gbCountryName)
+  private val otherOfficialPreviousAddressLookup                         = List(line1, line2, gbCountryName)
 
   "ConfirmAuthorisedOfficialsPreviousAddressController Controller" must {
 
@@ -63,11 +63,11 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(
                 _.set(
                   OtherOfficialPreviousAddressLookupPage(0),
-                  AddressModel(List("12", "Banner Way"), None, gbCountryModel)
+                  address.copy(postcode = None)
                 )
               )
               .success
@@ -86,7 +86,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
           controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(0),
           controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController
             .initializeJourney(0, NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
@@ -94,21 +94,17 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val otherOfficialPreviousAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
+      val otherOfficialPreviousAddressMax = List(line1, maxLine, gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(
                 _.set(
                   OtherOfficialPreviousAddressLookupPage(0),
-                  AddressModel(
-                    List("12", "Banner Way near south riverview gardens"),
-                    None,
-                    gbCountryModel
-                  )
+                  addressModelMax.copy(postcode = None)
                 )
               )
               .success
@@ -127,7 +123,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
           controllers.otherOfficials.routes.AmendOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, 0),
           controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController
             .initializeJourney(0, NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())

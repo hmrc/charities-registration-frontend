@@ -9,15 +9,15 @@
           "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "01",
-        "officialsDOB": "2001-01-11",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": false,
         "officialAddress": {
           "lines": [
-            "9 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -25,16 +25,16 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Steve",
-          "lastName": "Waugh"
+          "firstName": "__PERSONFIRSTNAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "officialPreviousAddress": {
           "lines": [
-            "6 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -53,16 +53,16 @@
           "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "23",
-        "officialsDOB": "2002-02-02",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": false,
         "officialAddress": {
           "lines": [
-            "Flat 2",
-            "7 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSALLLINESLINE3__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -70,8 +70,8 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Mark",
-          "lastName": "Waugh"
+          "firstName": "__PERSON2FIRSTNAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "officialsPassport": {
           "passportNumber": "__PASSPORTNUMBER__",
@@ -80,7 +80,7 @@
         }
       }
     ],
-    "whenGoverningDocumentApproved": "2001-11-11",
+    "whenGoverningDocumentApproved": "__GOVDOCAPPROVED__",
     "isSection2Completed": true,
     "charitablePurposes": [
       "other",
@@ -99,30 +99,30 @@
     ],
     "isAddAnotherOfficial": true,
     "charityRegulator": [
-      "otherRegulator"
+      "__CREGULATORNAME__"
     ],
     "charityEstablishedIn": "1",
     "hasCharityChangedPartsOfGoverningDocument": true,
     "isSection5Completed": true,
     "actualIncome": 100.0,
     "charityOtherRegulatorDetails": {
-      "regulatorName": "John",
-      "registrationNumber": "Ceana"
+      "regulatorName": "__PERSONFIRSTNAME__",
+      "registrationNumber": "__CREGULATORNUMBER__"
     },
     "charityOfficialAddress": {
       "lines": [
-        "Flat 1",
-        "7 Other Place",
-        "Some District",
-        "Anytown"
+        "__ADDRESSLINE1__",
+        "__ADDRESSLINE2__",
+        "__ADDRESSLINE3__",
+        "__ADDRESSTOWN__"
       ],
-      "postcode": "ZZ1 1ZZ",
+      "postcode": "__ADDRESSUKPOSTCODE__",
       "country": {
         "code": "__GBCOUNTRYCODE__",
         "name": "__GBCOUNTRYNAME__"
       }
     },
-    "publicBenefits": "Test",
+    "publicBenefits": "__PUBLICBENEFIT__",
     "bankDetails": {
       "accountName": "__ACCOUNTNAME__",
       "sortCode": "__SORTCODE__",
@@ -138,9 +138,9 @@
     ],
     "selectFundRaising": [
       "donations",
-      "fundraising"
+      "__OTHERFUNDRAISING__"
     ],
-    "charitableObjectives": "Test",
+    "charitableObjectives": "__CHARITYOBJECTIVE__",
     "isSection8Completed": true,
     "charityContactDetails": {
       "daytimePhone": "__DAYTIMEPHONEINT__",
@@ -148,7 +148,7 @@
       "emailAddress": "__CHARITYEMAIL__"
     },
     "isCharityRegulator": true,
-    "sectionsChangedGoverningDocument": "Test",
+    "sectionsChangedGoverningDocument": "__GOVERNINGDOCUMENTCHANGE__",
     "isSection7Completed": true,
     "isAuthoriseNominee": false,
     "isBankStatements": true,
@@ -162,11 +162,11 @@
     "addAnotherOtherOfficial": false,
     "charityPostalAddress": {
       "lines": [
-        "4 Other Place",
-        "Some District",
-        "Anytown"
+        "__ADDRESSLINE1__",
+        "__ADDRESSLINE2__",
+        "__ADDRESSTOWN__"
       ],
-      "postcode": "ZZ1 1ZZ",
+      "postcode": "__ADDRESSUKPOSTCODE__",
       "country": {
         "code": "__GBCOUNTRYCODE__",
         "name": "__GBCOUNTRYNAME__"
@@ -194,15 +194,15 @@
           "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "02",
-        "officialsDOB": "2001-01-11",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": false,
         "officialAddress": {
           "lines": [
-            "9 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -211,16 +211,16 @@
         "officialsName": {
           "title": "0001",
           "firstName": "Mark",
-          "lastName": "Waugh"
+          "lastName": "__PERSONLASTNAME__"
         },
         "isOfficialsPreviousAddress": true,
         "officialPreviousAddress": {
           "lines": [
-            "6 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -239,15 +239,15 @@
           "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "03",
-        "officialsDOB": "2001-02-02",
+        "officialsDOB": "__OFFICIALSDOB__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
-            "8 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -255,8 +255,8 @@
         },
         "officialsName": {
           "title": "0001",
-          "firstName": "Steve",
-          "lastName": "Waugh"
+          "firstName": "__PERSONFIRSTNAME__",
+          "lastName": "__PERSONLASTNAME__"
         },
         "isOfficialsPreviousAddress": false,
         "officialsNino": "__NINOWITHSPACE2__"

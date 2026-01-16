@@ -59,7 +59,8 @@ class CharityOtherRegulatorDetailsControllerSpec extends SpecBase with BeforeAnd
 
   private val controller: CharityOtherRegulatorDetailsController = inject[CharityOtherRegulatorDetailsController]
 
-  private val requestArgs = Seq("regulatorName" -> charityRegulatorName, "registrationNumber" -> charityRegistrationNumber)
+  private val requestArgs =
+    Seq("regulatorName" -> charityRegulatorName, "registrationNumber" -> charityRegistrationNumber)
 
   "CharityOtherRegulatorDetails Controller " must {
 

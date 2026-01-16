@@ -38,7 +38,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
   private val otherOfficialsName: Name               = personNameWithMiddle
   private val otherOfficialsPhoneNumber: PhoneNumber = phoneNumbers
 
-  private val minYear                                = 16
+  private val minYear = 16
 
   def goToPlaybackPage(index: Int): Call = index match {
     case 0 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(0))

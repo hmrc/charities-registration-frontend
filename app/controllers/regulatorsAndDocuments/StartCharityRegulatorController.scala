@@ -19,7 +19,6 @@ package controllers.regulatorsAndDocuments
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.UserAnswerService
 import views.html.regulatorsAndDocuments.StartCharityRegulatorView
@@ -34,8 +33,7 @@ class StartCharityRegulatorController @Inject() (
   val controllerComponents: MessagesControllerComponents,
   view: StartCharityRegulatorView
 )(implicit appConfig: FrontendAppConfig)
-    extends LocalBaseController
-    with I18nSupport {
+    extends LocalBaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view())

@@ -28,10 +28,10 @@ trait TestData extends ModelGenerators {
   val sortCodeWithSpaces: String  = s"${sortCode.slice(0, 2)} ${sortCode.slice(2, 4)} ${sortCode.slice(4, 6)}"
   val sortCodeWithHyphens: String = s"${sortCode.slice(0, 2)}-${sortCode.slice(2, 4)}-${sortCode.slice(4, 6)}"
 
-  val accountNumber: String = accountNumberGen.sample.get
+  val accountNumber: String           = accountNumberGen.sample.get
   val accountNumberWithSpaces: String =
     s"${accountNumber.slice(0, 2)} ${accountNumber.slice(2, 4)} ${accountNumber.slice(4, 6)} ${accountNumber.slice(6, 8)}"
-  val accountName: String = accountNameGen.sample.get
+  val accountName: String             = accountNameGen.sample.get
 
   val rollNumber: String = rollNumberGen.sample.get
 
@@ -56,27 +56,25 @@ trait TestData extends ModelGenerators {
     rollNumber = Some(rollNumber)
   )
 
-
-  val nino: String = ninoGen.sample.get
-  val ninoWithSpaces: String =
+  val nino: String            = ninoGen.sample.get
+  val ninoWithSpaces: String  =
     s"${nino.slice(0, 2)} ${nino.slice(2, 4)} ${nino.slice(4, 6)} ${nino.slice(6, 8)} ${nino.slice(8, 9)}"
-  val nino2: String = ninoGen.sample.get
+  val nino2: String           = ninoGen.sample.get
   val nino2WithSpaces: String =
     s"${nino2.slice(0, 2)} ${nino2.slice(2, 4)} ${nino2.slice(4, 6)} ${nino2.slice(6, 8)} ${nino2.slice(8, 9)}"
-  val nino3: String = ninoGen.sample.get
+  val nino3: String           = ninoGen.sample.get
   val nino3WithSpaces: String =
     s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
-
 
   val passportNumber: String = passportGen.sample.get
   val passport: Passport     = Passport(passportNumber, "GB", LocalDate.now)
 
-  val daytimePhone: String = exampleFixedLineGen.sample.get
-  val mobileNumber: String = exampleMobileGen.sample.get
+  val daytimePhone: String      = exampleFixedLineGen.sample.get
+  val mobileNumber: String      = exampleMobileGen.sample.get
   val phoneNumbers: PhoneNumber = PhoneNumber(daytimePhone, Some(mobileNumber))
 
-  val daytimePhoneWithIntCode: String = exampleFixedLineIntGen.sample.get
-  val mobileNumberWithIntCode: String = exampleMobileIntGen.sample.get
+  val daytimePhoneWithIntCode: String      = exampleFixedLineIntGen.sample.get
+  val mobileNumberWithIntCode: String      = exampleMobileIntGen.sample.get
   val phoneNumbersWithIntCode: PhoneNumber = PhoneNumber(daytimePhoneWithIntCode, Some(mobileNumberWithIntCode))
 
   val charityFullName      = "A Charity"
@@ -94,18 +92,18 @@ trait TestData extends ModelGenerators {
     emailAddress = charityEmail
   )
 
-  val charityObjective: String = "Make the World better"
-  val acknowledgementRef: String = acknowledgementRefGen.sample.get
-  val publicBenefit: String = "FreeEducation"
-  val whyNoBankStatement: String = "Reason why no bank statement"
-  val otherFundRaising: String = "Other fund raising"
-  val governingDocument: String = "will"
-  val governingDocumentOther: String = "other"
-  val whyNoRegulator: String = "reason"
-  val whyNotRegistered: String = "reason"
+  val charityObjective: String        = "Make the World better"
+  val acknowledgementRef: String      = acknowledgementRefGen.sample.get
+  val publicBenefit: String           = "FreeEducation"
+  val whyNoBankStatement: String      = "Reason why no bank statement"
+  val otherFundRaising: String        = "Other fund raising"
+  val governingDocument: String       = "will"
+  val governingDocumentOther: String  = "other"
+  val whyNoRegulator: String          = "reason"
+  val whyNotRegistered: String        = "reason"
   val governingDocumentChange: String = "Governing document change and reason"
 
-  val nomineeOrganisationName: String = "Nominee Organisation"
+  val nomineeOrganisationName: String                                      = "Nominee Organisation"
   val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails =
     OrganisationNomineeContactDetails(daytimePhone, organisationEmail)
 
@@ -186,4 +184,3 @@ trait TestData extends ModelGenerators {
       .replaceAll("__WHYNOTREGISTERED__", whyNotRegistered)
       .replaceAll("__GOVERNINGDOCUMENTCHANGE__", governingDocumentChange)
 }
-

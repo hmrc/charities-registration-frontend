@@ -35,7 +35,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
     behave like optionsField[SelectTitle](
       form,
       fieldName,
-      validValues = SelectTitle.values,
+      validValues = SelectTitle.supportedValues,
       invalidError = FormError(fieldName, "error.invalid")
     )
 

@@ -64,12 +64,7 @@ object AppLevelMessagesModel {
 case class LookupPageMessagesModel(
   title: Option[String],
   heading: Option[String],
-  filterLabel: Option[String],
-  postcodeLabel: Option[String],
-  submitLabel: Option[String],
-  noResultsFoundMessage: Option[String],
-  resultLimitExceededMessage: Option[String],
-  manualAddressLinkText: Option[String]
+  postcodeLabel: Option[String]
 )
 
 object LookupPageMessagesModel {
@@ -81,13 +76,7 @@ object LookupPageMessagesModel {
     LookupPageMessagesModel(
       title = MessageOption(s"$messagePrefix.lookupPage.title", lang),
       heading = MessageOption(s"$messagePrefix.lookupPage.heading", lang, fullName.getOrElse("")),
-      filterLabel = MessageOption(s"commonAddress.lookupPage.filterLabel", lang),
-      postcodeLabel = MessageOption(s"commonAddress.LookupPage.postcodeLabel", lang),
-      submitLabel = MessageOption(s"commonAddress.lookupPage.submitLabel", lang),
-      noResultsFoundMessage = MessageOption(s"commonAddress.lookupPage.noResultsFoundMessage", lang),
-      resultLimitExceededMessage = MessageOption(s"commonAddress.lookupPage.resultLimitExceededMessage", lang),
-      manualAddressLinkText =
-        MessageOption(s"$messagePrefix.lookupPage.manualAddressLinkText", lang, fullName.getOrElse(""))
+      postcodeLabel = MessageOption(s"commonAddress.LookupPage.postcodeLabel", lang)
     )
 }
 
@@ -95,10 +84,7 @@ case class SelectPageMessagesModel(
   title: Option[String],
   heading: Option[String],
   headingWithPostcode: Option[String],
-  proposalListLabel: Option[String],
-  submitLabel: Option[String],
-  searchAgainLinkText: Option[String],
-  editAddressLinkText: Option[String]
+  submitLabel: Option[String]
 )
 
 object SelectPageMessagesModel {
@@ -111,24 +97,15 @@ object SelectPageMessagesModel {
       title = MessageOption(s"$messagePrefix.selectPage.title", lang),
       heading = MessageOption(s"$messagePrefix.selectPage.heading", lang, fullName.getOrElse("")),
       headingWithPostcode = MessageOption(s"commonAddress.selectPage.headingWithPostcode", lang),
-      proposalListLabel = MessageOption(s"commonAddress.selectPage.proposalListLabel", lang),
-      submitLabel = MessageOption(s"commonAddress.selectPage.submitLabel", lang),
-      searchAgainLinkText =
-        MessageOption(s"$messagePrefix.selectPage.searchAgainLinkText", lang, fullName.getOrElse("")),
-      editAddressLinkText =
-        MessageOption(s"$messagePrefix.selectPage.editAddressLinkText", lang, fullName.getOrElse(""))
+      submitLabel = MessageOption(s"commonAddress.selectPage.submitLabel", lang)
     )
 }
 
 case class EditPageMessagesModel(
   title: Option[String],
   heading: Option[String],
-  line1Label: Option[String],
-  line2Label: Option[String],
   townLabel: Option[String],
-  line3Label: Option[String],
-  postcodeLabel: Option[String],
-  submitLabel: Option[String]
+  postcodeLabel: Option[String]
 )
 
 object EditPageMessagesModel {
@@ -140,24 +117,15 @@ object EditPageMessagesModel {
     EditPageMessagesModel(
       title = MessageOption(s"$messagePrefix.editPage.title", lang),
       heading = MessageOption(s"$messagePrefix.editPage.heading", lang, fullName.getOrElse("")),
-      line1Label = MessageOption(s"commonAddress.editPage.line1Label", lang),
-      line2Label = MessageOption(s"commonAddress.editPage.line2Label", lang),
-      line3Label = MessageOption(s"commonAddress.editPage.line3Label", lang),
       townLabel = MessageOption(s"commonAddress.editPage.townLabel", lang),
-      postcodeLabel = MessageOption(s"commonAddress.editPage.postcodeLabel", lang),
-      submitLabel = MessageOption(s"commonAddress.editPage.submitLabel", lang)
+      postcodeLabel = MessageOption(s"commonAddress.editPage.postcodeLabel", lang)
     )
 }
 
 case class ConfirmPageMessagesModel(
   title: Option[String],
   heading: Option[String],
-  infoSubheading: Option[String],
-  infoMessage: Option[String],
-  submitLabel: Option[String],
-  searchAgainLinkText: Option[String],
-  changeLinkText: Option[String],
-  confirmChangeText: Option[String]
+  submitLabel: Option[String]
 )
 
 object ConfirmPageMessagesModel {
@@ -169,11 +137,6 @@ object ConfirmPageMessagesModel {
     ConfirmPageMessagesModel(
       title = MessageOption(s"$messagePrefix.confirmPage.title", lang),
       heading = MessageOption(s"$messagePrefix.confirmPage.heading", lang, fullName.getOrElse("")),
-      infoMessage = Some(""),
-      infoSubheading = Some(""),
-      submitLabel = MessageOption(s"commonAddress.confirmPage.submitLabel", lang),
-      searchAgainLinkText = MessageOption(s"commonAddress.confirmPage.searchAgainLinkText", lang),
-      changeLinkText = MessageOption(s"$messagePrefix.confirmPage.changeLinkText", lang, fullName.getOrElse("")),
-      confirmChangeText = MessageOption(s"commonAddress.confirmPage.confirmChangeText", lang)
+      submitLabel = MessageOption(s"commonAddress.confirmPage.submitLabel", lang)
     )
 }

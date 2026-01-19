@@ -165,30 +165,25 @@ index.section.canNotStartYet = Cannot start yet
 
 # Common Address Lookup Frontend Messages
 # ----------------------------------------------------------
-commonAddress.lookupPage.filterLabel = Property name or number (optional)
 commonAddress.LookupPage.postcodeLabel = Postcode search
-commonAddress.lookupPage.submitLabel = Find address
-commonAddress.lookupPage.noResultsFoundMessage =
-commonAddress.lookupPage.resultLimitExceededMessage =
 
 commonAddress.selectPage.headingWithPostcode = Postcode search
-commonAddress.selectPage.proposalListLabel =
 commonAddress.selectPage.submitLabel = Continue
-commonAddress.selectPage.searchAgainLinkText =
 
-commonAddress.editPage.line1Label = Address line 1
-commonAddress.editPage.line2Label = Address line 2 (optional)
-commonAddress.editPage.line3Label = Address line 3 (optional)
 commonAddress.editPage.townLabel = Town or city
-commonAddress.editPage.postcodeLabel = Postcode or Zipcode (optional)
-commonAddress.editPage.country = Country
-commonAddress.editPage.country.hintText = Select a country
-commonAddress.editPage.submitLabel = Continue
+commonAddress.editPage.postcodeLabel = Postcode or Zipcode
 
-commonAddress.confirmPage.infoMessage =
+
+commonAddress.amendPage.line1Label = Address line 1
+commonAddress.amendPage.line2Label = Address line 2 (optional)
+commonAddress.amendPage.line3Label = Address line 3 (optional)
+commonAddress.amendPage.townLabel = Town or city
+commonAddress.amendPage.postcodeLabel = Postcode or Zipcode (optional)
+commonAddress.amendPage.country = Country
+commonAddress.amendPage.country.hintText = Select a country
+commonAddress.amendPage.submitLabel = Continue
+
 commonAddress.confirmPage.submitLabel = Confirm and continue
-commonAddress.confirmPage.searchAgainLinkText =
-commonAddress.confirmPage.confirmChangeText =
 
 # Dead End page Messages
 # ----------------------------------------------------------

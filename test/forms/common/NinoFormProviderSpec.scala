@@ -84,7 +84,7 @@ class NinoFormProviderSpec extends StringFieldBehaviours {
 
     s"valid for w$nino3" in {
 
-      "w"+nino3 mustNot fullyMatch regex formProvider.ninoPattern
+      "w" + nino3 mustNot fullyMatch regex formProvider.ninoPattern
     }
   }
 

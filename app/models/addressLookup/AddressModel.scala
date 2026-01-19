@@ -28,27 +28,16 @@ object CountryModel {
 
 case class AddressModel(lines: Seq[String], postcode: Option[String], country: CountryModel) {
 
-  def toEdit: AmendAddressModel = {
-    val el = editLines
+  def toEdit: AmendAddressModel =
     AmendAddressModel(
-      el._1,
-      el._2,
-      el._3,
-      el._4,
+      lines.headOption.getOrElse(""),
+      if (lines.length > 2) lines.lift(1) else None,
+      if (lines.length > 3) lines.lift(2) else None,
+      lines.lastOption.getOrElse(""),
       postcode.getOrElse(""),
       country.code
     )
-  }
 
-  private def editLines: (String, Option[String], Option[String], String) = {
-
-    val l1 = lines.headOption.getOrElse("")
-    val l2 = if (lines.length > 2) lines.lift(1) else None
-    val l3 = if (lines.length > 3) lines.lift(2) else None
-    val l4 = lines.lastOption.getOrElse("")
-
-    (l1, l2, l3, l4)
-  }
 }
 
 object AddressModel {

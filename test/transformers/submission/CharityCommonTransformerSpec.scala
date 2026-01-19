@@ -501,7 +501,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityOfficialAddressLookupPage,
-                addressAllLines
+              addressAllLines
             )
               .flatMap(_.set(CanWeSendToThisAddressPage, false))
           )

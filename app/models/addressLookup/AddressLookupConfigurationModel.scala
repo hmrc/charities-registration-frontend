@@ -16,6 +16,8 @@
 
 package models.addressLookup
 
+import config.FrontendAppConfig
+import play.api.i18n.{Lang, MessagesApi}
 import play.api.libs.json.{Json, Writes}
 
 case class AddressLookupConfigurationModel(
@@ -26,4 +28,59 @@ case class AddressLookupConfigurationModel(
 
 object AddressLookupConfigurationModel {
   implicit val writes: Writes[AddressLookupConfigurationModel] = Json.writes[AddressLookupConfigurationModel]
+
+  def toAddressLookupConfigurationModel(
+    callbackUrl: String,
+    messagePrefix: String,
+    fullName: Option[String],
+    allowedCountryCodes: Option[Set[String]]
+  )(implicit appConfig: FrontendAppConfig, messages: MessagesApi): AddressLookupConfigurationModel = {
+    val english = Lang("en")
+    val welsh   = Lang("cy")
+
+    val fullCallbackURL = appConfig.host + callbackUrl
+    val fullSignOutURL  = controllers.routes.SignOutController.signOut().url
+
+    AddressLookupConfigurationModel(
+      version = 2,
+      options = AddressLookupOptionsModel(
+        continueUrl = fullCallbackURL,
+        signOutHref = fullSignOutURL,
+        useNewGovUkServiceNavigation = true,
+        deskProServiceName = appConfig.contactFormServiceIdentifier,
+        showBackButtons = true,
+        includeHMRCBranding = false,
+        allowedCountryCodes = allowedCountryCodes,
+        ukMode = false,
+        selectPageConfig = AddressLookupSelectConfigModel(
+          showSearchAgainLink = true
+        ),
+        confirmPageConfig = AddressLookupConfirmConfigModel(
+          showSubHeadingAndInfo = false
+        ),
+        timeoutConfig = AddressLookupConfirmTimeoutModel(
+          timeoutAmount = appConfig.timeout,
+          timeoutUrl = fullSignOutURL
+        ),
+        manualAddressEntryConfig = ManualAddressEntryConfigModel(
+          line1MaxLength = 35,
+          line2MaxLength = 35,
+          line3MaxLength = 35,
+          townMaxLength = 35,
+          mandatoryFields = MandatoryFields(
+            addressLine1 = true,
+            addressLine2 = false,
+            addressLine3 = false,
+            town = true,
+            postcode = false
+          ),
+          showOrganisationName = false
+        )
+      ),
+      labels = AddressMessageLanguageModel(
+        en = AddressMessagesModel.forLang(english, messagePrefix, fullName),
+        cy = AddressMessagesModel.forLang(welsh, messagePrefix, fullName)
+      )
+    )
+  }
 }

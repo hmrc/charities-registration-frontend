@@ -165,30 +165,25 @@ index.section.canNotStartYet = Ni allwch ddechrau eto
 
 # Common Address Lookup Frontend Messages
 # ----------------------------------------------------------
-commonAddress.lookupPage.filterLabel = Enw neu rif yr eiddo (dewisol)
 commonAddress.LookupPage.postcodeLabel = Chwilio am y cod post
-commonAddress.lookupPage.submitLabel = Dod o hyd i gyfeiriad
-commonAddress.lookupPage.noResultsFoundMessage =
-commonAddress.lookupPage.resultLimitExceededMessage =
 
 commonAddress.selectPage.headingWithPostcode = Chwilio am y cod post
-commonAddress.selectPage.proposalListLabel =
 commonAddress.selectPage.submitLabel = Yn eich blaen
-commonAddress.selectPage.searchAgainLinkText =
 
-commonAddress.editPage.line1Label = Cyfeiriad – llinell 1
-commonAddress.editPage.line2Label = Cyfeiriad – llinell 2 (dewisol)
-commonAddress.editPage.line3Label = Cyfeiriad – llinell 3 (dewisol)
+
 commonAddress.editPage.townLabel = Tref neu ddinas
-commonAddress.editPage.postcodeLabel = Cod post neu god ‘zip’ (dewisol)
-commonAddress.editPage.country = Gwlad
-commonAddress.editPage.country.hintText = Dewiswch wlad
-commonAddress.editPage.submitLabel = Yn eich blaen
+commonAddress.editPage.postcodeLabel = Cod post neu god ‘zip’
 
-commonAddress.confirmPage.infoMessage =
+commonAddress.amendPage.line1Label = Cyfeiriad – llinell 1
+commonAddress.amendPage.line2Label = Cyfeiriad – llinell 2 (dewisol)
+commonAddress.amendPage.line3Label = Cyfeiriad – llinell 3 (dewisol)
+commonAddress.amendPage.townLabel = Tref neu ddinas
+commonAddress.amendPage.postcodeLabel = Cod post neu god ‘zip’ (dewisol)
+commonAddress.amendPage.country = Gwlad
+commonAddress.amendPage.country.hintText = Dewiswch wlad
+commonAddress.amendPage.submitLabel = Yn eich blaen
+
 commonAddress.confirmPage.submitLabel = Cadarnhau ac yn eich blaen
-commonAddress.confirmPage.searchAgainLinkText =
-commonAddress.confirmPage.confirmChangeText =
 
 # Dead End page Messages
 # ----------------------------------------------------------

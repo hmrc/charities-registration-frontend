@@ -267,7 +267,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
           summaryListRow(
             messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel"),
             HtmlContent(officialsDOB.format(dateFormatter)),
-              Some(messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel")),
+            Some(messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonDOBController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
         )

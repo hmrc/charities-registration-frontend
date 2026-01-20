@@ -19,23 +19,26 @@ package models
 import play.api.libs.json.{JsString, Writes}
 import play.api.mvc.JavascriptLiteral
 
-sealed trait Mode
 
-case object CheckMode extends Mode
-case object NormalMode extends Mode
-case object PlaybackMode extends Mode
+enum Mode {
+  case NormalMode
+  case CheckMode
+  case PlaybackMode
+}
 
 object Mode {
 
-  implicit val jsLiteral: JavascriptLiteral[Mode] = {
-    case NormalMode   => "\"NormalMode\""
-    case CheckMode    => "\"CheckMode\""
-    case PlaybackMode => "\"PlaybackMode\""
-  }
+  given jsLiteral: JavascriptLiteral[Mode] with 
+    override def to(mode: Mode): String = mode match {
+      case Mode.NormalMode => "\"NormalMode\""
+      case Mode.CheckMode => "\"CheckMode\""
+      case Mode.PlaybackMode => "\"PlaybackMode\""
+    }
 
-  implicit val writes: Writes[Mode] = Writes {
-    case NormalMode   => JsString("NormalMode")
-    case CheckMode    => JsString("CheckMode")
-    case PlaybackMode => JsString("PlaybackMode")
-  }
+  given Writes[Mode] with
+    def writes(mode: Mode): JsString = mode match {
+      case Mode.NormalMode => JsString("NormalMode")
+      case Mode.CheckMode => JsString("CheckMode")
+      case Mode.PlaybackMode => JsString("PlaybackMode")
+    }
 }

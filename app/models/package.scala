@@ -19,6 +19,7 @@ import play.api.libs.json._
 import scala.language.implicitConversions
 
 package object models {
+  export Mode.{NormalMode, CheckMode, PlaybackMode}
 
   implicit def withNameToString[A >: WithName](x: A): String = x.toString
 

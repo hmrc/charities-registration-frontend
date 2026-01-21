@@ -45,7 +45,6 @@ class AddressLookupConnector @Inject() (httpClient: HttpClientV2, implicit val a
   ): Future[AddressLookupInitializationResponse] = {
 
     val body = toAddressLookupConfigurationModel(callbackUrl, messagePrefix, fullName, allowedCountryCodes)
-    println(Json.toJson(body)(writes))
     httpClient
       .post(url"$addressLookupInitUrl")
       .withBody(Json.toJson(body)(writes))

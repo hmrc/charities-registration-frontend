@@ -171,14 +171,16 @@ commonAddress.selectPage.headingWithPostcode = Postcode search
 commonAddress.selectPage.submitLabel = Continue
 
 commonAddress.editPage.townLabel = Town or city
-commonAddress.editPage.postcodeLabel = Postcode or Zipcode
+commonAddress.editPage.postcodeLabel = Postcode
 
+commonAddress.internationalEditPage.postcodeLabel = Postal Code
 
 commonAddress.amendPage.line1Label = Address line 1
 commonAddress.amendPage.line2Label = Address line 2 (optional)
 commonAddress.amendPage.line3Label = Address line 3 (optional)
 commonAddress.amendPage.townLabel = Town or city
-commonAddress.amendPage.postcodeLabel = Postcode or Zipcode (optional)
+commonAddress.amendPage.postcodeLabel = Postcode (optional)
+commonAddress.internationalEditPage.postcodeLabel = Postal Code (optional)
 commonAddress.amendPage.country = Country
 commonAddress.amendPage.country.hintText = Select a country
 commonAddress.amendPage.submitLabel = Continue

@@ -63,10 +63,10 @@ object AddressLookupConfigurationModel {
           timeoutUrl = fullSignOutURL
         ),
         manualAddressEntryConfig = ManualAddressEntryConfigModel(
-          line1MaxLength = 35,
-          line2MaxLength = 35,
-          line3MaxLength = 35,
-          townMaxLength = 35,
+          line1MaxLength = 34,
+          line2MaxLength = 34,
+          line3MaxLength = 34,
+          townMaxLength = 34,
           mandatoryFields = MandatoryFields(
             addressLine1 = true,
             addressLine2 = false,

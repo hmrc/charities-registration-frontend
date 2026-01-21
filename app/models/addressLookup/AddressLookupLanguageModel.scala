@@ -31,7 +31,8 @@ case class AddressMessagesModel(
   lookupPageLabels: LookupPageMessagesModel,
   selectPageLabels: SelectPageMessagesModel,
   editPageLabels: EditPageMessagesModel,
-  confirmPageLabels: ConfirmPageMessagesModel
+  confirmPageLabels: ConfirmPageMessagesModel,
+  international: InternationalMessagesModel
 )
 
 object AddressMessagesModel {
@@ -44,8 +45,9 @@ object AddressMessagesModel {
       appLevelLabels = AppLevelMessagesModel.forLang(lang),
       lookupPageLabels = LookupPageMessagesModel.forLang(lang, messagePrefix, fullName),
       selectPageLabels = SelectPageMessagesModel.forLang(lang, messagePrefix, fullName),
-      editPageLabels = EditPageMessagesModel.forLang(lang, messagePrefix, fullName),
-      confirmPageLabels = ConfirmPageMessagesModel.forLang(lang, messagePrefix, fullName)
+      editPageLabels = EditPageMessagesModel.forLang(lang, messagePrefix, fullName, false),
+      confirmPageLabels = ConfirmPageMessagesModel.forLang(lang, messagePrefix, fullName),
+      international = InternationalMessagesModel(EditPageMessagesModel.forLang(lang, messagePrefix, fullName, true))
     )
 }
 
@@ -102,8 +104,8 @@ object SelectPageMessagesModel {
 }
 
 case class EditPageMessagesModel(
-  title: Option[String],
-  heading: Option[String],
+                                  title: Option[String],
+                                  heading: Option[String],
   townLabel: Option[String],
   postcodeLabel: Option[String]
 )
@@ -111,14 +113,14 @@ case class EditPageMessagesModel(
 object EditPageMessagesModel {
   implicit val writes: Writes[EditPageMessagesModel] = Json.writes[EditPageMessagesModel]
 
-  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String])(implicit
+  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String], international: Boolean)(implicit
     messagesApi: MessagesApi
   ): EditPageMessagesModel =
     EditPageMessagesModel(
       title = MessageOption(s"$messagePrefix.editPage.title", lang),
-      heading = MessageOption(s"$messagePrefix.editPage.heading", lang, fullName.getOrElse("")),
+      heading = MessageOption(s"$messagePrefix.editPage.heading", lang, fullName.getOrElse("Sample")),
       townLabel = MessageOption(s"commonAddress.editPage.townLabel", lang),
-      postcodeLabel = MessageOption(s"commonAddress.editPage.postcodeLabel", lang)
+      postcodeLabel = if (international) MessageOption(s"commonAddress.internationalEditPage.postcodeLabel", lang) else MessageOption(s"commonAddress.editPage.postcodeLabel", lang)
     )
 }
 
@@ -139,4 +141,12 @@ object ConfirmPageMessagesModel {
       heading = MessageOption(s"$messagePrefix.confirmPage.heading", lang, fullName.getOrElse("")),
       submitLabel = MessageOption(s"commonAddress.confirmPage.submitLabel", lang)
     )
+}
+
+case class InternationalMessagesModel(
+                                       editPageLabels: EditPageMessagesModel
+                                     )
+
+object InternationalMessagesModel {
+  implicit val writes: Writes[InternationalMessagesModel] = Json.writes[InternationalMessagesModel]
 }

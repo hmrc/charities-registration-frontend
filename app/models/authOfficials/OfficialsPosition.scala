@@ -16,68 +16,45 @@
 
 package models.authOfficials
 
-import models.{Enumerable, WithName}
+import models.Enumerable
 import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 import play.api.libs.json._
 
-sealed trait OfficialsPosition
+enum OfficialsPosition(val code: String) {
+  override def toString: String = code
+
+  case BoardMember extends OfficialsPosition("01")
+  case Bursar extends OfficialsPosition("02")
+  private case Chairman extends OfficialsPosition("03")
+  private case ChiefExecutive extends OfficialsPosition("04")
+  case Director extends OfficialsPosition("05")
+  private case Employee extends OfficialsPosition("06")
+  private case FinanceManager extends OfficialsPosition("07")
+  private case FinancialAccountant extends OfficialsPosition("08")
+  private case GiftAidSecretary extends OfficialsPosition("09")
+  private case Governor extends OfficialsPosition("10")
+  private case HeadTeacher extends OfficialsPosition("11")
+  private case AssistantHeadTeacher extends OfficialsPosition("12")
+  private case HumanResourcesManager extends OfficialsPosition("13")
+  private case InformationOfficer extends OfficialsPosition("14")
+  private case MinisterOfReligion extends OfficialsPosition("15")
+  private case Principal extends OfficialsPosition("16")
+  private case Secretary extends OfficialsPosition("17")
+  private case AssistantSecretary extends OfficialsPosition("18")
+  private case Teacher extends OfficialsPosition("19")
+  private case Treasurer extends OfficialsPosition("20")
+  private case AssistantTreasurer extends OfficialsPosition("21")
+  private case Trustee extends OfficialsPosition("22")
+  case UKAgent extends OfficialsPosition("23")
+}
+
 
 object OfficialsPosition extends Enumerable.Implicits {
-
-  case object BoardMember extends WithName("01") with OfficialsPosition
-  case object Bursar extends WithName("02") with OfficialsPosition
-  private case object Chairman extends WithName("03") with OfficialsPosition
-  private case object ChiefExecutive extends WithName("04") with OfficialsPosition
-  case object Director extends WithName("05") with OfficialsPosition
-  private case object Employee extends WithName("06") with OfficialsPosition
-  private case object FinanceManager extends WithName("07") with OfficialsPosition
-  private case object FinancialAccountant extends WithName("08") with OfficialsPosition
-  private case object GiftAidSecretary extends WithName("09") with OfficialsPosition
-  private case object Governor extends WithName("10") with OfficialsPosition
-  private case object HeadTeacher extends WithName("11") with OfficialsPosition
-  private case object AssistantHeadTeacher extends WithName("12") with OfficialsPosition
-  private case object HumanResourcesManager extends WithName("13") with OfficialsPosition
-  private case object InformationOfficer extends WithName("14") with OfficialsPosition
-  private case object MinisterOfReligion extends WithName("15") with OfficialsPosition
-  private case object Principal extends WithName("16") with OfficialsPosition
-  private case object Secretary extends WithName("17") with OfficialsPosition
-  private case object AssistantSecretary extends WithName("18") with OfficialsPosition
-  private case object Teacher extends WithName("19") with OfficialsPosition
-  private case object Treasurer extends WithName("20") with OfficialsPosition
-  private case object AssistantTreasurer extends WithName("21") with OfficialsPosition
-  private case object Trustee extends WithName("22") with OfficialsPosition
-  case object UKAgent extends WithName("23") with OfficialsPosition
-
-  val values: Seq[OfficialsPosition] = Seq(
-    BoardMember,
-    Bursar,
-    Chairman,
-    ChiefExecutive,
-    Director,
-    Employee,
-    FinanceManager,
-    FinancialAccountant,
-    GiftAidSecretary,
-    Governor,
-    HeadTeacher,
-    AssistantHeadTeacher,
-    HumanResourcesManager,
-    InformationOfficer,
-    MinisterOfReligion,
-    Principal,
-    Secretary,
-    AssistantSecretary,
-    Teacher,
-    Treasurer,
-    AssistantTreasurer,
-    Trustee,
-    UKAgent
-  )
-
-  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+  
+  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.toIndexedSeq.map { value =>
     RadioItem(
       value = Some(value.toString),
       content = Text(messages(s"officialsPosition.${value.toString}")),
@@ -89,29 +66,29 @@ object OfficialsPosition extends Enumerable.Implicits {
     Enumerable(values.map(v => v.toString -> v)*)
 
   implicit def reads: Reads[OfficialsPosition] = Reads[OfficialsPosition] {
-    case JsString(BoardMember.toString)           => JsSuccess(BoardMember)
-    case JsString(Bursar.toString)                => JsSuccess(Bursar)
-    case JsString(Chairman.toString)              => JsSuccess(Chairman)
-    case JsString(ChiefExecutive.toString)        => JsSuccess(ChiefExecutive)
-    case JsString(Director.toString)              => JsSuccess(Director)
-    case JsString(Employee.toString)              => JsSuccess(Employee)
-    case JsString(FinanceManager.toString)        => JsSuccess(FinanceManager)
-    case JsString(FinancialAccountant.toString)   => JsSuccess(FinancialAccountant)
-    case JsString(GiftAidSecretary.toString)      => JsSuccess(GiftAidSecretary)
-    case JsString(Governor.toString)              => JsSuccess(Governor)
-    case JsString(HeadTeacher.toString)           => JsSuccess(HeadTeacher)
-    case JsString(AssistantHeadTeacher.toString)  => JsSuccess(AssistantHeadTeacher)
-    case JsString(HumanResourcesManager.toString) => JsSuccess(HumanResourcesManager)
-    case JsString(InformationOfficer.toString)    => JsSuccess(InformationOfficer)
-    case JsString(MinisterOfReligion.toString)    => JsSuccess(MinisterOfReligion)
-    case JsString(Principal.toString)             => JsSuccess(Principal)
-    case JsString(Secretary.toString)             => JsSuccess(Secretary)
-    case JsString(AssistantSecretary.toString)    => JsSuccess(AssistantSecretary)
-    case JsString(Teacher.toString)               => JsSuccess(Teacher)
-    case JsString(Treasurer.toString)             => JsSuccess(Treasurer)
-    case JsString(AssistantTreasurer.toString)    => JsSuccess(AssistantTreasurer)
-    case JsString(Trustee.toString)               => JsSuccess(Trustee)
-    case JsString(UKAgent.toString)               => JsSuccess(UKAgent)
+    case JsString(BoardMember.code)           => JsSuccess(BoardMember)
+    case JsString(Bursar.code)                => JsSuccess(Bursar)
+    case JsString(Chairman.code)              => JsSuccess(Chairman)
+    case JsString(ChiefExecutive.code)        => JsSuccess(ChiefExecutive)
+    case JsString(Director.code)              => JsSuccess(Director)
+    case JsString(Employee.code)              => JsSuccess(Employee)
+    case JsString(FinanceManager.code)        => JsSuccess(FinanceManager)
+    case JsString(FinancialAccountant.code)   => JsSuccess(FinancialAccountant)
+    case JsString(GiftAidSecretary.code)      => JsSuccess(GiftAidSecretary)
+    case JsString(Governor.code)              => JsSuccess(Governor)
+    case JsString(HeadTeacher.code)           => JsSuccess(HeadTeacher)
+    case JsString(AssistantHeadTeacher.code)  => JsSuccess(AssistantHeadTeacher)
+    case JsString(HumanResourcesManager.code) => JsSuccess(HumanResourcesManager)
+    case JsString(InformationOfficer.code)    => JsSuccess(InformationOfficer)
+    case JsString(MinisterOfReligion.code)    => JsSuccess(MinisterOfReligion)
+    case JsString(Principal.code)             => JsSuccess(Principal)
+    case JsString(Secretary.code)             => JsSuccess(Secretary)
+    case JsString(AssistantSecretary.code)    => JsSuccess(AssistantSecretary)
+    case JsString(Teacher.code)               => JsSuccess(Teacher)
+    case JsString(Treasurer.code)             => JsSuccess(Treasurer)
+    case JsString(AssistantTreasurer.code)    => JsSuccess(AssistantTreasurer)
+    case JsString(Trustee.code)               => JsSuccess(Trustee)
+    case JsString(UKAgent.code)               => JsSuccess(UKAgent)
     case _                                        => JsError("error.invalid")
   }
 

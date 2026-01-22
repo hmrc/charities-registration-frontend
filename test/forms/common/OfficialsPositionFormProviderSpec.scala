@@ -33,7 +33,7 @@ class OfficialsPositionFormProviderSpec extends OptionFieldBehaviours {
     behave like optionsField[OfficialsPosition](
       form,
       fieldName,
-      validValues = OfficialsPosition.values,
+      validValues = OfficialsPosition.values.toIndexedSeq,
       invalidError = FormError(fieldName, "error.invalid")
     )
 

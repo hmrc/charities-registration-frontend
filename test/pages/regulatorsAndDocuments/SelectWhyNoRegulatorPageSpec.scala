@@ -27,7 +27,7 @@ class SelectWhyNoRegulatorPageSpec extends PageBehaviours {
   "SelectWhyNoRegulatorPage" must {
 
     implicit lazy val arbitraryCharityContactDetails: Arbitrary[SelectWhyNoRegulator] = Arbitrary {
-      Gen.oneOf(SelectWhyNoRegulator.values)
+      Gen.oneOf(SelectWhyNoRegulator.values.toIndexedSeq)
     }
 
     beRetrievable[SelectWhyNoRegulator](SelectWhyNoRegulatorPage)

@@ -30,7 +30,7 @@ class SelectWhyNoRegulatorSpec extends AnyWordSpec with Matchers with ScalaCheck
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(SelectWhyNoRegulator.values)
+      val gen = Gen.oneOf(SelectWhyNoRegulator.values.toIndexedSeq)
 
       forAll(gen) { selectWhyNoRegulator =>
         JsString(selectWhyNoRegulator.toString)
@@ -51,7 +51,7 @@ class SelectWhyNoRegulatorSpec extends AnyWordSpec with Matchers with ScalaCheck
 
     "serialise" in {
 
-      val gen = Gen.oneOf(SelectWhyNoRegulator.values)
+      val gen = Gen.oneOf(SelectWhyNoRegulator.values.toIndexedSeq)
 
       forAll(gen) { selectWhyNoRegulator =>
         Json.toJson(selectWhyNoRegulator) mustEqual JsString(selectWhyNoRegulator.toString)

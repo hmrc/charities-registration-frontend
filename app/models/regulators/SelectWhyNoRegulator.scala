@@ -16,34 +16,39 @@
 
 package models.regulators
 
-import models.{Enumerable, WithName}
+import models.Enumerable
 import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 import play.api.libs.json._
 
-sealed trait SelectWhyNoRegulator
+enum SelectWhyNoRegulator(val name: String) {
 
+  override def toString: String = name
+
+  case EnglandWalesUnderThreshold
+    extends SelectWhyNoRegulator("1")
+
+  case ExemptOrExcepted
+    extends SelectWhyNoRegulator("5")
+
+  private case NoRegulatorInCountry
+    extends SelectWhyNoRegulator("4")
+
+  private case ParochialChurchCouncils
+    extends SelectWhyNoRegulator("2")
+
+  case UniformedYouthGroup
+    extends SelectWhyNoRegulator("3")
+
+  case Other
+    extends SelectWhyNoRegulator("7")
+}
 object SelectWhyNoRegulator extends Enumerable.Implicits {
 
-  case object EnglandWalesUnderThreshold extends WithName("1") with SelectWhyNoRegulator
-  case object ExemptOrExcepted extends WithName("5") with SelectWhyNoRegulator
-  private case object NoRegulatorInCountry extends WithName("4") with SelectWhyNoRegulator
-  private case object ParochialChurchCouncils extends WithName("2") with SelectWhyNoRegulator
-  case object UniformedYouthGroup extends WithName("3") with SelectWhyNoRegulator
-  case object Other extends WithName("7") with SelectWhyNoRegulator
 
-  val values: Seq[SelectWhyNoRegulator] = Seq(
-    EnglandWalesUnderThreshold,
-    ExemptOrExcepted,
-    NoRegulatorInCountry,
-    ParochialChurchCouncils,
-    UniformedYouthGroup,
-    Other
-  )
-
-  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.toIndexedSeq.map { value =>
     RadioItem(
       value = Some(value.toString),
       content = Text(messages(s"selectWhyNoRegulator.${value.toString}")),
@@ -55,12 +60,12 @@ object SelectWhyNoRegulator extends Enumerable.Implicits {
     Enumerable(values.map(v => v.toString -> v)*)
 
   implicit def reads: Reads[SelectWhyNoRegulator] = Reads[SelectWhyNoRegulator] {
-    case JsString(EnglandWalesUnderThreshold.toString) => JsSuccess(EnglandWalesUnderThreshold)
-    case JsString(ExemptOrExcepted.toString)           => JsSuccess(ExemptOrExcepted)
-    case JsString(NoRegulatorInCountry.toString)       => JsSuccess(NoRegulatorInCountry)
-    case JsString(ParochialChurchCouncils.toString)    => JsSuccess(ParochialChurchCouncils)
-    case JsString(UniformedYouthGroup.toString)        => JsSuccess(UniformedYouthGroup)
-    case JsString(Other.toString)                      => JsSuccess(Other)
+    case JsString(EnglandWalesUnderThreshold.name) => JsSuccess(EnglandWalesUnderThreshold)
+    case JsString(ExemptOrExcepted.name)           => JsSuccess(ExemptOrExcepted)
+    case JsString(NoRegulatorInCountry.name)       => JsSuccess(NoRegulatorInCountry)
+    case JsString(ParochialChurchCouncils.name)    => JsSuccess(ParochialChurchCouncils)
+    case JsString(UniformedYouthGroup.name)        => JsSuccess(UniformedYouthGroup)
+    case JsString(Other.name)                      => JsSuccess(Other)
     case _                                             => JsError("error.invalid")
   }
 

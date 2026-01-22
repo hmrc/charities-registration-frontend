@@ -26,7 +26,7 @@ import play.api.libs.json.Json
 class SelectGoverningDocumentPageSpec extends PageBehaviours {
 
   implicit lazy val arbitraryCharityContactDetails: Arbitrary[SelectGoverningDocument] = Arbitrary {
-    Gen.oneOf(SelectGoverningDocument.values)
+    Gen.oneOf(SelectGoverningDocument.values.toIndexedSeq)
   }
 
   "SelectGoverningDocument" must {

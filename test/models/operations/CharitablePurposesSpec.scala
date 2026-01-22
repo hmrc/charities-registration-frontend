@@ -30,7 +30,7 @@ class CharitablePurposesSpec extends AnyWordSpec with Matchers with ScalaCheckPr
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(CharitablePurposes.values)
+      val gen = Gen.oneOf(CharitablePurposes.values.toIndexedSeq)
 
       forAll(gen) { charitablePurposesCheckbox =>
         JsString(charitablePurposesCheckbox.toString)
@@ -51,7 +51,7 @@ class CharitablePurposesSpec extends AnyWordSpec with Matchers with ScalaCheckPr
 
     "serialise" in {
 
-      val gen = Gen.oneOf(CharitablePurposes.values)
+      val gen = Gen.oneOf(CharitablePurposes.values.toIndexedSeq)
 
       forAll(gen) { charitablePurposesCheckbox =>
         Json.toJson(charitablePurposesCheckbox) mustBe JsString(charitablePurposesCheckbox.toString)

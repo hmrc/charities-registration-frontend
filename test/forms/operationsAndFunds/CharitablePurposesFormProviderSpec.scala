@@ -32,7 +32,7 @@ class CharitablePurposesFormProviderSpec extends CheckboxFieldBehaviours {
     behave like checkboxField[CharitablePurposes](
       form,
       fieldName,
-      validValues = CharitablePurposes.values,
+      validValues = CharitablePurposes.values.toIndexedSeq,
       invalidError = FormError(s"$fieldName[0]", "error.invalid")
     )
 

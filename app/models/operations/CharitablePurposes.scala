@@ -16,120 +16,94 @@
 
 package models.operations
 
-import models.{Enumerable, WithName, WithOrder}
+import models.{Enumerable, WithOrder}
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
-sealed trait CharitablePurposes extends WithOrder
+enum CharitablePurposes(val name: String, val order: Int)
+  extends WithOrder {
+
+  override def toString: String = name
+
+  case AmateurSport
+    extends CharitablePurposes("amateurSport", 1)
+
+  case AnimalWelfare
+    extends CharitablePurposes("animalWelfare", 2)
+
+  private case ArtsCultureHeritageScience
+    extends CharitablePurposes("artsCultureOrScience", 3)
+
+  private case CitizenshipCommunity
+    extends CharitablePurposes("citizenshipOrCommunityDevelopment", 4)
+
+  private case Education
+    extends CharitablePurposes("education", 5)
+
+  private case EnvironmentalProtection
+    extends CharitablePurposes("environmentalProtection", 6)
+
+  private case Health
+    extends CharitablePurposes("healthOrSavingOfLives", 7)
+
+  private case HumanRights
+    extends CharitablePurposes("humanRights", 8)
+
+  private case PromotionOfEfficiency
+    extends CharitablePurposes("armedForcesOfTheCrown", 9)
+
+  private case ReliefOfPoverty
+    extends CharitablePurposes("reliefOfPoverty", 10)
+
+  private case ReliefOfThoseInNeed
+    extends CharitablePurposes("reliefOfYouthAge", 11)
+
+  private case Religion
+    extends CharitablePurposes("religion", 12)
+
+  case Other
+    extends CharitablePurposes("other", 13)
+}
+
 
 object CharitablePurposes extends Enumerable.Implicits {
 
-  case object AmateurSport extends WithName("amateurSport") with CharitablePurposes {
-    override val order: Int = 1
-  }
-
-  case object AnimalWelfare extends WithName("animalWelfare") with CharitablePurposes {
-    override val order: Int = 2
-  }
-
-  private case object ArtsCultureHeritageScience extends WithName("artsCultureOrScience") with CharitablePurposes {
-    override val order: Int = 3
-  }
-
-  private case object CitizenshipCommunity
-      extends WithName("citizenshipOrCommunityDevelopment")
-      with CharitablePurposes {
-    override val order: Int = 4
-  }
-
-  private case object Education extends WithName("education") with CharitablePurposes {
-    override val order: Int = 5
-  }
-
-  private case object EnvironmentalProtection extends WithName("environmentalProtection") with CharitablePurposes {
-    override val order: Int = 6
-  }
-
-  private case object Health extends WithName("healthOrSavingOfLives") with CharitablePurposes {
-    override val order: Int = 7
-  }
-
-  private case object HumanRights extends WithName("humanRights") with CharitablePurposes {
-    override val order: Int = 8
-  }
-
-  private case object PromotionOfEfficiency extends WithName("armedForcesOfTheCrown") with CharitablePurposes {
-    override val order: Int = 9
-  }
-
-  private case object ReliefOfPoverty extends WithName("reliefOfPoverty") with CharitablePurposes {
-    override val order: Int = 10
-  }
-
-  private case object ReliefOfThoseInNeed extends WithName("reliefOfYouthAge") with CharitablePurposes {
-    override val order: Int = 11
-  }
-
-  private case object Religion extends WithName("religion") with CharitablePurposes {
-    override val order: Int = 12
-  }
-
-  case object Other extends WithName("other") with CharitablePurposes {
-    override val order: Int = 13
-  }
-
-  val values: Seq[CharitablePurposes] = Seq(
-    AmateurSport,
-    AnimalWelfare,
-    ArtsCultureHeritageScience,
-    CitizenshipCommunity,
-    Education,
-    EnvironmentalProtection,
-    Health,
-    HumanRights,
-    PromotionOfEfficiency,
-    ReliefOfPoverty,
-    ReliefOfThoseInNeed,
-    Religion,
-    Other
-  )
-
-  def options(form: Form[?])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
+  def options(form: Form[?])(implicit messages: Messages): Seq[CheckboxItem] = values.toIndexedSeq.zipWithIndex.map {
     case (value, index) =>
       CheckboxItem(
         name = Some("value[]"),
         id = Some(if (index == 0) { "value" }
         else { "value-" + index.toString }),
-        value = value.toString,
-        content = Text(messages(s"charitablePurposes.${value.toString}")),
-        checked = form.data.exists(_._2 == value.toString)
+        value = value.name,
+        content = Text(messages(s"charitablePurposes.${value.name}")),
+        checked = form.data.exists(_._2 == value.name)
       )
   }
 
   implicit val enumerable: Enumerable[CharitablePurposes] =
-    Enumerable(values.map(v => v.toString -> v)*)
+    Enumerable(values.map(v => v.name -> v)*)
 
   implicit def reads: Reads[CharitablePurposes] = Reads[CharitablePurposes] {
-    case JsString(AmateurSport.toString)               => JsSuccess(AmateurSport)
-    case JsString(AnimalWelfare.toString)              => JsSuccess(AnimalWelfare)
-    case JsString(ArtsCultureHeritageScience.toString) => JsSuccess(ArtsCultureHeritageScience)
-    case JsString(CitizenshipCommunity.toString)       => JsSuccess(CitizenshipCommunity)
-    case JsString(Education.toString)                  => JsSuccess(Education)
-    case JsString(EnvironmentalProtection.toString)    => JsSuccess(EnvironmentalProtection)
-    case JsString(Health.toString)                     => JsSuccess(Health)
-    case JsString(HumanRights.toString)                => JsSuccess(HumanRights)
-    case JsString(PromotionOfEfficiency.toString)      => JsSuccess(PromotionOfEfficiency)
-    case JsString(ReliefOfPoverty.toString)            => JsSuccess(ReliefOfPoverty)
-    case JsString(ReliefOfThoseInNeed.toString)        => JsSuccess(ReliefOfThoseInNeed)
-    case JsString(Religion.toString)                   => JsSuccess(Religion)
-    case JsString(Other.toString)                      => JsSuccess(Other)
+    case JsString(AmateurSport.name)               => JsSuccess(AmateurSport)
+    case JsString(AnimalWelfare.name)              => JsSuccess(AnimalWelfare)
+    case JsString(ArtsCultureHeritageScience.name) => JsSuccess(ArtsCultureHeritageScience)
+    case JsString(CitizenshipCommunity.name)       => JsSuccess(CitizenshipCommunity)
+    case JsString(Education.name)                  => JsSuccess(Education)
+    case JsString(EnvironmentalProtection.name)    => JsSuccess(EnvironmentalProtection)
+    case JsString(Health.name)                     => JsSuccess(Health)
+    case JsString(HumanRights.name)                => JsSuccess(HumanRights)
+    case JsString(PromotionOfEfficiency.name)      => JsSuccess(PromotionOfEfficiency)
+    case JsString(ReliefOfPoverty.name)            => JsSuccess(ReliefOfPoverty)
+    case JsString(ReliefOfThoseInNeed.name)        => JsSuccess(ReliefOfThoseInNeed)
+    case JsString(Religion.name)                   => JsSuccess(Religion)
+    case JsString(Other.name)                      => JsSuccess(Other)
     case _                                             => JsError("error.invalid")
   }
 
   implicit def writes: Writes[CharitablePurposes] =
-    Writes(value => JsString(value.toString))
+    Writes(value => JsString(value.name))
 
 }

@@ -24,7 +24,7 @@ class CharitablePurposesPageSpec extends PageBehaviours {
 
   implicit lazy val arbitraryCharityRegulatorCheckbox: Arbitrary[CharitablePurposes] =
     Arbitrary {
-      Gen.oneOf(CharitablePurposes.values)
+      Gen.oneOf(CharitablePurposes.values.toIndexedSeq)
     }
 
   "CharityRegulatorPage" must {

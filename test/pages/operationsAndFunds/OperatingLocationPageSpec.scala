@@ -24,7 +24,7 @@ class OperatingLocationPageSpec extends PageBehaviours {
 
   implicit lazy val arbitraryOperatingLocationOptions: Arbitrary[OperatingLocationOptions] =
     Arbitrary {
-      Gen.oneOf(OperatingLocationOptions.values)
+      Gen.oneOf(OperatingLocationOptions.values.toIndexedSeq)
     }
 
   "OperatingLocationPage" must {

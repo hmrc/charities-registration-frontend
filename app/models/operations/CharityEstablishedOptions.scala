@@ -16,32 +16,27 @@
 
 package models.operations
 
-import models.{Enumerable, WithName}
+import models.Enumerable
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
-sealed trait CharityEstablishedOptions
+enum CharityEstablishedOptions(val name: String) {
+
+  override def toString: String = name
+
+  case England          extends CharityEstablishedOptions("0")
+  case Wales            extends CharityEstablishedOptions("1")
+  case Scotland         extends CharityEstablishedOptions("2")
+  case NorthernIreland  extends CharityEstablishedOptions("3")
+  case Overseas         extends CharityEstablishedOptions("4")
+}
 
 object CharityEstablishedOptions extends Enumerable.Implicits {
 
-  case object England extends WithName("0") with CharityEstablishedOptions
-  case object Wales extends WithName("1") with CharityEstablishedOptions
-  case object Scotland extends WithName("2") with CharityEstablishedOptions
-  case object NorthernIreland extends WithName("3") with CharityEstablishedOptions
-  case object Overseas extends WithName("4") with CharityEstablishedOptions
-
-  val values: Seq[CharityEstablishedOptions] = Seq(
-    England,
-    Wales,
-    Scotland,
-    NorthernIreland,
-    Overseas
-  )
-
-  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.toIndexedSeq.map { value =>
     RadioItem(
       value = Some(value.toString),
       content = Text(messages(s"charityEstablishedIn.${value.toString}")),
@@ -53,11 +48,11 @@ object CharityEstablishedOptions extends Enumerable.Implicits {
     Enumerable(values.map(v => v.toString -> v)*)
 
   implicit def reads: Reads[CharityEstablishedOptions] = Reads[CharityEstablishedOptions] {
-    case JsString(England.toString)         => JsSuccess(England)
-    case JsString(Wales.toString)           => JsSuccess(Wales)
-    case JsString(Scotland.toString)        => JsSuccess(Scotland)
-    case JsString(NorthernIreland.toString) => JsSuccess(NorthernIreland)
-    case JsString(Overseas.toString)        => JsSuccess(Overseas)
+    case JsString(England.name)         => JsSuccess(England)
+    case JsString(Wales.name)           => JsSuccess(Wales)
+    case JsString(Scotland.name)        => JsSuccess(Scotland)
+    case JsString(NorthernIreland.name) => JsSuccess(NorthernIreland)
+    case JsString(Overseas.name)        => JsSuccess(Overseas)
     case _                                  => JsError("error.invalid")
   }
 

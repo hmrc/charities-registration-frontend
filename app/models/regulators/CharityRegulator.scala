@@ -16,7 +16,7 @@
 
 package models.regulators
 
-import models.{Enumerable, WithName, WithOrder}
+import models.{Enumerable, WithOrder}
 import pages.QuestionPage
 import pages.regulatorsAndDocuments.*
 import play.api.data.Form
@@ -25,29 +25,25 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
-sealed trait CharityRegulator extends WithOrder
+enum CharityRegulator(val name: String, val order: Int)
+  extends WithOrder {
+
+  override def toString: String = name
+
+  case EnglandWales
+    extends CharityRegulator("ccew", 1)
+
+  case Scottish
+    extends CharityRegulator("oscr", 2)
+
+  case NorthernIreland
+    extends CharityRegulator("ccni", 3)
+
+  case Other
+    extends CharityRegulator("otherRegulator", 4)
+}
 
 object CharityRegulator extends Enumerable.Implicits {
-
-  case object EnglandWales extends WithName("ccew") with CharityRegulator {
-    override val order: Int = 1
-  }
-  case object Scottish extends WithName("oscr") with CharityRegulator {
-    override val order: Int = 2
-  }
-  case object NorthernIreland extends WithName("ccni") with CharityRegulator {
-    override val order: Int = 3
-  }
-  case object Other extends WithName("otherRegulator") with CharityRegulator {
-    override val order: Int = 4
-  }
-
-  val values: Seq[CharityRegulator] = Seq(
-    EnglandWales,
-    Scottish,
-    NorthernIreland,
-    Other
-  )
 
   val pageMap: Map[CharityRegulator, QuestionPage[?]] = Map(
     EnglandWales    -> CharityCommissionRegistrationNumberPage,
@@ -56,7 +52,7 @@ object CharityRegulator extends Enumerable.Implicits {
     Other           -> CharityOtherRegulatorDetailsPage
   )
 
-  def options(form: Form[?])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
+  def options(form: Form[?])(implicit messages: Messages): Seq[CheckboxItem] = values.toIndexedSeq.zipWithIndex.map {
     case (value, index) =>
       CheckboxItem(
         name = Some("value[]"),
@@ -72,10 +68,10 @@ object CharityRegulator extends Enumerable.Implicits {
     Enumerable(values.map(v => v.toString -> v)*)
 
   implicit def reads: Reads[CharityRegulator] = Reads[CharityRegulator] {
-    case JsString(EnglandWales.toString)    => JsSuccess(EnglandWales)
-    case JsString(Scottish.toString)        => JsSuccess(Scottish)
-    case JsString(NorthernIreland.toString) => JsSuccess(NorthernIreland)
-    case JsString(Other.toString)           => JsSuccess(Other)
+    case JsString(EnglandWales.name)    => JsSuccess(EnglandWales)
+    case JsString(Scottish.name)        => JsSuccess(Scottish)
+    case JsString(NorthernIreland.name) => JsSuccess(NorthernIreland)
+    case JsString(Other.name)           => JsSuccess(Other)
     case _                                  => JsError("error.invalid")
   }
 

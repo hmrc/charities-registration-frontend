@@ -20,24 +20,21 @@ import audit.{AuditService, SubmissionAuditEvent}
 import connectors.CharitiesConnector
 import connectors.httpParsers.UnexpectedFailureException
 import models.requests.DataRequest
-import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
+import pages.AcknowledgementReferencePage
 import play.api.Logger
 import play.api.libs.json.Reads._
 import play.api.libs.json._
 import play.api.mvc.Result
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.TimeMachine
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
 
 class CharitiesRegistrationService @Inject() (
-  userAnswerService: UserAnswerService,
   auditService: AuditService,
-  charitiesConnector: CharitiesConnector,
-  timeMachine: TimeMachine
+  charitiesConnector: CharitiesConnector
 ) {
 
   private val logger = Logger(this.getClass)
@@ -50,17 +47,11 @@ class CharitiesRegistrationService @Inject() (
     request.userAnswers.get(AcknowledgementReferencePage) match {
       case None =>
         charitiesConnector.registerCharities(convertInputsForModel(requestJson), Random.nextInt()).flatMap {
-          case Right(result) =>
+          case Right(_) =>
             for {
-              updatedAnswers <- Future.fromTry(
-                                  request.userAnswers
-                                    .set(AcknowledgementReferencePage, result.acknowledgementReference)
-                                    .flatMap(_.set(ApplicationSubmissionDatePage, timeMachine.now()))
-                                )
-              _              <- userAnswerService.set(updatedAnswers)
-              _              <- Future.successful(
-                                  auditService.sendEvent(SubmissionAuditEvent(requestJson + ("declaration" -> JsBoolean(true))))
-                                )
+              _ <- Future.successful(
+                     auditService.sendEvent(SubmissionAuditEvent(requestJson + ("declaration" -> JsBoolean(true))))
+                   )
             } yield
               if (noEmailPost) {
                 Redirect(controllers.routes.RegistrationSentController.onPageLoad)

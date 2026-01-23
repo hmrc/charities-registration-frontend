@@ -14,22 +14,19 @@
  * limitations under the License.
  */
 
-package pages.contactDetails
+package models
 
-import models.addressLookup.AmendAddressModel
-import org.scalacheck.Arbitrary
-import pages.behaviours.PageBehaviours
+import play.api.libs.json.{Json, Reads}
 
-class AmendAddressPageSpec extends PageBehaviours {
+import java.time.LocalDate
 
-  "AmendCharityOfficialAddressPage" must {
+case class RegisteredApplication(
+  acknowledgementReference: String,
+  foreignOfficials: List[Name],
+  requiredDocuments: Map[String, Boolean],
+  applicationSubmissionDate: LocalDate
+)
 
-    implicit lazy val arbitraryCharityContactDetails: Arbitrary[AmendAddressModel] = Arbitrary {
-      toAmendAddressModel(address, town)
-    }
-
-    beRetrievable[AmendAddressModel](AmendAddressPage)
-    beSettable[AmendAddressModel](AmendAddressPage)
-    beRemovable[AmendAddressModel](AmendAddressPage)
-  }
+object RegisteredApplication {
+  implicit val fmt: Reads[RegisteredApplication] = Json.reads[RegisteredApplication]
 }

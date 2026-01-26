@@ -31,10 +31,10 @@ import viewmodels.RequiredDocumentsHelper
 
 class RequiredDocumentsHelperSpec extends SpecBase {
 
-  private val john: Name = personNameWithoutMiddle
+  private val name: Name = personNameWithoutMiddle
 
   private val userAnswersForeignAuthOfficial1 = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), john)
+    .set(AuthorisedOfficialsNamePage(0), name)
     .flatMap(
       _.set(
         AuthorisedOfficialAddressLookupPage(0),
@@ -114,51 +114,51 @@ class RequiredDocumentsHelperSpec extends SpecBase {
       "return a non-empty sequence if at least one official lives abroad" in {
 
         RequiredDocumentsHelper.getOfficialsAndNomineesNames(userAnswersForeignAuthOfficial1) mustBe
-          Seq(john)
+          Seq(name)
       }
     }
 
     "formatNames" should {
 
       "format correctly for 1 name" in {
-        RequiredDocumentsHelper.formatNames(Seq(john)) mustBe "Firstname Lastname"
+        RequiredDocumentsHelper.formatNames(Seq(name)) mustBe "Firstname Lastname"
       }
 
       "format correctly for 2 names" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john)) mustBe "Firstname Lastname and Firstname Lastname"
+        RequiredDocumentsHelper.formatNames(Seq(name, name)) mustBe "Firstname Lastname and Firstname Lastname"
 
       }
 
       "format correctly for 3 names" in {
         RequiredDocumentsHelper.formatNames(
-          Seq(john, john, john)
+          Seq(name, name, name)
         ) mustBe "Firstname Lastname, Firstname Lastname and Firstname Lastname"
 
       }
 
       "format correctly for 4 or more names" in {
         RequiredDocumentsHelper.formatNames(
-          Seq(john, john, john, john)
+          Seq(name, name, name, name)
         ) mustBe "Firstname Lastname, Firstname Lastname, Firstname Lastname and Firstname Lastname"
 
       }
 
       "format correctly for 2 names in Welsh" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john))(
+        RequiredDocumentsHelper.formatNames(Seq(name, name))(
           localMessages
         ) mustBe "Firstname Lastname, Firstname Lastname"
 
       }
 
       "format correctly for 3 names in Welsh" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john, john))(
+        RequiredDocumentsHelper.formatNames(Seq(name, name, name))(
           localMessages
         ) mustBe "Firstname Lastname, Firstname Lastname, Firstname Lastname"
 
       }
 
       "format correctly for 4 or more names in Welsh" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john, john, john))(
+        RequiredDocumentsHelper.formatNames(Seq(name, name, name, name))(
           localMessages
         ) mustBe "Firstname Lastname, Firstname Lastname, Firstname Lastname, Firstname Lastname"
 
@@ -183,6 +183,67 @@ class RequiredDocumentsHelperSpec extends SpecBase {
 
       "return a None if none of the officials or nominees live abroad" in {
         RequiredDocumentsHelper.getForeignOfficialsMessages(userAnswersUKAuthOfficial1) mustBe None
+      }
+    }
+
+    "get Foreign Officials Messages" should {
+      "return a tuple if there is a name in the list" in {
+        RequiredDocumentsHelper.getForeignOfficialsMessages(List(name)) mustBe
+          Some(("requiredDocuments.foreignAddresses.answerTrue", "Firstname Lastname"))
+      }
+      "return a tuple if there are more than one names in the list" in {
+        RequiredDocumentsHelper.getForeignOfficialsMessages(List(name, name.copy(firstName = "FirstName2"))) mustBe
+          Some(("requiredDocuments.foreignAddresses.answerTrue", "Firstname Lastname and FirstName2 Lastname"))
+        RequiredDocumentsHelper.getForeignOfficialsMessages(
+          List(name, name.copy(firstName = "FirstName2"), name.copy(firstName = "FirstName3"))
+        ) mustBe
+          Some(
+            (
+              "requiredDocuments.foreignAddresses.answerTrue",
+              "Firstname Lastname, FirstName2 Lastname and FirstName3 Lastname"
+            )
+          )
+      }
+      "return a None if the list is empty" in {
+        RequiredDocumentsHelper.getForeignOfficialsMessages(List.empty) mustBe None
+      }
+    }
+
+    "get Required Documents" should {
+
+      "return the correct sequence if all the values are true" in {
+        val docs = Map(
+          "isCharityRegulator"             -> true,
+          "isFinancialAccounts"            -> true,
+          "isBankStatements"               -> true,
+          "noRegulatorUniformedYouthGroup" -> true
+        )
+        RequiredDocumentsHelper.getRequiredDocuments(docs) mustBe
+          Seq(
+            "requiredDocuments.governingDocumentName.answerTrue",
+            "requiredDocuments.isCharityRegulator.answerTrue",
+            "requiredDocuments.isFinancialAccounts.answerTrue",
+            "requiredDocuments.isBankStatements.answerTrue",
+            "requiredDocuments.noRegulatorUniformedYouthGroup.answerTrue"
+          )
+      }
+      "return the correct sequence if all the values are false" in {
+        val docs = Map(
+          "isCharityRegulator"             -> false,
+          "isFinancialAccounts"            -> false,
+          "isBankStatements"               -> false,
+          "noRegulatorUniformedYouthGroup" -> false
+        )
+        RequiredDocumentsHelper.getRequiredDocuments(docs) mustBe
+          Seq(
+            "requiredDocuments.governingDocumentName.answerTrue",
+            "requiredDocuments.isCharityRegulator.answerAlternative",
+            "requiredDocuments.isBankStatements.answerAlternative"
+          )
+      }
+      "return the correct sequence if an empty map is passed" in {
+        RequiredDocumentsHelper.getRequiredDocuments(Map.empty) mustBe
+          Seq("requiredDocuments.governingDocumentName.answerTrue")
       }
     }
   }

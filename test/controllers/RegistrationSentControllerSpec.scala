@@ -18,19 +18,21 @@ package controllers
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.UserAnswers
+import models.{Name, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.libs.json.Json
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import utils.TimeMachine
 import views.ViewUtils.dayToString
 import views.html.RegistrationSentView
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
@@ -153,6 +155,57 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
         noEmailOrPost = true,
         Seq("requiredDocuments.governingDocumentName.answerTrue"),
         None
+      )(fakeRequest, messages, frontendAppConfig).toString
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+    }
+
+    "return OK and the correct view when the correct json is stored in mongoDb" in {
+
+      val app = new GuiceApplicationBuilder()
+        .configure("features.noEmailPost" -> "false")
+        .overrides(
+          bind[UserAnswerService].toInstance(mockUserAnswerService),
+          bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
+        )
+        .build()
+
+      val controller: RegistrationSentController = app.injector.instanceOf[RegistrationSentController]
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .copy(data =
+                Json.obj(
+                  "acknowledgementReference"  -> acknowledgementReferenceNo,
+                  "foreignOfficials"          -> List(
+                    Name(SelectTitle.Mr, "firstName1", Some("middleName1"), "lastName1"),
+                    Name(SelectTitle.Ms, "firstName2", Some("middleName2"), "lastName2"),
+                    Name(SelectTitle.Mrs, "firstName3", Some("middleName3"), "lastName3")
+                  ),
+                  "requiredDocuments"         -> Json.obj(),
+                  "applicationSubmissionDate" -> LocalDate.now()
+                )
+              )
+          )
+        )
+      )
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual view(
+        dayToString(inject[TimeMachine].now().plusDays(daysToAdd)),
+        dayToString(inject[TimeMachine].now(), dayOfWeek = false),
+        acknowledgementReferenceNo,
+        emailOrPost = false,
+        noEmailOrPost = true,
+        Seq("requiredDocuments.governingDocumentName.answerTrue"),
+        Some(
+          (
+            "requiredDocuments.foreignAddresses.answerTrue",
+            "firstName1 middleName1 lastName1, firstName2 middleName2 lastName2 and firstName3 middleName3 lastName3"
+          )
+        )
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }

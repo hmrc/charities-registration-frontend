@@ -227,6 +227,7 @@ requiredDocuments.isFinancialAccounts.answerTrue = cyfrifon ariannol cymeradwy �
 requiredDocuments.isBankStatements.answerTrue = copïau o gyfriflenni banc yr elusen ar gyfer y 3 mis diwethaf
 requiredDocuments.isBankStatements.answerAlternative = cyfriflen banc o’r mis diwethaf
 requiredDocuments.selectWhyNoRegulator.answerTrue = tystysgrif cofrestru oddi wrth y corff llywodraethol
+requiredDocuments.noRegulatorUniformedYouthGroup.answerTrue = tystysgrif cofrestru oddi wrth y corff llywodraethol
 requiredDocuments.foreignAddresses.answerTrue = manylion adnabod ar gyfer: {0} – ei basbort, cerdyn adnabod neu fil cyfleustodau o’r 3 mis diwethaf
 
 # Email or post page Messages

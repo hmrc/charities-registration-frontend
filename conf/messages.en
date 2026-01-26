@@ -227,6 +227,7 @@ requiredDocuments.isFinancialAccounts.answerTrue = approved financial accounts -
 requiredDocuments.isBankStatements.answerTrue = the charity’s bank statements for the last 3 months
 requiredDocuments.isBankStatements.answerAlternative = a bank statement for the past month
 requiredDocuments.selectWhyNoRegulator.answerTrue = certificate of registration from the governing body
+requiredDocuments.noRegulatorUniformedYouthGroup.answerTrue = certificate of registration from the governing body
 requiredDocuments.foreignAddresses.answerTrue = identity details for {0} - their passport, identity card or a utility bill from the last 3 months
 
 # Email or post page Messages

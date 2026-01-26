@@ -174,7 +174,7 @@ commonAddress.selectPage.submitLabel = Yn eich blaen
 commonAddress.editPage.townLabel = Tref neu ddinas
 commonAddress.editPage.postcodeLabel = Cod post neu god ‘zip’
 
-commonAddress.internationalEditPage.postcodeLabel = Postal Code
+commonAddress.internationalEditPage.postcodeLabel = Cod post neu god ‘zip’
 
 commonAddress.amendPage.line1Label = Cyfeiriad – llinell 1
 commonAddress.amendPage.line2Label = Cyfeiriad – llinell 2 (dewisol)

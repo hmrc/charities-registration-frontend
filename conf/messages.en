@@ -140,7 +140,7 @@ index.guidance = The information you enter will be saved as you progress. If you
 index.isSwitchOver = We have updated this service since the last time you used it. All of your data has been saved. It’s ready for you to review using the links below.
 index.section.numbers1 = 1.
 index.section1.label = The charity’s contact details
-index.section1.spoke1.label= Enter the charity’s contact details
+index.section1.spoke1.label = Enter the charity’s contact details
 index.section.numbers2 = 2.
 index.section2.label = Regulators and documents
 index.section2.spoke1.label = Enter regulator information
@@ -362,23 +362,23 @@ isEligibleLocationOther.error.required = Select yes if the charity is governed b
 
 # InEligible Page Messages
 # ----------------------------------------------------------
-notEligible.title = You cannot register the charity with HMRC
-notEligible.heading = You cannot register the charity with HMRC
-notEligible.p2 = If things change, you should check back to see if you can register the charity with HMRC.
-notEligible.p3 = For more information,
-notEligible.p3.link =  check the guidance on charitable purposes
+inEligible.title = You cannot register the charity with HMRC
+inEligible.heading = You cannot register the charity with HMRC
+inEligible.p2 = If things change, you should check back to see if you can register the charity with HMRC.
+inEligible.p3 = For more information,
+inEligible.p3.link =  check the guidance on charitable purposes
 
-# NotEligibleCharitablePurposes Page Messages
+# InEligibleCharitablePurposes Page Messages
 # ----------------------------------------------------------
-notEligible.charitablePurposes.p1 = To use this service the charity must be established for charitable purposes only.
+inEligible.charitablePurposes.p1 = To use this service the charity must be established for charitable purposes only.
 
-# NotEligibleLocationOther Page Messages
+# InEligibleLocationOther Page Messages
 # ----------------------------------------------------------
-notEligible.locationOther.p1 = To use this service the charity must be based in the UK or governed by the law of England and Wales, Northern Ireland or Scotland.
+inEligible.locationOther.p1 = To use this service the charity must be based in the UK or governed by the law of England and Wales, Northern Ireland or Scotland.
 
 # InEligibleBank Page Messages
 # ----------------------------------------------------------
-notEligible.bank.p1 = To use this service the charity must have a UK bank, building society or credit union account.
+inEligible.bank.p1 = To use this service the charity must have a UK bank, building society or credit union account.
 
 # EligibleCharity Page Messages
 # ----------------------------------------------------------
@@ -943,7 +943,7 @@ whyNoBankStatement.error.format = Why the charity does not have bank statements 
 whyNoBankStatement.error.length = Why the charity does not have bank statements must be 350 characters or less
 
 # AccountingEndDatePage Messages
-# -------------------------------------  ---------------------
+# ----------------------------------------------------------
 accountingPeriodEndDate.title = What is the charity’s accounting period end date?
 accountingPeriodEndDate.heading = What is the charity’s accounting period end date?
 accountingPeriodEndDate.error.required.all = Enter the accounting period end date
@@ -963,14 +963,14 @@ operationsFundsSummary.section = Operations and funds
 # Section6 - Supply bank details
 # ----------------------------------------------------------
 
-# Charity’s start bank account details Page Messages
+# Charity’s Start Bank Details Page Messages
 # ----------------------------------------------------------
 startBankDetails.title = The charity’s bank details
 startBankDetails.heading = The charity’s bank details
 startBankDetails.p1 = You need to add the charity’s bank account details. We need the charity’s bank details to pay Gift Aid and other tax repayments.
 startBankDetails.p2 = We will send repayments using BACS. This is an electronic system that makes payments directly from our account to the charity’s account. You should make sure the charity can receive BACS payments.
 
-# Charity’s bank account details Page Messages
+# Charity’s Bank Details Page Messages
 # ----------------------------------------------------------
 bankDetails.title = The charity’s bank, building society or credit union details
 bankDetails.heading = The charity’s bank, building society or credit union details

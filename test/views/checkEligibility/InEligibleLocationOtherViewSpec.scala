@@ -22,8 +22,8 @@ import views.html.checkEligibility.InEligibleLocationOtherView
 
 class InEligibleLocationOtherViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix: String   = "notEligible"
-  private val messageLink: String        = messages("notEligible.p3.link")
+  private val messageKeyPrefix: String   = "inEligible"
+  private val messageLink: String        = messages("inEligible.p3.link")
   private val messageTabOrWindow: String = messages("site.opensInNewWindowOrTab")
 
   private val view: InEligibleLocationOtherView = viewFor[InEligibleLocationOtherView](Some(emptyUserAnswers))

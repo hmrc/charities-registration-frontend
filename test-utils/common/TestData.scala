@@ -64,7 +64,8 @@ trait TestData extends ModelGenerators {
   val nino2WithSpaces: String =
     s"${nino2.slice(0, 2)} ${nino2.slice(2, 4)} ${nino2.slice(4, 6)} ${nino2.slice(6, 8)} ${nino2.slice(8, 9)}"
 
-  val nino3: String           = ninoGen.sample.get
+  val nino3: String = ninoGen.sample.get
+
   val nino3WithSpaces: String =
     s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
 

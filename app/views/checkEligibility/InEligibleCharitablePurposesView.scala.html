@@ -27,14 +27,14 @@
 
 @()(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm("notEligible.title", None)), signOut = false) {
+@govukLayout(pageTitle = Some(titleNoForm("inEligible.title", None)), signOut = false) {
 
-    @h1(messages("notEligible.heading"))
+    @h1(messages("inEligible.heading"))
 
-    @p(Html(messages("notEligible.charitablePurposes.p1")))
-    @p(Html(messages("notEligible.p2")))
+    @p(Html(messages("inEligible.charitablePurposes.p1")))
+    @p(Html(messages("inEligible.p2")))
     @p{
-        @messages("notEligible.p3")
-        @link(appConfig.getRecognition, messages("notEligible.p3.link"), Some("link"), isExternal = true)
+        @messages("inEligible.p3")
+        @link(appConfig.getRecognition, messages("inEligible.p3.link"), Some("link"), isExternal = true)
       }
 }

@@ -27,10 +27,10 @@ case class AddressLookupOptionsModel(
   includeHMRCBranding: Boolean,
   allowedCountryCodes: Option[Set[String]],
   ukMode: Boolean,
-  disableTranslations: Boolean,
   selectPageConfig: AddressLookupSelectConfigModel,
   confirmPageConfig: AddressLookupConfirmConfigModel,
-  timeoutConfig: AddressLookupConfirmTimeoutModel
+  timeoutConfig: AddressLookupConfirmTimeoutModel,
+  manualAddressEntryConfig: ManualAddressEntryConfigModel
 )
 
 object AddressLookupOptionsModel {

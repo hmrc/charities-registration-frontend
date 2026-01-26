@@ -31,7 +31,8 @@ case class AddressMessagesModel(
   lookupPageLabels: LookupPageMessagesModel,
   selectPageLabels: SelectPageMessagesModel,
   editPageLabels: EditPageMessagesModel,
-  confirmPageLabels: ConfirmPageMessagesModel
+  confirmPageLabels: ConfirmPageMessagesModel,
+  international: InternationalMessagesModel
 )
 
 object AddressMessagesModel {
@@ -44,8 +45,9 @@ object AddressMessagesModel {
       appLevelLabels = AppLevelMessagesModel.forLang(lang),
       lookupPageLabels = LookupPageMessagesModel.forLang(lang, messagePrefix, fullName),
       selectPageLabels = SelectPageMessagesModel.forLang(lang, messagePrefix, fullName),
-      editPageLabels = EditPageMessagesModel.forLang(lang, messagePrefix, fullName),
-      confirmPageLabels = ConfirmPageMessagesModel.forLang(lang, messagePrefix, fullName)
+      editPageLabels = EditPageMessagesModel.forLang(lang, messagePrefix, fullName, false),
+      confirmPageLabels = ConfirmPageMessagesModel.forLang(lang, messagePrefix, fullName),
+      international = InternationalMessagesModel(EditPageMessagesModel.forLang(lang, messagePrefix, fullName, true))
     )
 }
 
@@ -64,12 +66,7 @@ object AppLevelMessagesModel {
 case class LookupPageMessagesModel(
   title: Option[String],
   heading: Option[String],
-  filterLabel: Option[String],
-  postcodeLabel: Option[String],
-  submitLabel: Option[String],
-  noResultsFoundMessage: Option[String],
-  resultLimitExceededMessage: Option[String],
-  manualAddressLinkText: Option[String]
+  postcodeLabel: Option[String]
 )
 
 object LookupPageMessagesModel {
@@ -81,13 +78,7 @@ object LookupPageMessagesModel {
     LookupPageMessagesModel(
       title = MessageOption(s"$messagePrefix.lookupPage.title", lang),
       heading = MessageOption(s"$messagePrefix.lookupPage.heading", lang, fullName.getOrElse("")),
-      filterLabel = MessageOption("commonAddress.lookupPage.filterLabel", lang),
-      postcodeLabel = MessageOption("commonAddress.LookupPage.postcodeLabel", lang),
-      submitLabel = MessageOption("commonAddress.lookupPage.submitLabel", lang),
-      noResultsFoundMessage = MessageOption("commonAddress.lookupPage.noResultsFoundMessage", lang),
-      resultLimitExceededMessage = MessageOption("commonAddress.lookupPage.resultLimitExceededMessage", lang),
-      manualAddressLinkText =
-        MessageOption(s"$messagePrefix.lookupPage.manualAddressLinkText", lang, fullName.getOrElse(""))
+      postcodeLabel = MessageOption(s"commonAddress.LookupPage.postcodeLabel", lang)
     )
 }
 
@@ -95,10 +86,7 @@ case class SelectPageMessagesModel(
   title: Option[String],
   heading: Option[String],
   headingWithPostcode: Option[String],
-  proposalListLabel: Option[String],
-  submitLabel: Option[String],
-  searchAgainLinkText: Option[String],
-  editAddressLinkText: Option[String]
+  submitLabel: Option[String]
 )
 
 object SelectPageMessagesModel {
@@ -110,54 +98,36 @@ object SelectPageMessagesModel {
     SelectPageMessagesModel(
       title = MessageOption(s"$messagePrefix.selectPage.title", lang),
       heading = MessageOption(s"$messagePrefix.selectPage.heading", lang, fullName.getOrElse("")),
-      headingWithPostcode = MessageOption("commonAddress.selectPage.headingWithPostcode", lang),
-      proposalListLabel = MessageOption("commonAddress.selectPage.proposalListLabel", lang),
-      submitLabel = MessageOption("commonAddress.selectPage.submitLabel", lang),
-      searchAgainLinkText =
-        MessageOption(s"$messagePrefix.selectPage.searchAgainLinkText", lang, fullName.getOrElse("")),
-      editAddressLinkText =
-        MessageOption(s"$messagePrefix.selectPage.editAddressLinkText", lang, fullName.getOrElse(""))
+      headingWithPostcode = MessageOption(s"commonAddress.selectPage.headingWithPostcode", lang),
+      submitLabel = MessageOption(s"commonAddress.selectPage.submitLabel", lang)
     )
 }
 
 case class EditPageMessagesModel(
-  title: Option[String],
-  heading: Option[String],
-  line1Label: Option[String],
-  line2Label: Option[String],
+                                  title: Option[String],
+                                  heading: Option[String],
   townLabel: Option[String],
-  line3Label: Option[String],
-  postcodeLabel: Option[String],
-  submitLabel: Option[String]
+  postcodeLabel: Option[String]
 )
 
 object EditPageMessagesModel {
   implicit val writes: Writes[EditPageMessagesModel] = Json.writes[EditPageMessagesModel]
 
-  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String])(implicit
+  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String], international: Boolean)(implicit
     messagesApi: MessagesApi
   ): EditPageMessagesModel =
     EditPageMessagesModel(
       title = MessageOption(s"$messagePrefix.editPage.title", lang),
-      heading = MessageOption(s"$messagePrefix.editPage.heading", lang, fullName.getOrElse("")),
-      line1Label = MessageOption("commonAddress.editPage.line1Label", lang),
-      line2Label = MessageOption("commonAddress.editPage.line2Label", lang),
-      line3Label = MessageOption("commonAddress.editPage.line3Label", lang),
-      townLabel = MessageOption("commonAddress.editPage.townLabel", lang),
-      postcodeLabel = MessageOption("commonAddress.editPage.postcodeLabel", lang),
-      submitLabel = MessageOption("commonAddress.editPage.submitLabel", lang)
+      heading = MessageOption(s"$messagePrefix.editPage.heading", lang, fullName.getOrElse("Sample")),
+      townLabel = MessageOption(s"commonAddress.editPage.townLabel", lang),
+      postcodeLabel = if (international) MessageOption(s"commonAddress.internationalEditPage.postcodeLabel", lang) else MessageOption(s"commonAddress.editPage.postcodeLabel", lang)
     )
 }
 
 case class ConfirmPageMessagesModel(
   title: Option[String],
   heading: Option[String],
-  infoSubheading: Option[String],
-  infoMessage: Option[String],
-  submitLabel: Option[String],
-  searchAgainLinkText: Option[String],
-  changeLinkText: Option[String],
-  confirmChangeText: Option[String]
+  submitLabel: Option[String]
 )
 
 object ConfirmPageMessagesModel {
@@ -169,11 +139,14 @@ object ConfirmPageMessagesModel {
     ConfirmPageMessagesModel(
       title = MessageOption(s"$messagePrefix.confirmPage.title", lang),
       heading = MessageOption(s"$messagePrefix.confirmPage.heading", lang, fullName.getOrElse("")),
-      infoMessage = Some(""),
-      infoSubheading = Some(""),
-      submitLabel = MessageOption("commonAddress.confirmPage.submitLabel", lang),
-      searchAgainLinkText = MessageOption("commonAddress.confirmPage.searchAgainLinkText", lang),
-      changeLinkText = MessageOption(s"$messagePrefix.confirmPage.changeLinkText", lang, fullName.getOrElse("")),
-      confirmChangeText = MessageOption("commonAddress.confirmPage.confirmChangeText", lang)
+      submitLabel = MessageOption(s"commonAddress.confirmPage.submitLabel", lang)
     )
+}
+
+case class InternationalMessagesModel(
+                                       editPageLabels: EditPageMessagesModel
+                                     )
+
+object InternationalMessagesModel {
+  implicit val writes: Writes[InternationalMessagesModel] = Json.writes[InternationalMessagesModel]
 }

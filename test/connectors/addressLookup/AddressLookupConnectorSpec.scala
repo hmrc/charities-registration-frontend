@@ -29,6 +29,7 @@ import play.api.http.HeaderNames
 import play.api.http.Status._
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.client.HttpClientV2
+import models.addressLookup.AddressLookupConfigurationModel.*
 
 class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
 
@@ -55,7 +56,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
             post(urlEqualTo("/api/v2/init"))
               .withRequestBody(
                 equalToJson(
-                  Json.toJson(new AddressLookupConfiguration("/url/test", "test", Some("xyz"), None).apply).toString()
+                  Json.toJson(toAddressLookupConfigurationModel("/url/test", "test", Some("xyz"), None)).toString()
                 )
               )
               .willReturn(
@@ -83,7 +84,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
             post(urlEqualTo("/api/v2/init"))
               .withRequestBody(
                 equalToJson(
-                  Json.toJson(new AddressLookupConfiguration("/url/test", "test", Some("xyz"), None).apply).toString()
+                  Json.toJson(toAddressLookupConfigurationModel("/url/test", "test", Some("xyz"), None)).toString()
                 )
               )
               .willReturn(
@@ -107,7 +108,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
             post(urlEqualTo("/api/v2/init"))
               .withRequestBody(
                 equalToJson(
-                  Json.toJson(new AddressLookupConfiguration("/url/test", "test", Some("xyz"), None).apply).toString()
+                  Json.toJson(toAddressLookupConfigurationModel("/url/test", "test", Some("xyz"), None)).toString()
                 )
               )
               .willReturn(

@@ -19,7 +19,7 @@ package connectors.addressLookup
 import config.FrontendAppConfig
 import connectors.httpParsers.AddressLookupInitializationHttpParser.{AddressLookupInitializationReads, AddressLookupInitializationResponse}
 import connectors.httpParsers.ConfirmedAddressHttpParser.{ConfirmedAddressReads, ConfirmedAddressResponse}
-import models.addressLookup.AddressLookupConfigurationModel
+import models.addressLookup.AddressLookupConfigurationModel.*
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.client.HttpClientV2
@@ -44,11 +44,10 @@ class AddressLookupConnector @Inject() (httpClient: HttpClientV2, implicit val a
     messages: MessagesApi
   ): Future[AddressLookupInitializationResponse] = {
 
-    val body = new AddressLookupConfiguration(callbackUrl, messagePrefix, fullName, allowedCountryCodes).apply
-
+    val body = toAddressLookupConfigurationModel(callbackUrl, messagePrefix, fullName, allowedCountryCodes)
     httpClient
       .post(url"$addressLookupInitUrl")
-      .withBody(Json.toJson(body)(AddressLookupConfigurationModel.writes))
+      .withBody(Json.toJson(body)(writes))
       .execute[AddressLookupInitializationResponse]
   }
 

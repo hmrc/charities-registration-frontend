@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,27 @@ package models.addressLookup
 
 import play.api.libs.json.{Json, Writes}
 
-case class AddressLookupConfirmConfigModel(
-  showSubHeadingAndInfo: Boolean
+case class ManualAddressEntryConfigModel(
+  line1MaxLength: Int,
+  line2MaxLength: Int,
+  line3MaxLength: Int,
+  townMaxLength: Int,
+  mandatoryFields: MandatoryFields,
+  showOrganisationName: Boolean
 )
 
-object AddressLookupConfirmConfigModel {
-  implicit val writes: Writes[AddressLookupConfirmConfigModel] = Json.writes[AddressLookupConfirmConfigModel]
+object ManualAddressEntryConfigModel {
+  implicit val writes: Writes[ManualAddressEntryConfigModel] = Json.writes[ManualAddressEntryConfigModel]
+}
+
+case class MandatoryFields(
+  addressLine1: Boolean,
+  addressLine2: Boolean,
+  addressLine3: Boolean,
+  town: Boolean,
+  postcode: Boolean
+)
+
+object MandatoryFields {
+  implicit val writes: Writes[MandatoryFields] = Json.writes[MandatoryFields]
 }

@@ -54,11 +54,11 @@ site.empref = Cyfeirnod TWE y Cyflogwr: {0}
 site.gotoTaskList = Ewch i’r rhestr o dasgau
 site.returnToTaskList = Mynd yn ôl i’r rhestr tasgau
 
-footer.cookies         = Cwcis
-footer.accessibility   = Datganiad hygyrchedd
-footer.privacy         = Polisi preifatrwydd
+footer.cookies = Cwcis
+footer.accessibility = Datganiad hygyrchedd
+footer.privacy = Polisi preifatrwydd
 footer.termsConditions = Telerau ac amodau
-footer.govukHelp       = Help wrth ddefnyddio GOV.UK
+footer.govukHelp = Help wrth ddefnyddio GOV.UK
 
 
 # Internal Server Error pages
@@ -366,23 +366,23 @@ isEligibleLocationOther.error.required = Dewiswch ‘Iawn’ os yw’r elusen yn
 
 # InEligible Page Messages
 # ----------------------------------------------------------
-notEligible.title = Ni allwch gofrestru’r elusen gyda CThEF
-notEligible.heading = Ni allwch gofrestru’r elusen gyda CThEF
-notEligible.p2 = Os yw pethau’n newid, dylech wirio eto i weld a allwch gofrestru’r elusen gyda CThEF.
-notEligible.p3 = I gael rhagor o wybodaeth,
-notEligible.p3.link = gwiriwch yr arweiniad ar ddibenion elusennol
+inEligible.title = Ni allwch gofrestru’r elusen gyda CThEF
+inEligible.heading = Ni allwch gofrestru’r elusen gyda CThEF
+inEligible.p2 = Os yw pethau’n newid, dylech wirio eto i weld a allwch gofrestru’r elusen gyda CThEF.
+inEligible.p3 = I gael rhagor o wybodaeth,
+inEligible.p3.link = gwiriwch yr arweiniad ar ddibenion elusennol
 
 # InEligibleCharitablePurposes Page Messages
 # ----------------------------------------------------------
-notEligible.charitablePurposes.p1 = I ddefnyddio’r gwasanaeth hwn, mae’n rhaid bod yr elusen wedi’i sefydlu at ddibenion elusennol yn unig.
+inEligible.charitablePurposes.p1 = I ddefnyddio’r gwasanaeth hwn, mae’n rhaid bod yr elusen wedi’i sefydlu at ddibenion elusennol yn unig.
 
 # InEligibleLocationOther Page Messages
 # ----------------------------------------------------------
-notEligible.locationOther.p1 = Er mwyn defnyddio’r gwasanaeth hwn, mae’n rhaid i’r elusen fod wedi’i lleoli yn y DU neu wedi’i llywodraethu gan gyfraith Cymru a Lloegr, Gogledd Iwerddon neu’r Alban.
+inEligible.locationOther.p1 = Er mwyn defnyddio’r gwasanaeth hwn, mae’n rhaid i’r elusen fod wedi’i lleoli yn y DU neu wedi’i llywodraethu gan gyfraith Cymru a Lloegr, Gogledd Iwerddon neu’r Alban.
 
 # InEligibleBank Page Messages
 # ----------------------------------------------------------
-notEligible.bank.p1 = I ddefnyddio’r gwasanaeth hwn, mae’n rhaid bod gan yr elusen gyfrif banc, cymdeithas adeiladu neu undeb gredyd yn y DU.
+inEligible.bank.p1 = I ddefnyddio’r gwasanaeth hwn, mae’n rhaid bod gan yr elusen gyfrif banc, cymdeithas adeiladu neu undeb gredyd yn y DU.
 
 # EligibleCharity Page Messages
 # ----------------------------------------------------------
@@ -423,18 +423,15 @@ charityName.operatingName.checkYourAnswersLabel = Enw gweithredol
 # ----------------------------------------------------------
 charityContactDetails.title = Manylion cyswllt yr elusen
 charityContactDetails.heading = Manylion cyswllt yr elusen
-
 charityContactDetails.mainPhoneNumber.label = Prif rif ffôn
 charityContactDetails.mainPhoneNumber.error.format = Nodwch brif rif ffôn yr elusen, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 charityContactDetails.mainPhoneNumber.error.required = Nodwch brif rif ffôn yr elusen
 charityContactDetails.mainPhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
 charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = Prif rif ffôn
-
 charityContactDetails.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
 charityContactDetails.alternativePhoneNumber.error.format = Nodwch rif ffôn arall yr elusen, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 charityContactDetails.alternativePhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
 charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = Rhif ffôn arall
-
 charityContactDetails.emailAddress.label = Cyfeiriad e-bost
 charityContactDetails.emailAddress.error.required = Nodwch gyfeiriad e-bost yr elusen
 charityContactDetails.emailAddress.error.format = Nodwch gyfeiriad e-bost yr elusen yn y fformat cywir, fel enw@enghraifft.com
@@ -733,14 +730,14 @@ sectionsChangedGoverningDocument.2.title = Pa adrannau a chymalau sydd wedi newi
 sectionsChangedGoverningDocument.1.title = Pa adrannau a chymalau sydd wedi newid yn y rheolau neu gyfansoddiad a pham?
 sectionsChangedGoverningDocument.6.title = Pa adrannau a chymalau sydd wedi newid yn y Siarter Frenhinol a pham?
 sectionsChangedGoverningDocument.4.title = Pa adrannau a chymalau sydd wedi newid yn yr ewyllys a pham?
-sectionsChangedGoverningDocument.7.title =Pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham?
+sectionsChangedGoverningDocument.7.title = Pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham?
 
 sectionsChangedGoverningDocument.3.heading = Pa adrannau a chymalau sydd wedi newid yn y weithred ymddiriedolaeth a pham?
 sectionsChangedGoverningDocument.2.heading = Pa adrannau a chymalau sydd wedi newid yn y memorandwm ac erthyglau cymdeithasu a pham?
 sectionsChangedGoverningDocument.1.heading = Pa adrannau a chymalau sydd wedi newid yn y rheolau neu gyfansoddiad a pham?
 sectionsChangedGoverningDocument.6.heading = Pa adrannau a chymalau sydd wedi newid yn y Siarter Frenhinol a pham?
 sectionsChangedGoverningDocument.4.heading = Pa adrannau a chymalau sydd wedi newid yn yr ewyllys a pham?
-sectionsChangedGoverningDocument.7.heading =Pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham?
+sectionsChangedGoverningDocument.7.heading = Pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham?
 
 sectionsChangedGoverningDocument.error.required = Nodwch pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham
 sectionsChangedGoverningDocument.error.length = Mae’n rhaid i’r adrannau sydd wedi newid yn y ddogfen lywodraethu fod yn 350 o gymeriadau neu lai
@@ -970,14 +967,14 @@ operationsFundsSummary.section = Gweithrediadau a chyllid
 # Section6 - Supply bank details
 # ----------------------------------------------------------
 
-# Charity’s start bank account details Page Messages
+# Charity’s Start Bank Details Page Messages
 # ----------------------------------------------------------
 startBankDetails.title = Manylion banc yr elusen
 startBankDetails.heading = Manylion banc yr elusen
 startBankDetails.p1 = Mae angen i chi ychwanegu manylion cyfrif banc yr elusen. Mae angen manylion banc yr elusen arnom i dalu Rhodd Cymorth ac ad-daliadau treth eraill.
 startBankDetails.p2 = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o’n cyfrif i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 
-# Charity’s bank account details Page Messages
+# Charity’s Bank Details Page Messages
 # ----------------------------------------------------------
 bankDetails.title = Manylion banc, cymdeithas adeiladu neu undeb credyd yr elusen
 bankDetails.heading = Manylion banc, cymdeithas adeiladu neu undeb credyd yr elusen
@@ -1004,7 +1001,7 @@ bankDetails.sortCode.checkYourAnswersLabel = Cod didoli
 bankDetails.accountNumber.checkYourAnswersLabel = Rhif y cyfrif
 bankDetails.rollNumber.checkYourAnswersLabel = Rhif rôl y gymdeithas adeiladu (os oes un gennych)
 
-# Charity’s bank account details Page Messages
+# Charity’s Bank Details Summary Page Messages
 # ----------------------------------------------------------
 bankDetailsSummary.checkYourAnswers.title = Gwirio manylion banc yr elusen
 bankDetailsSummary.checkYourAnswers.heading = Gwirio manylion banc yr elusen
@@ -1056,9 +1053,9 @@ authorisedOfficialsDOB.error.required.all = Nodwch ei ddyddiad geni
 authorisedOfficialsDOB.error.required.two = Nodwch ei {0} a {1} geni
 authorisedOfficialsDOB.error.required.one = Nodwch ei {0} geni
 authorisedOfficialsDOB.error.invalid = Mae’n rhaid i’w ddyddiad geni fod yn ddyddiad go iawn
-authorisedOfficialsDOB.error.minimum = Mae’n rhaid i swyddogion awdurdodedig fod yn 16 oed neu’n hŷn
 authorisedOfficialsDOB.error.nonNumeric = Mae’n rhaid ysgrifennu’r dyddiad geni fel rhif
 authorisedOfficialsDOB.error.dateBetween = Mae’n rhaid i’r dyddiad geni fod rhwng 01/01/1900 a heddiw
+authorisedOfficialsDOB.error.minimum = Mae’n rhaid i swyddogion awdurdodedig fod yn 16 oed neu’n hŷn
 
 authorisedOfficialsDOB.checkYourAnswersLabel = Dyddiad geni
 
@@ -1070,12 +1067,12 @@ authorisedOfficialsPhoneNumber.mainPhoneNumber.label = Prif rif ffôn
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = Nodwch brif rif ffôn y swyddog awdurdodedig, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = Nodwch ei brif rif ffôn
 authorisedOfficialsPhoneNumber.mainPhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
-
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = Nodwch rif ffôn arall y swyddog awdurdodedig, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Prif rif ffôn
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Rhif ffôn arall
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
+
 authorisedOfficialsPhoneNumber.checkYourAnswersLabel = Rhif ffôn
 
 # Authorised Official Position  Messages
@@ -1288,13 +1285,11 @@ otherOfficialsPhoneNumber.mainPhoneNumber.label = Prif rif ffôn
 otherOfficialsPhoneNumber.mainPhoneNumber.error.format = Nodwch brif rif ffôn y swyddog, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 otherOfficialsPhoneNumber.mainPhoneNumber.error.required = Nodwch ei brif rif ffôn
 otherOfficialsPhoneNumber.mainPhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
-
 otherOfficialsPhoneNumber.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
 otherOfficialsPhoneNumber.alternativePhoneNumber.error.format = Nodwch rif ffôn arall y swyddog, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Prif rif ffôn
 otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Rhif ffôn arall
 otherOfficialsPhoneNumber.alternativePhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
-
 otherOfficialsPhoneNumber.checkYourAnswersLabel = Rhif ffôn
 
 # Other Official Position Messages
@@ -1519,7 +1514,6 @@ individualNomineesPhoneNumber.mainPhoneNumber.label = Prif rif ffôn
 individualNomineesPhoneNumber.mainPhoneNumber.error.format = Nodwch brif rif ffôn yr enwebai, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 individualNomineesPhoneNumber.mainPhoneNumber.error.required = Nodwch ei brif rif ffôn
 individualNomineesPhoneNumber.mainPhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
-
 individualNomineesPhoneNumber.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
 individualNomineesPhoneNumber.alternativePhoneNumber.error.format = Nodwch rif ffôn arall yr enwebai, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 individualNomineesPhoneNumber.alternativePhoneNumber.error.required = Nodwch ei rif ffôn arall
@@ -1650,7 +1644,7 @@ individualNomineesBankDetails.sortCode.error.format = Mae’n rhaid i’r cod di
 individualNomineesBankDetails.accountNumber = Rhif cyfrif yr enwebai
 individualNomineesBankDetails.accountNumber.hint = Mae’n rhaid iddo fod rhwng 6 ac 8 digid o hyd
 individualNomineesBankDetails.accountNumber.error.required = Nodwch rif cyfrif yr enwebai
-individualNomineesBankDetails.accountNumber.error.length =  Mae’n rhaid i rif y cyfrif fod rhwng 6 ac 8 digid
+individualNomineesBankDetails.accountNumber.error.length = Mae’n rhaid i rif y cyfrif fod rhwng 6 ac 8 digid
 individualNomineesBankDetails.accountNumber.error.format = Mae’n rhaid i rif y cyfrif gynnwys y rhifau 0 i 9 yn unig
 individualNomineesBankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os oes un gennych)
 individualNomineesBankDetails.rollNumber.hint = Bydd hyn ar ei gerdyn banc, cyfriflen neu baslyfr
@@ -1770,7 +1764,7 @@ organisationNomineesBankDetails.sortCode.error.format = Mae’n rhaid i’r cod 
 organisationNomineesBankDetails.accountNumber = Rhif cyfrif y sefydliad
 organisationNomineesBankDetails.accountNumber.hint = Mae’n rhaid iddo fod rhwng 6 ac 8 digid o hyd
 organisationNomineesBankDetails.accountNumber.error.required = Nodwch rif cyfrif y sefydliad
-organisationNomineesBankDetails.accountNumber.error.length =  Mae’n rhaid i rif y cyfrif fod rhwng 6 ac 8 digid
+organisationNomineesBankDetails.accountNumber.error.length = Mae’n rhaid i rif y cyfrif fod rhwng 6 ac 8 digid
 organisationNomineesBankDetails.accountNumber.error.format = Mae’n rhaid i rif y cyfrif gynnwys y rhifau 0 i 9 yn unig
 organisationNomineesBankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os oes un gennych)
 organisationNomineesBankDetails.rollNumber.hint = Bydd hyn ar ei gerdyn banc, cyfriflen neu baslyfr

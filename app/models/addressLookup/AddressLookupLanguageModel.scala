@@ -81,11 +81,11 @@ object LookupPageMessagesModel {
     LookupPageMessagesModel(
       title = MessageOption(s"$messagePrefix.lookupPage.title", lang),
       heading = MessageOption(s"$messagePrefix.lookupPage.heading", lang, fullName.getOrElse("")),
-      filterLabel = MessageOption(s"commonAddress.lookupPage.filterLabel", lang),
-      postcodeLabel = MessageOption(s"commonAddress.LookupPage.postcodeLabel", lang),
-      submitLabel = MessageOption(s"commonAddress.lookupPage.submitLabel", lang),
-      noResultsFoundMessage = MessageOption(s"commonAddress.lookupPage.noResultsFoundMessage", lang),
-      resultLimitExceededMessage = MessageOption(s"commonAddress.lookupPage.resultLimitExceededMessage", lang),
+      filterLabel = MessageOption("commonAddress.lookupPage.filterLabel", lang),
+      postcodeLabel = MessageOption("commonAddress.LookupPage.postcodeLabel", lang),
+      submitLabel = MessageOption("commonAddress.lookupPage.submitLabel", lang),
+      noResultsFoundMessage = MessageOption("commonAddress.lookupPage.noResultsFoundMessage", lang),
+      resultLimitExceededMessage = MessageOption("commonAddress.lookupPage.resultLimitExceededMessage", lang),
       manualAddressLinkText =
         MessageOption(s"$messagePrefix.lookupPage.manualAddressLinkText", lang, fullName.getOrElse(""))
     )
@@ -110,9 +110,9 @@ object SelectPageMessagesModel {
     SelectPageMessagesModel(
       title = MessageOption(s"$messagePrefix.selectPage.title", lang),
       heading = MessageOption(s"$messagePrefix.selectPage.heading", lang, fullName.getOrElse("")),
-      headingWithPostcode = MessageOption(s"commonAddress.selectPage.headingWithPostcode", lang),
-      proposalListLabel = MessageOption(s"commonAddress.selectPage.proposalListLabel", lang),
-      submitLabel = MessageOption(s"commonAddress.selectPage.submitLabel", lang),
+      headingWithPostcode = MessageOption("commonAddress.selectPage.headingWithPostcode", lang),
+      proposalListLabel = MessageOption("commonAddress.selectPage.proposalListLabel", lang),
+      submitLabel = MessageOption("commonAddress.selectPage.submitLabel", lang),
       searchAgainLinkText =
         MessageOption(s"$messagePrefix.selectPage.searchAgainLinkText", lang, fullName.getOrElse("")),
       editAddressLinkText =
@@ -140,12 +140,12 @@ object EditPageMessagesModel {
     EditPageMessagesModel(
       title = MessageOption(s"$messagePrefix.editPage.title", lang),
       heading = MessageOption(s"$messagePrefix.editPage.heading", lang, fullName.getOrElse("")),
-      line1Label = MessageOption(s"commonAddress.editPage.line1Label", lang),
-      line2Label = MessageOption(s"commonAddress.editPage.line2Label", lang),
-      line3Label = MessageOption(s"commonAddress.editPage.line3Label", lang),
-      townLabel = MessageOption(s"commonAddress.editPage.townLabel", lang),
-      postcodeLabel = MessageOption(s"commonAddress.editPage.postcodeLabel", lang),
-      submitLabel = MessageOption(s"commonAddress.editPage.submitLabel", lang)
+      line1Label = MessageOption("commonAddress.editPage.line1Label", lang),
+      line2Label = MessageOption("commonAddress.editPage.line2Label", lang),
+      line3Label = MessageOption("commonAddress.editPage.line3Label", lang),
+      townLabel = MessageOption("commonAddress.editPage.townLabel", lang),
+      postcodeLabel = MessageOption("commonAddress.editPage.postcodeLabel", lang),
+      submitLabel = MessageOption("commonAddress.editPage.submitLabel", lang)
     )
 }
 
@@ -171,9 +171,9 @@ object ConfirmPageMessagesModel {
       heading = MessageOption(s"$messagePrefix.confirmPage.heading", lang, fullName.getOrElse("")),
       infoMessage = Some(""),
       infoSubheading = Some(""),
-      submitLabel = MessageOption(s"commonAddress.confirmPage.submitLabel", lang),
-      searchAgainLinkText = MessageOption(s"commonAddress.confirmPage.searchAgainLinkText", lang),
+      submitLabel = MessageOption("commonAddress.confirmPage.submitLabel", lang),
+      searchAgainLinkText = MessageOption("commonAddress.confirmPage.searchAgainLinkText", lang),
       changeLinkText = MessageOption(s"$messagePrefix.confirmPage.changeLinkText", lang, fullName.getOrElse("")),
-      confirmChangeText = MessageOption(s"commonAddress.confirmPage.confirmChangeText", lang)
+      confirmChangeText = MessageOption("commonAddress.confirmPage.confirmChangeText", lang)
     )
 }

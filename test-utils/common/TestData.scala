@@ -64,7 +64,8 @@ trait TestData extends ModelGenerators {
   val nino2WithSpaces: String =
     s"${nino2.slice(0, 2)} ${nino2.slice(2, 4)} ${nino2.slice(4, 6)} ${nino2.slice(6, 8)} ${nino2.slice(8, 9)}"
 
-  val nino3: String           = ninoGen.sample.get
+  val nino3: String = ninoGen.sample.get
+
   val nino3WithSpaces: String =
     s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
 
@@ -157,18 +158,18 @@ trait TestData extends ModelGenerators {
   val chCountryTuple: (String, String) = (chCountry.code, chCountry.name)
   val (chCountryCode, chCountryName)   = chCountryTuple
 
-  val today: LocalDate = LocalDate.now()
-  val futureDate: LocalDate = today.plusYears(1)
-  val farInThePastDate: LocalDate = LocalDate.of(1111, 1, 1)
-  val officialsDOB: LocalDate = LocalDate.of(2000, 12, 11)
-  val govDocApprovedDate: LocalDate = LocalDate.of(2014, 7, 1)
+  val today: LocalDate                = LocalDate.now()
+  val futureDate: LocalDate           = today.plusYears(1)
+  val farInThePastDate: LocalDate     = LocalDate.of(1111, 1, 1)
+  val officialsDOB: LocalDate         = LocalDate.of(2000, 12, 11)
+  val govDocApprovedDate: LocalDate   = LocalDate.of(2014, 7, 1)
   val singleDigitMonthDate: LocalDate = LocalDate.of(2015, 6, 10)
-  val singleDigitDayDate: LocalDate = LocalDate.of(2017, 4, 1)
-  val correctFormatDate: LocalDate = LocalDate.of(2020, 9, 23)
-  val moreThan20Date: LocalDate = LocalDate.of(2020, 9, 24)
-  val lessThan20Date: LocalDate = LocalDate.of(2020, 9, 14)
-  val datesMin: LocalDate = LocalDate.of(2003, 1, 1)
-  val datesMax: LocalDate = LocalDate.of(2004, 1, 1)
+  val singleDigitDayDate: LocalDate   = LocalDate.of(2017, 4, 1)
+  val correctFormatDate: LocalDate    = LocalDate.of(2020, 9, 23)
+  val moreThan20Date: LocalDate       = LocalDate.of(2020, 9, 24)
+  val lessThan20Date: LocalDate       = LocalDate.of(2020, 9, 14)
+  val datesMin: LocalDate             = LocalDate.of(2003, 1, 1)
+  val datesMax: LocalDate             = LocalDate.of(2004, 1, 1)
 
   val addressId: String     = "Address Id"
   val line1: String         = "Test 1"
@@ -227,7 +228,7 @@ trait TestData extends ModelGenerators {
       addressModel.postcode.get,
       addressModel.country.code
     )
- 
+
   val personNameWithoutMiddle: Name  = Name(SelectTitle.Mr, "Firstname", None, "Lastname")
   val personNameWithMiddle: Name     = Name(SelectTitle.Mr, "Firstname", Some("Middle"), "Lastname")
   val personName2WithoutMiddle: Name = Name(SelectTitle.Ms, "Firstname2", None, "Lastname2")

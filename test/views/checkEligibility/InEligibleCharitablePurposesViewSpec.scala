@@ -22,8 +22,8 @@ import views.html.checkEligibility.InEligibleCharitablePurposesView
 
 class InEligibleCharitablePurposesViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix: String   = "notEligible"
-  private val messageLink: String        = messages("notEligible.p3.link")
+  private val messageKeyPrefix: String   = "inEligible"
+  private val messageLink: String        = messages("inEligible.p3.link")
   private val messageTabOrWindow: String = messages("site.opensInNewWindowOrTab")
 
   private val view: InEligibleCharitablePurposesView = viewFor[InEligibleCharitablePurposesView](Some(emptyUserAnswers))

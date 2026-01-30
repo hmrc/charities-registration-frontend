@@ -172,15 +172,15 @@ commonAddress.selectPage.submitLabel = Yn eich blaen
 
 
 commonAddress.editPage.townLabel = Tref neu ddinas
-commonAddress.editPage.postcodeLabel = Cod post neu god ‘zip’
+commonAddress.editPage.postcodeLabel = Cod Post
 
-commonAddress.internationalEditPage.postcodeLabel = Cod post neu god ‘zip’
+commonAddress.internationalEditPage.postcodeLabel = Cod Post
 
 commonAddress.amendPage.line1Label = Cyfeiriad – llinell 1
 commonAddress.amendPage.line2Label = Cyfeiriad – llinell 2 (dewisol)
 commonAddress.amendPage.line3Label = Cyfeiriad – llinell 3 (dewisol)
 commonAddress.amendPage.townLabel = Tref neu ddinas
-commonAddress.amendPage.postcodeLabel = Cod post neu god ‘zip’ (dewisol)
+commonAddress.amendPage.postcodeLabel = Cod Post (dewisol)
 commonAddress.amendPage.country = Gwlad
 commonAddress.amendPage.country.hintText = Dewiswch wlad
 commonAddress.amendPage.submitLabel = Yn eich blaen

@@ -39,7 +39,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
 
   private val helper = new OverseasOperatingLocationSummaryHelper(
     UserAnswers("id")
-      .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+      .set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet)
       .flatMap(_.set(OperatingLocationPage, Set[OperatingLocationOptions](England, Overseas)))
       .flatMap(_.set(IsFinancialAccountsPage, true))
       .flatMap(_.set(EstimatedIncomePage, BigDecimal(1123.12)))

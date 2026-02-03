@@ -51,7 +51,7 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
 
       "return false when one of answer is defined" in {
         helper.checkComplete(
-          emptyUserAnswers.set(FundRaisingPage, FundRaisingOptions.values.toSet).success.value
+          emptyUserAnswers.set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet).success.value
         ) mustBe false
       }
 
@@ -59,7 +59,7 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
         "related questions are answered correctly (Scenario 2)" in {
           helper.checkComplete(
             commonData
-              .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+              .set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet)
               .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
               .flatMap(_.set(OtherFundRaisingPage, "sdf"))
               .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
@@ -76,7 +76,7 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
       "return false when other fund raising, overseas countries, no bank statement, one overseas country not answered correctly (Scenario 2)" in {
         helper.checkComplete(
           emptyUserAnswers
-            .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+            .set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet)
             .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
             .flatMap(_.set(OtherFundRaisingPage, "sdf"))
             .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
@@ -93,7 +93,7 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
       "return true when other fund raising, overseas countries, yes bank statement and related questions are answered correctly (Scenario 3)" in {
         helper.checkComplete(
           commonData
-            .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+            .set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet)
             .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
             .flatMap(_.set(OtherFundRaisingPage, "sdf"))
             .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
@@ -110,7 +110,7 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
       "return false when other fund raising, overseas countries, yes bank statement and additional data (Scenario 3)" in {
         helper.checkComplete(
           commonData
-            .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+            .set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet)
             .flatMap(_.set(OtherFundRaisingPage, "sdf"))
             .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
             .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
@@ -127,7 +127,7 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
       "return false when other fund raising, overseas countries, yes bank statement not answered correctly (Scenario 3)" in {
         helper.checkComplete(
           emptyUserAnswers
-            .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+            .set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet)
             .flatMap(_.set(OtherFundRaisingPage, "sdf"))
             .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
             .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
@@ -144,7 +144,7 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
         "related questions are answered correctly (Scenario 4)" in {
           helper.checkComplete(
             commonData
-              .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+              .set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet)
               .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
               .flatMap(_.set(OtherFundRaisingPage, "sdf"))
               .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
@@ -164,7 +164,7 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
         "related questions are answered correctly (Scenario 5)" in {
           helper.checkComplete(
             commonData
-              .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+              .set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet)
               .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
               .flatMap(_.set(OtherFundRaisingPage, "sdf"))
               .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))

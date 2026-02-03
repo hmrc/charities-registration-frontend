@@ -38,7 +38,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
 
   private val helper = new OperationsFundsSummaryHelper(
     UserAnswers("id")
-      .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+      .set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet)
       .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.values.head))
       .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
       .flatMap(_.set(IsFinancialAccountsPage, true))
@@ -61,7 +61,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
 
       "have a correctly formatted summary list row" in {
 
-        val fundRaisingList = FundRaisingOptions.values
+        val fundRaisingList = FundRaisingOptions.valuesIndexed
           .sortBy(_.order)
           .foldLeft("")((str, key) => str + s"""<div>${messages(s"selectFundRaising.${key.toString}")}</div>""")
 

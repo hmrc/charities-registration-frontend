@@ -33,6 +33,7 @@ import pages.regulatorsAndDocuments.*
 import play.api.libs.json.Json
 
 import java.time.{LocalDate, MonthDay}
+import scala.collection.immutable.SortedSet
 
 class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
 
@@ -86,7 +87,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
           ).flatMap(_.set(IsFinancialAccountsPage, true))
             .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
             .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
-            .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
+            .flatMap(_.set(FundRaisingPage, SortedSet.from(FundRaisingOptions.valuesIndexed)))
             .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
             .flatMap(_.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England)))
             .flatMap(_.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare)))
@@ -184,7 +185,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
             )
             .flatMap(_.set(EstimatedIncomePage, BigDecimal(2000.00)))
             .flatMap(_.set(ActualIncomePage, BigDecimal(19999.99)))
-            .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
+            .flatMap(_.set(FundRaisingPage, SortedSet.from(FundRaisingOptions.valuesIndexed)))
             .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
             .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
             .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "Country 1"))

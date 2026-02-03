@@ -31,7 +31,7 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(SelectTitle.values)
+      val gen = Gen.oneOf(SelectTitle.supportedValues)
 
       forAll(gen) { selectTitle =>
         JsString(selectTitle.toString).validate[SelectTitle].asOpt.value mustEqual selectTitle
@@ -40,7 +40,7 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "fail to deserialise invalid values" in {
 
-      val gen = arbitrary[String] suchThat (!SelectTitle.values.map(_.toString).contains(_))
+      val gen = arbitrary[String] suchThat (!SelectTitle.supportedValues.map(_.toString).contains(_))
 
       forAll(gen) { invalidValue =>
         JsString(invalidValue).validate[SelectTitle] mustEqual JsError("error.invalid")
@@ -49,7 +49,7 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "serialise" in {
 
-      val gen = Gen.oneOf(SelectTitle.values)
+      val gen = Gen.oneOf(SelectTitle.supportedValues)
 
       forAll(gen) { selectTitle =>
         Json.toJson(selectTitle) mustEqual JsString(selectTitle.toString)

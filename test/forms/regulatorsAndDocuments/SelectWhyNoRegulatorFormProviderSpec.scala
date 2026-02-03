@@ -32,7 +32,7 @@ class SelectWhyNoRegulatorFormProviderSpec extends OptionFieldBehaviours {
     behave like optionsField[SelectWhyNoRegulator](
       form,
       fieldName,
-      validValues = SelectWhyNoRegulator.values,
+      validValues = SelectWhyNoRegulator.values.toIndexedSeq,
       invalidError = FormError(fieldName, "error.invalid")
     )
 

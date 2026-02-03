@@ -22,11 +22,12 @@ import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other,
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
 import models.{CharityOtherRegulatorDetails, MongoDateTimeFormats, UserAnswers}
-import pages.operationsAndFunds._
-import pages.regulatorsAndDocuments._
+import pages.operationsAndFunds.*
+import pages.regulatorsAndDocuments.*
 import play.api.libs.json.Json
 
 import java.time.{LocalDate, MonthDay}
+import scala.collection.immutable.SortedSet
 
 class CharityTransformerSpec extends CharityTransformerConstants {
 
@@ -681,7 +682,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           )
           .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(2000.00)))
           .flatMap(_.set(ActualIncomePage, BigDecimal.valueOf(19999.99)))
-          .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
+          .flatMap(_.set(FundRaisingPage, SortedSet.from(FundRaisingOptions.valuesIndexed)))
           .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
           .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "Country 1"))
           .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "Country 2"))
@@ -704,7 +705,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             |      },
             |      "estimatedGrossIncome": 2000.00,
             |      "incomeReceivedToDate": 19999.99,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
+            |      "futureFunds":"donations, fundraising, grants, membershipSubscriptions, tradingIncome, tradingSubsidiaries, investmentIncome, other",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": true,
@@ -735,7 +736,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .flatMap(_.set(IsFinancialAccountsPage, true))
           .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
           .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
-          .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
+          .flatMap(_.set(FundRaisingPage, SortedSet.from(FundRaisingOptions.valuesIndexed)))
           .flatMap(
             _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England))
           )
@@ -751,7 +752,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
+            |      "futureFunds":"donations, fundraising, grants, membershipSubscriptions, tradingIncome, tradingSubsidiaries, investmentIncome, other",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": false,
@@ -775,7 +776,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .flatMap(_.set(IsFinancialAccountsPage, true))
           .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
           .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
-          .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
+          .flatMap(_.set(FundRaisingPage, SortedSet.from(FundRaisingOptions.valuesIndexed)))
           .flatMap(
             _.set(
               OperatingLocationPage,
@@ -798,7 +799,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
+            |      "futureFunds":"donations, fundraising, grants, membershipSubscriptions, tradingIncome, tradingSubsidiaries, investmentIncome, other",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": true,
@@ -823,7 +824,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .flatMap(_.set(IsFinancialAccountsPage, true))
           .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
           .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
-          .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
+          .flatMap(_.set(FundRaisingPage, SortedSet.from(FundRaisingOptions.valuesIndexed)))
           .flatMap(
             _.set(
               OperatingLocationPage,
@@ -846,7 +847,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
+            |      "futureFunds":"donations, fundraising, grants, membershipSubscriptions, tradingIncome, tradingSubsidiaries, investmentIncome, other",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": true,
@@ -870,7 +871,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .flatMap(_.set(IsFinancialAccountsPage, true))
           .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
           .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
-          .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
+          .flatMap(_.set(FundRaisingPage, SortedSet.from(FundRaisingOptions.valuesIndexed)))
           .flatMap(
             _.set(
               OperatingLocationPage,
@@ -889,7 +890,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
+            |      "futureFunds":"donations, fundraising, grants, membershipSubscriptions, tradingIncome, tradingSubsidiaries, investmentIncome, other",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": false,
@@ -913,7 +914,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .flatMap(_.set(IsFinancialAccountsPage, true))
           .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
           .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
-          .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
+          .flatMap(_.set(FundRaisingPage, SortedSet.from(FundRaisingOptions.valuesIndexed)))
           .flatMap(
             _.set(
               OperatingLocationPage,
@@ -932,7 +933,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
+            |      "futureFunds":"donations, fundraising, grants, membershipSubscriptions, tradingIncome, tradingSubsidiaries, investmentIncome, other",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": false,
@@ -1298,7 +1299,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
               .flatMap(_.set(WhyNoBankStatementPage, reason))
               .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(2000.00)))
               .flatMap(_.set(ActualIncomePage, BigDecimal.valueOf(19999.99)))
-              .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
+              .flatMap(_.set(FundRaisingPage, SortedSet.from(FundRaisingOptions.valuesIndexed)))
               .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
               .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "Country 1"))
               .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "Country 2"))
@@ -1349,7 +1350,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             |        },
             |        "estimatedGrossIncome": 2000.00,
             |        "incomeReceivedToDate": 19999.99,
-            |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
+            |        "futureFunds":"donations, fundraising, grants, membershipSubscriptions, tradingIncome, tradingSubsidiaries, investmentIncome, other",
             |        "otherAreaOperation": true,
             |        "englandAndWales": true,
             |        "scotland": true,
@@ -1414,7 +1415,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             ).flatMap(_.set(IsFinancialAccountsPage, true))
               .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
               .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
-              .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
+              .flatMap(_.set(FundRaisingPage, SortedSet.from(FundRaisingOptions.valuesIndexed)))
               .flatMap(_.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England)))
               .flatMap(
                 _.set(
@@ -1457,7 +1458,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             |        },
             |        "estimatedGrossIncome": 123.00,
             |        "incomeReceivedToDate": 121.00,
-            |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
+            |        "futureFunds":"donations, fundraising, grants, membershipSubscriptions, tradingIncome, tradingSubsidiaries, investmentIncome, other",
             |        "otherAreaOperation": true,
             |        "englandAndWales": true,
             |        "scotland": false,

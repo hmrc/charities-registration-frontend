@@ -23,7 +23,7 @@ import pages.behaviours.PageBehaviours
 class CharityEstablishedInPageSpec extends PageBehaviours {
 
   implicit lazy val arbitraryCharityContactDetails: Arbitrary[CharityEstablishedOptions] = Arbitrary {
-    Gen.oneOf(CharityEstablishedOptions.values)
+    Gen.oneOf(CharityEstablishedOptions.values.toIndexedSeq)
   }
 
   "WhatCountryWasTheCharityEstablishedIn" must {

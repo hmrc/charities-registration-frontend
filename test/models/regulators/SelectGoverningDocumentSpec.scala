@@ -30,7 +30,7 @@ class SelectGoverningDocumentSpec extends AnyWordSpec with Matchers with ScalaCh
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(SelectGoverningDocument.values)
+      val gen = Gen.oneOf(SelectGoverningDocument.values.toIndexedSeq)
 
       forAll(gen) { selectGoverningDocument =>
         JsString(selectGoverningDocument.toString)
@@ -51,7 +51,7 @@ class SelectGoverningDocumentSpec extends AnyWordSpec with Matchers with ScalaCh
 
     "serialise" in {
 
-      val gen = Gen.oneOf(SelectGoverningDocument.values)
+      val gen = Gen.oneOf(SelectGoverningDocument.values.toIndexedSeq)
 
       forAll(gen) { selectGoverningDocument =>
         Json.toJson(selectGoverningDocument) mustEqual JsString(selectGoverningDocument.toString)

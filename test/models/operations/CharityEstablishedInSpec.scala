@@ -30,7 +30,7 @@ class CharityEstablishedInSpec extends AnyWordSpec with Matchers with ScalaCheck
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(CharityEstablishedOptions.values)
+      val gen = Gen.oneOf(CharityEstablishedOptions.values.toIndexedSeq)
 
       forAll(gen) { charityEstablishedOptions =>
         JsString(charityEstablishedOptions.toString)
@@ -51,7 +51,7 @@ class CharityEstablishedInSpec extends AnyWordSpec with Matchers with ScalaCheck
 
     "serialise" in {
 
-      val gen = Gen.oneOf(CharityEstablishedOptions.values)
+      val gen = Gen.oneOf(CharityEstablishedOptions.values.toIndexedSeq)
 
       forAll(gen) { charityEstablishedOptions =>
         Json.toJson(charityEstablishedOptions) mustEqual JsString(charityEstablishedOptions.toString)

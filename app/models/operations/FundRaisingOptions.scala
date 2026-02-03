@@ -16,62 +16,39 @@
 
 package models.operations
 
-import models.{Enumerable, WithName, WithOrder}
+import models.{Enumerable, WithOrder}
 import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
-sealed trait FundRaisingOptions extends WithOrder
+enum FundRaisingOptions(val name: String, val order: Int) extends WithOrder {
+  override def toString: String = name
+  case Donations                 extends FundRaisingOptions("donations", 1)
+  private[FundRaisingOptions]
+  case Fundraising               extends FundRaisingOptions("fundraising", 2)
+  private[FundRaisingOptions]
+  case Grants                    extends FundRaisingOptions("grants", 3)
+  private[FundRaisingOptions]
+  case MembershipSubscriptions   extends FundRaisingOptions("membershipSubscriptions", 4)
+  private[FundRaisingOptions]
+  case TradingIncome             extends FundRaisingOptions("tradingIncome", 5)
+  private[FundRaisingOptions]
+  case TradingSubsidiaries       extends FundRaisingOptions("tradingSubsidiaries", 6)
+  private[FundRaisingOptions]
+  case InvestmentIncome          extends FundRaisingOptions("investmentIncome", 7)
+  case Other                     extends FundRaisingOptions("other", 8)
+}
 
 object FundRaisingOptions extends Enumerable.Implicits {
 
-  case object Donations extends WithName("donations") with FundRaisingOptions {
-    override val order: Int = 1
-  }
+  given Ordering[FundRaisingOptions] =
+    Ordering.by(_.ordinal)
 
-  private case object Fundraising extends WithName("fundraising") with FundRaisingOptions {
-    override val order: Int = 2
-  }
-
-  private case object Grants extends WithName("grants") with FundRaisingOptions {
-    override val order: Int = 3
-  }
-
-  private case object MembershipSubscriptions extends WithName("membershipSubscriptions") with FundRaisingOptions {
-    override val order: Int = 4
-  }
-
-  private case object TradingIncome extends WithName("tradingIncome") with FundRaisingOptions {
-    override val order: Int = 5
-  }
-
-  private case object TradingSubsidiaries extends WithName("tradingSubsidiaries") with FundRaisingOptions {
-    override val order: Int = 6
-  }
-
-  private case object InvestmentIncome extends WithName("investmentIncome") with FundRaisingOptions {
-    override val order: Int = 7
-  }
-
-  case object Other extends WithName("other") with FundRaisingOptions {
-    override val order: Int = 8
-  }
-
-  val values: Seq[FundRaisingOptions] =
-    Seq(
-      Donations,
-      Fundraising,
-      Grants,
-      MembershipSubscriptions,
-      TradingIncome,
-      TradingSubsidiaries,
-      InvestmentIncome,
-      Other
-    )
+  val valuesIndexed: Seq[FundRaisingOptions] = values.toIndexedSeq
 
   def options(form: Form[?])(implicit messages: Messages): Seq[CheckboxItem] =
-    values.zipWithIndex.map { case (value, index) =>
+    valuesIndexed.zipWithIndex.map { case (value, index) =>
       CheckboxItem(
         name = Some("value[]"),
         id = Some(if (index == 0) {
@@ -86,5 +63,5 @@ object FundRaisingOptions extends Enumerable.Implicits {
     }
 
   implicit val enumerable: Enumerable[FundRaisingOptions] =
-    Enumerable(values.map(v => v.toString -> v)*)
+    Enumerable(valuesIndexed.map(v => v.toString -> v)*)
 }

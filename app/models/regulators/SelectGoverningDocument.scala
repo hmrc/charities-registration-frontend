@@ -16,34 +16,39 @@
 
 package models.regulators
 
-import models.{Enumerable, WithName}
+import models.Enumerable
 import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 import play.api.libs.json._
 
-sealed trait SelectGoverningDocument
+enum SelectGoverningDocument(val name: String) {
 
+  override def toString: String = name
+
+  case MemorandumArticlesAssociation
+    extends SelectGoverningDocument("2")
+
+  case RoyalCharacter
+    extends SelectGoverningDocument("6")
+
+  case RulesConstitution
+    extends SelectGoverningDocument("1")
+
+  case TrustDeed
+    extends SelectGoverningDocument("3")
+
+  case Will
+    extends SelectGoverningDocument("4")
+
+  case Other
+    extends SelectGoverningDocument("7")
+}
 object SelectGoverningDocument extends Enumerable.Implicits {
+  
 
-  case object MemorandumArticlesAssociation extends WithName("2") with SelectGoverningDocument
-  case object RoyalCharacter extends WithName("6") with SelectGoverningDocument
-  case object RulesConstitution extends WithName("1") with SelectGoverningDocument
-  case object TrustDeed extends WithName("3") with SelectGoverningDocument
-  case object Will extends WithName("4") with SelectGoverningDocument
-  case object Other extends WithName("7") with SelectGoverningDocument
-
-  val values: Seq[SelectGoverningDocument] = Seq(
-    MemorandumArticlesAssociation,
-    RoyalCharacter,
-    RulesConstitution,
-    TrustDeed,
-    Will,
-    Other
-  )
-
-  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.toIndexedSeq.map { value =>
     RadioItem(
       value = Some(value.toString),
       content = Text(messages(s"selectGoverningDocument.${value.toString}")),
@@ -55,12 +60,12 @@ object SelectGoverningDocument extends Enumerable.Implicits {
     Enumerable(values.map(v => v.toString -> v)*)
 
   implicit def reads: Reads[SelectGoverningDocument] = Reads[SelectGoverningDocument] {
-    case JsString(MemorandumArticlesAssociation.toString) => JsSuccess(MemorandumArticlesAssociation)
-    case JsString(RoyalCharacter.toString)                => JsSuccess(RoyalCharacter)
-    case JsString(RulesConstitution.toString)             => JsSuccess(RulesConstitution)
-    case JsString(TrustDeed.toString)                     => JsSuccess(TrustDeed)
-    case JsString(Will.toString)                          => JsSuccess(Will)
-    case JsString(Other.toString)                         => JsSuccess(Other)
+    case JsString(MemorandumArticlesAssociation.name) => JsSuccess(MemorandumArticlesAssociation)
+    case JsString(RoyalCharacter.name)                => JsSuccess(RoyalCharacter)
+    case JsString(RulesConstitution.name)             => JsSuccess(RulesConstitution)
+    case JsString(TrustDeed.name)                     => JsSuccess(TrustDeed)
+    case JsString(Will.name)                          => JsSuccess(Will)
+    case JsString(Other.name)                         => JsSuccess(Other)
     case _                                                => JsError("error.invalid")
   }
 

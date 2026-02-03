@@ -25,7 +25,7 @@ class AuthorisedOfficialsPositionPageSpec extends PageBehaviours {
   "AuthorisedOfficialsPosition" must {
 
     implicit lazy val arbitraryCharityContactDetails: Arbitrary[OfficialsPosition] = Arbitrary {
-      Gen.oneOf(OfficialsPosition.values)
+      Gen.oneOf(OfficialsPosition.values.toIndexedSeq)
     }
 
     beRetrievable[OfficialsPosition](AuthorisedOfficialsPositionPage(0))

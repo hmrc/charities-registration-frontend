@@ -32,7 +32,7 @@ class FundRaisingFormProviderSpec extends CheckboxFieldBehaviours {
     behave like checkboxField[FundRaisingOptions](
       form,
       fieldName,
-      validValues = FundRaisingOptions.values,
+      validValues = FundRaisingOptions.valuesIndexed,
       invalidError = FormError(s"$fieldName[0]", "error.invalid")
     )
 

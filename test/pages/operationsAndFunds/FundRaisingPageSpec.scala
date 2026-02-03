@@ -24,7 +24,7 @@ class FundRaisingPageSpec extends PageBehaviours {
 
   implicit lazy val arbitrarySelectFundRaisingCheckbox: Arbitrary[FundRaisingOptions] =
     Arbitrary {
-      Gen.oneOf(FundRaisingOptions.values)
+      Gen.oneOf(FundRaisingOptions.valuesIndexed)
     }
 
   "FundRaisingPage" must {

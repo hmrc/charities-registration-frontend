@@ -16,41 +16,28 @@
 
 package models.operations
 
-import models.{Enumerable, WithName, WithOrder}
+import models.{Enumerable, WithOrder}
 import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
-sealed trait OperatingLocationOptions extends WithOrder
+enum OperatingLocationOptions extends WithOrder {
+
+  case England
+  case Wales
+  case Scotland
+  case NorthernIreland
+  case Overseas
+  
+  override def toString: String = (ordinal + 1).toString
+  override val order: Int = ordinal + 1
+}
 
 object OperatingLocationOptions extends Enumerable.Implicits {
+  
 
-  case object England extends WithName("1") with OperatingLocationOptions {
-    override val order: Int = 1
-  }
-  case object Wales extends WithName("2") with OperatingLocationOptions {
-    override val order: Int = 2
-  }
-  case object Scotland extends WithName("3") with OperatingLocationOptions {
-    override val order: Int = 3
-  }
-  case object NorthernIreland extends WithName("4") with OperatingLocationOptions {
-    override val order: Int = 4
-  }
-  case object Overseas extends WithName("5") with OperatingLocationOptions {
-    override val order: Int = 5
-  }
-
-  val values: Seq[OperatingLocationOptions] = Seq(
-    England,
-    Wales,
-    Scotland,
-    NorthernIreland,
-    Overseas
-  )
-
-  def options(form: Form[?])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
+  def options(form: Form[?])(implicit messages: Messages): Seq[CheckboxItem] = values.toIndexedSeq.zipWithIndex.map {
     case (value, index) =>
       CheckboxItem(
         name = Some("value[]"),

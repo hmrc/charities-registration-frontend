@@ -76,7 +76,7 @@ class FundRaisingControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(emptyUserAnswers.set(FundRaisingPage, FundRaisingOptions.values.toSet).getOrElse(emptyUserAnswers))
+          Some(emptyUserAnswers.set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet).getOrElse(emptyUserAnswers))
         )
       )
 
@@ -88,7 +88,7 @@ class FundRaisingControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", FundRaisingOptions.values.head.toString))
+      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", FundRaisingOptions.valuesIndexed.head.toString))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

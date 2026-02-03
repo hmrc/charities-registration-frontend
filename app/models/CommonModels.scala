@@ -24,35 +24,44 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
 import java.time.LocalDate
 
-sealed trait SelectTitle
+
+enum SelectTitle(val code: String) {
+  case Mr extends SelectTitle("0001")
+  case Mrs extends SelectTitle("0002")
+  private case Miss extends SelectTitle("0003")
+  case Ms extends SelectTitle("0004")
+  case UnsupportedTitle extends SelectTitle("unsupported")
+
+  override def toString: String = code
+}
 
 object SelectTitle extends Enumerable.Implicits {
 
-  case object Mr extends WithName("0001") with SelectTitle
-  case object Mrs extends WithName("0002") with SelectTitle
-  private case object Miss extends WithName("0003") with SelectTitle
-  case object Ms extends WithName("0004") with SelectTitle
-  case object UnsupportedTitle extends WithName("unsupported") with SelectTitle
+  val supportedValues: Seq[SelectTitle] =
+    SelectTitle.values.toSeq.filterNot(_ == UnsupportedTitle)
 
-  val values: Seq[SelectTitle] = Seq(
-    Mr,
-    Mrs,
-    Miss,
-    Ms
-  )
-
-  private val valuesAndUnsupported: Seq[SelectTitle] = values :+ UnsupportedTitle
-
-  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = supportedValues.map { value =>
     RadioItem(
-      value = Some(value.toString),
-      content = Text(messages(s"nameTitle.${value.toString}")),
-      checked = form("value").value.contains(value.toString)
+      value = Some(value.code),
+      content = Text(messages(s"nameTitle.${value.code}")),
+      checked = form("value").value.contains(value.code)
     )
   }
 
   implicit val enumerable: Enumerable[SelectTitle] =
-    Enumerable(valuesAndUnsupported.map(v => v.toString -> v)*)
+    Enumerable(values.map(v => v.code -> v)*)
+
+  implicit val format: Format[SelectTitle] = Format(
+    Reads {
+      case JsString(s) =>
+        SelectTitle.values.find(_.code == s)
+          .orElse(SelectTitle.values.find(_.toString == s))
+          .map(JsSuccess(_))
+          .getOrElse(JsError("error.invalid"))
+      case _ => JsError("error.invalid")
+    },
+    Writes(t => JsString(t.code))
+  )
 }
 
 case class Name(title: SelectTitle, firstName: String, middleName: Option[String], lastName: String) {
@@ -60,7 +69,7 @@ case class Name(title: SelectTitle, firstName: String, middleName: Option[String
   def getFullName: String = Seq(Some(firstName), middleName, Some(lastName)).flatten.mkString(" ")
 
   def getFullNameWithTitle(implicit messages: Messages): String =
-    messages(s"nameTitle.${title.toString}") + s" $getFullName"
+    messages(s"nameTitle.${title.code}") + s" $getFullName"
 
 }
 

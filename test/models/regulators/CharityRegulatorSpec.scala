@@ -30,7 +30,7 @@ class CharityRegulatorSpec extends AnyWordSpec with Matchers with ScalaCheckProp
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(CharityRegulator.values)
+      val gen = Gen.oneOf(CharityRegulator.values.toIndexedSeq)
 
       forAll(gen) { charityRegulatorCheckbox =>
         JsString(charityRegulatorCheckbox.toString)
@@ -51,7 +51,7 @@ class CharityRegulatorSpec extends AnyWordSpec with Matchers with ScalaCheckProp
 
     "serialise" in {
 
-      val gen = Gen.oneOf(CharityRegulator.values)
+      val gen = Gen.oneOf(CharityRegulator.values.toIndexedSeq)
 
       forAll(gen) { charityRegulatorCheckbox =>
         Json.toJson(charityRegulatorCheckbox) mustEqual JsString(charityRegulatorCheckbox.toString)

@@ -32,6 +32,7 @@ import pages.otherOfficials.*
 import pages.regulatorsAndDocuments.*
 
 import java.time.{LocalDate, MonthDay}
+import scala.collection.immutable.SortedSet
 import scala.util.Try
 
 trait CharityTransformerConstants extends SpecBase {
@@ -97,7 +98,7 @@ trait CharityTransformerConstants extends SpecBase {
         .flatMap(_.set(IsFinancialAccountsPage, true))
         .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
         .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
-        .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
+        .flatMap(_.set(FundRaisingPage, SortedSet.from(FundRaisingOptions.valuesIndexed)))
         .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
         .flatMap(_.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England)))
         .flatMap(_.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare)))
@@ -157,7 +158,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        },
        |        "estimatedGrossIncome": 2000.00,
        |        "incomeReceivedToDate": 19999.99,
-       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
+       |        "futureFunds":"donations, fundraising, grants, membershipSubscriptions, tradingIncome, tradingSubsidiaries, investmentIncome, other",
        |        "otherAreaOperation": true,
        |        "englandAndWales": true,
        |        "scotland": true,
@@ -453,7 +454,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        },
        |        "estimatedGrossIncome": 123.00,
        |        "incomeReceivedToDate": 121.00,
-       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
+       |        "futureFunds":"donations, fundraising, grants, membershipSubscriptions, tradingIncome, tradingSubsidiaries, investmentIncome, other",
        |        "otherAreaOperation": true,
        |        "englandAndWales": true,
        |        "scotland": false,
@@ -622,7 +623,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        },
        |        "estimatedGrossIncome": 123.00,
        |        "incomeReceivedToDate": 121.00,
-       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
+       |        "futureFunds":"donations, fundraising, grants, membershipSubscriptions, tradingIncome, tradingSubsidiaries, investmentIncome, other",
        |        "otherAreaOperation": true,
        |        "englandAndWales": true,
        |        "scotland": false,

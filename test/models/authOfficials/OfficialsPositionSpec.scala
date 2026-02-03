@@ -32,7 +32,7 @@ class OfficialsPositionSpec extends AnyWordSpec with Matchers with ScalaCheckPro
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(OfficialsPosition.values)
+      val gen = Gen.oneOf(OfficialsPosition.values.toIndexedSeq)
 
       forAll(gen) { authorisedOfficialsPosition =>
         JsString(authorisedOfficialsPosition.toString)

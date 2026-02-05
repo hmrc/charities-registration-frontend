@@ -149,6 +149,21 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
       result.errors must contain only FormError(fieldName, s"$messagePrefix.error.minimum", Seq("day", "month", "year"))
     }
 
+    s"fail to bind date with five digits" in {
+
+      val data = Map(
+        "passportNumber"    -> passportNumber,
+        "country"           -> passport.country,
+        s"$fieldName.day"   -> passport.expiryDate.getDayOfMonth.toString,
+        s"$fieldName.month" -> passport.expiryDate.getMonthValue.toString,
+        s"$fieldName.year"  -> passport.expiryDate.plusYears(9999).getYear.toString
+      )
+
+      val result = form.bind(data)
+
+      result.errors must contain only FormError(fieldName, s"$messagePrefix.error.format")
+    }
+
     s"bind valid data if date is in future" in {
       val data = Map(
         "passportNumber"    -> passportNumber,

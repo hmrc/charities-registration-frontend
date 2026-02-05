@@ -19,9 +19,10 @@ package forms.common
 import forms.mappings.Mappings
 import models.Passport
 import play.api.data.Form
-import play.api.data.Forms._
+import play.api.data.Forms.*
 import utils.TimeMachine
 
+import java.time.LocalDate
 import javax.inject.Inject
 
 class PassportFormProvider @Inject() (timeMachine: TimeMachine) extends Mappings {
@@ -44,7 +45,9 @@ class PassportFormProvider @Inject() (timeMachine: TimeMachine) extends Mappings
           twoRequiredKey = s"$messagePrefix.error.required.two",
           requiredKey = s"$messagePrefix.error.required.one",
           nonNumericKey = s"$messagePrefix.error.nonNumeric"
-        ).verifying(minDate(timeMachine.now().plusDays(1), s"$messagePrefix.error.minimum", "day", "month", "year"))
+        )
+          .verifying(minDate(timeMachine.now().plusDays(1), s"$messagePrefix.error.minimum", "day", "month", "year"))
+          .verifying(maxDate(LocalDate.of(9999, 12, 31), s"$messagePrefix.error.format"))
       )(Passport.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 }

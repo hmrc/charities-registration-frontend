@@ -16,13 +16,13 @@
 
 package service
 
-import com.google.inject.ImplementedBy
 import models.{Country, FcoCountry}
+import com.google.inject.ImplementedBy
 import play.api.i18n.Messages
 import play.api.libs.json.Json
 
-import scala.util.Using
 import javax.inject.Singleton
+import scala.util.Using
 
 @ImplementedBy(classOf[CountryServiceImpl])
 trait CountryService {

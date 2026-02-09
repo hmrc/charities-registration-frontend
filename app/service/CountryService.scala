@@ -21,6 +21,7 @@ import models.{Country, FcoCountry}
 import play.api.i18n.Messages
 import play.api.libs.json.Json
 
+import scala.util.Using
 import javax.inject.Singleton
 
 @ImplementedBy(classOf[CountryServiceImpl])
@@ -40,14 +41,17 @@ trait CountryService {
 class CountryServiceImpl extends CountryService {
 
   private def getCountries(resourceFile: String): Seq[Country] =
-    Json
-      .parse(getClass.getResourceAsStream(resourceFile))
-      .as[Map[String, FcoCountry]]
-      .map { country =>
-        Country(country._2.country, country._2.name)
-      }
-      .toSeq
-      .sortWith(_.name < _.name)
+
+    Using.resource(getClass.getResourceAsStream(resourceFile)) { reader =>
+      Json
+        .parse(reader)
+        .as[Map[String, FcoCountry]]
+        .map { country =>
+          Country(country._2.country, country._2.name)
+        }
+        .toSeq
+        .sortWith(_.name < _.name)
+    }
 
   private lazy val countriesEN: Seq[Country] = getCountries("/countriesEN.json")
 

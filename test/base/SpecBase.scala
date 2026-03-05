@@ -63,7 +63,7 @@ trait SpecBase
     lastUpdated = baseInternalUserAnswers.lastUpdated.truncatedTo(ChronoUnit.MILLIS),
     expiresAt = baseInternalUserAnswers.expiresAt.truncatedTo(ChronoUnit.MILLIS)
   )
-  protected def userAnswersWithRegisteredApplication: UserAnswers = {
+  protected val userAnswersWithRegisteredApplication: UserAnswers = {
     val jsObject: JsObject = Json
       .toJson(RegisteredApplication(acknowledgementRef, Nil, Map.empty, inject[TimeMachine].now()))(
         RegisteredApplication.formats

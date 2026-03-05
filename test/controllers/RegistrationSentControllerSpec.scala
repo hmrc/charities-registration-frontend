@@ -18,11 +18,11 @@ package controllers
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.{Name, RegisteredApplication, SelectTitle, UserAnswers}
+import models.{Name, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
-import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage}
+import pages.{AcknowledgementReferencePage, EmailOrPostPage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.{JsObject, Json}

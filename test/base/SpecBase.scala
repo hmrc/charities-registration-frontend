@@ -40,7 +40,7 @@ import service.UserAnswerService
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 import utils.TimeMachine
 import viewmodels.ErrorHandler
-
+import models.Name
 import java.time.temporal.ChronoUnit
 import scala.concurrent.duration.{Duration, FiniteDuration, *}
 import scala.concurrent.{Await, ExecutionContext, Future}
@@ -56,16 +56,19 @@ trait SpecBase
     with EitherValues
     with TestData {
 
-  lazy val injector: Injector                                     = app.injector
-  lazy val internalId: String                                     = "id"
-  lazy val baseInternalUserAnswers: UserAnswers                   = UserAnswers(internalId, Json.obj())
-  lazy val emptyUserAnswers: UserAnswers                          = baseInternalUserAnswers.copy(
+  lazy val injector: Injector                   = app.injector
+  lazy val internalId: String                   = "id"
+  lazy val baseInternalUserAnswers: UserAnswers = UserAnswers(internalId, Json.obj())
+  lazy val emptyUserAnswers: UserAnswers        = baseInternalUserAnswers.copy(
     lastUpdated = baseInternalUserAnswers.lastUpdated.truncatedTo(ChronoUnit.MILLIS),
     expiresAt = baseInternalUserAnswers.expiresAt.truncatedTo(ChronoUnit.MILLIS)
   )
-  protected val userAnswersWithRegisteredApplication: UserAnswers = {
+  protected def userAnswersWithRegisteredApplication(
+    foreignOfficials: List[Name] = Nil,
+    requiredDocs: Map[String, Boolean] = Map.empty
+  ): UserAnswers = {
     val jsObject: JsObject = Json
-      .toJson(RegisteredApplication(acknowledgementRef, Nil, Map.empty, inject[TimeMachine].now()))(
+      .toJson(RegisteredApplication(acknowledgementRef, foreignOfficials, requiredDocs, inject[TimeMachine].now()))(
         RegisteredApplication.formats
       )
       .as[JsObject]

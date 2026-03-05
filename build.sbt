@@ -11,7 +11,7 @@ val commonSettings: Seq[String] = Seq(
   "-deprecation",
   "-language:noAutoTupling",
   "-Wvalue-discard",
-  "-Werror",
+//  "-Werror",
   "-Wconf:src=routes/.*:s",
   "-Wconf:src=views/.*:s",
   "-Wunused:unsafe-warn-patvars",

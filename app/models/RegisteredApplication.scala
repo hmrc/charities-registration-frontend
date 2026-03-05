@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.{Json, Reads}
+import play.api.libs.json.*
 
 import java.time.LocalDate
 
@@ -28,5 +28,7 @@ case class RegisteredApplication(
 )
 
 object RegisteredApplication {
-  implicit val fmt: Reads[RegisteredApplication] = Json.reads[RegisteredApplication]
+  // implicit val fmt: Reads[RegisteredApplication] = Json.reads[RegisteredApplication]
+  implicit val vv: Writes[List[Name]]                  = Writes.list(Name.formats)
+  implicit val formats: OFormat[RegisteredApplication] = Json.format[RegisteredApplication]
 }

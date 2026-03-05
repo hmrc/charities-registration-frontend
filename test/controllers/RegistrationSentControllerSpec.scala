@@ -18,14 +18,14 @@ package controllers
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.{Name, SelectTitle, UserAnswers}
+import models.{Name, RegisteredApplication, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.Json
+import play.api.libs.json.{JsObject, Json}
 import play.api.test.Helpers.*
 import service.UserAnswerService
 import utils.TimeMachine
@@ -59,9 +59,7 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
   private val daysToAdd: Long                    = 28
 
   "RegistrationSent Controller" must {
-
     "return OK and the correct view for a GET for email and noEmailPost disabled" in {
-
       val app = new GuiceApplicationBuilder()
         .configure("features.noEmailPost" -> "false")
         .overrides(
@@ -73,84 +71,17 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
       val controller: RegistrationSentController = app.injector.instanceOf[RegistrationSentController]
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(AcknowledgementReferencePage, acknowledgementRef)
-              .flatMap(_.set(ApplicationSubmissionDatePage, inject[TimeMachine].now()))
-              .flatMap(_.set(EmailOrPostPage, true))
-              .success
-              .value
-          )
-        )
+        Future.successful(Some(userAnswersWithRegisteredApplication.set(EmailOrPostPage, true).success.value))
       )
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
+
       contentAsString(result) mustEqual view(
         dayToString(inject[TimeMachine].now().plusDays(daysToAdd)),
         dayToString(inject[TimeMachine].now(), dayOfWeek = false),
         acknowledgementReferenceNo,
-        emailOrPost = true,
-        noEmailOrPost = false,
-        Seq("requiredDocuments.governingDocumentName.answerTrue"),
-        None
-      )(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-    }
-
-    "return OK and the correct view for a GET for email and noEmailPost enabled" in {
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(AcknowledgementReferencePage, acknowledgementRef)
-              .flatMap(_.set(ApplicationSubmissionDatePage, inject[TimeMachine].now()))
-              .flatMap(_.set(EmailOrPostPage, true))
-              .success
-              .value
-          )
-        )
-      )
-
-      val result = controller.onPageLoad()(fakeRequest)
-
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(
-        dayToString(inject[TimeMachine].now().plusDays(daysToAdd)),
-        dayToString(inject[TimeMachine].now(), dayOfWeek = false),
-        acknowledgementReferenceNo,
-        emailOrPost = true,
-        noEmailOrPost = true,
-        Seq("requiredDocuments.governingDocumentName.answerTrue"),
-        None
-      )(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-    }
-
-    "return OK and the correct view for a GET when noEmailPost enabled" in {
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(AcknowledgementReferencePage, acknowledgementReferenceNo)
-              .flatMap(_.set(ApplicationSubmissionDatePage, inject[TimeMachine].now()))
-              .success
-              .value
-          )
-        )
-      )
-
-      val result = controller.onPageLoad()(fakeRequest)
-
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(
-        dayToString(inject[TimeMachine].now().plusDays(daysToAdd)),
-        dayToString(inject[TimeMachine].now(), dayOfWeek = false),
-        acknowledgementRef,
         emailOrPost = false,
         noEmailOrPost = true,
         Seq("requiredDocuments.governingDocumentName.answerTrue"),
@@ -207,38 +138,6 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
           )
         )
       )(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-    }
-
-    "return SEE_OTHER and the correct view for a GET with no EmailOrPostPage answered" in {
-
-      val app = new GuiceApplicationBuilder()
-        .configure("features.noEmailPost" -> "false")
-        .overrides(
-          bind[UserAnswerService].toInstance(mockUserAnswerService),
-          bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-        )
-        .build()
-
-      val controller: RegistrationSentController = app.injector.instanceOf[RegistrationSentController]
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(AcknowledgementReferencePage, acknowledgementRef)
-              .flatMap(_.set(ApplicationSubmissionDatePage, inject[TimeMachine].now()))
-              .success
-              .value
-          )
-        )
-      )
-
-      val result = controller.onPageLoad()(fakeRequest)
-
-      status(result) mustEqual SEE_OTHER
-
-      redirectLocation(result).value mustEqual controllers.routes.EmailOrPostController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

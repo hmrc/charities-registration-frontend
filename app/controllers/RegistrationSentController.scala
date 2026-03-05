@@ -19,7 +19,7 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, RegistrationDataRequiredAction, UserDataRetrievalAction}
 import models.RegisteredApplication
-import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage}
+import pages.EmailOrPostPage
 import play.api.libs.json.{JsError, JsSuccess}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.UserAnswerService
@@ -47,41 +47,18 @@ class RegistrationSentController @Inject() (
         Future.successful(
           Ok(
             view(
-              dayToString(regApp.applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
-              dayToString(regApp.applicationSubmissionDate, dayOfWeek = false),
-              regApp.acknowledgementReference,
-              false,
-              true,
-              RequiredDocumentsHelper.getRequiredDocuments(regApp.requiredDocuments),
-              RequiredDocumentsHelper.getForeignOfficialsMessages(regApp.foreignOfficials)
+              sendBeforeDate = dayToString(regApp.applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
+              submissionDate = dayToString(regApp.applicationSubmissionDate, dayOfWeek = false),
+              acknowledgementReference = regApp.acknowledgementReference,
+              emailOrPost = false,
+              noEmailOrPost = true,
+              requiredDocuments = RequiredDocumentsHelper.getRequiredDocuments(regApp.requiredDocuments),
+              foreignAddresses = RequiredDocumentsHelper.getForeignOfficialsMessages(regApp.foreignOfficials)
             )
           )
         )
       case JsError(_)           =>
-        (
-          request.userAnswers.get(AcknowledgementReferencePage),
-          request.userAnswers.get(ApplicationSubmissionDatePage)
-        ) match {
-          case (Some(acknowledgementReference), Some(applicationSubmissionDate)) =>
-            val renderView = (emailOrPost: Boolean, noEmailOrPost: Boolean) =>
-              view(
-                dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
-                dayToString(applicationSubmissionDate, dayOfWeek = false),
-                acknowledgementReference,
-                emailOrPost,
-                noEmailOrPost = noEmailOrPost,
-                RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
-                RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
-              )
-            request.userAnswers.get(EmailOrPostPage) match {
-              case Some(emailOrPost) if appConfig.noEmailPost => Future.successful(Ok(renderView(emailOrPost, true)))
-              case Some(emailOrPost)                          => Future.successful(Ok(renderView(emailOrPost, false)))
-              case _ if appConfig.noEmailPost                 => Future.successful(Ok(renderView(false, true)))
-              case _                                          => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad))
-            }
-          case _                                                                 =>
-            Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
-        }
+        Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
     }
   }
 

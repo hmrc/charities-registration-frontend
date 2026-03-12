@@ -81,11 +81,12 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       val result = service.register(Json.obj(), noEmailPost = false)(dataRequestWithAcknowledgement, hc, ec)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad.url)
-
     }
 
     "redirect to the next page after valid registration response and noEmailPost is disabled" in {
-      when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
+      when(
+        mockCharitiesConnector.registerCharities(any())(any(), any())
+      ).thenReturn(
         Future.successful(Right(RegistrationResponse("765432")))
       )
 
@@ -95,14 +96,14 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad.url)
-      verify(mockCharitiesConnector, times(1)).registerCharities(any(), any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).registerCharities(any())(any(), any())
 
       verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
       verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
     }
 
     "redirect to the next page after valid registration response noEmailPost is enabled" in {
-      when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
+      when(mockCharitiesConnector.registerCharities(any())(any(), any())).thenReturn(
         Future.successful(Right(RegistrationResponse("765432")))
       )
       doNothing().when(mockAuditService).sendEvent(any())(any(), any())
@@ -111,14 +112,14 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
-      verify(mockCharitiesConnector, times(1)).registerCharities(any(), any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).registerCharities(any())(any(), any())
 
       verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
       verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
     }
 
     "redirect to the technical difficulties page if registration connector failed" in {
-      when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
+      when(mockCharitiesConnector.registerCharities(any())(any(), any())).thenReturn(
         Future.successful(Left(RequestNotAccepted))
       )
 
@@ -126,7 +127,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
         await(service.register(expectedJsonObject, noEmailPost = false)(fakeDataRequest, hc, ec))
       }
 
-      verify(mockCharitiesConnector, times(1)).registerCharities(any(), any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).registerCharities(any())(any(), any())
       verify(mockAuditService, never()).sendEvent(any())(any(), any())
     }
 

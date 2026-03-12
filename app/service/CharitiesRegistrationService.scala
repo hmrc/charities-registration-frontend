@@ -22,15 +22,14 @@ import connectors.httpParsers.UnexpectedFailureException
 import models.requests.DataRequest
 import pages.AcknowledgementReferencePage
 import play.api.Logger
-import play.api.libs.json.Reads._
-import play.api.libs.json._
+import play.api.libs.json.*
+import play.api.libs.json.Reads.*
 import play.api.mvc.Result
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.HeaderCarrier
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.Random
 
 class CharitiesRegistrationService @Inject() (
   auditService: AuditService,
@@ -46,7 +45,7 @@ class CharitiesRegistrationService @Inject() (
   ): Future[Result] =
     request.userAnswers.get(AcknowledgementReferencePage) match {
       case None =>
-        charitiesConnector.registerCharities(convertInputsForModel(requestJson), Random.nextInt()).flatMap {
+        charitiesConnector.registerCharities(convertInputsForModel(requestJson)).flatMap {
           case Right(_) =>
             for {
               _ <- Future.successful(

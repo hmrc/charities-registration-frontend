@@ -19,8 +19,8 @@ package base
 import common.TestData
 import config.FrontendAppConfig
 import controllers.actions.*
-import models.UserAnswers
 import models.requests.DataRequest
+import models.{RegisteredApplication, UserAnswers}
 import org.jsoup.Jsoup
 import org.mockito.Mockito.*
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
@@ -31,15 +31,16 @@ import play.api.Application
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.inject.{Injector, bind}
-import play.api.libs.json.Json
+import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.{AnyContentAsEmpty, Call, MessagesControllerComponents}
 import play.api.test.CSRFTokenHelper.*
 import play.api.test.{FakeRequest, Injecting}
 import repositories.SessionRepository
 import service.UserAnswerService
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
+import utils.TimeMachine
 import viewmodels.ErrorHandler
-
+import models.Name
 import java.time.temporal.ChronoUnit
 import scala.concurrent.duration.{Duration, FiniteDuration, *}
 import scala.concurrent.{Await, ExecutionContext, Future}
@@ -62,7 +63,24 @@ trait SpecBase
     lastUpdated = baseInternalUserAnswers.lastUpdated.truncatedTo(ChronoUnit.MILLIS),
     expiresAt = baseInternalUserAnswers.expiresAt.truncatedTo(ChronoUnit.MILLIS)
   )
-  lazy val userAnswers: Option[UserAnswers]     = None
+  protected def userAnswersWithRegisteredApplication(
+    foreignOfficials: List[Name] = Nil,
+    requiredDocs: Map[String, Boolean] = Map.empty
+  ): UserAnswers = {
+    val jsObject: JsObject = Json
+      .toJson(RegisteredApplication(acknowledgementRef, foreignOfficials, requiredDocs, inject[TimeMachine].now()))(
+        RegisteredApplication.formats
+      )
+      .as[JsObject]
+    UserAnswers(
+      id = internalId,
+      data = jsObject,
+      lastUpdated = baseInternalUserAnswers.lastUpdated.truncatedTo(ChronoUnit.MILLIS),
+      expiresAt = baseInternalUserAnswers.expiresAt.truncatedTo(ChronoUnit.MILLIS)
+    )
+  }
+
+  lazy val userAnswers: Option[UserAnswers] = None
 
   lazy val messagesControllerComponents: MessagesControllerComponents =
     injector.instanceOf[MessagesControllerComponents]

@@ -27,7 +27,7 @@ import java.time.LocalDate
 
 object CharitiesStub extends WireMockMethods {
 
-  private val charitiesRegistration = "^/org/-?([0-9]*)/submissions/application"
+  private val charitiesRegistration = "/submissions/application"
   private val saveUserAnswer        = "/charities-registration/saveUserAnswer/"
   private val getUserAnswer         = "/charities-registration/getUserAnswer/"
 

@@ -20,12 +20,12 @@ import config.FrontendAppConfig
 import connectors.httpParsers.CharitiesRegistrationHttpParser.{CharitiesRegistrationResponse, CharitiesRegistrationResponseReads}
 import models.{SaveStatus, UserAnswers}
 import play.api.Logger
-import play.api.http.Status._
-import play.api.libs.json._
-import uk.gov.hmrc.http.HttpReads.Implicits._
+import play.api.http.Status.*
+import play.api.libs.json.*
+import play.api.libs.ws.writeableOf_JsValue
+import uk.gov.hmrc.http.HttpReads.Implicits.*
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
-import play.api.libs.ws.writeableOf_JsValue
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
@@ -33,13 +33,13 @@ import scala.concurrent.{ExecutionContext, Future}
 class CharitiesConnector @Inject() (httpClient: HttpClientV2, implicit val appConfig: FrontendAppConfig) {
 
   private val logger = Logger(this.getClass)
-  def registerCharities(registrationJson: JsValue, organizationId: Int)(implicit
+  def registerCharities(registrationJson: JsValue)(implicit
     hc: HeaderCarrier,
     ec: ExecutionContext
   ): Future[CharitiesRegistrationResponse] = {
 
     val charitiesRegistrationUrl: String =
-      s"${appConfig.getCharitiesBackend}/org/$organizationId/submissions/application"
+      s"${appConfig.getCharitiesBackend}/submissions/application"
 
     httpClient
       .post(url"$charitiesRegistrationUrl")

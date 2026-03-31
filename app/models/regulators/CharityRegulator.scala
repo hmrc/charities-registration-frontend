@@ -25,22 +25,17 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
-enum CharityRegulator(val name: String, val order: Int)
-  extends WithOrder {
+enum CharityRegulator(val name: String, val order: Int) extends WithOrder {
 
   override def toString: String = name
 
-  case EnglandWales
-    extends CharityRegulator("ccew", 1)
+  case EnglandWales extends CharityRegulator("ccew", 1)
 
-  case Scottish
-    extends CharityRegulator("oscr", 2)
+  case Scottish extends CharityRegulator("oscr", 2)
 
-  case NorthernIreland
-    extends CharityRegulator("ccni", 3)
+  case NorthernIreland extends CharityRegulator("ccni", 3)
 
-  case Other
-    extends CharityRegulator("otherRegulator", 4)
+  case Other extends CharityRegulator("otherRegulator", 4)
 }
 
 object CharityRegulator extends Enumerable.Implicits {
@@ -72,7 +67,7 @@ object CharityRegulator extends Enumerable.Implicits {
     case JsString(Scottish.name)        => JsSuccess(Scottish)
     case JsString(NorthernIreland.name) => JsSuccess(NorthernIreland)
     case JsString(Other.name)           => JsSuccess(Other)
-    case _                                  => JsError("error.invalid")
+    case _                              => JsError("error.invalid")
   }
 
   implicit def writes: Writes[CharityRegulator] =

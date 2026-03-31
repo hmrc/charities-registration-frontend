@@ -37,13 +37,8 @@ GET       /declare-and-send/start-declaration           controllers.StartDeclara
 GET       /declare-and-send/declaration                 controllers.DeclarationController.onPageLoad
 POST      /declare-and-send/declaration                 controllers.DeclarationController.onSubmit
 
-### Declaration Email or Post Page route
-GET       /declare-and-send/email-or-post               controllers.EmailOrPostController.onPageLoad
-POST      /declare-and-send/email-or-post               controllers.EmailOrPostController.onSubmit
-
 ### Registration Sent Page route
 GET       /declare-and-send/registration-sent           controllers.RegistrationSentController.onPageLoad
-GET       /declare-and-send/registration-sent/change    controllers.RegistrationSentController.onChange
 
 ### Cannot find Application route
 GET       /we-cannot-find-your-application              controllers.CannotFindApplicationController.onPageLoad

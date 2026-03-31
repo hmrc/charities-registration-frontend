@@ -25,17 +25,14 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
 
   private val messageKeyPrefix: String      = "registrationSent"
   private val section: Option[String]       = Some(messages("declaration.section"))
-  private val firstLinkContent: String      = "#"
   private val registrationExpiryLimit: Long = 28
   private val view: RegistrationSentView    = viewFor[RegistrationSentView](Some(emptyUserAnswers))
 
-  private def viewViaApply(emailOrPost: Boolean = true, noEmailOrPost: Boolean = false): HtmlFormat.Appendable =
+  private def viewViaApply(): HtmlFormat.Appendable =
     view.apply(
       dayToString(inject[TimeMachine].now().plusDays(registrationExpiryLimit)),
       dayToString(inject[TimeMachine].now()),
       "080582080582",
-      emailOrPost = emailOrPost,
-      noEmailOrPost = noEmailOrPost,
       Seq.empty,
       None
     )(fakeRequest, messages, frontendAppConfig)
@@ -45,8 +42,6 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
       dayToString(inject[TimeMachine].now().plusDays(registrationExpiryLimit)),
       dayToString(inject[TimeMachine].now()),
       "080582080582",
-      emailOrPost = true,
-      noEmailOrPost = false,
       Seq.empty,
       None,
       fakeRequest,
@@ -54,127 +49,15 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
       frontendAppConfig
     )
 
-  private val viewViaF: HtmlFormat.Appendable =
-    view.f(
-      dayToString(inject[TimeMachine].now().plusDays(registrationExpiryLimit)),
-      dayToString(inject[TimeMachine].now()),
-      "080582080582",
-      true,
-      false,
-      Seq.empty,
-      None
-    )(fakeRequest, messages, frontendAppConfig)
-
-  "RegistrationSentView for Email" when {
-    def test(method: String, view: HtmlFormat.Appendable): Unit =
-      s"$method" must {
-        behave like normalPage(view, messageKeyPrefix, section = section)
-
-        behave like pageWithPrintOrDownloadLink(
-          view,
-          "printOrDownloadlink",
-          firstLinkContent,
-          messages("registrationSent.printOrDownload")
-        )
-
-        behave like pageWithAdditionalGuidance(
-          view,
-          messageKeyPrefix,
-          "p1",
-          "submissionDate",
-          "p3.beforeRefNo",
-          "p3.afterRefNo",
-          "p4.beforeRegistrations",
-          "p4.keyWord",
-          "p4.beforeRegNo",
-          "p4.afterRegNo",
-          "p9",
-          "email.prefer.p",
-          "whatHappensNext.p1",
-          "whatHappensNext.p2",
-          "whatHappensNext.p3",
-          "changeSomething.p1"
-        )
-
-        behave like pageWithHyperLink(
-          view,
-          "link",
-          frontendAppConfig.exitSurveyUrl,
-          messages("registrationSent.link")
-        )
-
-        "contain the reference number" in {
-          val doc = asDocument(view)
-          assertContainsText(doc, "080582080582")
-        }
-      }
-
-    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
-      (".apply", viewViaApply()),
-      (".render", viewViaRender),
-      (".f", viewViaF)
-    )
-
-    input.foreach(args => test.tupled(args))
-  }
-
-  "RegistrationSentView for Post" when {
+  "RegistrationSentView" when {
     ".apply" must {
-      behave like normalPage(viewViaApply(emailOrPost = false), messageKeyPrefix, section = section)
+      behave like normalPage(viewViaApply(), messageKeyPrefix, section = section)
 
       behave like pageWithAdditionalGuidance(
-        viewViaApply(emailOrPost = false),
+        viewViaRender,
         messageKeyPrefix,
-        "p1",
-        "submissionDate",
-        "p3.beforeRefNo",
-        "p3.afterRefNo",
-        "p4.receiveBy",
-        "p4.applyAgain",
-        "p4.postTo",
-        "p9",
-        "post.prefer.p",
-        "whatHappensNext.p1",
-        "whatHappensNext.p2",
-        "whatHappensNext.p3",
-        "changeSomething.p1"
-      )
-
-      behave like pageWithHyperLink(
-        viewViaApply(emailOrPost = false),
-        "link",
-        frontendAppConfig.exitSurveyUrl,
-        messages("registrationSent.link")
-      )
-
-      "contain the inset text" in {
-        val doc = asDocument(viewViaApply(emailOrPost = false))
-        assert(doc.getElementsByClass("govuk-inset-text").first.text == messages("registrationSent.warning"))
-      }
-
-      "contain the address" in {
-        val doc = asDocument(viewViaApply(emailOrPost = false))
-        assertContainsText(doc, "Charities, Savings &amp; International 2")
-        assertContainsText(doc, "HMRC")
-        assertContainsText(doc, "BX9 1BU")
-      }
-
-      "contain the reference number" in {
-        val doc = asDocument(viewViaApply(emailOrPost = false))
-        assertContainsText(doc, "080582080582")
-      }
-    }
-  }
-
-  "RegistrationSentView with noEmailPost enabled" when {
-    ".apply" must {
-      behave like normalPage(viewViaApply(noEmailOrPost = true), messageKeyPrefix, section = section)
-
-      behave like pageWithAdditionalGuidance(
-        viewViaApply(noEmailOrPost = true),
-        messageKeyPrefix,
-        "no.email.h2",
-        "no.email.p1"
+        "h2",
+        "post.step2"
       )
     }
   }

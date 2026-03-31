@@ -103,7 +103,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
     "redirect to the next page after valid transformation" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCharitiesRegistrationService.register(any(), any())(any(), any(), any())).thenReturn(
+      when(mockCharitiesRegistrationService.register(any())(any(), any(), any())).thenReturn(
         Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
       )
 
@@ -112,7 +112,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockCharitiesRegistrationService, times(1)).register(any(), any())(any(), any(), any())
+      verify(mockCharitiesRegistrationService, times(1)).register(any())(any(), any(), any())
     }
 
     "redirect to the technical difficulties page for invalid transformation" in {
@@ -124,7 +124,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
       }
 
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockCharitiesRegistrationService, never()).register(any(), any())(any(), any(), any())
+      verify(mockCharitiesRegistrationService, never()).register(any())(any(), any(), any())
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
@@ -137,7 +137,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
       redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockCharitiesRegistrationService, never()).register(any(), any())(any(), any(), any())
+      verify(mockCharitiesRegistrationService, never()).register(any())(any(), any(), any())
     }
 
     "redirect to Tasklist for a GET if SectionPage is not completed" in {

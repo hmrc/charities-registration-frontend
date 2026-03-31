@@ -51,9 +51,8 @@ enum OfficialsPosition(val code: String) {
   case UKAgent extends OfficialsPosition("23")
 }
 
-
 object OfficialsPosition extends Enumerable.Implicits {
-  
+
   def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.toIndexedSeq.map { value =>
     RadioItem(
       value = Some(value.toString),
@@ -89,7 +88,7 @@ object OfficialsPosition extends Enumerable.Implicits {
     case JsString(AssistantTreasurer.code)    => JsSuccess(AssistantTreasurer)
     case JsString(Trustee.code)               => JsSuccess(Trustee)
     case JsString(UKAgent.code)               => JsSuccess(UKAgent)
-    case _                                        => JsError("error.invalid")
+    case _                                    => JsError("error.invalid")
   }
 
   implicit def writes: Writes[OfficialsPosition] =

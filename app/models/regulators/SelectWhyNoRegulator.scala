@@ -27,26 +27,19 @@ enum SelectWhyNoRegulator(val name: String) {
 
   override def toString: String = name
 
-  case EnglandWalesUnderThreshold
-    extends SelectWhyNoRegulator("1")
+  case EnglandWalesUnderThreshold extends SelectWhyNoRegulator("1")
 
-  case ExemptOrExcepted
-    extends SelectWhyNoRegulator("5")
+  case ExemptOrExcepted extends SelectWhyNoRegulator("5")
 
-  private case NoRegulatorInCountry
-    extends SelectWhyNoRegulator("4")
+  private case NoRegulatorInCountry extends SelectWhyNoRegulator("4")
 
-  private case ParochialChurchCouncils
-    extends SelectWhyNoRegulator("2")
+  private case ParochialChurchCouncils extends SelectWhyNoRegulator("2")
 
-  case UniformedYouthGroup
-    extends SelectWhyNoRegulator("3")
+  case UniformedYouthGroup extends SelectWhyNoRegulator("3")
 
-  case Other
-    extends SelectWhyNoRegulator("7")
+  case Other extends SelectWhyNoRegulator("7")
 }
 object SelectWhyNoRegulator extends Enumerable.Implicits {
-
 
   def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.toIndexedSeq.map { value =>
     RadioItem(
@@ -66,7 +59,7 @@ object SelectWhyNoRegulator extends Enumerable.Implicits {
     case JsString(ParochialChurchCouncils.name)    => JsSuccess(ParochialChurchCouncils)
     case JsString(UniformedYouthGroup.name)        => JsSuccess(UniformedYouthGroup)
     case JsString(Other.name)                      => JsSuccess(Other)
-    case _                                             => JsError("error.invalid")
+    case _                                         => JsError("error.invalid")
   }
 
   implicit def writes: Writes[SelectWhyNoRegulator] =

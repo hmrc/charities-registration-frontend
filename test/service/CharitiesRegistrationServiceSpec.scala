@@ -78,37 +78,18 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
   "Charities Registration Service" must {
 
     "redirect to next page if acknowledgement reference is already present" in {
-      val result = service.register(Json.obj(), noEmailPost = false)(dataRequestWithAcknowledgement, hc, ec)
+      val result = service.register(Json.obj())(dataRequestWithAcknowledgement, hc, ec)
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad.url)
+      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
     }
 
-    "redirect to the next page after valid registration response and noEmailPost is disabled" in {
-      when(
-        mockCharitiesConnector.registerCharities(any())(any(), any())
-      ).thenReturn(
-        Future.successful(Right(RegistrationResponse("765432")))
-      )
-
-      doNothing().when(mockAuditService).sendEvent(any())(any(), any())
-
-      val result = service.register(expectedJsonObject, noEmailPost = false)(fakeDataRequest, hc, ec)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad.url)
-      verify(mockCharitiesConnector, times(1)).registerCharities(any())(any(), any())
-
-      verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
-      verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
-    }
-
-    "redirect to the next page after valid registration response noEmailPost is enabled" in {
+    "redirect to the registration sent page after valid registration response" in {
       when(mockCharitiesConnector.registerCharities(any())(any(), any())).thenReturn(
         Future.successful(Right(RegistrationResponse("765432")))
       )
       doNothing().when(mockAuditService).sendEvent(any())(any(), any())
 
-      val result = service.register(expectedJsonObject, noEmailPost = true)(fakeDataRequest, hc, ec)
+      val result = service.register(expectedJsonObject)(fakeDataRequest, hc, ec)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
@@ -124,7 +105,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       )
 
       intercept[UnexpectedFailureException] {
-        await(service.register(expectedJsonObject, noEmailPost = false)(fakeDataRequest, hc, ec))
+        await(service.register(expectedJsonObject)(fakeDataRequest, hc, ec))
       }
 
       verify(mockCharitiesConnector, times(1)).registerCharities(any())(any(), any())
@@ -134,7 +115,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
     "redirect to the technical difficulties page if submission data is missing keys that need to be transformed " in {
 
       val result = intercept[UnexpectedFailureException] {
-        await(service.register(Json.obj(), noEmailPost = true)(fakeDataRequest, hc, ec))
+        await(service.register(Json.obj())(fakeDataRequest, hc, ec))
       }
       result.getMessage must include("JsonValidationError(List(error.path.missing)")
 

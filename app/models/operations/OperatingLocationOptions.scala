@@ -29,13 +29,12 @@ enum OperatingLocationOptions extends WithOrder {
   case Scotland
   case NorthernIreland
   case Overseas
-  
+
   override def toString: String = (ordinal + 1).toString
-  override val order: Int = ordinal + 1
+  override val order: Int       = ordinal + 1
 }
 
 object OperatingLocationOptions extends Enumerable.Implicits {
-  
 
   def options(form: Form[?])(implicit messages: Messages): Seq[CheckboxItem] = values.toIndexedSeq.zipWithIndex.map {
     case (value, index) =>

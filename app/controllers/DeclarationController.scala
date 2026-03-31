@@ -34,6 +34,7 @@ class DeclarationController @Inject() (
   getData: UserDataRetrievalAction,
   requireData: DataRequiredAction,
   registrationService: CharitiesRegistrationService,
+  // TODO: remove transformer
   transformer: CharitySubmissionTransformer,
   view: DeclarationView,
   val controllerComponents: MessagesControllerComponents
@@ -51,10 +52,11 @@ class DeclarationController @Inject() (
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    // TODO
     request.userAnswers.data.transform(transformer.userAnswersToSubmission) match {
       case JsSuccess(requestJson, _) =>
         logger.info("[DeclarationController][onSubmit] userAnswers to submission transformation successful")
-        registrationService.register(requestJson, appConfig.noEmailPost)
+        registrationService.register(requestJson)
       case JsError(err)              =>
         logger.error(
           "[DeclarationController][onSubmit] userAnswers to submission transformation failed with errors: " + err

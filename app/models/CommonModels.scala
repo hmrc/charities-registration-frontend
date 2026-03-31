@@ -24,7 +24,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
 import java.time.LocalDate
 
-
 enum SelectTitle(val code: String) {
   case Mr extends SelectTitle("0001")
   case Mrs extends SelectTitle("0002")
@@ -54,11 +53,12 @@ object SelectTitle extends Enumerable.Implicits {
   implicit val format: Format[SelectTitle] = Format(
     Reads {
       case JsString(s) =>
-        SelectTitle.values.find(_.code == s)
+        SelectTitle.values
+          .find(_.code == s)
           .orElse(SelectTitle.values.find(_.toString == s))
           .map(JsSuccess(_))
           .getOrElse(JsError("error.invalid"))
-      case _ => JsError("error.invalid")
+      case _           => JsError("error.invalid")
     },
     Writes(t => JsString(t.code))
   )

@@ -38,35 +38,28 @@ class CharitiesRegistrationService @Inject() (
 
   private val logger = Logger(this.getClass)
 
-  def register(requestJson: JsObject, noEmailPost: Boolean)(implicit
+  def register(requestJson: JsObject)(implicit
     request: DataRequest[?],
     hc: HeaderCarrier,
     ec: ExecutionContext
   ): Future[Result] =
     request.userAnswers.get(AcknowledgementReferencePage) match {
-      case None =>
+      case None    =>
+        // TODO: Remove convertInputsForModel
         charitiesConnector.registerCharities(convertInputsForModel(requestJson)).flatMap {
-          case Right(_) =>
+          case Right(_)    =>
             for {
               _ <- Future.successful(
                      auditService.sendEvent(SubmissionAuditEvent(requestJson + ("declaration" -> JsBoolean(true))))
                    )
-            } yield
-              if (noEmailPost) {
-                Redirect(controllers.routes.RegistrationSentController.onPageLoad)
-              } else {
-                Redirect(controllers.routes.EmailOrPostController.onPageLoad)
-              }
-
+            } yield Redirect(controllers.routes.RegistrationSentController.onPageLoad)
           case Left(error) =>
             throw UnexpectedFailureException(error.body)
-
         } recover { case e =>
           logger.info(s"[CharitiesRegistrationService][register] registration failed", e)
           throw UnexpectedFailureException(e.getMessage)
         }
-
-      case Some(_) => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad))
+      case Some(_) => Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
     }
 
   private def convertInputsForModel(requestJson: JsObject): JsValue = {

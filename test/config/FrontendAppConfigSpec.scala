@@ -125,10 +125,6 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.getCharitiesBackend mustBe "http://localhost:9329"
       }
 
-      "noEmailPost" in {
-        frontendAppConfig.noEmailPost mustBe true
-      }
-
       "timeToLiveInDays" in {
         frontendAppConfig.timeToLiveInDays mustBe 28
       }

@@ -170,7 +170,6 @@ commonAddress.LookupPage.postcodeLabel = Chwilio am y cod post
 commonAddress.selectPage.headingWithPostcode = Chwilio am y cod post
 commonAddress.selectPage.submitLabel = Yn eich blaen
 
-
 commonAddress.editPage.townLabel = Tref neu ddinas
 commonAddress.editPage.postcodeLabel = Cod Post
 
@@ -230,31 +229,16 @@ requiredDocuments.selectWhyNoRegulator.answerTrue = tystysgrif cofrestru oddi wr
 requiredDocuments.noRegulatorUniformedYouthGroup.answerTrue = tystysgrif cofrestru oddi wrth y corff llywodraethol
 requiredDocuments.foreignAddresses.answerTrue = manylion adnabod ar gyfer: {0} – ei basbort, cerdyn adnabod neu fil cyfleustodau o’r 3 mis diwethaf
 
-# Email or post page Messages
-# ----------------------------------------------------------
-emailOrPost.title = A fyddai’n well gennych anfon dogfennau ategol yr elusen atom drwy e-bost neu drwy’r post?
-emailOrPost.heading = A fyddai’n well gennych anfon dogfennau ategol yr elusen atom drwy e-bost neu drwy’r post?
-emailOrPost.p = Mae angen i chi anfon y canlynol:
-emailOrPost.yes = E-bost yr elusen
-emailOrPost.no = Cyfeiriad post yr elusen
-emailOrPost.error.required = Dewiswch a fyddai’n well gennych anfon dogfennau ategol yr elusen drwy e-bost neu drwy’r post
-
 # Registration sent page Messages
 # ----------------------------------------------------------
 registrationSent.title = Cofrestriad wedi’i anfon
 registrationSent.heading = Cofrestriad wedi’i anfon
 registrationSent.submissionDate = Cyflwynwyd:
-registrationSent.email.h2 = Anfonwch y dogfennau atom drwy e-bost
-registrationSent.no.email.h2 = Nid ydym bellach yn derbyn dogfennau ategol drwy e-bost
-registrationSent.no.email.p1 = Erbyn hyn, mae’n rhaid i chi anfon y dogfennau ategol atom drwy’r post yn lle hynny. Os ydych eisoes wedi anfon y dogfennau ategol drwy e-bost, byddwn yn eu derbyn o hyd.
 registrationSent.h2 = Y camau nesaf
-registrationSent.post.p1 = Nawr, mae angen i chi anfon eich dogfennau ategol atom drwy’r post.
-registrationSent.post.h2 = Anfonwch y dogfennau atom drwy’r post
 registrationSent.step1 = Cam 1: Paratoi’r dogfennau
 registrationSent.p3.beforeRefNo = Mae angen i chi wneud copïau ac ychwanegu’ch cyfeirnod
 registrationSent.p3.afterRefNo = at:
 registrationSent.post.step2 = Cam 2: Postio copïau o’r dogfennau
-registrationSent.email.step2 = Cam 2: Anfon copïau o’r dogfennau erbyn {0}
 registrationSent.p4.beforeRegistrations = Ychwanegwch y gair
 registrationSent.p4.keyWord = Cofrestriadau
 registrationSent.p4.beforeRegNo = a’ch cyfeirnod
@@ -264,14 +248,6 @@ registrationSent.p4.link = anfonwch y dogfennau drwy e-bost i contactcharities@h
 registrationSent.p4.receiveBy = Mae’n rhaid i’r dogfennau ddod i law erbyn
 registrationSent.p4.applyAgain = . Os nad yw’r dogfennau yn dod i law erbyn y dyddiad hwn, bydd angen i chi wneud cais eto.
 registrationSent.p4.postTo = Dylech bostio’r dogfennau i:
-registrationSent.email.prefer.h2 = Os yw’n well gennych anfon dogfennau drwy’r post
-registrationSent.email.prefer.p = Gallwch
-registrationSent.email.prefer.link = ddilyn y cyfarwyddiadau i anfon dogfennau ategol eich elusen drwy’r post
-registrationSent.email.prefer.afterLink = .
-registrationSent.post.prefer.h2 = Os yw’n well gennych anfon dogfennau drwy e-bost
-registrationSent.post.prefer.p = Gallwch
-registrationSent.post.prefer.link = ddilyn y cyfarwyddiadau i anfon dogfennau ategol eich elusen drwy e-bost
-registrationSent.post.prefer.afterLink = .
 
 registrationSent.whatHappensNext.h2 = Yr hyn sy’n digwydd ar ôl i’ch dogfennau ddod i law
 registrationSent.whatHappensNext.p1 = Gall gymryd hyd at 6 wythnos i brosesu’ch cofrestriad.

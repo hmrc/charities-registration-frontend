@@ -27,12 +27,12 @@ import java.time.LocalDate
 
 object CharitiesStub extends WireMockMethods {
 
-  private val charitiesRegistration = "/submissions/application"
+  private val charitiesRegistration = "/submissions/application/"
   private val saveUserAnswer        = "/charities-registration/saveUserAnswer/"
   private val getUserAnswer         = "/charities-registration/getUserAnswer/"
 
-  def stubScenario(): StubMapping =
-    when(method = POST, uri = charitiesRegistration)
+  def stubScenario(userId: String): StubMapping =
+    when(method = POST, uri = s"$charitiesRegistration$userId")
       .thenReturn(status = ACCEPTED, body = Json.parse("""{"acknowledgementReference":"765432"}"""))
 
   def stubUserAnswerPost(ua: UserAnswers, userId: String): StubMapping = {

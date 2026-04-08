@@ -17,7 +17,6 @@
 package audit
 
 import config.FrontendAppConfig
-import models.AuditTypes.{CharitiesRegistrationSubmission, NewUser, PartialUserTransfer}
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.*
@@ -55,101 +54,31 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
   private val auditService      = app.injector.instanceOf[AuditService]
   private val frontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
 
-  case class TestAuditEvent(eventData: String) extends AuditEvent {
-    override def auditType: String = "TestAudit"
-
-    override def transactionName: String = "testTransactionName"
-
-    override def details: JsValue =
-      Json.parse("""{"test-audit": { "foo": "test" }}""")
-  }
-
-  val testAuditEvent: TestAuditEvent = TestAuditEvent("test-audit")
-
   implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
 
+  val templateCaptor: ArgumentCaptor[ExtendedDataEvent] = ArgumentCaptor.forClass(classOf[ExtendedDataEvent])
+  val testEvent                                         = NormalUserAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""))
+
   "AuditService" must {
-
-    "successfully sent audit event" in {
-
-      val templateCaptor: ArgumentCaptor[ExtendedDataEvent] = ArgumentCaptor.forClass(classOf[ExtendedDataEvent])
-
-      when(mockAuditConnector.sendExtendedEvent(any())(any(), any())).thenReturn(Future(Success))
-
-      auditService.sendEvent(testAuditEvent)
-
-      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())(any(), any())
-
-      val event = templateCaptor.getValue
-      event.auditSource mustBe frontendAppConfig.appName
-      event.auditType mustBe "TestAudit"
-      event.tags.get("transactionName") mustBe Some("testTransactionName")
-      event.detail mustBe Json.parse("""{"test-audit": { "foo": "test" }}""")
-    }
-
-    "successfully sent SubmissionAuditEvent" in {
-      val templateCaptor = ArgumentCaptor.forClass(classOf[ExtendedDataEvent])
-
-      when(mockAuditConnector.sendExtendedEvent(any())(any(), any())).thenReturn(Future(Success))
-
-      auditService.sendEvent(SubmissionAuditEvent(Json.parse("""{"this": { "is": "a test" }}""")))
-      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())(any(), any())
-
-      val event = templateCaptor.getValue
-      event.auditSource mustBe frontendAppConfig.appName
-      event.auditType mustBe CharitiesRegistrationSubmission.toString
-      event.tags.get("transactionName") mustBe Some("CharityRegistrationSubmission")
-      event.detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
-    }
-
-    "successfully sent SwitchOverAuditEvent" in {
-      val templateCaptor = ArgumentCaptor.forClass(classOf[ExtendedDataEvent])
-
-      when(mockAuditConnector.sendExtendedEvent(any())(any(), any())).thenReturn(Future(Success))
-
-      auditService.sendEvent(
-        SwitchOverAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""), PartialUserTransfer.toString)
-      )
-      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())(any(), any())
-
-      val event = templateCaptor.getValue
-      event.auditSource mustBe frontendAppConfig.appName
-      event.tags.get("transactionName") mustBe Some("CharitiesSwitchOver")
-      event.auditType mustBe PartialUserTransfer.toString
-      event.detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
-    }
-
     "successfully sent NormalUserAuditEvent" in {
-      val templateCaptor = ArgumentCaptor.forClass(classOf[ExtendedDataEvent])
-
       when(mockAuditConnector.sendExtendedEvent(any())(any(), any())).thenReturn(Future(Success))
-
-      auditService.sendEvent(NormalUserAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""), NewUser.toString))
+      auditService.sendEvent(testEvent)
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())(any(), any())
-
       val event = templateCaptor.getValue
       event.auditSource mustBe frontendAppConfig.appName
       event.tags.get("transactionName") mustBe Some("CharitiesRewriteUser")
-      event.auditType mustBe NewUser.toString
+      event.auditType mustBe "NewUser"
       event.detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
     }
-
     "failed to sent audit event" in {
-
-      val templateCaptor = ArgumentCaptor.forClass(classOf[ExtendedDataEvent])
-
       when(mockAuditConnector.sendExtendedEvent(any())(any(), any()))
         .thenReturn(Future.failed(new Exception("Failed test exception")))
-
-      auditService.sendEvent(testAuditEvent)
-
+      auditService.sendEvent(testEvent)
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())(any(), any())
-
       val event = templateCaptor.getValue
       event.auditSource mustBe frontendAppConfig.appName
-      event.auditType mustBe "TestAudit"
-      event.detail mustBe Json.parse("""{"test-audit": { "foo": "test" }}""")
+      event.auditType mustBe "NewUser"
+      event.detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
     }
-
   }
 }

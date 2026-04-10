@@ -50,6 +50,7 @@ class AuthorisedOfficialsPassportController @Inject() (
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
+      
       getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
         Future.successful(
           getView(

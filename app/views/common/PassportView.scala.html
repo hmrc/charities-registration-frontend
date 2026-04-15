@@ -18,6 +18,7 @@
 @import views.ViewUtils._
 @import config.FrontendAppConfig
 @import scala.util.Try
+@import java.time.LocalDate
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
@@ -67,7 +68,7 @@ link: components.link
                 legendContent = messages(s"$messagePrefix.expiryDate.label"),
                 legendClasses = "govuk-label govuk-!-margin-bottom-4",
                 hintMessage= None,
-                hintHtml = Some(Html(messages(s"$messagePrefix.hint"))),
+                hintHtml = Some(Html(messages(s"$messagePrefix.hint", (LocalDate.now().getYear + 10).toString ))),
                 legendAsPageHeading = false
             )
 

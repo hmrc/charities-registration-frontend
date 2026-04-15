@@ -54,6 +54,10 @@
 
 @if(isPageHint){<span id="@id-hint" class="govuk-hint">@hint</span>}
 @if(isPageHintText){<span id="@id-hintText" class="govuk-hint">@hintText</span>}
+@defining(Seq(
+    if(isPageHint) Some(s"$id-hint") else None,
+    if(isPageHintText) Some(s"$id-hintText") else None
+).flatten.mkString(" ")) { describedBy =>
 @select(hmrcComponent.Select(
     id = id,
     name = name,
@@ -65,7 +69,8 @@
     selected = k == form("country").value.getOrElse(""),
     attributes = Map("id" → s"country-$k"))
     },
-    formGroup = FormGroup(classes = Some("autocomplete-wrapper govuk-!-width-three-quarters"))
+    formGroup = FormGroup(classes = Some("autocomplete-wrapper govuk-!-width-three-quarters")),
+    attributes = if(describedBy.nonEmpty) Map("aria-describedby" → describedBy) else Map.empty
 ).asAccessibleAutocomplete())
+}
 </div>
-

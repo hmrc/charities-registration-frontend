@@ -41,7 +41,6 @@ trait CountryService {
 class CountryServiceImpl extends CountryService {
 
   private def getCountries(resourceFile: String): Seq[Country] =
-
     Using.resource(getClass.getResourceAsStream(resourceFile)) { reader =>
       Json
         .parse(reader)

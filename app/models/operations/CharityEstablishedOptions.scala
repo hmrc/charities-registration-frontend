@@ -27,11 +27,11 @@ enum CharityEstablishedOptions(val name: String) {
 
   override def toString: String = name
 
-  case England          extends CharityEstablishedOptions("0")
-  case Wales            extends CharityEstablishedOptions("1")
-  case Scotland         extends CharityEstablishedOptions("2")
-  case NorthernIreland  extends CharityEstablishedOptions("3")
-  case Overseas         extends CharityEstablishedOptions("4")
+  case England extends CharityEstablishedOptions("0")
+  case Wales extends CharityEstablishedOptions("1")
+  case Scotland extends CharityEstablishedOptions("2")
+  case NorthernIreland extends CharityEstablishedOptions("3")
+  case Overseas extends CharityEstablishedOptions("4")
 }
 
 object CharityEstablishedOptions extends Enumerable.Implicits {
@@ -53,7 +53,7 @@ object CharityEstablishedOptions extends Enumerable.Implicits {
     case JsString(Scotland.name)        => JsSuccess(Scotland)
     case JsString(NorthernIreland.name) => JsSuccess(NorthernIreland)
     case JsString(Overseas.name)        => JsSuccess(Overseas)
-    case _                                  => JsError("error.invalid")
+    case _                              => JsError("error.invalid")
   }
 
   implicit def writes: Writes[CharityEstablishedOptions] =

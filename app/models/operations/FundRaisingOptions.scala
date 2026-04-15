@@ -24,20 +24,14 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
 enum FundRaisingOptions(val name: String, val order: Int) extends WithOrder {
   override def toString: String = name
-  case Donations                 extends FundRaisingOptions("donations", 1)
-  private[FundRaisingOptions]
-  case Fundraising               extends FundRaisingOptions("fundraising", 2)
-  private[FundRaisingOptions]
-  case Grants                    extends FundRaisingOptions("grants", 3)
-  private[FundRaisingOptions]
-  case MembershipSubscriptions   extends FundRaisingOptions("membershipSubscriptions", 4)
-  private[FundRaisingOptions]
-  case TradingIncome             extends FundRaisingOptions("tradingIncome", 5)
-  private[FundRaisingOptions]
-  case TradingSubsidiaries       extends FundRaisingOptions("tradingSubsidiaries", 6)
-  private[FundRaisingOptions]
-  case InvestmentIncome          extends FundRaisingOptions("investmentIncome", 7)
-  case Other                     extends FundRaisingOptions("other", 8)
+  case Donations extends FundRaisingOptions("donations", 1)
+  private[FundRaisingOptions] case Fundraising extends FundRaisingOptions("fundraising", 2)
+  private[FundRaisingOptions] case Grants extends FundRaisingOptions("grants", 3)
+  private[FundRaisingOptions] case MembershipSubscriptions extends FundRaisingOptions("membershipSubscriptions", 4)
+  private[FundRaisingOptions] case TradingIncome extends FundRaisingOptions("tradingIncome", 5)
+  private[FundRaisingOptions] case TradingSubsidiaries extends FundRaisingOptions("tradingSubsidiaries", 6)
+  private[FundRaisingOptions] case InvestmentIncome extends FundRaisingOptions("investmentIncome", 7)
+  case Other extends FundRaisingOptions("other", 8)
 }
 
 object FundRaisingOptions extends Enumerable.Implicits {

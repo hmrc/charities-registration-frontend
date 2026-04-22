@@ -25,6 +25,9 @@ class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBeh
     inject[CharityCommissionRegistrationNumberFormProvider]
   private val form: Form[String]                                            = formProvider()
 
+  private def validRegistrationNumberData(value: String): Map[String, String] =
+    Map("registrationNumber" -> value)
+
   ".registrationNumber" must {
 
     val requiredKey = "charityCommissionRegistrationNumber.error.required"
@@ -47,7 +50,7 @@ class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBeh
     behave like fieldWithRegex(
       form,
       fieldName,
-      "invalidRegistrationNumber",
+      "12345",
       FormError(fieldName, invalidKey, Seq(formProvider.validateRegistrationNumber))
     )
   }
@@ -73,6 +76,14 @@ class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBeh
       val filled = form.fill(charityCommissionRegistrationNumber)
       filled("registrationNumber").value.value mustBe charityCommissionRegistrationNumber
     }
+
+    "normalise spaces in CharityCommissionRegistrationNumber correctly" in {
+      val details = form
+        .bind(validRegistrationNumberData("12345 6"))
+        .get
+
+      details mustBe "123456"
+    }
   }
 
   "validateRegistrationNumber" must {
@@ -83,7 +94,6 @@ class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBeh
     }
 
     "valid for 01632 960" in {
-
       "01632 960" mustNot fullyMatch regex formProvider.validateRegistrationNumber
     }
   }

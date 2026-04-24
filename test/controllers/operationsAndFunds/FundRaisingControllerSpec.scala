@@ -76,7 +76,9 @@ class FundRaisingControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(emptyUserAnswers.set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet).getOrElse(emptyUserAnswers))
+          Some(
+            emptyUserAnswers.set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet).getOrElse(emptyUserAnswers)
+          )
         )
       )
 

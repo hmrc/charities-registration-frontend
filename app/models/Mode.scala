@@ -19,7 +19,6 @@ package models
 import play.api.libs.json.{JsString, Writes}
 import play.api.mvc.JavascriptLiteral
 
-
 enum Mode {
   case NormalMode
   case CheckMode
@@ -28,17 +27,17 @@ enum Mode {
 
 object Mode {
 
-  given jsLiteral: JavascriptLiteral[Mode] with 
+  given jsLiteral: JavascriptLiteral[Mode] with
     override def to(mode: Mode): String = mode match {
-      case Mode.NormalMode => "\"NormalMode\""
-      case Mode.CheckMode => "\"CheckMode\""
+      case Mode.NormalMode   => "\"NormalMode\""
+      case Mode.CheckMode    => "\"CheckMode\""
       case Mode.PlaybackMode => "\"PlaybackMode\""
     }
 
   given Writes[Mode] with
     def writes(mode: Mode): JsString = mode match {
-      case Mode.NormalMode => JsString("NormalMode")
-      case Mode.CheckMode => JsString("CheckMode")
+      case Mode.NormalMode   => JsString("NormalMode")
+      case Mode.CheckMode    => JsString("CheckMode")
       case Mode.PlaybackMode => JsString("PlaybackMode")
     }
 }

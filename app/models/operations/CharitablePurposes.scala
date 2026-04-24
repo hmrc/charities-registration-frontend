@@ -23,51 +23,36 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
-enum CharitablePurposes(val name: String, val order: Int)
-  extends WithOrder {
+enum CharitablePurposes(val name: String, val order: Int) extends WithOrder {
 
   override def toString: String = name
 
-  case AmateurSport
-    extends CharitablePurposes("amateurSport", 1)
+  case AmateurSport extends CharitablePurposes("amateurSport", 1)
 
-  case AnimalWelfare
-    extends CharitablePurposes("animalWelfare", 2)
+  case AnimalWelfare extends CharitablePurposes("animalWelfare", 2)
 
-  private case ArtsCultureHeritageScience
-    extends CharitablePurposes("artsCultureOrScience", 3)
+  private case ArtsCultureHeritageScience extends CharitablePurposes("artsCultureOrScience", 3)
 
-  private case CitizenshipCommunity
-    extends CharitablePurposes("citizenshipOrCommunityDevelopment", 4)
+  private case CitizenshipCommunity extends CharitablePurposes("citizenshipOrCommunityDevelopment", 4)
 
-  private case Education
-    extends CharitablePurposes("education", 5)
+  private case Education extends CharitablePurposes("education", 5)
 
-  private case EnvironmentalProtection
-    extends CharitablePurposes("environmentalProtection", 6)
+  private case EnvironmentalProtection extends CharitablePurposes("environmentalProtection", 6)
 
-  private case Health
-    extends CharitablePurposes("healthOrSavingOfLives", 7)
+  private case Health extends CharitablePurposes("healthOrSavingOfLives", 7)
 
-  private case HumanRights
-    extends CharitablePurposes("humanRights", 8)
+  private case HumanRights extends CharitablePurposes("humanRights", 8)
 
-  private case PromotionOfEfficiency
-    extends CharitablePurposes("armedForcesOfTheCrown", 9)
+  private case PromotionOfEfficiency extends CharitablePurposes("armedForcesOfTheCrown", 9)
 
-  private case ReliefOfPoverty
-    extends CharitablePurposes("reliefOfPoverty", 10)
+  private case ReliefOfPoverty extends CharitablePurposes("reliefOfPoverty", 10)
 
-  private case ReliefOfThoseInNeed
-    extends CharitablePurposes("reliefOfYouthAge", 11)
+  private case ReliefOfThoseInNeed extends CharitablePurposes("reliefOfYouthAge", 11)
 
-  private case Religion
-    extends CharitablePurposes("religion", 12)
+  private case Religion extends CharitablePurposes("religion", 12)
 
-  case Other
-    extends CharitablePurposes("other", 13)
+  case Other extends CharitablePurposes("other", 13)
 }
-
 
 object CharitablePurposes extends Enumerable.Implicits {
 
@@ -100,7 +85,7 @@ object CharitablePurposes extends Enumerable.Implicits {
     case JsString(ReliefOfThoseInNeed.name)        => JsSuccess(ReliefOfThoseInNeed)
     case JsString(Religion.name)                   => JsSuccess(Religion)
     case JsString(Other.name)                      => JsSuccess(Other)
-    case _                                             => JsError("error.invalid")
+    case _                                         => JsError("error.invalid")
   }
 
   implicit def writes: Writes[CharitablePurposes] =

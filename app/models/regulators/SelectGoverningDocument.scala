@@ -27,26 +27,19 @@ enum SelectGoverningDocument(val name: String) {
 
   override def toString: String = name
 
-  case MemorandumArticlesAssociation
-    extends SelectGoverningDocument("2")
+  case MemorandumArticlesAssociation extends SelectGoverningDocument("2")
 
-  case RoyalCharacter
-    extends SelectGoverningDocument("6")
+  case RoyalCharacter extends SelectGoverningDocument("6")
 
-  case RulesConstitution
-    extends SelectGoverningDocument("1")
+  case RulesConstitution extends SelectGoverningDocument("1")
 
-  case TrustDeed
-    extends SelectGoverningDocument("3")
+  case TrustDeed extends SelectGoverningDocument("3")
 
-  case Will
-    extends SelectGoverningDocument("4")
+  case Will extends SelectGoverningDocument("4")
 
-  case Other
-    extends SelectGoverningDocument("7")
+  case Other extends SelectGoverningDocument("7")
 }
 object SelectGoverningDocument extends Enumerable.Implicits {
-  
 
   def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.toIndexedSeq.map { value =>
     RadioItem(
@@ -66,7 +59,7 @@ object SelectGoverningDocument extends Enumerable.Implicits {
     case JsString(TrustDeed.name)                     => JsSuccess(TrustDeed)
     case JsString(Will.name)                          => JsSuccess(Will)
     case JsString(Other.name)                         => JsSuccess(Other)
-    case _                                                => JsError("error.invalid")
+    case _                                            => JsError("error.invalid")
   }
 
   implicit def writes: Writes[SelectGoverningDocument] =

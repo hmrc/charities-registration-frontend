@@ -32,7 +32,7 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
     val fieldName   = "fullName"
     val requiredKey = "charityName.fullName.error.required"
     val lengthKey   = "charityName.fullName.error.length"
-    val invalidKey  = "charityName.fullName.error.format"
+//    val invalidKey  = "charityName.fullName.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -52,13 +52,13 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
     )
-
-    behave like fieldWithRegex(
-      form,
-      fieldName,
-      "()invalidName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
-    )
+//
+//    behave like fieldWithRegex(
+//      form,
+//      fieldName,
+//      "()invalidName",
+//      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+//    )
   }
 
   ".operatingName" must {

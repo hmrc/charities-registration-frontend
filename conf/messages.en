@@ -229,31 +229,16 @@ requiredDocuments.selectWhyNoRegulator.answerTrue = certificate of registration 
 requiredDocuments.noRegulatorUniformedYouthGroup.answerTrue = certificate of registration from the governing body
 requiredDocuments.foreignAddresses.answerTrue = identity details for {0} - their passport, identity card or a utility bill from the last 3 months
 
-# Email or post page Messages
-# ----------------------------------------------------------
-emailOrPost.title = Would you prefer to send us the charity’s supporting documents by email or post?
-emailOrPost.heading = Would you prefer to send us the charity’s supporting documents by email or post?
-emailOrPost.p = You need to send us the charity’s:
-emailOrPost.yes = Email
-emailOrPost.no = Post
-emailOrPost.error.required = Select if you would prefer to send the charity’s supporting documents by email or post
-
 # Registration sent page Messages
 # ----------------------------------------------------------
 registrationSent.title = Registration sent
 registrationSent.heading = Registration sent
 registrationSent.submissionDate = Submitted:
-registrationSent.email.h2 = Send us the documents by email
-registrationSent.no.email.h2 = We no longer accept supporting documents by email
-registrationSent.no.email.p1 = You must now send us the supporting documents by post instead. If you have already sent the supporting documents by email, they will still be accepted.
 registrationSent.h2 = Next steps
-registrationSent.post.p1 = Now you need to send us your supporting documents by post.
-registrationSent.post.h2 = Send us the documents by post
 registrationSent.step1 = Step 1: Prepare the documents
 registrationSent.p3.beforeRefNo = You need to make copies and add your reference number
 registrationSent.p3.afterRefNo = to:
 registrationSent.post.step2 = Step 2: Post copies of the documents
-registrationSent.email.step2 = Step 2: Send copies of the documents by {0}
 registrationSent.p4.beforeRegistrations = Add the word
 registrationSent.p4.keyWord = Registrations
 registrationSent.p4.beforeRegNo = and your reference number
@@ -263,14 +248,6 @@ registrationSent.p4.link = send the documents by email to contactcharities@hmrc.
 registrationSent.p4.receiveBy = We must receive the documents by
 registrationSent.p4.applyAgain = . If we do not receive the documents by this date, you will have to apply again.
 registrationSent.p4.postTo = You should post the documents to:
-registrationSent.email.prefer.h2 = If you would prefer to send documents by post
-registrationSent.email.prefer.p = You can
-registrationSent.email.prefer.link = follow the instructions to send your charity’s supporting documents by post
-registrationSent.email.prefer.afterLink = .
-registrationSent.post.prefer.h2 = If you would prefer to send documents by email
-registrationSent.post.prefer.p = You can
-registrationSent.post.prefer.link = follow the instructions to send your charity’s supporting documents by email
-registrationSent.post.prefer.afterLink = .
 
 registrationSent.whatHappensNext.h2 = What happens after we receive your documents
 registrationSent.whatHappensNext.p1 = It can take up to 6 weeks to process your registration.

@@ -119,7 +119,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
       )
     }
 
-    s"fail to bind a today's date" in {
+    s"fail to bind today's date" in {
 
       val data = Map(
         "passportNumber"    -> passportNumber,

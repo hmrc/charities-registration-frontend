@@ -17,7 +17,7 @@ object AppDependencies {
     "uk.gov.hmrc"                  %% "domain-test-play-30"     % "13.0.0",
     "org.jsoup"                     % "jsoup"                   % "1.22.1",
     "org.scalatestplus"            %% "scalacheck-1-18"         % "3.2.19.0",
-    "com.googlecode.libphonenumber" % "libphonenumber"          % "9.0.22"
+    "com.googlecode.libphonenumber" % "libphonenumber"          % "9.0.27"
   ).map(_ % Test)
 
   def apply(): Seq[ModuleID] = compile ++ test

@@ -33,7 +33,7 @@ class AuditService @Inject() (config: FrontendAppConfig, connector: AuditConnect
 
   private val logger = Logger(this.getClass)
 
-  def sendEvent[T <: AuditEvent](event: T)(implicit rh: RequestHeader, ec: ExecutionContext): Unit = {
+  def sendEvent(event: NormalUserAuditEvent)(implicit rh: RequestHeader, ec: ExecutionContext): Unit = {
 
     implicit def toHc(request: RequestHeader): AuditHeaderCarrier =
       auditHeaderCarrier(

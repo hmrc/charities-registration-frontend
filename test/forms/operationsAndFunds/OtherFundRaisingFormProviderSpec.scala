@@ -52,7 +52,7 @@ class OtherFundRaisingFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "abc@&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
   }
   "OtherFundRaisingFormProvider" must {

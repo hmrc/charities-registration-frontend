@@ -17,12 +17,13 @@
 package navigation
 
 import controllers.routes
+import forms.mappings.Mappings
 import models.addressLookup.AddressModel
 import models.{CheckMode, Mode, NormalMode, PlaybackMode, UserAnswers}
 import pages.Page
 import play.api.mvc.Call
 
-trait BaseNavigator {
+trait BaseNavigator extends Mappings {
 
   val normalRoutes: Page => UserAnswers => Call
 
@@ -40,15 +41,13 @@ trait BaseNavigator {
   }
 
   def isNotValidAddress(address: AddressModel): Boolean = {
-
-    val validateFieldWithFullStop = "^[a-zA-Z0-9-, '.]+$"
     val postcode                  = address.postcode.getOrElse("")
     val isValidAddressLines       = address.lines.length >= 2
 
     !isValidAddressLines || address.lines.exists(addr =>
-      addr.length > 35 || !addr.matches(validateFieldWithFullStop)
+      addr.length > 35 || !addr.matches(validateFieldIncludingForeignCharacters)
     ) ||
-    (postcode.nonEmpty && !postcode.matches(validateFieldWithFullStop))
+    (postcode.nonEmpty && !postcode.matches(validateFieldIncludingForeignCharacters))
 
   }
 

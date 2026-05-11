@@ -57,7 +57,7 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()invalidAddressLine1",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
   }
 
@@ -84,7 +84,7 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()invalidAddressLine2",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
   }
 
@@ -111,7 +111,7 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()invalidAddressLine3",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
   }
 
@@ -145,7 +145,7 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()town",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
   }
 

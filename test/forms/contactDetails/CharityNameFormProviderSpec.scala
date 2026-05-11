@@ -57,7 +57,7 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()invalidName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
   }
 
@@ -84,7 +84,7 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "CName&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
   }
 
@@ -116,12 +116,12 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
 
     "valid for CName" in {
 
-      "CName" must fullyMatch regex formProvider.validateFieldWithFullStop
+      "CName" must fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
 
     "valid for CName&" in {
 
-      "CName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+      "CName&" mustNot fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
   }
 
@@ -129,12 +129,12 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
 
     "valid for OpName" in {
 
-      "OpName" must fullyMatch regex formProvider.validateFieldWithFullStop
+      "OpName" must fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
 
     "valid for OpName&" in {
 
-      "OpName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+      "OpName&" mustNot fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
   }
 }

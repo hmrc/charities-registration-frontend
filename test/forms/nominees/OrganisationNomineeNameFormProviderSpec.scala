@@ -55,7 +55,7 @@ class OrganisationNomineeNameFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "abc@&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
   }
 
@@ -84,12 +84,12 @@ class OrganisationNomineeNameFormProviderSpec extends StringFieldBehaviours {
 
     "valid for abc" in {
 
-      "abc" must fullyMatch regex formProvider.validateField
+      "abc" must fullyMatch regex formProvider.validateFieldCountry
     }
 
     "valid for abc@" in {
 
-      "abc@" mustNot fullyMatch regex formProvider.validateField
+      "abc@" mustNot fullyMatch regex formProvider.validateFieldCountry
     }
   }
 

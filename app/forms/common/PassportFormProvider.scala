@@ -35,10 +35,10 @@ class PassportFormProvider @Inject() (timeMachine: TimeMachine) extends Mappings
       mapping(
         "passportNumber" -> textWithOneSpace(s"$messagePrefix.passportNumber.error.required")
           .verifying(maxLength(maxLengthPassport, s"$messagePrefix.passportNumber.error.length"))
-          .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.passportNumber.error.format")),
+          .verifying(regexp(validateFieldNo, s"$messagePrefix.passportNumber.error.format")),
         "country"        -> text(s"$messagePrefix.country.error.required")
           .verifying(maxLength(maxLengthCountry, s"$messagePrefix.country.error.length"))
-          .verifying(regexp(validateField, s"$messagePrefix.country.error.format")),
+          .verifying(regexp(validateFieldCountry, s"$messagePrefix.country.error.format")),
         "expiryDate"     -> localDate(
           invalidKey = s"$messagePrefix.error.invalid",
           allRequiredKey = s"$messagePrefix.error.required.all",

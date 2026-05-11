@@ -76,7 +76,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       form,
       fieldName,
       "()invalidFirstName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
   }
 
@@ -103,7 +103,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       form,
       fieldName,
       "CName&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
   }
 
@@ -137,7 +137,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       form,
       fieldName,
       "()invalidLastName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
   }
 
@@ -177,12 +177,12 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
     "valid for firstName" in {
 
-      "firstName" must fullyMatch regex formProvider.validateFieldWithFullStop
+      "firstName" must fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
 
     "valid for firstName&" in {
 
-      "firstName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+      "firstName&" mustNot fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
   }
 
@@ -190,12 +190,12 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
     "valid for middleName" in {
 
-      "middleName" must fullyMatch regex formProvider.validateFieldWithFullStop
+      "middleName" must fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
 
     "valid for middleName&" in {
 
-      "middleName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+      "middleName&" mustNot fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
   }
 
@@ -203,12 +203,12 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
     "valid for lastName" in {
 
-      "OpName" must fullyMatch regex formProvider.validateFieldWithFullStop
+      "OpName" must fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
 
     "valid for lastName&" in {
 
-      "lastName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+      "lastName&" mustNot fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
   }
 }

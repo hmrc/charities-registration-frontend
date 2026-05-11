@@ -19,7 +19,7 @@ package forms.regulatorsAndDocuments
 import forms.mappings.Mappings
 import models.CharityOtherRegulatorDetails
 import play.api.data.Form
-import play.api.data.Forms._
+import play.api.data.Forms.*
 
 import javax.inject.Inject
 
@@ -33,12 +33,12 @@ class CharityOtherRegulatorDetailsFormProvider @Inject() extends Mappings {
       mapping(
         "regulatorName"      -> text("charityOtherRegulatorDetails.regulatorName.error.required")
           .verifying(maxLength(maxLengthRegulatorName, "charityOtherRegulatorDetails.regulatorName.error.length"))
-          .verifying(regexp(validateFieldWithFullStop, "charityOtherRegulatorDetails.regulatorName.error.format")),
+          .verifying(regexp(validateFieldIncludingForeignCharacters, "charityOtherRegulatorDetails.regulatorName.error.format")),
         "registrationNumber" -> text("charityOtherRegulatorDetails.registrationNumber.error.required")
           .verifying(
             maxLength(maxLengthRegistrationNumber, "charityOtherRegulatorDetails.registrationNumber.error.length")
           )
-          .verifying(regexp(validateFieldWithFullStop, "charityOtherRegulatorDetails.registrationNumber.error.format"))
+          .verifying(regexp(validateFieldNo, "charityOtherRegulatorDetails.registrationNumber.error.format"))
       )(CharityOtherRegulatorDetails.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 

@@ -24,9 +24,9 @@ import play.api.data.validation.{Constraint, Invalid, Valid}
 import java.time.{LocalDate, MonthDay}
 
 trait Mappings extends Formatters with Constraints {
-  val validateFieldIncludingForeignCharacters            = """^[\p{L}0-9-, '’.]+$"""
+  val validateFieldIncludingForeignCharacters           = """^[\p{L}0-9-, '’.]+$"""
   val validateFieldIncludingForeignCharactersAndNewLine = """^[\p{L}0-9-, '’.\n\r\t]+$"""
-  val validateFieldLigatures                             = """^.*[æǽœÆǼŒß]+.*$"""
+  val validateFieldLigatures                            = """^[\S\s]*[æǽœÆǼŒß]+[\S\s]*$"""
 
   val validateFieldCountry    = "^[a-zA-Z0-9-, '’]+$"
   val validateFieldPostcode   = "^[a-zA-Z0-9-, '’.]+$"
@@ -44,8 +44,8 @@ trait Mappings extends Formatters with Constraints {
     case _                                          =>
       Valid
   }
-  
-  protected def regexpIncludingForeignCharacters(errorKey: String): Constraint[String]        =
+
+  protected def regexpIncludingForeignCharacters(errorKey: String): Constraint[String] =
     regexpExcludingLigatures(errorKey, validateFieldIncludingForeignCharacters)
 
   protected def regexpIncludingForeignCharactersAndNewLine(errorKey: String): Constraint[String] =

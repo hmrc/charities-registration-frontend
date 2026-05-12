@@ -21,6 +21,8 @@ import play.api.data.{Form, FormError}
 
 trait StringFieldBehaviours extends FieldBehaviours with Mappings {
 
+  private def rmCRLF(s: String): String = s.replaceAll("\n", "<NEW LINE>").replaceAll("\r", "<LINE FEED>")
+
   def fieldWithMaxLength(form: Form[?], fieldName: String, maxLength: Int, lengthError: FormError): Unit =
     forAll(stringsLongerThan(maxLength) -> "longString") { string =>
       s"not bind strings longer than $maxLength characters for $string" in {
@@ -128,13 +130,41 @@ trait StringFieldBehaviours extends FieldBehaviours with Mappings {
   def fieldWithRegexForeignCharacters(form: Form[?], fieldName: String, invalidKey: String): Unit =
     fieldWithRegexExcludingLigatures(form, fieldName, invalidKey, validateFieldIncludingForeignCharacters)
 
-  def fieldWithRegexForeignCharactersAndNewLine(form: Form[?], fieldName: String, invalidKey: String): Unit =
+  def fieldWithRegexForeignCharactersAndNewLine(form: Form[?], fieldName: String, invalidKey: String): Unit = {
     fieldWithRegexExcludingLigatures(
       form,
       fieldName,
       invalidKey,
       validateFieldIncludingForeignCharactersAndNewLine
     )
+
+    Seq(
+      "abc\r\nß",
+      "abc\nß",
+      "abc\rß"
+    ).foreach { string =>
+      s"not bind ${rmCRLF(string)} containing new line invalidated by ligatures regex" in {
+        val result = form.bind(Map(fieldName -> string)).apply(fieldName)
+        result.errors mustEqual Seq(
+          FormError(fieldName, invalidKey, Seq(validateFieldLigatures))
+        )
+      }
+    }
+
+    Seq(
+      "abc\r\n$",
+      "abc\n^",
+      "abc\r£",
+      "£\r\nabc"
+    ).foreach { string =>
+      s"not bind ${rmCRLF(string)} containing new line invalidated by main regex" in {
+        val result = form.bind(Map(fieldName -> string)).apply(fieldName)
+        result.errors mustEqual Seq(
+          FormError(fieldName, invalidKey, Seq(validateFieldIncludingForeignCharactersAndNewLine))
+        )
+      }
+    }
+  }
 
   def bindValidValues(form: Form[String], fieldName: String)(values: String*): Unit =
     values.foreach { value =>

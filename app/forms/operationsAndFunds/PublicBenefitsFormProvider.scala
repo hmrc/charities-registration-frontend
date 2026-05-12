@@ -29,6 +29,6 @@ class PublicBenefitsFormProvider @Inject() extends Mappings {
     Form(
       "value" -> text("publicBenefits.error.required")
         .verifying(maxLengthTextArea(maxLength, "publicBenefits.error.length"))
-        .verifying(regexpInclForeignExclLigaturesWithNewLine( "publicBenefits.error.format"))
+        .verifying(regexpIncludingForeignCharactersAndNewLine( "publicBenefits.error.format"))
     )
 }

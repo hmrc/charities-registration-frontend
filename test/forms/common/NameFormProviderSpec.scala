@@ -78,7 +78,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       "()invalidFirstName",
       FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
-    behave like fieldWithRegexForeignNoLigatures(
+    behave like fieldWithRegexForeignCharacters(
       form,
       fieldName,
       invalidKey
@@ -112,7 +112,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
 
-    behave like fieldWithRegexForeignNoLigatures(
+    behave like fieldWithRegexForeignCharacters(
       form,
       fieldName,
       invalidKey
@@ -152,7 +152,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
 
-    behave like fieldWithRegexForeignNoLigatures(
+    behave like fieldWithRegexForeignCharacters(
       form,
       fieldName,
       invalidKey

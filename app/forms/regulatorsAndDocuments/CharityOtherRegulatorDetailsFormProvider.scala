@@ -33,7 +33,7 @@ class CharityOtherRegulatorDetailsFormProvider @Inject() extends Mappings {
       mapping(
         "regulatorName"      -> text("charityOtherRegulatorDetails.regulatorName.error.required")
           .verifying(maxLength(maxLengthRegulatorName, "charityOtherRegulatorDetails.regulatorName.error.length"))
-          .verifying(regexpInclForeignExclLigatures( "charityOtherRegulatorDetails.regulatorName.error.format")),
+          .verifying(regexpIncludingForeignCharacters( "charityOtherRegulatorDetails.regulatorName.error.format")),
         "registrationNumber" -> text("charityOtherRegulatorDetails.registrationNumber.error.required")
           .verifying(
             maxLength(maxLengthRegistrationNumber, "charityOtherRegulatorDetails.registrationNumber.error.length")

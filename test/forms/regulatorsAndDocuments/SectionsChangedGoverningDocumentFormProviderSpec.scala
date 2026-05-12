@@ -56,10 +56,10 @@ class SectionsChangedGoverningDocumentFormProviderSpec extends StringFieldBehavi
       form,
       fieldName,
       "abc@&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharactersWithNewLine))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharactersAndNewLine))
     )
 
-    behave like fieldWithRegexForeignNoLigaturesWithNewLine(
+    behave like fieldWithRegexForeignCharactersAndNewLine(
       form,
       fieldName,
       invalidKey
@@ -70,12 +70,12 @@ class SectionsChangedGoverningDocumentFormProviderSpec extends StringFieldBehavi
 
     "valid for abcd" in {
 
-      "ab\n\r\tcd" must fullyMatch regex formProvider.validateFieldIncludingForeignCharactersWithNewLine
+      "ab\n\r\tcd" must fullyMatch regex formProvider.validateFieldIncludingForeignCharactersAndNewLine
     }
 
     "valid for abc@" in {
 
-      "abc@" mustNot fullyMatch regex formProvider.validateFieldIncludingForeignCharactersWithNewLine
+      "abc@" mustNot fullyMatch regex formProvider.validateFieldIncludingForeignCharactersAndNewLine
     }
   }
 }

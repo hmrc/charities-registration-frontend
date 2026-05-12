@@ -29,6 +29,6 @@ class OtherFundRaisingFormProvider @Inject() extends Mappings {
     Form(
       "value" -> text("otherFundRaising.error.required")
         .verifying(maxLength(maxLength, "otherFundRaising.error.length"))
-        .verifying(regexpInclForeignExclLigatures( "otherFundRaising.error.format"))
+        .verifying(regexpIncludingForeignCharacters( "otherFundRaising.error.format"))
     )
 }

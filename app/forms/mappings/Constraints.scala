@@ -81,7 +81,6 @@ trait Constraints extends InputFilter {
         Invalid(errorKey, regex)
     }
 
-
   protected def minLength(minimum: Int, errorKey: String): Constraint[String] =
     Constraint {
       case str if str.length >= minimum =>

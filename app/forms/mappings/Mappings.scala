@@ -25,7 +25,7 @@ import java.time.{LocalDate, MonthDay}
 
 trait Mappings extends Formatters with Constraints {
   val validateFieldIncludingForeignCharacters            = """^[\p{L}0-9-, '’.]+$"""
-  val validateFieldIncludingForeignCharactersWithNewLine = """^[\p{L}0-9-, '’.\n\r\t]+$"""
+  val validateFieldIncludingForeignCharactersAndNewLine = """^[\p{L}0-9-, '’.\n\r\t]+$"""
   val validateFieldLigatures                             = """^.*[æǽœÆǼŒ]+.*$"""
 
   val validateFieldCountry    = "^[a-zA-Z0-9-, '’]+$"
@@ -36,23 +36,20 @@ trait Mappings extends Formatters with Constraints {
   val validateEmailAddress    =
     """^(?i)(?:[A-Za-z0-9!#$%&'*+/=?^_`~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[A-Za-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+))"""
 
-  protected def regexpInclForeignExclLigatures(errorKey: String): Constraint[String] = Constraint[String] {
-    case str if !str.matches(validateFieldIncludingForeignCharacters) =>
-      Invalid(errorKey, validateFieldIncludingForeignCharacters)
-    case str if str.matches(validateFieldLigatures)                   =>
+  private def regexpExcludingLigatures(errorKey: String, regex: String): Constraint[String] = Constraint[String] {
+    case str if !str.matches(regex)                 =>
+      Invalid(errorKey, regex)
+    case str if str.matches(validateFieldLigatures) =>
       Invalid(errorKey, validateFieldLigatures)
-    case _                                                            =>
+    case _                                          =>
       Valid
   }
+  
+  protected def regexpIncludingForeignCharacters(errorKey: String): Constraint[String]        =
+    regexpExcludingLigatures(errorKey, validateFieldIncludingForeignCharacters)
 
-  protected def regexpInclForeignExclLigaturesWithNewLine(errorKey: String): Constraint[String] = Constraint[String] {
-    case str if !str.matches(validateFieldIncludingForeignCharactersWithNewLine) =>
-      Invalid(errorKey, validateFieldIncludingForeignCharactersWithNewLine)
-    case str if str.matches(validateFieldLigatures)                              =>
-      Invalid(errorKey, validateFieldLigatures)
-    case _                                                                       =>
-      Valid
-  }
+  protected def regexpIncludingForeignCharactersAndNewLine(errorKey: String): Constraint[String] =
+    regexpExcludingLigatures(errorKey, validateFieldIncludingForeignCharactersAndNewLine)
 
   protected def text(errorKey: String = "error.required"): FieldMapping[String] =
     of(stringFormatter(errorKey))

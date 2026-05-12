@@ -60,7 +60,7 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
       FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
 
-    behave like fieldWithRegexForeignNoLigatures(
+    behave like fieldWithRegexForeignCharacters(
       form,
       fieldName,
       invalidKey

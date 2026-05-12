@@ -100,7 +100,8 @@ trait StringFieldBehaviours extends FieldBehaviours with Mappings {
       "Æ",
       "Ǽ",
       "Œ",
-      "ß"
+      "ß",
+      "ẞ"
     ).foreach { string =>
       s"not bind $string invalidated by ligatures regex" in {
         val result = form.bind(Map(fieldName -> string)).apply(fieldName)

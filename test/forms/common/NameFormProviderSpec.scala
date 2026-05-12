@@ -78,6 +78,12 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       "()invalidFirstName",
       FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
+    behave like fieldWithRegexForeignNoLigatures(
+      form,
+      fieldName,
+      invalidKey
+    )
+
   }
 
   ".middleName" must {
@@ -104,6 +110,12 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       fieldName,
       "CName&",
       FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
+    )
+
+    behave like fieldWithRegexForeignNoLigatures(
+      form,
+      fieldName,
+      invalidKey
     )
   }
 
@@ -138,6 +150,12 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       fieldName,
       "()invalidLastName",
       FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
+    )
+
+    behave like fieldWithRegexForeignNoLigatures(
+      form,
+      fieldName,
+      invalidKey
     )
   }
 
@@ -184,6 +202,8 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
       "firstName&" mustNot fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
+    
+    
   }
 
   "middleName" must {

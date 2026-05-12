@@ -60,7 +60,7 @@ class BankDetailsFormProvider @Inject() extends Mappings {
       mapping(
         "accountName"   -> text(s"$messagePrefix.accountName.error.required")
           .verifying(maxLength(maxLengthAccountName, s"$messagePrefix.accountName.error.length"))
-          .verifying(regexp(validateFieldIncludingForeignCharacters, s"$messagePrefix.accountName.error.format")),
+          .verifying(regexpInclForeignExclLigatures( s"$messagePrefix.accountName.error.format")),
         "sortCode"      -> text(s"$messagePrefix.sortCode.error.required")
           .verifying(sortCodeCharactersConstraint(s"$messagePrefix.sortCode"))
           .transform[String](digitsOnly, identity)

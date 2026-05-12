@@ -29,6 +29,6 @@ class SectionsChangedGoverningDocumentFormProvider @Inject() extends Mappings {
     Form(
       "value" -> text("sectionsChangedGoverningDocument.error.required")
         .verifying(maxLengthTextArea(maxLength, "sectionsChangedGoverningDocument.error.length"))
-        .verifying(regexp(validateFieldWithNewLine, "sectionsChangedGoverningDocument.error.format"))
+        .verifying(regexpInclForeignExclLigaturesWithNewLine( "sectionsChangedGoverningDocument.error.format"))
     )
 }

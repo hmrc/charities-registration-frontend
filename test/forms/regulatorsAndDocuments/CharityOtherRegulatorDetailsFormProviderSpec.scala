@@ -59,6 +59,12 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
       "123456&",
       FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
+
+    behave like fieldWithRegexForeignNoLigatures(
+      form,
+      fieldName,
+      invalidKey
+    )    
   }
 
   ".registrationNumber" must {
@@ -91,7 +97,7 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
       form,
       fieldName,
       "123456&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldNo))
     )
   }
 

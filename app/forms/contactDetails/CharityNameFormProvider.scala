@@ -33,11 +33,11 @@ class CharityNameFormProvider @Inject() extends Mappings {
       mapping(
         "fullName"      -> text("charityName.fullName.error.required")
           .verifying(maxLength(fullNameMaxLength, "charityName.fullName.error.length"))
-          .verifying(regexp(validateFieldIncludingForeignCharacters, "charityName.fullName.error.format")),
+          .verifying(regexpInclForeignExclLigatures( "charityName.fullName.error.format")),
         "operatingName" -> optional(
           text()
             .verifying(maxLength(maxLength, "charityName.operatingName.error.length"))
-            .verifying(regexp(validateFieldIncludingForeignCharacters, "charityName.operatingName.error.format"))
+            .verifying(regexpInclForeignExclLigatures( "charityName.operatingName.error.format"))
         )
       )(CharityName.apply)(o => Some(Tuple.fromProductTyped(o)))
     )

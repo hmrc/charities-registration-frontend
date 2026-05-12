@@ -54,6 +54,12 @@ class OtherFundRaisingFormProviderSpec extends StringFieldBehaviours {
       "abc@&",
       FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
+
+    behave like fieldWithRegexForeignNoLigatures(
+      form,
+      fieldName,
+      invalidKey
+    )    
   }
   "OtherFundRaisingFormProvider" must {
 

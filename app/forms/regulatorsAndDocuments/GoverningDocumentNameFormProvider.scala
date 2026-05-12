@@ -29,6 +29,6 @@ class GoverningDocumentNameFormProvider @Inject() extends Mappings {
     Form(
       "name" -> text("governingDocumentName.error.required")
         .verifying(maxLength(maxLength, "governingDocumentName.error.length"))
-        .verifying(regexp(validateFieldIncludingForeignCharacters, "governingDocumentName.error.format"))
+        .verifying(regexpInclForeignExclLigatures( "governingDocumentName.error.format"))
     )
 }

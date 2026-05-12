@@ -55,7 +55,13 @@ class CharitableObjectivesFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "abc@&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithNewLine))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharactersWithNewLine))
+    )
+
+    behave like fieldWithRegexForeignNoLigaturesWithNewLine(
+      form,
+      fieldName,
+      invalidKey
     )
   }
 
@@ -63,12 +69,12 @@ class CharitableObjectivesFormProviderSpec extends StringFieldBehaviours {
 
     "valid for abcd" in {
 
-      "ab\n\r\tcd" must fullyMatch regex formProvider.validateFieldWithNewLine
+      "ab\n\r\tcd" must fullyMatch regex formProvider.validateFieldIncludingForeignCharactersWithNewLine
     }
 
     "valid for abc@" in {
 
-      "abc@" mustNot fullyMatch regex formProvider.validateFieldWithNewLine
+      "abc@" mustNot fullyMatch regex formProvider.validateFieldIncludingForeignCharactersWithNewLine
     }
   }
 }

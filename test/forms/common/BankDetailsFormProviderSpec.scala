@@ -68,6 +68,12 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       "()invalidName",
       FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
+
+    behave like fieldWithRegexForeignNoLigatures(
+      form,
+      fieldName,
+      invalidKey
+    )
   }
 
   ".sortCode" must {

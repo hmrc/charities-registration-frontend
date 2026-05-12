@@ -29,6 +29,6 @@ class CharitableObjectivesFormProvider @Inject() extends Mappings {
     Form(
       "value" -> text("charitableObjectives.error.required")
         .verifying(maxLengthTextArea(maxLength, "charitableObjectives.error.length"))
-        .verifying(regexp(validateFieldWithNewLine, "charitableObjectives.error.format"))
+        .verifying(regexpInclForeignExclLigaturesWithNewLine( "charitableObjectives.error.format"))
     )
 }

@@ -60,7 +60,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()invalidFirstName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldNo))
     )
   }
 

@@ -57,6 +57,12 @@ class OrganisationNomineeNameFormProviderSpec extends StringFieldBehaviours {
       "abc@&",
       FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
+
+    behave like fieldWithRegexForeignNoLigatures(
+      form,
+      fieldName,
+      invalidKey
+    )
   }
 
   "OrganisationNomineeNameFormProvider" must {

@@ -26,8 +26,8 @@ import java.time.{LocalDate, MonthDay}
 trait Mappings extends Formatters with Constraints {
   val validateFieldIncludingForeignCharacters           = """^[\p{L}0-9-, '’.]+$"""
   val validateFieldIncludingForeignCharactersAndNewLine = """^[\p{L}0-9-, '’.\n\r\t]+$"""
-  
-  /* Regex for ligatures, i.e. the following Unicode characters:-
+
+  /* Regex for ligatures, i.e. the following Unicode characters representing two letters elided together:-
       æ U+00E6
       ǽ U+01FD
       œ U+0153
@@ -37,7 +37,7 @@ trait Mappings extends Formatters with Constraints {
       ß (lower case) U+00DF
       ẞ (upper case) U+1E9E
    */
-  val validateFieldLigatures                            = """^[\S\s]*[\u00E6\u01FD\u0153\u00C6\u01FC\u0152\u00DF\u1E9E]+[\S\s]*$"""
+  val validateFieldLigatures = """^[\S\s]*[\u00E6\u01FD\u0153\u00C6\u01FC\u0152\u00DF\u1E9E]+[\S\s]*$"""
 
   val validateFieldCountry    = "^[a-zA-Z0-9-, '’]+$"
   val validateFieldPostcode   = "^[a-zA-Z0-9-, '’.]+$"

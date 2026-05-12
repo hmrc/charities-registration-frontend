@@ -26,7 +26,7 @@ import java.time.{LocalDate, MonthDay}
 trait Mappings extends Formatters with Constraints {
   val validateFieldIncludingForeignCharacters            = """^[\p{L}0-9-, '’.]+$"""
   val validateFieldIncludingForeignCharactersAndNewLine = """^[\p{L}0-9-, '’.\n\r\t]+$"""
-  val validateFieldLigatures                             = """^.*[æǽœÆǼŒ]+.*$"""
+  val validateFieldLigatures                             = """^.*[æǽœÆǼŒß]+.*$"""
 
   val validateFieldCountry    = "^[a-zA-Z0-9-, '’]+$"
   val validateFieldPostcode   = "^[a-zA-Z0-9-, '’.]+$"

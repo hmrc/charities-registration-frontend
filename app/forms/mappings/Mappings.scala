@@ -24,8 +24,8 @@ import play.api.data.validation.{Constraint, Invalid, Valid}
 import java.time.{LocalDate, MonthDay}
 
 trait Mappings extends Formatters with Constraints {
-  val validateFieldIncludingForeignCharacters           = """^[\p{L}0-9-, '’.]+$"""
-  val validateFieldIncludingForeignCharactersAndNewLine = """^[\p{L}0-9-, '’.\n\r\t]+$"""
+  val validateFieldIncludingForeignCharacters           = """^[\p{Script=Latin}0-9-, '’.]+$"""
+  val validateFieldIncludingForeignCharactersAndNewLine = """^[\p{Script=Latin}0-9-, '’.\n\r\t]+$"""
 
   /* Regex for ligatures, i.e. the following Unicode characters representing two letters elided together:-
       æ U+00E6

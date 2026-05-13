@@ -126,6 +126,18 @@ trait StringFieldBehaviours extends FieldBehaviours with Mappings {
         )
       }
     }
+    
+    Seq(
+      "кошка сидела на коврике",
+      "گربه روی تشک نشست"
+    ).foreach { string =>
+      s"not bind $string invalidated by foreign characters regex due to use of non-Latin characters" in {
+        val result = form.bind(Map(fieldName -> string)).apply(fieldName)
+        result.errors mustEqual Seq(
+          FormError(fieldName, invalidKey, Seq(regex))
+        )
+      }
+    }
   }
 
   def fieldWithRegexForeignCharacters(form: Form[?], fieldName: String, invalidKey: String): Unit =

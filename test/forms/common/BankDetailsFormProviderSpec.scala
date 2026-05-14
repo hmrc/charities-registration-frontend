@@ -27,6 +27,14 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
   private val formProvider: BankDetailsFormProvider = inject[BankDetailsFormProvider]
   private val form: Form[BankDetails]               = formProvider(messagePrefix)
 
+  private def validBankDetailsData(overrides: (String, String)*): Map[String, String] =
+    Map(
+      "accountName"   -> "Account Name",
+      "sortCode"      -> "123456",
+      "accountNumber" -> "12345678",
+      "rollNumber"    -> "Roll 1"
+    ) ++ overrides
+
   ".accountName" must {
 
     val fieldName   = "accountName"
@@ -88,17 +96,21 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       val result = form.bind(Map(fieldName -> "123456")).apply(fieldName)
       result.value.value mustBe "123456"
     }
-    "bind sort codes in nn-nn-nn format" in {
-      val result = form.bind(Map(fieldName -> "12-34-56")).apply(fieldName)
-      result.value.value mustBe "12-34-56"
+    "normalise sort codes in nn-nn-nn format" in {
+      val result = form.bind(validBankDetailsData(fieldName -> "12-34-56")).get
+      result.sortCode mustBe "123456"
     }
-    "bind sort codes in nn nn nn format" in {
-      val result = form.bind(Map(fieldName -> "12 34 56")).apply(fieldName)
-      result.value.value mustBe "12 34 56"
+    "normalise sort codes in nn nn nn format" in {
+      val result = form.bind(validBankDetailsData(fieldName -> "12 34 56")).get
+      result.sortCode mustBe "123456"
     }
-    "bind sort codes in nn   nn    nn format" in {
-      val result = form.bind(Map(fieldName -> "12   34   56")).apply(fieldName)
-      result.value.value mustBe "12   34   56"
+    "normalise sort codes in nn   nn    nn format" in {
+      val result = form.bind(validBankDetailsData(fieldName -> "12   34   56")).get
+      result.sortCode mustBe "123456"
+    }
+    "normalise sort codes with leading and trailing spaces" in {
+      val result = form.bind(validBankDetailsData(fieldName -> " 12 34 56 ")).get
+      result.sortCode mustBe "123456"
     }
     "not bind sort codes with characters" in {
       val result = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
@@ -135,17 +147,21 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
     )
-    "bind account number with any number of spaces" in {
-      val result = form.bind(Map(fieldName -> "12   34   56")).apply(fieldName)
-      result.value.value mustBe "12   34   56"
+    "normalise account number with any number of spaces" in {
+      val result = form.bind(validBankDetailsData(fieldName -> "12   34   56")).get
+      result.accountNumber mustBe "123456"
+    }
+    "normalise account number with leading and trailing spaces" in {
+      val result = form.bind(validBankDetailsData(fieldName -> " 12 34 56 78 ")).get
+      result.accountNumber mustBe "12345678"
     }
     "not bind strings with characters" in {
       val result = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
       result.errors must contain(FormError(fieldName, formatErrorKey))
     }
-    "not bind strings with less than 6 digits" in {
+    "not bind strings with less than 6 digits and spaces" in {
       val result = form.bind(Map(fieldName -> "12 34   5")).apply(fieldName)
-      result.errors must contain(FormError(fieldName, formatErrorKey))
+      result.errors must contain(FormError(fieldName, lengthErrorKey))
     }
     "not bind strings with less than 6 digits (all digits)" in {
       val result = form.bind(Map(fieldName -> "12345")).apply(fieldName)
@@ -157,6 +173,10 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
     }
     "not bind strings with more than 8 digits and spaces" in {
       val result = form.bind(Map(fieldName -> "12 34 56 789")).apply(fieldName)
+      result.errors must contain(FormError(fieldName, lengthErrorKey))
+    }
+    "not bind account number with hyphens" in {
+      val result = form.bind(Map(fieldName -> "12-34-56")).apply(fieldName)
       result.errors must contain(FormError(fieldName, formatErrorKey))
     }
   }

@@ -18,6 +18,7 @@ package forms.regulatorsAndDocuments
 
 import forms.mappings.Mappings
 import play.api.data.Form
+import play.api.data.validation.{Constraint, Invalid, Valid}
 
 import javax.inject.Inject
 
@@ -25,9 +26,19 @@ class NIRegulatorRegNumberFormProvider @Inject() extends Mappings {
 
   private[regulatorsAndDocuments] val validateRegistrationNumberNI = """^[0-9]{6}$"""
 
+  private def registrationNumberCharactersConstraint(fieldName: String): Constraint[String] = Constraint { input =>
+    if (input.forall(char => char.isDigit || Character.isWhitespace(char))) Valid
+    else Invalid(s"$fieldName.error.format")
+  }
+
+  private def digitsOnly(input: String): String =
+    input.filter(_.isDigit)
+
   def apply(): Form[String] =
     Form(
       "nIRegistrationNumber" -> text("nIRegulatorRegNumber.error.required")
+        .verifying(registrationNumberCharactersConstraint("nIRegulatorRegNumber"))
+        .transform[String](digitsOnly, identity)
         .verifying(regexp(validateRegistrationNumberNI, "nIRegulatorRegNumber.error.format"))
     )
 }

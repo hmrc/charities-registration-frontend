@@ -31,10 +31,19 @@ class BankDetailsFormProvider @Inject() extends Mappings {
   private[common] val maxLengthAccountName = 60
   private[common] val maxLengthRollNumber  = 18
 
-  private def digitsOnlyConstraint(fieldName: String): Constraint[String] = Constraint { input =>
-    if (input.forall(_.isDigit)) Valid
+  private def sortCodeCharactersConstraint(fieldName: String): Constraint[String] = Constraint { input =>
+    if (input.forall(char => char.isDigit || Character.isWhitespace(char) || char == '-')) Valid
     else Invalid(s"$fieldName.error.format")
   }
+
+  private def accountNumberCharactersConstraint(fieldName: String): Constraint[String] = Constraint { input =>
+    if (input.forall(char => char.isDigit || Character.isWhitespace(char))) Valid
+    else Invalid(s"$fieldName.error.format")
+  }
+
+  private def digitsOnly(input: String): String =
+    input.filter(_.isDigit)
+
 
   private def sortCodeLengthConstraint(fieldName: String): Constraint[String] = Constraint { input =>
     if (input.length == 6) Valid
@@ -53,12 +62,12 @@ class BankDetailsFormProvider @Inject() extends Mappings {
           .verifying(maxLength(maxLengthAccountName, s"$messagePrefix.accountName.error.length"))
           .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.accountName.error.format")),
         "sortCode"      -> text(s"$messagePrefix.sortCode.error.required")
-          .verifying(digitsOnlyConstraint(s"$messagePrefix.sortCode"))
-          .transform[String](_.filter(_.isDigit), identity)
+          .verifying(sortCodeCharactersConstraint(s"$messagePrefix.sortCode"))
+          .transform[String](digitsOnly, identity)
           .verifying(sortCodeLengthConstraint(s"$messagePrefix.sortCode")),
         "accountNumber" -> text(s"$messagePrefix.accountNumber.error.required")
-          .verifying(digitsOnlyConstraint(s"$messagePrefix.accountNumber"))
-          .transform[String](_.filter(_.isDigit), identity)
+          .verifying(accountNumberCharactersConstraint(s"$messagePrefix.accountNumber"))
+          .transform[String](digitsOnly, identity)
           .verifying(accountNumberLengthConstraint(s"$messagePrefix.accountNumber")),
         "rollNumber"    -> optional(
           textWithOneSpace()
@@ -73,12 +82,12 @@ class BankDetailsFormProvider @Inject() extends Mappings {
       mapping(
         "accountName"   -> default(text(), charityName),
         "sortCode"      -> text(s"$messagePrefix.sortCode.error.required")
-          .verifying(digitsOnlyConstraint(s"$messagePrefix.sortCode"))
-          .transform[String](_.filter(_.isDigit), identity)
+          .verifying(sortCodeCharactersConstraint(s"$messagePrefix.sortCode"))
+          .transform[String](digitsOnly, identity)
           .verifying(sortCodeLengthConstraint(s"$messagePrefix.sortCode")),
         "accountNumber" -> text(s"$messagePrefix.accountNumber.error.required")
-          .verifying(digitsOnlyConstraint(s"$messagePrefix.accountNumber"))
-          .transform[String](_.filter(_.isDigit), identity)
+          .verifying(accountNumberCharactersConstraint(s"$messagePrefix.accountNumber"))
+          .transform[String](digitsOnly, identity)
           .verifying(accountNumberLengthConstraint(s"$messagePrefix.accountNumber")),
         "rollNumber"    -> optional(
           textWithOneSpace()

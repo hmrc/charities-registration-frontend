@@ -18,6 +18,7 @@ package forms.regulatorsAndDocuments
 
 import forms.mappings.Mappings
 import play.api.data.Form
+import play.api.data.validation.{Constraint, Invalid, Valid}
 
 import javax.inject.Inject
 
@@ -25,9 +26,19 @@ class ScottishRegulatorRegNumberFormProvider @Inject() extends Mappings {
 
   private[regulatorsAndDocuments] val validateRegistrationNumber = """^(?i)SC([0-9]{6})$"""
 
+  private def registrationNumberCharactersConstraint(fieldName: String): Constraint[String] = Constraint { input =>
+    if (input.forall(char => char.isLetterOrDigit || Character.isWhitespace(char))) Valid
+    else Invalid(s"$fieldName.error.format")
+  }
+
+  private def removeWhitespace(input: String): String =
+    input.filterNot(Character.isWhitespace)
+
   def apply(): Form[String] =
     Form(
       "registrationNumber" -> text("scottishRegulatorRegNumber.error.required")
+        .verifying(registrationNumberCharactersConstraint("scottishRegulatorRegNumber"))
+        .transform[String](removeWhitespace, identity)
         .verifying(regexp(validateRegistrationNumber, "scottishRegulatorRegNumber.error.format"))
     )
 }

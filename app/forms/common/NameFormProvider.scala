@@ -32,15 +32,15 @@ class NameFormProvider @Inject() extends Mappings {
         "value"      -> enumerable[SelectTitle](s"$messagePrefix.title.error.required"),
         "firstName"  -> text(s"$messagePrefix.firstName.error.required")
           .verifying(maxLength(maxLength, s"$messagePrefix.firstName.error.length"))
-          .verifying(regexpIncludingForeignCharacters( s"$messagePrefix.firstName.error.format")),
+          .verifying(regexpIncludingForeignCharacters(s"$messagePrefix.firstName.error.format")),
         "middleName" -> optional(
           text()
             .verifying(maxLength(maxLength, s"$messagePrefix.middleName.error.length"))
-            .verifying(regexpIncludingForeignCharacters( s"$messagePrefix.middleName.error.format"))
+            .verifying(regexpIncludingForeignCharacters(s"$messagePrefix.middleName.error.format"))
         ),
         "lastName"   -> text(s"$messagePrefix.lastName.error.required")
           .verifying(maxLength(maxLength, s"$messagePrefix.lastName.error.length"))
-          .verifying(regexpIncludingForeignCharacters( s"$messagePrefix.lastName.error.format"))
+          .verifying(regexpIncludingForeignCharacters(s"$messagePrefix.lastName.error.format"))
       )(Name.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 }

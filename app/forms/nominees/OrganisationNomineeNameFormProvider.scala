@@ -29,6 +29,6 @@ class OrganisationNomineeNameFormProvider @Inject() extends Mappings {
     Form(
       "name" -> text("nameOfOrganisation.error.required")
         .verifying(maxLength(maxLength, "nameOfOrganisation.error.length"))
-        .verifying(regexpIncludingForeignCharacters( "nameOfOrganisation.error.format"))
+        .verifying(regexpIncludingForeignCharacters("nameOfOrganisation.error.format"))
     )
 }

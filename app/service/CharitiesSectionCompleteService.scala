@@ -18,7 +18,7 @@ package service
 
 import audit.{AuditService, NormalUserAuditEvent}
 import models.requests.OptionalDataRequest
-import models.{AuditTypes, UserAnswers}
+import models.UserAnswers
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.contactDetails.CharityNamePage
 import pages.otherOfficials.OtherOfficialsNamePage
@@ -100,8 +100,8 @@ class CharitiesSectionCompleteService @Inject() (
             Future(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
           case Some(_) =>
             val userAnswers = UserAnswers(request.internalId)
-            logger.warn(s"[CharitiesSectionCompleteService][checkForValidApplicationJourney]: ${AuditTypes.NewUser}")
-            auditService.sendEvent(NormalUserAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.NewUser.toString))
+            logger.warn(s"[CharitiesSectionCompleteService][checkForValidApplicationJourney]: NewUser")
+            auditService.sendEvent(NormalUserAuditEvent(Json.obj("id" -> userAnswers.id)))
             userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
         }
       case _                       =>

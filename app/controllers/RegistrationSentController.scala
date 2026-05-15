@@ -19,10 +19,8 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, RegistrationDataRequiredAction, UserDataRetrievalAction}
 import models.RegisteredApplication
-import pages.EmailOrPostPage
 import play.api.libs.json.{JsError, JsSuccess}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.UserAnswerService
 import utils.ImplicitDateFormatter
 import viewmodels.RequiredDocumentsHelper
 import views.html.RegistrationSentView
@@ -33,7 +31,6 @@ import scala.concurrent.Future
 class RegistrationSentController @Inject() (
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
-  userAnswerService: UserAnswerService,
   requireData: RegistrationDataRequiredAction,
   view: RegistrationSentView,
   val controllerComponents: MessagesControllerComponents
@@ -50,8 +47,6 @@ class RegistrationSentController @Inject() (
               sendBeforeDate = dayToString(regApp.applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
               submissionDate = dayToString(regApp.applicationSubmissionDate, dayOfWeek = false),
               acknowledgementReference = regApp.acknowledgementReference,
-              emailOrPost = false,
-              noEmailOrPost = true,
               requiredDocuments = RequiredDocumentsHelper.getRequiredDocuments(regApp.requiredDocuments),
               foreignAddresses = RequiredDocumentsHelper.getForeignOfficialsMessages(regApp.foreignOfficials)
             )
@@ -59,17 +54,6 @@ class RegistrationSentController @Inject() (
         )
       case JsError(_)           =>
         Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
-    }
-  }
-
-  def onChange: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    request.userAnswers.get(EmailOrPostPage) match {
-      case Some(emailOrPost) =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(EmailOrPostPage, !emailOrPost))
-          _              <- userAnswerService.set(updatedAnswers)
-        } yield Redirect(routes.RegistrationSentController.onPageLoad)
-      case _                 => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
     }
   }
 }

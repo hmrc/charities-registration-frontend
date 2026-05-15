@@ -27,7 +27,6 @@ import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
-import pages.{AcknowledgementReferencePage, EmailOrPostPage}
 import play.api.Application
 import play.api.data.Form
 import play.api.inject.bind
@@ -43,18 +42,18 @@ import scala.concurrent.Future
 class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  private class Setup(noEmailPost: Boolean = true) {
-    val controller: CharityNameController = applicationBuilder(noEmailPost).injector.instanceOf[CharityNameController]
+  private class Setup {
+    val controller: CharityNameController = appBuilder.injector.instanceOf[CharityNameController]
   }
 
-  def applicationBuilder(noEmailPost: Boolean): Application =
+  val appBuilder: Application =
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[CharityInformationNavigator].toInstance(FakeCharityInformationNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
-      .configure("features.noEmailPost" -> noEmailPost)
+      .configure()
       .build()
 
   override def beforeEach(): Unit = {
@@ -67,29 +66,6 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
   private val form: Form[CharityName]               = formProvider()
 
   "CharityNameController" must {
-
-    "redirect to EmailOrPost page when acknowledgement reference is present and the feature is turned off" in new Setup(
-      noEmailPost = false
-    ) {
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(AcknowledgementReferencePage, acknowledgementRef)
-              .flatMap(_.set(EmailOrPostPage, true))
-              .success
-              .value
-          )
-        )
-      )
-
-      val result: Future[Result] = controller.onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual controllers.routes.EmailOrPostController.onPageLoad.url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-    }
 
     "return OK and the correct view for a GET" in new Setup {
 

@@ -33,17 +33,17 @@ import scala.concurrent.{ExecutionContext, Future}
 class CharitiesConnector @Inject() (httpClient: HttpClientV2, implicit val appConfig: FrontendAppConfig) {
 
   private val logger = Logger(this.getClass)
-  def registerCharities(registrationJson: JsValue)(implicit
+  def registerCharities(id: String)(implicit
     hc: HeaderCarrier,
     ec: ExecutionContext
   ): Future[CharitiesRegistrationResponse] = {
 
     val charitiesRegistrationUrl: String =
-      s"${appConfig.getCharitiesBackend}/submissions/application"
+      s"${appConfig.getCharitiesBackend}/submissions/application/$id"
 
     httpClient
       .post(url"$charitiesRegistrationUrl")
-      .withBody(registrationJson)
+      .withBody(Json.obj())
       .execute[CharitiesRegistrationResponse]
   }
 

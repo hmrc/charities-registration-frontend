@@ -18,10 +18,7 @@ package audit
 
 import play.api.libs.json.JsValue
 
-case class NormalUserAuditEvent(submission: JsValue, override val auditType: String) extends AuditEvent {
-
-  override def transactionName: String = "CharitiesRewriteUser"
-
-  override def details: JsValue =
-    submission
+case class NormalUserAuditEvent(details: JsValue) {
+  def auditType: String       = "NewUser"
+  def transactionName: String = "CharitiesRewriteUser"
 }

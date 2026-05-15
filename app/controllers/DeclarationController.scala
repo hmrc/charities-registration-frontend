@@ -17,13 +17,13 @@
 package controllers
 
 import config.FrontendAppConfig
+import connectors.CharitiesConnector
 import connectors.httpParsers.UnexpectedFailureException
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import play.api.Logger
-import play.api.libs.json.{JsError, JsSuccess}
+import pages.AcknowledgementReferencePage
+import play.api.mvc.Results.Redirect
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.CharitiesRegistrationService
-import transformers.submission.CharitySubmissionTransformer
 import views.html.DeclarationView
 
 import javax.inject.Inject
@@ -33,8 +33,7 @@ class DeclarationController @Inject() (
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
   requireData: DataRequiredAction,
-  registrationService: CharitiesRegistrationService,
-  transformer: CharitySubmissionTransformer,
+  charitiesConnector: CharitiesConnector,
   view: DeclarationView,
   val controllerComponents: MessagesControllerComponents
 )(implicit appConfig: FrontendAppConfig)
@@ -51,15 +50,18 @@ class DeclarationController @Inject() (
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    request.userAnswers.data.transform(transformer.userAnswersToSubmission) match {
-      case JsSuccess(requestJson, _) =>
-        logger.info("[DeclarationController][onSubmit] userAnswers to submission transformation successful")
-        registrationService.register(requestJson, appConfig.noEmailPost)
-      case JsError(err)              =>
-        logger.error(
-          "[DeclarationController][onSubmit] userAnswers to submission transformation failed with errors: " + err
-        )
-        throw UnexpectedFailureException(err.toString())
+    request.userAnswers.get(AcknowledgementReferencePage) match {
+      case None    =>
+        charitiesConnector.registerCharities(request.internalId).flatMap {
+          case Right(_)    =>
+            Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
+          case Left(error) =>
+            throw UnexpectedFailureException(error.body)
+        } recover { case e =>
+          logger.info(s"[CharitiesRegistrationService][register] registration failed", e)
+          throw UnexpectedFailureException(e.getMessage)
+        }
+      case Some(_) => Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
     }
   }
 }

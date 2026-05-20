@@ -66,7 +66,13 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()invalidName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
+    )
+
+    behave like fieldWithRegexForeignCharacters(
+      form,
+      fieldName,
+      invalidKey
     )
   }
 
@@ -292,12 +298,12 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
     "valid for accountName" in {
 
-      "accountName" must fullyMatch regex formProvider.validateField
+      "accountName" must fullyMatch regex formProvider.validateFieldCountry
     }
 
     "valid for accountName&" in {
 
-      "accountName&" mustNot fullyMatch regex formProvider.validateField
+      "accountName&" mustNot fullyMatch regex formProvider.validateFieldCountry
     }
   }
 

@@ -35,20 +35,20 @@ class AmendAddressFormProvider @Inject() extends Mappings {
       mapping(
         "line1"    -> text(s"$messagePrefix.addressLine1.error.required")
           .verifying(maxLength(maxLength, s"$messagePrefix.addressLine1.error.length"))
-          .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.addressLine1.error.format")),
+          .verifying(regexpIncludingForeignCharacters(s"$messagePrefix.addressLine1.error.format")),
         "line2"    -> optional(
           text()
             .verifying(maxLength(maxLength, s"$messagePrefix.addressLine2.error.length"))
-            .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.addressLine2.error.format"))
+            .verifying(regexpIncludingForeignCharacters(s"$messagePrefix.addressLine2.error.format"))
         ),
         "line3"    -> optional(
           text()
             .verifying(maxLength(maxLength, s"$messagePrefix.addressLine3.error.length"))
-            .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.addressLine3.error.format"))
+            .verifying(regexpIncludingForeignCharacters(s"$messagePrefix.addressLine3.error.format"))
         ),
         "town"     -> text(s"$messagePrefix.townOrCity.error.required")
           .verifying(maxLength(maxLength, s"$messagePrefix.townOrCity.error.length"))
-          .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.townOrCity.error.format")),
+          .verifying(regexpIncludingForeignCharacters(s"$messagePrefix.townOrCity.error.format")),
         "postcode" -> default(posttext, ""),
         "country"  -> text(s"$messagePrefix.country.error.required")
       )(AmendAddressModel.apply)(o => Some(Tuple.fromProductTyped(o)))
@@ -62,7 +62,7 @@ class AmendAddressFormProvider @Inject() extends Mappings {
     (isGB, postcode) match {
       case (true, _) if postcode.nonEmpty && !postcode.matches(postcodePattern)            =>
         form.withError("postcode", messages(s"amendAddress.postcode.error.format"))
-      case (false, _) if postcode.nonEmpty && !postcode.matches(validateFieldWithFullStop) =>
+      case (false, _) if postcode.nonEmpty && !postcode.matches(validateFieldPostcode) =>
         form.withError("postcode", messages(s"amendAddress.postcode.error.format.nonUK"))
       case (false, _) if postcode.nonEmpty && postcode.length > maxLength                  =>
         form.withError("postcode", messages(s"amendAddress.postcode.error.length"))

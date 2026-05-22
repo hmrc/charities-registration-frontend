@@ -28,12 +28,7 @@ class DataRetrievalActionImpl @Inject() (val sessionRepository: SessionRepositor
 ) extends DataRetrievalAction {
 
   override protected def transform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] =
-    sessionRepository.get(request.identifier).map {
-      case None              =>
-        OptionalDataRequest(request.request, request.identifier, None)
-      case Some(userAnswers) =>
-        OptionalDataRequest(request.request, request.identifier, Some(userAnswers))
-    }
+    sessionRepository.get(request.identifier).map(uA => OptionalDataRequest(request.request, request.identifier, uA))
 }
 
 trait DataRetrievalAction extends ActionTransformer[IdentifierRequest, OptionalDataRequest]

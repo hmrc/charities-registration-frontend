@@ -44,7 +44,6 @@ class BankDetailsFormProvider @Inject() extends Mappings {
   private def digitsOnly(input: String): String =
     input.filter(_.isDigit)
 
-
   private def sortCodeLengthConstraint(fieldName: String): Constraint[String] = Constraint { input =>
     if (input.length == 6) Valid
     else Invalid(s"$fieldName.error.length")

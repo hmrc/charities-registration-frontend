@@ -18,13 +18,13 @@ package controllers
 
 import config.FrontendAppConfig
 import connectors.CharitiesConnector
-import connectors.httpParsers.UnexpectedFailureException
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import play.api.Logger
 import pages.AcknowledgementReferencePage
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.DeclarationView
+import views.html.errors.TechnicalDifficultiesErrorView
 
 import javax.inject.Inject
 import scala.concurrent.Future
@@ -35,6 +35,7 @@ class DeclarationController @Inject() (
   requireData: DataRequiredAction,
   charitiesConnector: CharitiesConnector,
   view: DeclarationView,
+  technicalDifficultiesErrorView: TechnicalDifficultiesErrorView,
   val controllerComponents: MessagesControllerComponents
 )(implicit appConfig: FrontendAppConfig)
     extends LocalBaseController {
@@ -56,10 +57,8 @@ class DeclarationController @Inject() (
           case Right(_)    =>
             Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
           case Left(error) =>
-            throw UnexpectedFailureException(error.body)
-        } recover { case e =>
-          logger.info(s"[CharitiesRegistrationService][register] registration failed", e)
-          throw UnexpectedFailureException(e.getMessage)
+            logger.error(s"[CharitiesRegistrationService][register] registration failed" + error.body)
+            Future(Ok(technicalDifficultiesErrorView("", "", "")))
         }
       case Some(_) => Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
     }

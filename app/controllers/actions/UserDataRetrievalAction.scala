@@ -33,12 +33,7 @@ class UserDataRetrievalActionImpl @Inject() (val userAnswerService: UserAnswerSe
 
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
-    userAnswerService.get(request.identifier).map {
-      case None              =>
-        OptionalDataRequest(request.request, request.identifier, None)
-      case Some(userAnswers) =>
-        OptionalDataRequest(request.request, request.identifier, Some(userAnswers))
-    }
+    userAnswerService.get(request.identifier).map(uA => OptionalDataRequest(request.request, request.identifier, uA))
   }
 }
 

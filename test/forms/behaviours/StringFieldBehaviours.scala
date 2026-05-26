@@ -16,9 +16,12 @@
 
 package forms.behaviours
 
+import forms.mappings.Mappings
 import play.api.data.{Form, FormError}
 
-trait StringFieldBehaviours extends FieldBehaviours {
+trait StringFieldBehaviours extends FieldBehaviours with Mappings {
+
+  private def rmCRLF(s: String): String = s.replaceAll("\n", "<NEW LINE>").replaceAll("\r", "<LINE FEED>")
 
   def fieldWithMaxLength(form: Form[?], fieldName: String, maxLength: Int, lengthError: FormError): Unit =
     forAll(stringsLongerThan(maxLength) -> "longString") { string =>
@@ -33,6 +36,148 @@ trait StringFieldBehaviours extends FieldBehaviours {
       val result = form.bind(Map(fieldName -> invalidString)).apply(fieldName)
       result.errors mustEqual Seq(error)
     }
+
+  private def fieldWithRegexExcludingLigatures(
+    form: Form[?],
+    fieldName: String,
+    invalidKey: String,
+    regex: String
+  ): Unit = {
+    Seq(
+      "abcdefghijklmnopqrstuvwxyz",
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "0123456789",
+      " '’.",
+      "àáâãäåāăą",
+      "çćĉċč",
+      "þďð",
+      "èéêëēĕėęě",
+      "ĝģğġ",
+      "ĥħ",
+      "ìíîïĩīĭį",
+      "ĵ",
+      "ķ",
+      "ĺļľŀł",
+      "ñńņňŋ",
+      "òóôõöøōŏőǿ",
+      "ŕŗř",
+      "śŝşš",
+      "ţťŧ",
+      "ùúûüũūŭůűų",
+      "ŵẁẃẅ",
+      "ỳýŷÿ",
+      "źżž",
+      "ÀÁÂÃÄÅĀĂĄǺ",
+      "ÇĆĈĊČ",
+      "ÞĎÐ",
+      "ÈÉÊËĒĔĖĘĚ",
+      "ĜĞĠĢ",
+      "ĤĦ",
+      "ÌÍÎÏĨĪĬĮİ",
+      "Ĵ",
+      "Ķ",
+      "ĹĻĽĿŁ",
+      "ÑŃŅŇŊ",
+      "ÒÓÔÕÖØŌŎŐǾ",
+      "ŔŖŘ",
+      "ŚŜŞŠ",
+      "ŢŤŦ",
+      "ÙÚÛÜŨŪŬŮŰŲ",
+      "ŴẀẂẄ",
+      "ỲÝŶŸ",
+      "ŹŻŽ"
+    ).foreach { string =>
+      s"bind $string validated by foreign characters regex" in {
+        val result = form.bind(Map(fieldName -> string)).apply(fieldName)
+        result.errors mustEqual Nil
+      }
+    }
+
+    Seq(
+      "æ",
+      "ǽ",
+      "œ",
+      "Æ",
+      "Ǽ",
+      "Œ",
+      "ß",
+      "ẞ"
+    ).foreach { string =>
+      s"not bind $string invalidated by ligatures regex" in {
+        val result = form.bind(Map(fieldName -> string)).apply(fieldName)
+        result.errors mustEqual Seq(
+          FormError(fieldName, invalidKey, Seq(validateFieldLigatures))
+        )
+      }
+    }
+
+    Seq(
+      "$",
+      "£",
+      "^",
+      "&",
+      "(",
+      "*"
+    ).foreach { string =>
+      s"not bind $string invalidated by foreign characters regex" in {
+        val result = form.bind(Map(fieldName -> string)).apply(fieldName)
+        result.errors mustEqual Seq(
+          FormError(fieldName, invalidKey, Seq(regex))
+        )
+      }
+    }
+    
+    Seq(
+      "кошка сидела на коврике",
+      "گربه روی تشک نشست"
+    ).foreach { string =>
+      s"not bind $string invalidated by foreign characters regex due to use of non-Latin characters" in {
+        val result = form.bind(Map(fieldName -> string)).apply(fieldName)
+        result.errors mustEqual Seq(
+          FormError(fieldName, invalidKey, Seq(regex))
+        )
+      }
+    }
+  }
+
+  def fieldWithRegexForeignCharacters(form: Form[?], fieldName: String, invalidKey: String): Unit =
+    fieldWithRegexExcludingLigatures(form, fieldName, invalidKey, validateFieldIncludingForeignCharacters)
+
+  def fieldWithRegexForeignCharactersAndNewLine(form: Form[?], fieldName: String, invalidKey: String): Unit = {
+    fieldWithRegexExcludingLigatures(
+      form,
+      fieldName,
+      invalidKey,
+      validateFieldIncludingForeignCharactersAndNewLine
+    )
+
+    Seq(
+      "abc\r\nß",
+      "abc\nß",
+      "abc\rß"
+    ).foreach { string =>
+      s"not bind ${rmCRLF(string)} containing new line invalidated by ligatures regex" in {
+        val result = form.bind(Map(fieldName -> string)).apply(fieldName)
+        result.errors mustEqual Seq(
+          FormError(fieldName, invalidKey, Seq(validateFieldLigatures))
+        )
+      }
+    }
+
+    Seq(
+      "abc\r\n$",
+      "abc\n^",
+      "abc\r£",
+      "£\r\nabc"
+    ).foreach { string =>
+      s"not bind ${rmCRLF(string)} containing new line invalidated by main regex" in {
+        val result = form.bind(Map(fieldName -> string)).apply(fieldName)
+        result.errors mustEqual Seq(
+          FormError(fieldName, invalidKey, Seq(validateFieldIncludingForeignCharactersAndNewLine))
+        )
+      }
+    }
+  }
 
   def bindValidValues(form: Form[String], fieldName: String)(values: String*): Unit =
     values.foreach { value =>

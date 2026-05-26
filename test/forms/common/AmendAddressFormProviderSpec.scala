@@ -57,7 +57,13 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()invalidAddressLine1",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
+    )
+
+    behave like fieldWithRegexForeignCharacters(
+      form,
+      fieldName,
+      invalidKey
     )
   }
 
@@ -84,7 +90,13 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()invalidAddressLine2",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
+    )
+
+    behave like fieldWithRegexForeignCharacters(
+      form,
+      fieldName,
+      invalidKey
     )
   }
 
@@ -111,7 +123,13 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()invalidAddressLine3",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
+    )
+
+    behave like fieldWithRegexForeignCharacters(
+      form,
+      fieldName,
+      invalidKey
     )
   }
 
@@ -145,7 +163,13 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()town",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
+    )
+
+    behave like fieldWithRegexForeignCharacters(
+      form,
+      fieldName,
+      invalidKey
     )
   }
 

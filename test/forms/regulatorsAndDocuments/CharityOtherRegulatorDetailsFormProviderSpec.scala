@@ -57,8 +57,14 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
       form,
       fieldName,
       "123456&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldIncludingForeignCharacters))
     )
+
+    behave like fieldWithRegexForeignCharacters(
+      form,
+      fieldName,
+      invalidKey
+    )    
   }
 
   ".registrationNumber" must {
@@ -91,7 +97,7 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
       form,
       fieldName,
       "123456&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldNo))
     )
   }
 
@@ -125,12 +131,12 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
 
     "valid for ORegulatorName" in {
 
-      "ORegulatorName" must fullyMatch regex formProvider.validateFieldWithFullStop
+      "ORegulatorName" must fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
 
     "ORegulatorName" in {
 
-      "ORegulatorName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+      "ORegulatorName&" mustNot fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
   }
 
@@ -138,12 +144,12 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
 
     "valid for 123456" in {
 
-      "123456" must fullyMatch regex formProvider.validateFieldWithFullStop
+      "123456" must fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
 
     "valid for 01632 960" in {
 
-      "123456&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+      "123456&" mustNot fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
   }
 

@@ -19,12 +19,10 @@ package controllers
 import config.FrontendAppConfig
 import connectors.CharitiesConnector
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
-import play.api.Logger
 import pages.AcknowledgementReferencePage
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.DeclarationView
-import views.html.errors.TechnicalDifficultiesErrorView
 
 import javax.inject.Inject
 import scala.concurrent.Future
@@ -35,12 +33,9 @@ class DeclarationController @Inject() (
   requireData: DataRequiredAction,
   charitiesConnector: CharitiesConnector,
   view: DeclarationView,
-  technicalDifficultiesErrorView: TechnicalDifficultiesErrorView,
   val controllerComponents: MessagesControllerComponents
 )(implicit appConfig: FrontendAppConfig)
     extends LocalBaseController {
-
-  private val logger = Logger(this.getClass)
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     if (!isAllSectionsCompleted()) {

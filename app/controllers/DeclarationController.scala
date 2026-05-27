@@ -53,13 +53,8 @@ class DeclarationController @Inject() (
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     request.userAnswers.get(AcknowledgementReferencePage) match {
       case None    =>
-        charitiesConnector.registerCharities(request.internalId).flatMap {
-          case Right(_)    =>
-            Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
-          case Left(error) =>
-            logger.error(s"[CharitiesRegistrationService][register] registration failed" + error.body)
-            Future(Ok(technicalDifficultiesErrorView("", "", "")))
-        }
+        charitiesConnector.registerCharities(request.internalId)
+        Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
       case Some(_) => Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
     }
   }

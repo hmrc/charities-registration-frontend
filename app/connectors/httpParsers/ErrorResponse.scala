@@ -27,8 +27,6 @@ case class UnexpectedFailure(override val status: Int) extends ErrorResponse {
   override val body: String = s"Unexpected response, status $status returned"
 }
 
-case class UnexpectedFailureException(message: String) extends RuntimeException(message)
-
 object AddressNotFound extends ErrorResponse {
   override val status: Int  = NOT_FOUND
   override val body: String = "Address not found"

@@ -60,13 +60,13 @@ class AmendAddressFormProvider @Inject() extends Mappings {
     val postcode      = form("postcode").value.getOrElse("")
 
     (isGB, postcode) match {
-      case (true, _) if postcode.nonEmpty && !postcode.matches(postcodePattern)            =>
+      case (true, _) if postcode.nonEmpty && !postcode.matches(postcodePattern)        =>
         form.withError("postcode", messages(s"amendAddress.postcode.error.format"))
       case (false, _) if postcode.nonEmpty && !postcode.matches(validateFieldPostcode) =>
         form.withError("postcode", messages(s"amendAddress.postcode.error.format.nonUK"))
-      case (false, _) if postcode.nonEmpty && postcode.length > maxLength                  =>
+      case (false, _) if postcode.nonEmpty && postcode.length > maxLength              =>
         form.withError("postcode", messages(s"amendAddress.postcode.error.length"))
-      case _                                                                               => form
+      case _                                                                           => form
     }
   }
 }

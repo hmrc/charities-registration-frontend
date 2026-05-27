@@ -126,7 +126,7 @@ trait StringFieldBehaviours extends FieldBehaviours with Mappings {
         )
       }
     }
-    
+
     Seq(
       "кошка сидела на коврике",
       "گربه روی تشک نشست"

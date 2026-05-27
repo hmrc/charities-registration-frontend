@@ -17,8 +17,7 @@
 package connectors
 
 import config.FrontendAppConfig
-import connectors.httpParsers.CharitiesRegistrationHttpParser.{CharitiesRegistrationResponse, CharitiesRegistrationResponseReads}
-import models.{SaveStatus, UserAnswers}
+import models.{RegistrationResponse, SaveStatus, UserAnswers}
 import play.api.Logger
 import play.api.http.Status.*
 import play.api.libs.json.*
@@ -36,23 +35,31 @@ class CharitiesConnector @Inject() (httpClient: HttpClientV2, implicit val appCo
   def registerCharities(id: String)(implicit
     hc: HeaderCarrier,
     ec: ExecutionContext
-  ): Future[CharitiesRegistrationResponse] = {
-
-    val charitiesRegistrationUrl: String =
-      s"${appConfig.getCharitiesBackend}/submissions/application/$id"
-
+  ): Future[Option[RegistrationResponse]] =
     httpClient
-      .post(url"$charitiesRegistrationUrl")
+      .post(url"${appConfig.getCharitiesBackend}/submissions/application/$id")
       .withBody(Json.obj())
-      .execute[CharitiesRegistrationResponse]
-  }
+      .execute[HttpResponse]
+      .map { response =>
+        response.status match {
+          case OK    =>
+            response.json.validate[RegistrationResponse] match {
+              case JsSuccess(validResponse, _) => Some(validResponse)
+              case JsError(errors)             =>
+                logger.warn(s"[CharitiesConnector][registerCharities]: Unexpected response, $errors returned")
+                throw JsResultException(errors)
+            }
+          case notOk =>
+            logger.error(
+              s"[CharitiesConnector][registerCharities]: Registration unsuccessful with status $notOk and message ${response.body}"
+            )
+            None
+        }
+      }
 
-  def getUserAnswers(id: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[UserAnswers]] = {
-
-    val charitiesRegistrationUrl: String = s"${appConfig.getCharitiesBackend}/charities-registration/getUserAnswer/$id"
-
+  def getUserAnswers(id: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[UserAnswers]] =
     httpClient
-      .get(url"$charitiesRegistrationUrl")
+      .get(url"${appConfig.getCharitiesBackend}/charities-registration/getUserAnswer/$id")
       .execute[HttpResponse]
       .map { response =>
         response.status match {
@@ -68,15 +75,10 @@ class CharitiesConnector @Inject() (httpClient: HttpClientV2, implicit val appCo
             None
         }
       }
-  }
 
-  def saveUserAnswers(userAnswers: UserAnswers)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] = {
-
-    val charitiesRegistrationUrl: String =
-      s"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}"
-
+  def saveUserAnswers(userAnswers: UserAnswers)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
     httpClient
-      .post(url"$charitiesRegistrationUrl")
+      .post(url"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}")
       .withBody(Json.toJson(userAnswers))
       .execute[HttpResponse]
       .map {
@@ -90,5 +92,4 @@ class CharitiesConnector @Inject() (httpClient: HttpClientV2, implicit val appCo
           logger.error(s"[CharitiesConnector][saveUserAnswers]: Unexpected response returned " + error)
           throw new RuntimeException("Unexpected response returned for saveUserAnswers")
       }
-  }
 }

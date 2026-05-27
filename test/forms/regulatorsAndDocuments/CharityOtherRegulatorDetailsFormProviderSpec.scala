@@ -64,7 +64,7 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
       form,
       fieldName,
       invalidKey
-    )    
+    )
   }
 
   ".registrationNumber" must {

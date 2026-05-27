@@ -98,7 +98,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
     "redirect to the next page after valid transformation" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockCharitiesConnector.registerCharities(any())(any(), any())).thenReturn(
-        Future.successful(Right(RegistrationResponse("ackRef")))
+        Future.successful(Some(RegistrationResponse("ackRef")))
       )
 
       val result = controller.onSubmit()(fakeRequest)

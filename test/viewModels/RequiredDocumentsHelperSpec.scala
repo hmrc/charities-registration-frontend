@@ -24,9 +24,6 @@ import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.{IndividualNomineeNamePage, OrganisationAuthorisedPersonNamePage}
 import pages.otherOfficials.OtherOfficialsNamePage
 import pages.regulatorsAndDocuments.IsCharityRegulatorPage
-import play.api.i18n.Messages
-import play.api.mvc.Cookie
-import play.api.test.FakeRequest
 import viewmodels.RequiredDocumentsHelper
 
 class RequiredDocumentsHelperSpec extends SpecBase {
@@ -52,9 +49,6 @@ class RequiredDocumentsHelperSpec extends SpecBase {
     )
     .success
     .value
-
-  private val localRequest: FakeRequest[?] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
-  private lazy val localMessages: Messages = messagesApi.preferred(localRequest)
 
   "RequiredDocumentsHelper" must {
 
@@ -125,41 +119,20 @@ class RequiredDocumentsHelperSpec extends SpecBase {
       }
 
       "format correctly for 2 names" in {
-        RequiredDocumentsHelper.formatNames(Seq(name, name)) mustBe "Firstname Lastname and Firstname Lastname"
+        RequiredDocumentsHelper.formatNames(Seq(name, name)) mustBe "Firstname Lastname, Firstname Lastname"
 
       }
 
       "format correctly for 3 names" in {
         RequiredDocumentsHelper.formatNames(
           Seq(name, name, name)
-        ) mustBe "Firstname Lastname, Firstname Lastname and Firstname Lastname"
+        ) mustBe "Firstname Lastname, Firstname Lastname, Firstname Lastname"
 
       }
 
       "format correctly for 4 or more names" in {
         RequiredDocumentsHelper.formatNames(
           Seq(name, name, name, name)
-        ) mustBe "Firstname Lastname, Firstname Lastname, Firstname Lastname and Firstname Lastname"
-
-      }
-
-      "format correctly for 2 names in Welsh" in {
-        RequiredDocumentsHelper.formatNames(Seq(name, name))(
-          localMessages
-        ) mustBe "Firstname Lastname, Firstname Lastname"
-
-      }
-
-      "format correctly for 3 names in Welsh" in {
-        RequiredDocumentsHelper.formatNames(Seq(name, name, name))(
-          localMessages
-        ) mustBe "Firstname Lastname, Firstname Lastname, Firstname Lastname"
-
-      }
-
-      "format correctly for 4 or more names in Welsh" in {
-        RequiredDocumentsHelper.formatNames(Seq(name, name, name, name))(
-          localMessages
         ) mustBe "Firstname Lastname, Firstname Lastname, Firstname Lastname, Firstname Lastname"
 
       }
@@ -193,14 +166,14 @@ class RequiredDocumentsHelperSpec extends SpecBase {
       }
       "return a tuple if there are more than one names in the list" in {
         RequiredDocumentsHelper.getForeignOfficialsMessages(List(name, name.copy(firstName = "FirstName2"))) mustBe
-          Some(("requiredDocuments.foreignAddresses.answerTrue", "Firstname Lastname and FirstName2 Lastname"))
+          Some(("requiredDocuments.foreignAddresses.answerTrue", "Firstname Lastname, FirstName2 Lastname"))
         RequiredDocumentsHelper.getForeignOfficialsMessages(
           List(name, name.copy(firstName = "FirstName2"), name.copy(firstName = "FirstName3"))
         ) mustBe
           Some(
             (
               "requiredDocuments.foreignAddresses.answerTrue",
-              "Firstname Lastname, FirstName2 Lastname and FirstName3 Lastname"
+              "Firstname Lastname, FirstName2 Lastname, FirstName3 Lastname"
             )
           )
       }

@@ -126,7 +126,7 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
         Some(
           (
             "requiredDocuments.foreignAddresses.answerTrue",
-            "firstName1 middleName1 lastName1, firstName2 middleName2 lastName2 and firstName3 middleName3 lastName3"
+            "firstName1 middleName1 lastName1, firstName2 middleName2 lastName2, firstName3 middleName3 lastName3"
           )
         )
       )(fakeRequest, messages, frontendAppConfig).toString

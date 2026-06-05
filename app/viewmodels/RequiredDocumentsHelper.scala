@@ -20,7 +20,7 @@ import models.addressLookup.AddressModel
 import models.regulators.SelectWhyNoRegulator
 import models.{Name, UserAnswers}
 import pages.QuestionPage
-import pages.addressLookup._
+import pages.addressLookup.*
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.{IndividualNomineeNamePage, OrganisationAuthorisedPersonNamePage}
 import pages.operationsAndFunds.{IsBankStatementsPage, IsFinancialAccountsPage}
@@ -75,13 +75,8 @@ object RequiredDocumentsHelper {
       }
     )
 
-  def formatNames(names: Seq[Name])(implicit messages: Messages): String = {
-    val listOfNames = names.map(_.getFullName)
-    messages.lang.code match {
-      case "cy" => listOfNames.mkString(", ")
-      case _    => listOfNames.mkString(", ").replaceFirst(",(?=[^,]+$)", s" ${messages("service.separator.and")}")
-    }
-  }
+  def formatNames(names: Seq[Name])(implicit messages: Messages): String =
+    names.map(_.getFullName).mkString(", ")
 
   def getRequiredDocuments(userAnswers: UserAnswers): Seq[String] =
     Seq(

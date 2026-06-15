@@ -69,8 +69,6 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
   def accessibilityStatementFrontendUrl()(implicit request: RequestHeader): String =
     s"$accessibilityStatement?referrerUrl=${URLEncoder.encode(s"$platformHost${request.path}", "UTF-8")}"
 
-  lazy val noEmailPost: Boolean = servicesConfig.getBoolean("features.noEmailPost")
-
   def languageMap: Map[String, Lang] = Map("en" -> Lang("en"), "cy" -> Lang("cy"))
 
   lazy val getRecognition: String = servicesConfig.getString("urls.getRecognition")

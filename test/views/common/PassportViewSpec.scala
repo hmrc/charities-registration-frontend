@@ -81,10 +81,14 @@ class PassportViewSpec extends QuestionViewBehaviours[Passport] {
         behave like pageWithBackLink(view)
 
         behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
-        
+
         "render the expiry date as 10 years in future from now" in {
           val doc: Document = asDocument(view)
-          assert(doc.getElementById("expiryDate-hint").text() == s"For example, 21 3 ${(LocalDate.now().getYear + 10).toString}")
+          assert(
+            doc
+              .getElementById("expiryDate-hint")
+              .text() == s"For example, 21 3 ${(LocalDate.now().getYear + 10).toString}"
+          )
         }
       }
 

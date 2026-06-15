@@ -17,11 +17,9 @@
 package controllers.actions
 
 import base.SpecBase
-import config.FrontendAppConfig
 import controllers.routes
 import models.UserAnswers
 import models.requests.{DataRequest, OptionalDataRequest}
-import org.mockito.Mockito.{mock, when}
 import pages.AcknowledgementReferencePage
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{AnyContent, Result}
@@ -29,8 +27,6 @@ import play.api.mvc.{AnyContent, Result}
 import scala.concurrent.Future
 
 class DataRequiredActionSpec extends SpecBase {
-
-  implicit val mockFrontendAppConfig: FrontendAppConfig = mock(classOf[FrontendAppConfig])
 
   private val sut: Harness                         = new Harness
   private val acknowledgedUserAnswers: UserAnswers =
@@ -55,9 +51,7 @@ class DataRequiredActionSpec extends SpecBase {
 
       }
 
-      "redirect to the RegistrationSent page when the UserAnswers have an acknowledgment reference and noEmailPost feature is on" in {
-        when(mockFrontendAppConfig.noEmailPost).thenReturn(true)
-
+      "redirect to the RegistrationSent page when the UserAnswers have an acknowledgment reference" in {
         val request: OptionalDataRequest[AnyContent] =
           OptionalDataRequest(fakeRequest, "internalId", Some(acknowledgedUserAnswers))
 
@@ -68,22 +62,6 @@ class DataRequiredActionSpec extends SpecBase {
           result.isLeft mustBe true
           result.left.toOption.get mustBe Redirect(routes.RegistrationSentController.onPageLoad)
         }
-      }
-
-      "redirect to the EmailOrPost page when the UserAnswers have an acknowledgment reference and noEmailPost feature is off" in {
-        when(mockFrontendAppConfig.noEmailPost).thenReturn(false)
-
-        val request: OptionalDataRequest[AnyContent] =
-          OptionalDataRequest(fakeRequest, "internalId", Some(acknowledgedUserAnswers))
-
-        val futureResult: Future[Either[Result, DataRequest[AnyContent]]] =
-          sut.callRefine(OptionalDataRequest(request, "internalId", Some(acknowledgedUserAnswers)))
-
-        whenReady(futureResult) { result =>
-          result.isLeft mustBe true
-          result.left.toOption.get mustBe Redirect(routes.EmailOrPostController.onPageLoad)
-        }
-
       }
 
       "pass the DataRequest on when UserAnswers do not have an acknowledgment reference" in {

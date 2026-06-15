@@ -41,8 +41,8 @@ trait BaseNavigator extends Mappings {
   }
 
   def isNotValidAddress(address: AddressModel): Boolean = {
-    val postcode                  = address.postcode.getOrElse("")
-    val isValidAddressLines       = address.lines.length >= 2
+    val postcode            = address.postcode.getOrElse("")
+    val isValidAddressLines = address.lines.length >= 2
 
     !isValidAddressLines || address.lines.exists(addr =>
       addr.length > 35 || !addr.matches(validateFieldIncludingForeignCharacters)

@@ -202,8 +202,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
       "firstName&" mustNot fullyMatch regex formProvider.validateFieldIncludingForeignCharacters
     }
-    
-    
+
   }
 
   "middleName" must {

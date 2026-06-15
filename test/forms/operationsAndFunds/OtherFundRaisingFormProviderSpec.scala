@@ -59,7 +59,7 @@ class OtherFundRaisingFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       invalidKey
-    )    
+    )
   }
   "OtherFundRaisingFormProvider" must {
 

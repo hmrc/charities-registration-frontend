@@ -48,7 +48,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
     stubUserAnswerGet(ua, internalId)
     stubUserAnswerPost(ua, internalId)
     authorised(internalId)
-    stubScenario()
+    stubScenario(internalId)
 
     route(
       app,
@@ -141,7 +141,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
           stubUserAnswerGet(Json.obj("invalid" -> "invalid"), internalId)
           stubUserAnswerPost(ua, internalId)
           authorised(internalId)
-          stubScenario()
+          stubScenario(internalId)
 
           intercept[JsResultException](
             Await.result(
@@ -164,7 +164,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
           stubUserAnswerGet(BAD_REQUEST, internalId)
           stubUserAnswerPost(ua, internalId)
           authorised(internalId)
-          stubScenario()
+          stubScenario(internalId)
 
           val response = route(
             app,

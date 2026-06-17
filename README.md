@@ -1,10 +1,8 @@
 # charities-registration-frontend
 
-This microservice is an electronic version of the ChA1 form. This form can be found at : http://www.hmrc.gov.uk/charities/cha1.pdf
+This microservice is an electronic version of the ChA1 form. This form (now withdrawn) can be found at: http://www.hmrc.gov.uk/charities/cha1.pdf
 
-Registration will allow users to register
-their Charity online with HMRC to be able to go on and claim gift aid, and Variation will allow users to amend their
-registered details (agents, nominees, bank details) online.
+Registration will allow users to register their charity online with HMRC which will allow claiming of gift aid.
 
 ### Dependencies
 
@@ -15,30 +13,44 @@ registered details (agents, nominees, bank details) online.
 | charities               | https://github.com/hmrc/charities.git               |
 
 
+## Prerequisites
+
+sm2 and service-manager-config installed
+Scala 3, sbt and Java (currently 21)
+
 ## Running the Application
 
-To run the application:
+When not running journey (ui/acceptance) tests:
+```bash
+sm2 --start CHARITIES_REGISTRATION_ALL
+```
 
-* `Clone the repository using SSH: git@github.com:hmrc/charities-registration-frontend.git` to local machine.
-* `cd` to the root of the project.
-* `sbt run`
-* In your browser navigate to [http://localhost:9457/register-charity-hmrc/check-eligibility/register-the-charity](http://localhost:9457/register-charity-hmrc/check-eligibility/register-the-charity)
-* only organisation users are allowed for gg login
+This will start the charities registration service and all** prerequisite services to run in stubbed mode.
 
-### Prerequisites:
-This service is written in Scala and the Play Framework, therefore you will need at least a Java Runtime Environment to run it. You will also need mongodb by either locally installing it or running a mongo docker container.
+** Doesn't include postcode lookup (via address-lookup) - instead select to manually enter addresses
 
-You should ensure that you have the latest version of the correct services and are running them through the service manager 2.
-
-Make sure sm2 and service-manager-config are up to date
-
-Then run the following command to start all services:
+For running the journey tests, it was recommended to bypass the address-lookup service as pages may change without warning breaking tests.
+For this reason wiremock stubs are set up by the journey on port 6001. To point the address-lookup to this port, instead run:
 
 ```bash
 sm2 --start CHARITIES_REGISTRATION_ALL --appendArgs '{"CHARITIES_REGISTRATION_FRONTEND": ["-J-Dmicroservice.services.address-lookup-frontend.port=6001"]}'
 ```
 
-**Ensure CHARITIES_REGISTRATION_FRONTEND uses port 6001 for address-lookup-frontend. Note: Update address-lookup-frontend port to 6001 in the application.conf of charities-registration-frontend**
+## Running the Application Locally
+
+Follow the instructions above for running the application, then:
+
+```bash
+sm2 --stop CHARITIES_REGISTRATION_FRONTEND
+sbt run
+```
+
+* If planning to run journey tests, the script run_for_journey_tests.sh will set up the service redirecting the address-lookup as discussed above.
+
+## Connecting locally
+
+* In your browser navigate to [http://localhost:9457/register-charity-hmrc/check-eligibility/register-the-charity](http://localhost:9457/register-charity-hmrc/check-eligibility/register-the-charity)
+* When prompted to login, select user type as organisation
 
 ## Tests
 
@@ -48,15 +60,6 @@ Below command will run unit tests, integration tests, formatting, coverage and c
 ./run_all_tests.sh
 ```
 
-### Journey tests and prototype
+## Licence
 
-Please run the app with mocked address lookup for journey tests with script:
-
-```bash
-./run_for_journey_tests.sh
-```
-
-| Repositories  | Link                                                             |
-|---------------|------------------------------------------------------------------|
-| Journey tests | https://github.com/hmrc/charities-registration-journey-tests.git |
-| Prototype     | https://charities-prototype-v1.herokuapp.com/admin/listings      |
+This code is open source software licensed under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).

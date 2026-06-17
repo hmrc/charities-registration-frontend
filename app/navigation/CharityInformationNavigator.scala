@@ -16,16 +16,17 @@
 
 package navigation
 
-import controllers.contactDetails.{routes => charityInfoRoutes}
+import controllers.contactDetails.routes as charityInfoRoutes
 import controllers.routes
-import models._
+import models.*
 import pages.Page
 import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
+import play.api.Logger
 import play.api.mvc.Call
 
 class CharityInformationNavigator extends BaseNavigator {
-
+  private val logger = Logger(this.getClass)
   override val normalRoutes: Page => UserAnswers => Call = {
     case CharityNamePage                  =>
       (userAnswers: UserAnswers) =>
@@ -34,15 +35,19 @@ class CharityInformationNavigator extends BaseNavigator {
           case _       => routes.PageNotFoundController.onPageLoad()
         }
     case CharityContactDetailsPage        =>
-      (userAnswers: UserAnswers) =>
+      (userAnswers: UserAnswers) => {
+        logger.warn("User answers: " + userAnswers.data)
         userAnswers.get(CharityContactDetailsPage) match {
           case Some(_) =>
             userAnswers.get(CharityOfficialAddressLookupPage) match {
               case Some(_) => charityInfoRoutes.ConfirmCharityOfficialAddressController.onPageLoad()
-              case _       => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney
+              case _ => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney
             }
-          case _       => routes.PageNotFoundController.onPageLoad()
+          case _ =>
+            logger.warn("No JSON value found for CharityContactDetailsPage") 
+            routes.PageNotFoundController.onPageLoad()
         }
+      }
     case CharityOfficialAddressLookupPage =>
       (userAnswers: UserAnswers) =>
         userAnswers.get(CharityOfficialAddressLookupPage) match {

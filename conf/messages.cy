@@ -236,6 +236,7 @@ registrationSent.heading = Cofrestriad wedi’i anfon
 registrationSent.submissionDate = Cyflwynwyd:
 registrationSent.h2 = Y camau nesaf
 registrationSent.step1 = Cam 1: Paratoi’r dogfennau
+registrationSent.post.p1 = Nawr, mae angen i chi anfon eich dogfennau ategol atom drwy’r post.
 registrationSent.p3.beforeRefNo = Mae angen i chi wneud copïau ac ychwanegu’ch cyfeirnod
 registrationSent.p3.afterRefNo = at:
 registrationSent.post.step2 = Cam 2: Postio copïau o’r dogfennau

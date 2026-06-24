@@ -49,7 +49,8 @@ object AddressMessagesModel {
       editPageLabels = EditPageMessagesModel.forLang(lang, messagePrefix, fullName, false),
       confirmPageLabels = ConfirmPageMessagesModel.forLang(lang, messagePrefix, fullName),
       international = InternationalMessagesModel(EditPageMessagesModel.forLang(lang, messagePrefix, fullName, true)),
-      countryPickerLabels = if(fullName.isDefined) Some(CountryPickerMessagesModel.forLang(lang, messagePrefix, nameOrOrg)) else None
+      countryPickerLabels =
+        if (fullName.isDefined) Some(CountryPickerMessagesModel.forLang(lang, messagePrefix, fullName.get)) else None
     )
 }
 
@@ -155,14 +156,13 @@ object InternationalMessagesModel {
   implicit val writes: Writes[InternationalMessagesModel] = Json.writes[InternationalMessagesModel]
 }
 
-case class CountryPickerMessagesModel(title: String,
-                                   heading: String)
+case class CountryPickerMessagesModel(title: Option[String], heading: Option[String])
 
 object CountryPickerMessagesModel {
   implicit val writes: Writes[CountryPickerMessagesModel] = Json.writes[CountryPickerMessagesModel]
 
   def forLang(lang: Lang, messagePrefix: String, nameOrOrg: String)(implicit
-                                                                           messagesApi: MessagesApi
+    messagesApi: MessagesApi
   ): CountryPickerMessagesModel =
     CountryPickerMessagesModel(
       title = MessageOption(s"$messagePrefix.countryPickerPage.title", lang, nameOrOrg),

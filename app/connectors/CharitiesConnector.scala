@@ -17,6 +17,7 @@
 package connectors
 
 import config.FrontendAppConfig
+import connectors.httpParsers.HttpClientResponse
 import models.{RegistrationResponse, SaveStatus, UserAnswers}
 import play.api.Logger
 import play.api.http.Status.*
@@ -24,57 +25,45 @@ import play.api.libs.json.*
 import play.api.libs.ws.writeableOf_JsValue
 import uk.gov.hmrc.http.HttpReads.Implicits.*
 import uk.gov.hmrc.http.client.HttpClientV2
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse, StringContextOps, UpstreamErrorResponse}
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class CharitiesConnector @Inject() (httpClient: HttpClientV2, implicit val appConfig: FrontendAppConfig) {
+class CharitiesConnector @Inject() (
+  httpClient: HttpClientV2,
+  httpClientResponseRegister: HttpClientResponse[Option[RegistrationResponse]],
+  httpClientResponseUserAnswers: HttpClientResponse[Option[UserAnswers]],
+  implicit val appConfig: FrontendAppConfig
+) {
+  // This is required because backend returns NO_CONTENT instead of NOT_FOUND for when no user answers data is found.
+  private implicit def readOptionOfNoContent[A: HttpReads]: HttpReads[Option[A]] =
+    HttpReads[HttpResponse]
+      .flatMap(_.status match {
+        case NO_CONTENT => HttpReads.pure(None)
+        case _          => HttpReads[A].map(Some.apply)
+      })
 
   private val logger = Logger(this.getClass)
   def registerCharities(id: String)(implicit
     hc: HeaderCarrier,
     ec: ExecutionContext
-  ): Future[Option[RegistrationResponse]] =
-    httpClient
-      .post(url"${appConfig.getCharitiesBackend}/submissions/application/$id")
-      .withBody(Json.obj())
-      .execute[HttpResponse]
-      .map { response =>
-        response.status match {
-          case OK    =>
-            response.json.validate[RegistrationResponse] match {
-              case JsSuccess(validResponse, _) => Some(validResponse)
-              case JsError(errors)             =>
-                logger.warn(s"[CharitiesConnector][registerCharities]: Unexpected response, $errors returned")
-                throw JsResultException(errors)
-            }
-          case notOk =>
-            logger.error(
-              s"[CharitiesConnector][registerCharities]: Registration unsuccessful with status $notOk and message ${response.body}"
-            )
-            None
-        }
-      }
+  ): Future[Either[UpstreamErrorResponse, Option[RegistrationResponse]]] =
+    httpClientResponseRegister.read(
+      httpClient
+        .post(url"${appConfig.getCharitiesBackend}/submissions/application/$id")
+        .withBody(Json.obj())
+        .execute[Either[UpstreamErrorResponse, Option[RegistrationResponse]]]
+    )
 
-  def getUserAnswers(id: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[UserAnswers]] =
-    httpClient
-      .get(url"${appConfig.getCharitiesBackend}/charities-registration/getUserAnswer/$id")
-      .execute[HttpResponse]
-      .map { response =>
-        response.status match {
-          case OK =>
-            response.json.validate[UserAnswers] match {
-              case JsSuccess(validResponse, _) => Some(validResponse)
-              case JsError(errors)             =>
-                logger.error(s"[CharitiesConnector][getUserAnswers]: Unexpected response, $errors returned")
-                throw JsResultException(errors)
-            }
-          case _  =>
-            logger.warn(s"[CharitiesConnector][getUserAnswers]: no data found for user $id")
-            None
-        }
-      }
+  def getUserAnswers(
+    id: String
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Option[UserAnswers]]] =
+    httpClientResponseUserAnswers.read(
+      httpClient
+        .get(url"${appConfig.getCharitiesBackend}/charities-registration/getUserAnswer/$id")
+        .execute[Either[UpstreamErrorResponse, Option[UserAnswers]]]
+    )
 
   def saveUserAnswers(userAnswers: UserAnswers)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
     httpClient

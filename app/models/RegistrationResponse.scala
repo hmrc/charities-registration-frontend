@@ -18,7 +18,7 @@ package models
 
 import play.api.libs.json.{Json, OFormat}
 
-case class RegistrationResponse(acknowledgementReference: String)
+case class RegistrationResponse(accknowledgementReference: String)
 
 object RegistrationResponse {
 

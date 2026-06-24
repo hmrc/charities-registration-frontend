@@ -16,24 +16,25 @@
 
 package controllers.actions
 
+import connectors.CharitiesConnector
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 import play.api.mvc.ActionTransformer
-import service.UserAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class UserDataRetrievalActionImpl @Inject() (val userAnswerService: UserAnswerService)(implicit
+class UserDataRetrievalActionImpl @Inject() (val charitiesConnector: CharitiesConnector)(implicit
   val executionContext: ExecutionContext
 ) extends UserDataRetrievalAction {
 
   override protected def transform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = {
-
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
-
-    userAnswerService.get(request.identifier).map(uA => OptionalDataRequest(request.request, request.identifier, uA))
+    charitiesConnector.getUserAnswers(request.identifier).map {
+      case Left(ex)              => throw ex
+      case Right(optUserAnswers) => OptionalDataRequest(request.request, request.identifier, optUserAnswers)
+    }
   }
 }
 

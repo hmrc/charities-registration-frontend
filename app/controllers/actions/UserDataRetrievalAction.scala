@@ -31,10 +31,12 @@ class UserDataRetrievalActionImpl @Inject() (val charitiesConnector: CharitiesCo
 
   override protected def transform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = {
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
-    charitiesConnector.getUserAnswers(request.identifier).map {
-      case Left(ex)              => throw ex
-      case Right(optUserAnswers) => OptionalDataRequest(request.request, request.identifier, optUserAnswers)
+    val futureOptUserAnswers       = charitiesConnector.getUserAnswers(request.identifier).map {
+      case Left(_)               => None
+      case Right(optUserAnswers) => optUserAnswers
     }
+    futureOptUserAnswers.map(optUserAnswers => OptionalDataRequest(request.request, request.identifier, optUserAnswers))
+    // TODO: Convert Left to Future failed - wrap in DataRetrievalException - then redirect to error page in error handler for this exception type
   }
 }
 

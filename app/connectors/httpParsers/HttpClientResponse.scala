@@ -26,10 +26,13 @@ import scala.util.{Failure, Success, Try}
 
 class HttpClientResponse[A] @Inject() ()(implicit ec: ExecutionContext) extends Logging {
   private val logErrorResponses: PartialFunction[Try[Either[UpstreamErrorResponse, A]], Unit] = {
-    case Failure(exception: HttpException) =>
-      logger.error(exception.message)
-    case Success(Left(error))              =>
-      logger.error(error.message, error)
+    case Failure(exception: HttpException) => logger.error(exception.message)
+    case Success(Left(error))              => logger.error(error.message, error)
+  }
+
+  private val logWarnResponses: PartialFunction[Try[Either[UpstreamErrorResponse, A]], Unit] = {
+    case Failure(exception: HttpException) => logger.error(exception.message)
+    case Success(Left(error))              => logger.warn(error.message, error)
   }
 
   private val recoverHttpException: PartialFunction[Throwable, Either[UpstreamErrorResponse, A]] = {
@@ -41,4 +44,10 @@ class HttpClientResponse[A] @Inject() ()(implicit ec: ExecutionContext) extends 
     response: Future[Either[UpstreamErrorResponse, A]]
   ): Future[Either[UpstreamErrorResponse, A]] =
     response andThen logErrorResponses recover recoverHttpException
+    
+  // TODO: This is a temporary method to match current behaviour which will change on new ticket
+  def readLogWarn(
+    response: Future[Either[UpstreamErrorResponse, A]]
+  ): Future[Either[UpstreamErrorResponse, A]] =
+    response recover recoverHttpException andThen logWarnResponses
 }

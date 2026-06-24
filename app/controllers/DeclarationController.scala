@@ -26,7 +26,6 @@ import views.html.DeclarationView
 
 import javax.inject.Inject
 import scala.concurrent.Future
-import scala.util.Failure
 
 class DeclarationController @Inject() (
   identify: AuthIdentifierAction,
@@ -51,19 +50,9 @@ class DeclarationController @Inject() (
       case None    =>
         charitiesConnector
           .registerCharities(request.internalId)
-          .map {
-            case Left(upstreamErrorResponse) =>
-              println("\nERR" + upstreamErrorResponse)
-              throw upstreamErrorResponse
-            case Right(e)                    =>
-              println("\nHJERE:" + e)
-              Redirect(controllers.routes.RegistrationSentController.onPageLoad)
-          }
-          .andThen {
-            case Failure(ex) => println("\nEXC==" + ex)
-          }
-      // .map(_ => Redirect(controllers.routes.RegistrationSentController.onPageLoad))
+          .map(_ => Redirect(controllers.routes.RegistrationSentController.onPageLoad))
       case Some(_) => Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
+      // TODO: Convert Left to Future failed - wrap in DeclarationSubmissionException - then redirect to error page in error handler for this exception type
     }
   }
 }

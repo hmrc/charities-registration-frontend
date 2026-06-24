@@ -59,12 +59,13 @@ class CharitiesConnector @Inject() (
   def getUserAnswers(
     id: String
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Option[UserAnswers]]] =
-    httpClientResponseUserAnswers.read(
+    httpClientResponseUserAnswers.readLogWarn(
       httpClient
         .get(url"${appConfig.getCharitiesBackend}/charities-registration/getUserAnswer/$id")
         .execute[Either[UpstreamErrorResponse, Option[UserAnswers]]]
     )
 
+  // TODO: Amend to return Future[Either
   def saveUserAnswers(userAnswers: UserAnswers)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Unit] =
     httpClient
       .post(url"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}")

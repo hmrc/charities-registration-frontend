@@ -1130,8 +1130,8 @@ authorisedOfficialAddress.lookupPage.title = What is the authorised official’s
 authorisedOfficialAddress.lookupPage.heading = What is {0}’s home address?
 authorisedOfficialAddress.lookupPage.manualAddressLinkText = Authorised official’s home address does not have a UK postcode
 
-authorisedOfficialAddress.countryPickerPage.title = In what country or territory is {0}'s home address? - Contact details
-authorisedOfficialAddress.countryPickerPage.heading = In what country or territory is {0}'s home address?
+authorisedOfficialAddress.countryPickerPage.title = In what country or territory is {0}’s home address? - Contact details
+authorisedOfficialAddress.countryPickerPage.heading = In what country or territory is {0}’s home address?
 
 authorisedOfficialAddress.selectPage.title = What is the authorised official’s full address? - Officials and nominees
 authorisedOfficialAddress.selectPage.heading = What is {0}’s full home address?
@@ -1165,8 +1165,8 @@ authorisedOfficialPreviousAddress.lookupPage.title = What is the authorised offi
 authorisedOfficialPreviousAddress.lookupPage.heading = What is {0}’s previous home address?
 authorisedOfficialPreviousAddress.lookupPage.manualAddressLinkText = Authorised official’s previous home address does not have a UK postcode
 
-authorisedOfficialPreviousAddress.countryPickerPage.title = In what country or territory is {0}'s previous home address? - Contact details
-authorisedOfficialPreviousAddress.countryPickerPage.heading = In what country or territory is {0}'s previous home address?
+authorisedOfficialPreviousAddress.countryPickerPage.title = In what country or territory is {0}’s previous home address? - Contact details
+authorisedOfficialPreviousAddress.countryPickerPage.heading = In what country or territory is {0}’s previous home address?
 
 authorisedOfficialPreviousAddress.selectPage.title = What is the authorised official’s full previous home address? - Officials and nominees
 authorisedOfficialPreviousAddress.selectPage.heading = What is {0}’s full previous home address?
@@ -1331,8 +1331,8 @@ otherOfficialAddress.lookupPage.title = What is the other official’s home addr
 otherOfficialAddress.lookupPage.heading = What is {0}’s home address?
 otherOfficialAddress.lookupPage.manualAddressLinkText = Other official’s home address does not have a UK postcode
 
-otherOfficialAddress.countryPickerPage.title = In what country or territory is {0}'s home address? - Contact details
-otherOfficialAddress.countryPickerPage.heading = In what country or territory is {0}'s home address?
+otherOfficialAddress.countryPickerPage.title = In what country or territory is {0}’s home address? - Contact details
+otherOfficialAddress.countryPickerPage.heading = In what country or territory is {0}’s home address?
 
 otherOfficialAddress.selectPage.title = What is the other official’s full home address? - Officials and nominees
 otherOfficialAddress.selectPage.heading = What is {0}’s full home address?
@@ -1366,8 +1366,8 @@ otherOfficialPreviousAddress.lookupPage.title = What is the other official’s p
 otherOfficialPreviousAddress.lookupPage.heading = What is {0}’s previous home address?
 otherOfficialPreviousAddress.lookupPage.manualAddressLinkText = Other official’s previous home address does not have a UK postcode
 
-otherOfficialPreviousAddress.countryPickerPage.title = In what country or territory is {0}'s previous home address? - Contact details
-otherOfficialPreviousAddress.countryPickerPage.heading = In what country or territory is {0}'s previous home address?
+otherOfficialPreviousAddress.countryPickerPage.title = In what country or territory is {0}’s previous home address? - Contact details
+otherOfficialPreviousAddress.countryPickerPage.heading = In what country or territory is {0}’s previous home address?
 
 otherOfficialPreviousAddress.selectPage.title = What is the other official’s full previous home address? - Officials and nominees
 otherOfficialPreviousAddress.selectPage.heading = What is {0}’s full previous home address?
@@ -1556,8 +1556,8 @@ nomineeIndividualAddress.lookupPage.title = What is the nominee’s home address
 nomineeIndividualAddress.lookupPage.heading = What is {0}’s home address?
 nomineeIndividualAddress.lookupPage.manualAddressLinkText = Nominee’s address does not have a UK postcode
 
-nomineeIndividualAddress.countryPickerPage.title = In what country or territory is {0}'s home address? - Contact details
-nomineeIndividualAddress.countryPickerPage.heading = In what country or territory is {0}'s home address?
+nomineeIndividualAddress.countryPickerPage.title = In what country or territory is {0}’s home address? - Contact details
+nomineeIndividualAddress.countryPickerPage.heading = In what country or territory is {0}’s home address?
 
 nomineeIndividualAddress.selectPage.title = What is the nominee’s full home address? - Officials and nominees
 nomineeIndividualAddress.selectPage.heading = What is {0}’s full home address?
@@ -1591,8 +1591,8 @@ nomineeIndividualPreviousAddress.lookupPage.title = What is the nominee’s prev
 nomineeIndividualPreviousAddress.lookupPage.heading = What is {0}’s previous home address?
 nomineeIndividualPreviousAddress.lookupPage.manualAddressLinkText = Nominee’s previous address does not have a UK postcode
 
-nomineeIndividualPreviousAddress.countryPickerPage.title = In what country or territory is {0}'s previous home address? - Contact details
-nomineeIndividualPreviousAddress.countryPickerPage.heading = In what country or territory is {0}'s previous home address?
+nomineeIndividualPreviousAddress.countryPickerPage.title = In what country or territory is {0}’s previous home address? - Contact details
+nomineeIndividualPreviousAddress.countryPickerPage.heading = In what country or territory is {0}’s previous home address?
 
 nomineeIndividualPreviousAddress.selectPage.title = What is the nominee’s full previous home address? - Officials and nominees
 nomineeIndividualPreviousAddress.selectPage.heading = What is {0}’s full previous home address?
@@ -1682,8 +1682,8 @@ organisationNomineeAddress.lookupPage.title = What is the nominee organisation�
 organisationNomineeAddress.lookupPage.heading = What is {0}’s address?
 organisationNomineeAddress.lookupPage.manualAddressLinkText = Organisation’s address does not have a UK postcode
 
-organisationNomineeAddress.countryPickerPage.title = In what country or territory is {0}'s address? - Contact details
-organisationNomineeAddress.countryPickerPage.heading = In what country or territory is {0}'s address?
+organisationNomineeAddress.countryPickerPage.title = In what country or territory is {0}’s address? - Contact details
+organisationNomineeAddress.countryPickerPage.heading = In what country or territory is {0}’s address?
 
 organisationNomineeAddress.selectPage.title = What is the nominee organisation’s full address? - Officials and nominees
 organisationNomineeAddress.selectPage.heading = What is {0}’s full address?
@@ -1717,8 +1717,8 @@ nomineeOrganisationPreviousAddress.lookupPage.title = What is the nominee organi
 nomineeOrganisationPreviousAddress.lookupPage.heading = What is {0}’s previous address?
 nomineeOrganisationPreviousAddress.lookupPage.manualAddressLinkText = Organisation’s previous address does not have a UK postcode
 
-nomineeOrganisationPreviousAddress.countryPickerPage.title = In what country or territory is {0}'s previous address? - Contact details
-nomineeOrganisationPreviousAddress.countryPickerPage.heading = In what country or territory is {0}'s previous address?
+nomineeOrganisationPreviousAddress.countryPickerPage.title = In what country or territory is {0}’s previous address? - Contact details
+nomineeOrganisationPreviousAddress.countryPickerPage.heading = In what country or territory is {0}’s previous address?
 
 nomineeOrganisationPreviousAddress.selectPage.title = What is the nominee organisation’s full previous address? - Officials and nominees
 nomineeOrganisationPreviousAddress.selectPage.heading = What is {0}’s full previous address?

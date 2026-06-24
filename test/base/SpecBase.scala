@@ -36,7 +36,7 @@ import play.api.mvc.{AnyContentAsEmpty, Call, MessagesControllerComponents}
 import play.api.test.CSRFTokenHelper.*
 import play.api.test.{FakeRequest, Injecting}
 import repositories.SessionRepository
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 import utils.TimeMachine
 import viewmodels.ErrorHandler

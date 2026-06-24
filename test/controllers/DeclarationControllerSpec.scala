@@ -27,7 +27,7 @@ import pages.sections.*
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.*
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.DeclarationView
 
 import scala.concurrent.Future

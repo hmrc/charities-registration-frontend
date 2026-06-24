@@ -35,7 +35,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{AnyContent, MessagesControllerComponents}
 import play.api.test.Helpers._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import viewmodels.ErrorHandler
 
 import javax.inject.Inject
@@ -60,7 +60,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
   }
 
   class TestAddressLookupController @Inject() (
-    override val sessionRepository: UserAnswerService,
+    override val charitiesConnector: CharitiesConnector,
     override val navigator: CharityInformationNavigator,
     override val addressLookupConnector: AddressLookupConnector,
     override val errorHandler: ErrorHandler,

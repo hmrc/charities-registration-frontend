@@ -29,7 +29,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, *}
 import repositories.SessionRepository
-import service.UserAnswerService
+import connectors.CharitiesConnector
 
 import scala.concurrent.Future
 

@@ -26,14 +26,14 @@ import pages.regulatorsAndDocuments.{IsApprovedGoverningDocumentPage, SelectGove
 import pages.sections.Section3Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.regulatorsAndDocuments.IsApprovedGoverningDocumentView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class IsApprovedGoverningDocumentController @Inject() (
-  sessionRepository: UserAnswerService,
+  charitiesConnector: CharitiesConnector,
   navigator: DocumentsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -71,7 +71,7 @@ class IsApprovedGoverningDocumentController @Inject() (
                   Future.fromTry(
                     request.userAnswers.set(IsApprovedGoverningDocumentPage, value).flatMap(_.set(Section3Page, false))
                   )
-                _              <- sessionRepository.set(updatedAnswers)
+                _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
               } yield Redirect(navigator.nextPage(IsApprovedGoverningDocumentPage, mode, updatedAnswers))
           )
       }

@@ -26,14 +26,14 @@ import pages.nominees.IsAuthoriseNomineePage
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.nominees.IsAuthoriseNomineeView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class IsAuthoriseNomineeController @Inject() (
-  sessionRepository: UserAnswerService,
+  charitiesConnector: CharitiesConnector,
   navigator: NomineesNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -65,7 +65,7 @@ class IsAuthoriseNomineeController @Inject() (
               updatedAnswers <-
                 Future
                   .fromTry(request.userAnswers.set(IsAuthoriseNomineePage, value).flatMap(_.set(Section9Page, false)))
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(IsAuthoriseNomineePage, mode, updatedAnswers))
         )
   }

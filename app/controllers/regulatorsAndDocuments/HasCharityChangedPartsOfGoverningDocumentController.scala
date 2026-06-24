@@ -26,14 +26,14 @@ import pages.regulatorsAndDocuments.{HasCharityChangedPartsOfGoverningDocumentPa
 import pages.sections.Section3Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocumentView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class HasCharityChangedPartsOfGoverningDocumentController @Inject() (
-  sessionRepository: UserAnswerService,
+  charitiesConnector: CharitiesConnector,
   navigator: DocumentsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -71,7 +71,7 @@ class HasCharityChangedPartsOfGoverningDocumentController @Inject() (
                                       .set(HasCharityChangedPartsOfGoverningDocumentPage, value)
                                       .flatMap(_.set(Section3Page, false))
                                   )
-                _              <- sessionRepository.set(updatedAnswers)
+                _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
               } yield Redirect(navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, mode, updatedAnswers))
           )
       }

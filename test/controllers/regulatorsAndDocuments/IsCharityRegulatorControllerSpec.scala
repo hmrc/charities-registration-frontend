@@ -30,7 +30,7 @@ import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.regulatorsAndDocuments.IsCharityRegulatorView
 
 import scala.concurrent.Future

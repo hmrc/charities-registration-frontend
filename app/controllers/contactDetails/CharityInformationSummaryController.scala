@@ -26,7 +26,7 @@ import pages.IndexPage
 import pages.contactDetails._
 import pages.sections.Section1Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
 import viewmodels.charityInformation.CharityInformationSummaryHelper
 import views.html.CheckYourAnswersView
@@ -34,7 +34,7 @@ import views.html.CheckYourAnswersView
 import scala.concurrent.Future
 
 class CharityInformationSummaryController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: CharityInformationNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -67,7 +67,7 @@ class CharityInformationSummaryController @Inject() (
           request.userAnswers
             .set(Section1Page, checkComplete(request.userAnswers))
         )
-      _              <- sessionRepository.set(updatedAnswers)
+      _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
     } yield Redirect(navigator.nextPage(CharityInformationSummaryPage, NormalMode, updatedAnswers))
 
   }

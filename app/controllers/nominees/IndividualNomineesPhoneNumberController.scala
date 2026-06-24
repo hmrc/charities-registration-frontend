@@ -26,7 +26,7 @@ import pages.nominees.{IndividualNomineeNamePage, IndividualNomineesPhoneNumberP
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.common.PhoneNumberView
 
 import javax.inject.Inject
@@ -37,7 +37,7 @@ class IndividualNomineesPhoneNumberController @Inject() (
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
   val formProvider: PhoneNumberFormProvider,
-  override val sessionRepository: UserAnswerService,
+  override val charitiesConnector: CharitiesConnector,
   override val navigator: NomineesNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: PhoneNumberView

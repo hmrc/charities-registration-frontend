@@ -28,7 +28,7 @@ import pages.nominees.OrganisationNomineeNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.common.ConfirmAddressView
 
 import scala.concurrent.Future

@@ -28,7 +28,7 @@ import pages.operationsAndFunds.{OverseasOperatingLocationSummaryPage, WhatCount
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 
 import scala.concurrent.Future
 

@@ -27,7 +27,7 @@ import pages.otherOfficials.{IsAddAnotherOtherOfficialPage, OtherOfficialsSummar
 import pages.sections.Section8Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import viewmodels.officials.OfficialSummaryRowHelper
 import viewmodels.otherOfficials.OtherOfficialStatusHelper.checkComplete
 import views.html.common.OfficialsSummaryView
@@ -36,7 +36,7 @@ import javax.inject.Inject
 import scala.concurrent.Future
 
 class OtherOfficialsSummaryController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: OtherOfficialsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -90,7 +90,7 @@ class OtherOfficialsSummaryController @Inject() (
               updatedAnswers  <- Future.fromTry(result = request.userAnswers.set(IsAddAnotherOtherOfficialPage, value))
               taskListUpdated <-
                 Future.fromTry(result = updatedAnswers.set(Section8Page, checkComplete(updatedAnswers)))
-              _               <- sessionRepository.set(taskListUpdated)
+              _               <- charitiesConnector.saveUserAnswers(taskListUpdated)
             } yield Redirect(navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, taskListUpdated))
         )
     } else {
@@ -101,7 +101,7 @@ class OtherOfficialsSummaryController @Inject() (
             request.userAnswers
               .set(Section8Page, checkComplete(request.userAnswers))
           )
-        _              <- sessionRepository.set(updatedAnswers)
+        _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
       } yield Redirect(navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, updatedAnswers))
     }
   }

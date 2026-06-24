@@ -29,7 +29,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.SessionRepository
-import service.{CharitiesSectionCompleteService, UserAnswerService}
+import service.CharitiesSectionCompleteService
 
 import javax.inject.Inject
 import scala.concurrent.Future
@@ -41,7 +41,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   class FakeCharitiesSectionCompleteService @Inject() (
     sessionRepository: SessionRepository,
-    userAnswerService: UserAnswerService,
+    charitiesConnector: CharitiesConnector,
     auditService: AuditService
   ) extends CharitiesSectionCompleteService(
         sessionRepository,

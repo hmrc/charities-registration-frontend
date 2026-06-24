@@ -32,7 +32,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Cookie
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 import views.html.operationsAndFunds.WhatCountryDoesTheCharityOperateInView
 
 import scala.concurrent.Future

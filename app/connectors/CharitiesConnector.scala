@@ -65,7 +65,7 @@ class CharitiesConnector @Inject() (
         .execute[Either[UpstreamErrorResponse, Option[UserAnswers]]]
     )
 
-  def saveUserAnswers(userAnswers: UserAnswers)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
+  def saveUserAnswers(userAnswers: UserAnswers)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Unit] =
     httpClient
       .post(url"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}")
       .withBody(Json.toJson(userAnswers))
@@ -73,7 +73,7 @@ class CharitiesConnector @Inject() (
       .map {
         case HttpResponse(OK, responseBody, _) =>
           Json.parse(responseBody).validate[SaveStatus] match {
-            case JsSuccess(value, _) => value.status
+            case JsSuccess(_, _) => (): Unit
             case JsError(errors)     => throw JsResultException(errors)
           }
 

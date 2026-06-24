@@ -33,7 +33,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.*
 import play.api.test.Helpers.*
-import service.UserAnswerService
+import connectors.CharitiesConnector
 
 import javax.inject.Inject
 import scala.concurrent.Future

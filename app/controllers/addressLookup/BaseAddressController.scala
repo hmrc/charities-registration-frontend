@@ -26,7 +26,7 @@ import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.Logger
 import play.api.mvc.{AnyContent, Result}
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import viewmodels.ErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -34,7 +34,7 @@ import scala.concurrent.{ExecutionContext, Future}
 trait BaseAddressController extends LocalBaseController {
   protected val addressLookupConnector: AddressLookupConnector
   protected val errorHandler: ErrorHandler
-  protected val sessionRepository: UserAnswerService
+  protected val charitiesConnector: CharitiesConnector
   protected val navigator: BaseNavigator
   protected val messagePrefix: String
 
@@ -69,7 +69,7 @@ trait BaseAddressController extends LocalBaseController {
             for {
               updatedAnswers <-
                 Future.fromTry(request.userAnswers.set(page, address).flatMap(_.set(pageSection, false)))
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
           case _              =>
             logger.error(

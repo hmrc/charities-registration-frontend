@@ -22,13 +22,13 @@ import models.requests.{IdentifierRequest, OptionalDataRequest}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures
-import service.UserAnswerService
+import connectors.CharitiesConnector
 
 import scala.concurrent.Future
 
 class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
 
-  class Harness(userAnswerService: UserAnswerService) extends UserDataRetrievalActionImpl(userAnswerService) {
+  class Harness(charitiesConnector: CharitiesConnector) extends UserDataRetrievalActionImpl(userAnswerService) {
     def callTransform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = transform(request)
   }
 

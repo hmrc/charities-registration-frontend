@@ -34,7 +34,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.contactDetails.CharityNameView
 
 import scala.concurrent.Future

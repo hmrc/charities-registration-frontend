@@ -25,7 +25,7 @@ import org.scalatest.BeforeAndAfterEach
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.*
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import utils.TimeMachine
 import views.ViewUtils.dayToString
 import views.html.RegistrationSentView

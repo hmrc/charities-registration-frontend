@@ -25,7 +25,7 @@ import org.scalatest.BeforeAndAfterEach
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.operationsAndFunds.StartCharitableObjectivesView
 
 import scala.concurrent.Future

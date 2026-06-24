@@ -31,7 +31,7 @@ import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.*
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.common.OfficialsPositionView
 
 import scala.concurrent.Future

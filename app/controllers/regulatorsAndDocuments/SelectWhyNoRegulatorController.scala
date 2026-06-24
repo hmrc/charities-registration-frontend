@@ -27,14 +27,14 @@ import pages.regulatorsAndDocuments.SelectWhyNoRegulatorPage
 import pages.sections.Section2Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.regulatorsAndDocuments.SelectWhyNoRegulatorView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class SelectWhyNoRegulatorController @Inject() (
-  sessionRepository: UserAnswerService,
+  charitiesConnector: CharitiesConnector,
   navigator: RegulatorsAndDocumentsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -67,7 +67,7 @@ class SelectWhyNoRegulatorController @Inject() (
               updatedAnswers <-
                 Future
                   .fromTry(request.userAnswers.set(SelectWhyNoRegulatorPage, value).flatMap(_.set(Section2Page, false)))
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(SelectWhyNoRegulatorPage, mode, updatedAnswers))
         )
   }

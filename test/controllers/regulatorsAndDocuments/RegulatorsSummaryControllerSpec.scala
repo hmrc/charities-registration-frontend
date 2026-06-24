@@ -28,7 +28,7 @@ import pages.regulatorsAndDocuments.IsCharityRegulatorPage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
-import service.UserAnswerService
+import connectors.CharitiesConnector
 
 import scala.concurrent.Future
 

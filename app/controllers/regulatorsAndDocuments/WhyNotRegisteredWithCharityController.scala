@@ -26,14 +26,14 @@ import pages.regulatorsAndDocuments.WhyNotRegisteredWithCharityPage
 import pages.sections.Section2Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.regulatorsAndDocuments.WhyNotRegisteredWithCharityView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class WhyNotRegisteredWithCharityController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: RegulatorsAndDocumentsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -66,7 +66,7 @@ class WhyNotRegisteredWithCharityController @Inject() (
                 Future.fromTry(
                   request.userAnswers.set(WhyNotRegisteredWithCharityPage, value).flatMap(_.set(Section2Page, false))
                 )
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(WhyNotRegisteredWithCharityPage, mode, updatedAnswers))
         )
   }

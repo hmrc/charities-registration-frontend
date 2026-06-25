@@ -69,14 +69,15 @@ class CharitiesConnector @Inject() (
     httpClientResponse
       .read(
         httpClient
-          .post(url"${appConfig.getCharitiesBackend}/charities-registration/saaveUserAnswer/${userAnswers.id}")
+          .post(url"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}")
           .withBody(Json.toJson(userAnswers))
           .execute[Either[UpstreamErrorResponse, Unit]]
       )
-      // TODO: Below to keep existing behaviour for now. This may be changed by future re-design of error handling
+      // Below to keep existing behaviour for now. However, the exception is logged twice (here and error handler). 
+      // TODO: Logging twice is not ideal and we should change by future re-design of error handling
       .map {
-        case Left(UpstreamErrorResponse(_, _, _, _)) =>
-          throw new RuntimeException("Unexpected response returned for saveUserAnswers")
+        case Left(UpstreamErrorResponse(message, status, _, _)) =>
+          throw new RuntimeException(s"Unexpected response returned for saveUserAnswers $message and status $status")
         case v @ Right(_)                            => v
       }
 

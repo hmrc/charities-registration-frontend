@@ -69,6 +69,5 @@ class CharityInformationSummaryController @Inject() (
         )
       _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
     } yield Redirect(navigator.nextPage(CharityInformationSummaryPage, NormalMode, updatedAnswers))
-
   }
 }

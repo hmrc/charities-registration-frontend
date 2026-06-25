@@ -32,14 +32,12 @@ class UserDataRetrievalActionImpl @Inject() (val charitiesConnector: CharitiesCo
 
   override protected def refine[A](request: IdentifierRequest[A]): Future[Either[Result, OptionalDataRequest[A]]] = {
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
-    val futureOptUserAnswers       = charitiesConnector.getUserAnswers(request.identifier).map {
+    charitiesConnector.getUserAnswers(request.identifier).map {
       case Left(UpstreamErrorResponse(_, _, _, _)) =>
-        Left(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
-      case Right(optUserAnswers)                   => Right(optUserAnswers)
+        // TODO: This is temporary - design ticket created to come up with a more suitable error page.
+        Left(Redirect(controllers.routes.PageNotFoundController.onPageLoad())) 
+      case Right(optUserAnswers)                   => Right(OptionalDataRequest(request.request, request.identifier, optUserAnswers))
     }
-    futureOptUserAnswers.map(
-      _.map(optUserAnswers => OptionalDataRequest(request.request, request.identifier, optUserAnswers))
-    )
   }
 }
 

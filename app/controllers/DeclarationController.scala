@@ -50,7 +50,12 @@ class DeclarationController @Inject() (
       case None    =>
         charitiesConnector
           .registerCharities(request.internalId)
-          .map(_ => Redirect(controllers.routes.RegistrationSentController.onPageLoad))
+          .map {
+            case Left(upstreamErrorResponse) =>
+              // TODO: This is temporary - design ticket created to come up with a more suitable error page.
+              Redirect(controllers.routes.PageNotFoundController.onPageLoad())
+            case Right(_)                    => Redirect(controllers.routes.RegistrationSentController.onPageLoad)
+          }
       case Some(_) => Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
       // TODO: Convert Left to Future failed - wrap in DeclarationSubmissionException - then redirect to error page in error handler for this exception type
     }

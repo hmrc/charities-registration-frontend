@@ -39,13 +39,11 @@ class CharitiesConnector @Inject() (
     hc: HeaderCarrier,
     ec: ExecutionContext
   ): Future[Either[UpstreamErrorResponse, Option[RegistrationResponse]]] =
-    convertLeftToException(
-      httpClientResponse.read(
-        httpClient
-          .post(url"${appConfig.getCharitiesBackend}/submissions/application/$id")
-          .withBody(Json.obj())
-          .execute[Either[UpstreamErrorResponse, Option[RegistrationResponse]]]
-      )
+    httpClientResponse.read(
+      httpClient
+        .post(url"${appConfig.getCharitiesBackend}/submissions/application/$id")
+        .withBody(Json.obj())
+        .execute[Either[UpstreamErrorResponse, Option[RegistrationResponse]]]
     )
 
   def getUserAnswers(
@@ -65,23 +63,23 @@ class CharitiesConnector @Inject() (
     )
   }
 
-  // TODO: Remove this method and redirect in situ based on context. Using this method
-  //  results in 2 exceptions being logged (1 in error handler and 1 here). It is
-  //  here for now to maintain existing behaviour for saveUserAnswers and to ensure
-  //  error page displayed for registerCharities method (previously went to registration
-  //  success page even if failed).
-  private def convertLeftToException[A](
-    response: Future[Either[UpstreamErrorResponse, A]]
-  )(implicit ec: ExecutionContext): Future[Either[UpstreamErrorResponse, A]] =
-    response.map {
-      case Left(UpstreamErrorResponse(message, status, _, _)) =>
-        throw new RuntimeException(s"Unexpected response returned $message and status $status")
-      case rightUpstreamErrorResponse @ Right(_)              => rightUpstreamErrorResponse
-    }
-
   def saveUserAnswers(
     userAnswers: UserAnswers
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Unit]] =
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Unit]] = {
+    // TODO: This is temporary - design ticket created to come up with a more suitable error page.
+    //  Remove this method and redirect upstream errors in saveUserAnswers in situ based on context.
+    //  Using this method results in 2 exceptions being logged (1 in error handler and 1 here). It is
+    //  here for now to maintain existing behaviour for saveUserAnswers and to ensure
+    //  error page displayed for registerCharities method (previously went to registration
+    //  success page even if failed).
+    def convertLeftToException[A](
+      response: Future[Either[UpstreamErrorResponse, A]]
+    )(implicit ec: ExecutionContext): Future[Either[UpstreamErrorResponse, A]] =
+      response.map {
+        case Left(UpstreamErrorResponse(message, status, _, _)) =>
+          throw new RuntimeException(s"Unexpected response returned $message and status $status")
+        case rightUpstreamErrorResponse @ Right(_)              => rightUpstreamErrorResponse
+      }
     convertLeftToException(
       httpClientResponse
         .read(
@@ -91,5 +89,6 @@ class CharitiesConnector @Inject() (
             .execute[Either[UpstreamErrorResponse, Unit]]
         )
     )
+  }
 
 }

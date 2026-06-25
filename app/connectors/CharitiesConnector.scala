@@ -39,11 +39,13 @@ class CharitiesConnector @Inject() (
     hc: HeaderCarrier,
     ec: ExecutionContext
   ): Future[Either[UpstreamErrorResponse, Option[RegistrationResponse]]] =
-    httpClientResponse.read(
-      httpClient
-        .post(url"${appConfig.getCharitiesBackend}/submissions/application/$id")
-        .withBody(Json.obj())
-        .execute[Either[UpstreamErrorResponse, Option[RegistrationResponse]]]
+    convertLeftToException(
+      httpClientResponse.read(
+        httpClient
+          .post(url"${appConfig.getCharitiesBackend}/submissions/application/$id")
+          .withBody(Json.obj())
+          .execute[Either[UpstreamErrorResponse, Option[RegistrationResponse]]]
+      )
     )
 
   def getUserAnswers(
@@ -63,22 +65,31 @@ class CharitiesConnector @Inject() (
     )
   }
 
+  // TODO: Remove this method and redirect in situ based on context. Using this method
+  //  results in 2 exceptions being logged (1 in error handler and 1 here). It is
+  //  here for now to maintain existing behaviour for saveUserAnswers and to ensure
+  //  error page displayed for registerCharities method (previously went to registration
+  //  success page even if failed).
+  private def convertLeftToException[A](
+    response: Future[Either[UpstreamErrorResponse, A]]
+  )(implicit ec: ExecutionContext): Future[Either[UpstreamErrorResponse, A]] =
+    response.map {
+      case Left(UpstreamErrorResponse(message, status, _, _)) =>
+        throw new RuntimeException(s"Unexpected response returned $message and status $status")
+      case rightUpstreamErrorResponse @ Right(_)              => rightUpstreamErrorResponse
+    }
+
   def saveUserAnswers(
     userAnswers: UserAnswers
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Unit]] =
-    httpClientResponse
-      .read(
-        httpClient
-          .post(url"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}")
-          .withBody(Json.toJson(userAnswers))
-          .execute[Either[UpstreamErrorResponse, Unit]]
-      )
-      // Below to keep existing behaviour for now. However, the exception is logged twice (here and error handler).
-      // TODO: Logging twice is not ideal and we should change by future re-design of error handling mapping the Left
-      //  in navigation rather than letting the exception fall through to the error handler.
-      .map {
-        case Left(UpstreamErrorResponse(message, status, _, _)) =>
-          throw new RuntimeException(s"Unexpected response returned for saveUserAnswers $message and status $status")
-        case rightUpstreamErrorResponse @ Right(_)              => rightUpstreamErrorResponse
-      }
+    convertLeftToException(
+      httpClientResponse
+        .read(
+          httpClient
+            .post(url"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}")
+            .withBody(Json.toJson(userAnswers))
+            .execute[Either[UpstreamErrorResponse, Unit]]
+        )
+    )
+
 }

@@ -18,7 +18,8 @@ package controllers.actions
 
 import connectors.CharitiesConnector
 import models.requests.{IdentifierRequest, OptionalDataRequest}
-import play.api.mvc.ActionTransformer
+import play.api.mvc.Results.Redirect
+import play.api.mvc.{ActionRefiner, Result}
 import uk.gov.hmrc.http.{HeaderCarrier, UpstreamErrorResponse}
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
@@ -29,16 +30,17 @@ class UserDataRetrievalActionImpl @Inject() (val charitiesConnector: CharitiesCo
   val executionContext: ExecutionContext
 ) extends UserDataRetrievalAction {
 
-  override protected def transform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = {
+  override protected def refine[A](request: IdentifierRequest[A]): Future[Either[Result, OptionalDataRequest[A]]] = {
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
     val futureOptUserAnswers       = charitiesConnector.getUserAnswers(request.identifier).map {
-      case Left(UpstreamErrorResponse(message, status, _, _)) =>
-        throw new RuntimeException(s"Unexpected response returned $message and status $status")
-      case Right(optUserAnswers)                              => optUserAnswers
+      case Left(UpstreamErrorResponse(_, _, _, _)) =>
+        Left(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+      case Right(optUserAnswers)                   => Right(optUserAnswers)
     }
-    futureOptUserAnswers.map(optUserAnswers => OptionalDataRequest(request.request, request.identifier, optUserAnswers))
-    // TODO: Find some other way to redirect rather than going to error handler which logs error a second time
+    futureOptUserAnswers.map(
+      _.map(optUserAnswers => OptionalDataRequest(request.request, request.identifier, optUserAnswers))
+    )
   }
 }
 
-trait UserDataRetrievalAction extends ActionTransformer[IdentifierRequest, OptionalDataRequest]
+trait UserDataRetrievalAction extends ActionRefiner[IdentifierRequest, OptionalDataRequest]

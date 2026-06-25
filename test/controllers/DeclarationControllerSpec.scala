@@ -27,27 +27,22 @@ import pages.sections.*
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.*
-import connectors.CharitiesConnector
 import views.html.DeclarationView
 
 import scala.concurrent.Future
 
 class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  lazy val mockCharitiesConnector: CharitiesConnector =
-    mock(classOf[CharitiesConnector])
-
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
+    reset(mockCharitiesConnector)
     reset(mockCharitiesConnector)
   }
 
@@ -74,74 +69,72 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(localUserAnswers))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(localUserAnswers)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view()(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to the next page after valid transformation" in {
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
       when(mockCharitiesConnector.registerCharities(any())(any(), any())).thenReturn(
-        Future.successful(Some(RegistrationResponse("ackRef")))
+        Future.successful(Right(Some(RegistrationResponse("ackRef"))))
       )
 
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
       verify(mockCharitiesConnector, times(1)).registerCharities(any())(any(), any())
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
       verify(mockCharitiesConnector, never()).registerCharities(any())(any(), any())
     }
 
     "redirect to Tasklist for a GET if SectionPage is not completed" in {
+      val userAnswers: UserAnswers = emptyUserAnswers
+        .set(Section1Page, false)
+        .flatMap(_.set(Section2Page, true))
+        .success
+        .value
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(Section1Page, false)
-              .flatMap(_.set(Section2Page, true))
-              .success
-              .value
-          )
-        )
-      )
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(userAnswers))))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
   }
 }

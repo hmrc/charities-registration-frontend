@@ -37,13 +37,13 @@ class DeadEndControllerSpec extends SpecBase with BeforeAndAfterEach {
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
+    reset(mockCharitiesConnector)
   }
 
   private val view: DeadEndView = injector.instanceOf[DeadEndView]
@@ -53,26 +53,25 @@ class DeadEndControllerSpec extends SpecBase with BeforeAndAfterEach {
   "DeadEnd Controller" must {
 
     "return OK and the correct view for a GET" in {
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view()(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
   }

@@ -39,13 +39,13 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
+    reset(mockCharitiesConnector)
   }
 
   private val view: RegistrationSentView = injector.instanceOf[RegistrationSentView]
@@ -61,21 +61,23 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
       val app = new GuiceApplicationBuilder()
         .configure("features.noEmailPost" -> "false")
         .overrides(
-          bind[UserAnswerService].toInstance(mockUserAnswerService),
+          bind[CharitiesConnector].toInstance(mockCharitiesConnector),
           bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
         )
         .build()
 
       val controller: RegistrationSentController = app.injector.instanceOf[RegistrationSentController]
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(
-            userAnswersWithRegisteredApplication(
-              foreignOfficials = List(
-                Name(SelectTitle.Mr, "firstName1", Some("middleName1"), "lastName1"),
-                Name(SelectTitle.Ms, "firstName2", Some("middleName2"), "lastName2"),
-                Name(SelectTitle.Mrs, "firstName3", Some("middleName3"), "lastName3")
+          Right(
+            Some(
+              userAnswersWithRegisteredApplication(
+                foreignOfficials = List(
+                  Name(SelectTitle.Mr, "firstName1", Some("middleName1"), "lastName1"),
+                  Name(SelectTitle.Ms, "firstName2", Some("middleName2"), "lastName2"),
+                  Name(SelectTitle.Mrs, "firstName3", Some("middleName3"), "lastName3")
+                )
               )
             )
           )
@@ -97,30 +99,31 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
           )
         )
       )(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to page not found for a GET if no acknowledgement reference is found" in {
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to page not found for a GET if no existing data is found" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
   }

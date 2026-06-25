@@ -18,16 +18,17 @@ package controllers
 
 import audit.AuditService
 import base.SpecBase
+import connectors.CharitiesConnector
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.AcknowledgementReferencePage
 import pages.sections.{Section1Page, Section2Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import repositories.SessionRepository
 import service.CharitiesSectionCompleteService
 
@@ -45,28 +46,28 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
     auditService: AuditService
   ) extends CharitiesSectionCompleteService(
         sessionRepository,
-        userAnswerService,
+        charitiesConnector,
         auditService
       )
 
   lazy val service =
     new FakeCharitiesSectionCompleteService(
       mockSessionRepository,
-      mockUserAnswerService,
+      mockCharitiesConnector,
       mockAuditService
     )
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[CharitiesSectionCompleteService].toInstance(service),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
+    reset(mockCharitiesConnector)
   }
 
   lazy val controller: IndexController = inject[IndexController]
@@ -76,13 +77,15 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
     "the acknowledgement reference number is already present" must {
 
       "redirect to RegistrationSent page" in {
-        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-          Future(
-            Some(
-              emptyUserAnswers
-                .set(AcknowledgementReferencePage, acknowledgementRef)
-                .success
-                .value
+        when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
+          Future.successful(
+            Right(
+              Some(
+                emptyUserAnswers
+                  .set(AcknowledgementReferencePage, acknowledgementRef)
+                  .success
+                  .value
+              )
             )
           )
         )
@@ -91,7 +94,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
         status(result) mustEqual SEE_OTHER
         redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad.url
-        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
       }
     }
 
@@ -101,13 +104,13 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
         val controller: IndexController = applicationBuilder().injector().instanceOf[IndexController]
 
-        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(None))
+        when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
         lazy val result = controller.onPageLoad()(fakeRequest)
 
         status(result) mustEqual 303
         redirectLocation(result).value mustBe controllers.routes.CannotFindApplicationController.onPageLoad.url
-        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
 
       }
     }
@@ -116,15 +119,15 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       "redirect to the task-list page" in {
 
-        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(emptyUserAnswers)))
-        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
-
+        when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+          .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
         val result = controller.onPageLoad()(fakeRequest)
 
         status(result) mustEqual OK
         titleOf(contentAsString(result)) mustBe
           "Add information about the charity - Register your charity’s details with HMRC - GOV.UK"
-        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
       }
     }
 
@@ -139,17 +142,17 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
             .success
             .value
 
-        when(mockUserAnswerService.get(any())(any(), any()))
-          .thenReturn(Future(Some(userAnswers)))
+        when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+          .thenReturn(Future.successful(Right(Some(userAnswers))))
 
-        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
+        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
         val result = controller.onPageLoad()(fakeRequest)
 
         status(result) mustEqual OK
         titleOf(contentAsString(result)) mustBe
           "Add information about the charity - Register your charity’s details with HMRC - GOV.UK"
 
-        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
 
       }
     }
@@ -165,14 +168,15 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
             .success
             .value
 
-        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(userAnswers)))
-        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
+        when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+          .thenReturn(Future.successful(Right(Some(userAnswers))))
+        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
 
         val result = controller.onPageLoad()(fakeRequestNoSessionId)
 
         status(result) mustEqual SEE_OTHER
-        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-        verify(mockUserAnswerService, never).set(any())(any(), any())
+        verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+        verify(mockCharitiesConnector, never).saveUserAnswers(any())(any(), any())
       }
     }
 
@@ -180,14 +184,15 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       "return status NO_CONTENT" in {
 
-        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(emptyUserAnswers)))
-        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
+        when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+          .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
 
         val result = controller.keepalive()(fakeRequest)
 
         status(result) mustEqual NO_CONTENT
-        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-        verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+        verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+        verify(mockCharitiesConnector, times(1)).saveUserAnswers(any())(any(), any())
       }
     }
 
@@ -195,14 +200,14 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       "return status NO_CONTENT" in {
 
-        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(None))
-        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
+        when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
+        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
 
         val result = controller.keepalive()(fakeRequest)
 
         status(result) mustEqual NO_CONTENT
-        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-        verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+        verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+        verify(mockCharitiesConnector, times(1)).saveUserAnswers(any())(any(), any())
       }
     }
 

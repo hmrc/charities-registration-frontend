@@ -39,13 +39,13 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
+    reset(mockCharitiesConnector)
   }
 
   private val view: ConfirmAddressView                          = injector.instanceOf[ConfirmAddressView]
@@ -57,16 +57,18 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(
-                CharityPostalAddressLookupPage,
-                address.copy(postcode = None)
-              )
-              .success
-              .value
+          Right(
+            Some(
+              emptyUserAnswers
+                .set(
+                  CharityPostalAddressLookupPage,
+                  address.copy(postcode = None)
+                )
+                .success
+                .value
+            )
           )
         )
       )
@@ -83,23 +85,25 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
           None
         )(fakeRequest, messages, frontendAppConfig)
         .toString
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "return submitCall as Amend Address if address length is > 35" in {
 
       val charityInformationAddressMax = List(line1, maxLine, gbCountryName)
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(
-                CharityPostalAddressLookupPage,
-                addressModelMax.copy(postcode = None)
-              )
-              .success
-              .value
+          Right(
+            Some(
+              emptyUserAnswers
+                .set(
+                  CharityPostalAddressLookupPage,
+                  addressModelMax.copy(postcode = None)
+                )
+                .success
+                .value
+            )
           )
         )
       )
@@ -116,31 +120,32 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
           None
         )(fakeRequest, messages, frontendAppConfig)
         .toString
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no data found for address" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
   }

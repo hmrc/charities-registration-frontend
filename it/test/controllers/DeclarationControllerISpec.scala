@@ -24,6 +24,7 @@ import play.api.test.Helpers.*
 import stubs.AuthStub
 import stubs.AuthStub.authorised
 import stubs.CharitiesStub.*
+import uk.gov.hmrc.http.JsValidationException
 import utils.{IntegrationSpecBase, WireMockMethods}
 
 import scala.concurrent.duration.Duration
@@ -143,7 +144,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
           authorised(internalId)
           stubScenario(internalId)
 
-          intercept[JsResultException](
+          intercept[JsValidationException](
             Await.result(
               route(
                 app,

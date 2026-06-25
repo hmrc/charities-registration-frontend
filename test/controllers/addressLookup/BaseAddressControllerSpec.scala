@@ -48,14 +48,14 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[CharityInformationNavigator].toInstance(FakeCharityInformationNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
+    reset(mockCharitiesConnector)
     reset(mockAddressLookupConnector)
   }
 
@@ -70,7 +70,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
   }
 
   lazy val controller: TestAddressLookupController = new TestAddressLookupController(
-    mockUserAnswerService,
+    mockCharitiesConnector,
     FakeCharityInformationNavigator,
     mockAddressLookupConnector,
     inject[ErrorHandler],
@@ -88,7 +88,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
           "redirect to the on ramp" in {
 
-            when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+            when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
             when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any()))
               .thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
 
@@ -103,7 +103,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
           "render ISE" in {
 
-            when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+            when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
             when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any()))
               .thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
 
@@ -129,8 +129,8 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
             "redirect to the next page" in {
 
-              when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-              when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+              when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+              when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future(():Unit))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
@@ -147,7 +147,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
             "render ISE for invalid address" in {
 
-              when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+              when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Left(AddressMalformed)))
 
@@ -164,7 +164,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
             "render ISE" in {
 
-              when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+              when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 

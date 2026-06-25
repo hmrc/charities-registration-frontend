@@ -47,19 +47,19 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[OtherOfficialsNavigator].toInstance(FakeOtherOfficialsNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
+    reset(mockCharitiesConnector)
     reset(mockAddressLookupConnector)
   }
 
   private lazy val controller: OtherOfficialsAddressLookupController = new OtherOfficialsAddressLookupController(
-    mockUserAnswerService,
+    mockCharitiesConnector,
     FakeOtherOfficialsNavigator,
     inject[FakeAuthIdentifierAction],
     inject[UserDataRetrievalAction],
@@ -85,7 +85,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
 
           "redirect to the on ramp" in {
 
-            when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+            when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
             when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any()))
               .thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
 
@@ -100,7 +100,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
 
           "render ISE" in {
 
-            when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+            when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
             when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any()))
               .thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
 
@@ -116,14 +116,14 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
 
         "redirect to Session Expired for a GET if no existing data is found" in {
 
-          when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
+          when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
           val result = controller.initializeJourney(Index(0), NormalMode)(fakeRequest)
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
-          verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-          verify(mockUserAnswerService, never).set(any())(any(), any())
+          verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+          verify(mockCharitiesConnector, never).saveUserAnswers(any())(any(), any())
         }
       }
 
@@ -139,8 +139,8 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
 
             "redirect to the next page" in {
 
-              when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-              when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+              when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+              when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future(():Unit))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
@@ -156,7 +156,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
 
             "render ISE for invalid address" in {
 
-              when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+              when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Left(AddressMalformed)))
 
@@ -172,7 +172,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
 
             "render ISE" in {
 
-              when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+              when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
@@ -189,14 +189,14 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
 
           "redirect to Session Expired for a GET if no existing data is found" in {
 
-            when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
+            when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
             val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeRequest)
 
             status(result) mustBe SEE_OTHER
             redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
-            verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-            verify(mockUserAnswerService, never).set(any())(any(), any())
+            verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+            verify(mockCharitiesConnector, never).saveUserAnswers(any())(any(), any())
           }
         }
       }

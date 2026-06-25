@@ -38,13 +38,13 @@ class StartDeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
+    reset(mockCharitiesConnector)
   }
 
   private val view: StartDeclarationView = injector.instanceOf[StartDeclarationView]
@@ -55,21 +55,22 @@ class StartDeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(Section1Page, true)
-              .flatMap(_.set(Section2Page, true))
-              .flatMap(_.set(Section3Page, true))
-              .flatMap(_.set(Section4Page, true))
-              .flatMap(_.set(Section5Page, true))
-              .flatMap(_.set(Section6Page, true))
-              .flatMap(_.set(Section7Page, true))
-              .flatMap(_.set(Section8Page, true))
-              .flatMap(_.set(Section9Page, true))
-              .success
-              .value
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
+          Future.successful(Right(
+            Some(
+              emptyUserAnswers
+                .set(Section1Page, true)
+                .flatMap(_.set(Section2Page, true))
+                .flatMap(_.set(Section3Page, true))
+                .flatMap(_.set(Section4Page, true))
+                .flatMap(_.set(Section5Page, true))
+                .flatMap(_.set(Section6Page, true))
+                .flatMap(_.set(Section7Page, true))
+                .flatMap(_.set(Section8Page, true))
+                .flatMap(_.set(Section9Page, true))
+                .success
+                .value
+            )
           )
         )
       )
@@ -78,31 +79,32 @@ class StartDeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view()(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
   }
   "redirect to Tasklist for a GET if SectionPage is not completed" in {
 
-    when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-      Future.successful(
-        Some(
-          emptyUserAnswers
-            .set(Section1Page, false)
-            .flatMap(_.set(Section2Page, true))
-            .success
-            .value
+    when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
+        Future.successful(Right(
+          Some(
+            emptyUserAnswers
+              .set(Section1Page, false)
+              .flatMap(_.set(Section2Page, true))
+              .success
+              .value
+          )
         )
       )
     )
@@ -112,6 +114,6 @@ class StartDeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
     status(result) mustEqual SEE_OTHER
 
     redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
-    verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+    verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
   }
 }

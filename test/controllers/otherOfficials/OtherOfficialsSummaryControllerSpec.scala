@@ -39,14 +39,14 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[OtherOfficialsNavigator].toInstance(FakeOtherOfficialsNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
+    reset(mockCharitiesConnector)
   }
 
   private val controller: OtherOfficialsSummaryController = inject[OtherOfficialsSummaryController]
@@ -55,24 +55,27 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
 
     "redirect to index page if rows are empty" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "return OK if the form has data in it" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
-              .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
-              .success
-              .value
+          Right(
+            Some(
+              emptyUserAnswers
+                .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
+                .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
+                .success
+                .value
+            )
           )
         )
       )
@@ -80,22 +83,24 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "return OK if the form has data for two officials in it" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
-              .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
-              .flatMap(
-                _.set(OtherOfficialsNamePage(1), personNameWithoutMiddle)
-              )
-              .success
-              .value
+          Right(
+            Some(
+              emptyUserAnswers
+                .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
+                .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
+                .flatMap(
+                  _.set(OtherOfficialsNamePage(1), personNameWithoutMiddle)
+                )
+                .success
+                .value
+            )
           )
         )
       )
@@ -103,25 +108,27 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "return OK if the form has data for three officials in it" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
-              .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
-              .flatMap(
-                _.set(OtherOfficialsNamePage(1), personNameWithoutMiddle)
-              )
-              .flatMap(
-                _.set(OtherOfficialsNamePage(2), personNameWithoutMiddle)
-              )
-              .success
-              .value
+          Right(
+            Some(
+              emptyUserAnswers
+                .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
+                .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
+                .flatMap(
+                  _.set(OtherOfficialsNamePage(1), personNameWithoutMiddle)
+                )
+                .flatMap(
+                  _.set(OtherOfficialsNamePage(2), personNameWithoutMiddle)
+                )
+                .success
+                .value
+            )
           )
         )
       )
@@ -129,18 +136,20 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
-              .success
-              .value
+          Right(
+            Some(
+              emptyUserAnswers
+                .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
+                .success
+                .value
+            )
           )
         )
       )
@@ -148,103 +157,110 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to index page if when rows are empty" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
 
       val result = controller.onSubmit()(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to the next page when valid data is submitted with three rows of officials" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
-              .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
-              .flatMap(
-                _.set(OtherOfficialsNamePage(1), personNameWithoutMiddle)
-              )
-              .flatMap(
-                _.set(OtherOfficialsNamePage(2), personNameWithoutMiddle)
-              )
-              .success
-              .value
+          Right(
+            Some(
+              emptyUserAnswers
+                .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
+                .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
+                .flatMap(
+                  _.set(OtherOfficialsNamePage(1), personNameWithoutMiddle)
+                )
+                .flatMap(
+                  _.set(OtherOfficialsNamePage(2), personNameWithoutMiddle)
+                )
+                .success
+                .value
+            )
           )
         )
       )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
 
       val result = controller.onSubmit()(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "return errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "notACorrectValue"))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
-              .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
-              .flatMap(
-                _.set(OtherOfficialsNamePage(1), personNameWithoutMiddle)
-              )
-              .success
-              .value
+          Right(
+            Some(
+              emptyUserAnswers
+                .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
+                .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
+                .flatMap(
+                  _.set(OtherOfficialsNamePage(1), personNameWithoutMiddle)
+                )
+                .success
+                .value
+            )
           )
         )
       )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
 
       val result = controller.onSubmit()(request)
 
       status(result) mustBe BAD_REQUEST
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
-              .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
-              .flatMap(
-                _.set(OtherOfficialsNamePage(1), personNameWithoutMiddle)
-              )
-              .success
-              .value
+          Right(
+            Some(
+              emptyUserAnswers
+                .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
+                .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
+                .flatMap(
+                  _.set(OtherOfficialsNamePage(1), personNameWithoutMiddle)
+                )
+                .success
+                .value
+            )
           )
         )
       )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
 
       val result = controller.onSubmit()(request)
 
       status(result) mustBe SEE_OTHER
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
   }
 }

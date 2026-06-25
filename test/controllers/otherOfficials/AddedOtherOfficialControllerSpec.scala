@@ -40,7 +40,7 @@ class AddedOtherOfficialControllerSpec extends SpecBase with BeforeAndAfterEach 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[SessionRepository].toInstance(mockSessionRepository),
         bind[OtherOfficialsNavigator].toInstance(FakeOtherOfficialsNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
@@ -48,7 +48,7 @@ class AddedOtherOfficialControllerSpec extends SpecBase with BeforeAndAfterEach 
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
+    reset(mockCharitiesConnector)
   }
 
   private val controller: AddedOtherOfficialController = inject[AddedOtherOfficialController]
@@ -59,24 +59,24 @@ class AddedOtherOfficialControllerSpec extends SpecBase with BeforeAndAfterEach 
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
 
       val result = controller.onPageLoad(Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future(():Unit))
 
       val result = controller.onSubmit(Index(0))(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
   }

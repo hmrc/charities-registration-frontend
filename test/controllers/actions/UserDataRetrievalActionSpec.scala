@@ -17,18 +17,18 @@
 package controllers.actions
 
 import base.SpecBase
+import connectors.CharitiesConnector
 import models.UserAnswers
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.concurrent.ScalaFutures
-import connectors.CharitiesConnector
 
 import scala.concurrent.Future
 
 class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
 
-  class Harness(charitiesConnector: CharitiesConnector) extends UserDataRetrievalActionImpl(userAnswerService) {
+  class Harness(charitiesConnector: CharitiesConnector) extends UserDataRetrievalActionImpl(charitiesConnector) {
     def callTransform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = transform(request)
   }
 
@@ -38,9 +38,9 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
 
       "set userAnswers to 'None' in the request" in {
 
-        val userAnswerService = mock(classOf[UserAnswerService])
-        when(userAnswerService.get(any())(any(), any())) `thenReturn` Future(None)
-        val action            = new Harness(userAnswerService)
+        val charitiesConnector = mock(classOf[CharitiesConnector])
+        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(Right(None))
+        val action             = new Harness(charitiesConnector)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
 
@@ -54,9 +54,9 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
 
       "build a userAnswers object and add it to the request" in {
 
-        val userAnswerService = mock(classOf[UserAnswerService])
-        when(userAnswerService.get(any())(any(), any())) `thenReturn` Future(Some(UserAnswers("id")))
-        val action            = new Harness(userAnswerService)
+        val charitiesConnector = mock(classOf[CharitiesConnector])
+        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(Right(Some(UserAnswers("id"))))
+        val action             = new Harness(charitiesConnector)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
 

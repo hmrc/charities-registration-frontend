@@ -32,7 +32,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import service.CountryService
 import views.html.common.YesNoView
-
+import connectors.CharitiesConnector
 import scala.concurrent.Future
 
 class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfterEach {
@@ -43,7 +43,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[CountryService].toInstance(mockCountryService),
         bind[FundRaisingNavigator].toInstance(FakeFundRaisingNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
@@ -51,7 +51,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
+    reset(mockCharitiesConnector)
   }
 
   private val messageKeyPrefix: String        = "isRemoveOperatingCountry"
@@ -71,7 +71,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
     "redirect to correct start page is if country details are not present" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
@@ -81,7 +81,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
       when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
@@ -95,7 +95,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
         "operationsAndFunds",
         Seq(gbCountryName)
       )(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
 
     }
 
@@ -103,16 +103,16 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future(():Unit))
       when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).saveUserAnswers(any())(any(), any())
 
     }
 
@@ -120,27 +120,27 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
       when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 
       status(result) mustBe BAD_REQUEST
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, never).set(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+      verify(mockCharitiesConnector, never).saveUserAnswers(any())(any(), any())
 
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
       when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
 
     }
 
@@ -148,7 +148,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
       when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
@@ -156,7 +156,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
 
     }
 
@@ -164,7 +164,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
       when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
@@ -172,7 +172,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
 
     }
   }

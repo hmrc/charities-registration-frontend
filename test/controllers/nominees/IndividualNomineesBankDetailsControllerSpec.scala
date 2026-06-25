@@ -42,14 +42,14 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[NomineesNavigator].toInstance(FakeNomineesNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService)
+    reset(mockCharitiesConnector)
   }
 
   val messagePrefix: String                         = "individualNomineesBankDetails"
@@ -66,7 +66,7 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -78,19 +78,19 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
         "officialsAndNominees.section",
         Some(personNameWithMiddle.getFullName)
       )(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers.set(IndividualNomineesBankDetailsPage, bankDetails).success.value
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(userAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -102,54 +102,54 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
         "rollNumber"    -> rollNumber
       )
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future(():Unit))
 
       val result = controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).saveUserAnswers(any())(any(), any())
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
 
       val result = controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, never).set(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+      verify(mockCharitiesConnector, never).saveUserAnswers(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, never).set(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+      verify(mockCharitiesConnector, never).saveUserAnswers(any())(any(), any())
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
   }
 }

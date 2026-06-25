@@ -18,15 +18,15 @@ package controllers.contactDetails
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
+import connectors.CharitiesConnector
 import controllers.LocalBaseController
-import controllers.actions._
+import controllers.actions.*
 import models.NormalMode
 import navigation.CharityInformationNavigator
 import pages.IndexPage
-import pages.contactDetails._
+import pages.contactDetails.*
 import pages.sections.Section1Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import connectors.CharitiesConnector
 import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
 import viewmodels.charityInformation.CharityInformationSummaryHelper
 import views.html.CheckYourAnswersView

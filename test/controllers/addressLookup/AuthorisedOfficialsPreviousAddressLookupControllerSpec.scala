@@ -143,7 +143,7 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
             "redirect to the next page" in {
 
               when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
-              when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future(():Unit))
+              when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 

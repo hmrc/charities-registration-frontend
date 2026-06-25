@@ -124,7 +124,7 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
         )
       )
 
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -155,7 +155,7 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
 
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
         .thenReturn(Future.successful(Right(Some(userAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
       when(mockCountryService.countries()(any()))
         .thenReturn(Seq(thCountryTuple, inCountryTuple, frCountryTuple, usCountryTuple, chCountryTuple))
 

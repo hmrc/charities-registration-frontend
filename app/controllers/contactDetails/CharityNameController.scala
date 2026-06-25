@@ -17,8 +17,9 @@
 package controllers.contactDetails
 
 import config.FrontendAppConfig
+import connectors.CharitiesConnector
 import controllers.LocalBaseController
-import controllers.actions._
+import controllers.actions.*
 import forms.contactDetails.CharityNameFormProvider
 import models.{CharityName, Mode}
 import navigation.CharityInformationNavigator
@@ -26,8 +27,7 @@ import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
 import pages.sections.Section1Page
 import play.api.data.Form
-import play.api.mvc._
-import connectors.CharitiesConnector
+import play.api.mvc.*
 import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
 import views.html.contactDetails.CharityNameView
 

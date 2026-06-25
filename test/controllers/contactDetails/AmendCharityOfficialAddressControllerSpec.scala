@@ -128,7 +128,7 @@ class AmendCharityOfficialAddressControllerSpec extends SpecBase with BeforeAndA
       val request = fakeRequest.withFormUrlEncodedBody(requestArgs*)
 
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future(():Unit))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode)(request)

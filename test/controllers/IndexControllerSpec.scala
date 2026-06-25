@@ -121,7 +121,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
         when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
           .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
-        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
+        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
         val result = controller.onPageLoad()(fakeRequest)
 
         status(result) mustEqual OK
@@ -145,7 +145,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
         when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
           .thenReturn(Future.successful(Right(Some(userAnswers))))
 
-        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
+        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
         val result = controller.onPageLoad()(fakeRequest)
 
         status(result) mustEqual OK
@@ -170,7 +170,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
         when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
           .thenReturn(Future.successful(Right(Some(userAnswers))))
-        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
+        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
 
         val result = controller.onPageLoad()(fakeRequestNoSessionId)
 
@@ -186,7 +186,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
         when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
           .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
-        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
+        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
 
         val result = controller.keepalive()(fakeRequest)
 
@@ -201,7 +201,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
       "return status NO_CONTENT" in {
 
         when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
-        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
+        when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
 
         val result = controller.keepalive()(fakeRequest)
 

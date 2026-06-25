@@ -104,7 +104,7 @@ class IsOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Before
 
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
         .thenReturn(Future.successful(Right(Some(localUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 

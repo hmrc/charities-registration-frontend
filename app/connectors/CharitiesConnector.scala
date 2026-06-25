@@ -18,8 +18,7 @@ package connectors
 
 import config.FrontendAppConfig
 import connectors.httpParsers.HttpClientResponse
-import models.{RegistrationResponse, SaveStatus, UserAnswers}
-import play.api.Logger
+import models.{RegistrationResponse, UserAnswers}
 import play.api.http.Status.*
 import play.api.libs.json.*
 import play.api.libs.ws.writeableOf_JsValue
@@ -35,15 +34,7 @@ class CharitiesConnector @Inject() (
   httpClientResponse: HttpClientResponse,
   implicit val appConfig: FrontendAppConfig
 ) {
-  // This is required because backend returns NO_CONTENT instead of NOT_FOUND for when no user answers data is found.
-  private implicit def readOptionOfNoContent[A: HttpReads]: HttpReads[Option[A]] =
-    HttpReads[HttpResponse]
-      .flatMap(_.status match {
-        case NO_CONTENT => HttpReads.pure(None)
-        case _          => HttpReads[A].map(Some.apply)
-      })
 
-  private val logger = Logger(this.getClass)
   def registerCharities(id: String)(implicit
     hc: HeaderCarrier,
     ec: ExecutionContext
@@ -57,39 +48,37 @@ class CharitiesConnector @Inject() (
 
   def getUserAnswers(
     id: String
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Option[UserAnswers]]] =
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Option[UserAnswers]]] = {
+    // This is required because backend returns NO_CONTENT instead of NOT_FOUND for when no user answers data is found.
+    implicit def readOptionOfNoContent[A: HttpReads]: HttpReads[Option[A]] =
+      HttpReads[HttpResponse]
+        .flatMap(_.status match {
+          case NO_CONTENT => HttpReads.pure(None)
+          case _          => HttpReads[A].map(Some.apply)
+        })
     httpClientResponse.readLogWarn(
       httpClient
         .get(url"${appConfig.getCharitiesBackend}/charities-registration/getUserAnswer/$id")
         .execute[Either[UpstreamErrorResponse, Option[UserAnswers]]]
     )
-
-//    def saveUserAnswers(
-//      userAnswers: UserAnswers
-//    )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Unit]] =
-//      httpClientResponseUserAnswers.read(
-//        httpClient
-//          .post(url"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}")
-//          .withBody(Json.toJson(userAnswers))
-//          .execute[Either[UpstreamErrorResponse, Unit]]
-//      )
+  }
 
   def saveUserAnswers(
     userAnswers: UserAnswers
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Unit] =
-    httpClient
-      .post(url"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}")
-      .withBody(Json.toJson(userAnswers))
-      .execute[HttpResponse]
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Unit]] = {
+    httpClientResponse
+      .read(
+        httpClient
+          .post(url"${appConfig.getCharitiesBackend}/charities-registration/saaveUserAnswer/${userAnswers.id}")
+          .withBody(Json.toJson(userAnswers))
+          .execute[Either[UpstreamErrorResponse, Unit]]
+      )
+      // TODO: Below to keep existing behaviour for now. This may be changed by future re-design of error handling
       .map {
-        case HttpResponse(OK, responseBody, _) =>
-          Json.parse(responseBody).validate[SaveStatus] match {
-            case JsSuccess(_, _) => (): Unit
-            case JsError(errors) => throw JsResultException(errors)
-          }
-
-        case error =>
-          logger.error(s"[CharitiesConnector][saveUserAnswers]: Unexpected response returned " + error)
+        case Left(UpstreamErrorResponse(_, _, _, _)) =>
           throw new RuntimeException("Unexpected response returned for saveUserAnswers")
+        case v @ Right(_)                            => v
       }
+
+  }
 }

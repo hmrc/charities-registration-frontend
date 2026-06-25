@@ -131,7 +131,7 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
 
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
         .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future((): Unit))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(thCountryTuple))
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 

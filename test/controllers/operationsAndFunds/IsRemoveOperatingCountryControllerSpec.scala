@@ -104,7 +104,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future(():Unit))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
       when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)

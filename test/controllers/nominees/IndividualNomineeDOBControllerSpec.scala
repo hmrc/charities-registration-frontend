@@ -98,7 +98,7 @@ class IndividualNomineeDOBControllerSpec extends SpecBase with BeforeAndAfterEac
       val request = fakeRequest.withFormUrlEncodedBody(requestArgs*)
 
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future(():Unit))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
 
       val result = controller.onSubmit(NormalMode)(request)
 

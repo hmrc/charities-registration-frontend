@@ -111,7 +111,7 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future(():Unit))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
 
       val result = controller.onSubmit(Index(0))(request)
 
@@ -132,7 +132,7 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
           .value
 
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future(():Unit))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
 
       val result = controller.onSubmit(Index(0))(request)
 

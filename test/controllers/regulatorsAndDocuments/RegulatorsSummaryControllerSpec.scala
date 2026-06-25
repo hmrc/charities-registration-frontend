@@ -78,7 +78,7 @@ class RegulatorsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
     "redirect to the next page when valid data is submitted" in {
 
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future(():Unit))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
 
       val result = controller.onSubmit()(fakeRequest)
 

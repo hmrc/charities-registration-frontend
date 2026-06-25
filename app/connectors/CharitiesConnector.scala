@@ -65,7 +65,7 @@ class CharitiesConnector @Inject() (
 
   def saveUserAnswers(
     userAnswers: UserAnswers
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Unit]] = {
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Unit]] =
     httpClientResponse
       .read(
         httpClient
@@ -73,13 +73,12 @@ class CharitiesConnector @Inject() (
           .withBody(Json.toJson(userAnswers))
           .execute[Either[UpstreamErrorResponse, Unit]]
       )
-      // Below to keep existing behaviour for now. However, the exception is logged twice (here and error handler). 
-      // TODO: Logging twice is not ideal and we should change by future re-design of error handling
+      // Below to keep existing behaviour for now. However, the exception is logged twice (here and error handler).
+      // TODO: Logging twice is not ideal and we should change by future re-design of error handling mapping the Left
+      //  in navigation rather than letting the exception fall through to the error handler.
       .map {
         case Left(UpstreamErrorResponse(message, status, _, _)) =>
           throw new RuntimeException(s"Unexpected response returned for saveUserAnswers $message and status $status")
-        case v @ Right(_)                            => v
+        case rightUpstreamErrorResponse @ Right(_)              => rightUpstreamErrorResponse
       }
-
-  }
 }

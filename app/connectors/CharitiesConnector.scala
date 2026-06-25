@@ -69,9 +69,8 @@ class CharitiesConnector @Inject() (
     // TODO: This is temporary - design ticket created to come up with a more suitable error page.
     //  Remove this method and redirect upstream errors in saveUserAnswers in situ based on context.
     //  Using this method results in 2 exceptions being logged (1 in error handler and 1 here). It is
-    //  here for now to maintain existing behaviour for saveUserAnswers and to ensure
-    //  error page displayed for registerCharities method (previously went to registration
-    //  success page even if failed).
+    //  here for now to ensure that an error page is displayed when registerCharities method fails 
+    //  downstream (previously went to registration success page even if failed).
     def convertLeftToException[A](
       response: Future[Either[UpstreamErrorResponse, A]]
     )(implicit ec: ExecutionContext): Future[Either[UpstreamErrorResponse, A]] =

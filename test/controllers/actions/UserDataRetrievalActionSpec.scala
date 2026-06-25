@@ -23,13 +23,16 @@ import models.requests.{IdentifierRequest, OptionalDataRequest}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.*
 import org.scalatest.concurrent.ScalaFutures
+import play.api.mvc.Result
 
 import scala.concurrent.Future
 
 class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
 
   class Harness(charitiesConnector: CharitiesConnector) extends UserDataRetrievalActionImpl(charitiesConnector) {
-    def callTransform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = transform(request)
+    def callTransform[A](request: IdentifierRequest[A]): Future[Either[Result, OptionalDataRequest[A]]] = refine(
+      request
+    )
   }
 
   "Data Retrieval Action" when {
@@ -45,7 +48,7 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
 
         whenReady(futureResult) { result =>
-          result.userAnswers.isEmpty mustBe true
+          result.map(_.userAnswers.isEmpty) mustBe Right(true)
         }
       }
     }
@@ -55,13 +58,15 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "build a userAnswers object and add it to the request" in {
 
         val charitiesConnector = mock(classOf[CharitiesConnector])
-        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(Right(Some(UserAnswers("id"))))
+        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(
+          Right(Some(UserAnswers("id")))
+        )
         val action             = new Harness(charitiesConnector)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
 
         whenReady(futureResult) { result =>
-          result.userAnswers.isDefined mustBe true
+          result.map(_.userAnswers.isDefined) mustBe Right(true)
         }
       }
     }

@@ -24,29 +24,29 @@ import uk.gov.hmrc.http.{HttpException, UpstreamErrorResponse}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
-class HttpClientResponse[A] @Inject() ()(implicit ec: ExecutionContext) extends Logging {
-  private val logErrorResponses: PartialFunction[Try[Either[UpstreamErrorResponse, A]], Unit] = {
+class HttpClientResponse @Inject() ()(implicit ec: ExecutionContext) extends Logging {
+  private def logErrorResponses[A]: PartialFunction[Try[Either[UpstreamErrorResponse, A]], Unit] = {
     case Failure(exception: HttpException) => logger.error(exception.message)
     case Success(Left(error))              => logger.error(error.message, error)
   }
 
-  private val logWarnResponses: PartialFunction[Try[Either[UpstreamErrorResponse, A]], Unit] = {
+  private def logWarnResponses[A]: PartialFunction[Try[Either[UpstreamErrorResponse, A]], Unit] = {
     case Failure(exception: HttpException) => logger.error(exception.message)
     case Success(Left(error))              => logger.warn(error.message, error)
   }
 
-  private val recoverHttpException: PartialFunction[Throwable, Either[UpstreamErrorResponse, A]] = {
+  private def recoverHttpException[A]: PartialFunction[Throwable, Either[UpstreamErrorResponse, A]] = {
     case exception: HttpException =>
       Left(UpstreamErrorResponse(exception.message, BAD_GATEWAY, BAD_GATEWAY))
   }
 
-  def read(
+  def read[A](
     response: Future[Either[UpstreamErrorResponse, A]]
   ): Future[Either[UpstreamErrorResponse, A]] =
     response andThen logErrorResponses recover recoverHttpException
     
   // TODO: This is a temporary method to match current behaviour which will change on new ticket
-  def readLogWarn(
+  def readLogWarn[A](
     response: Future[Either[UpstreamErrorResponse, A]]
   ): Future[Either[UpstreamErrorResponse, A]] =
     response recover recoverHttpException andThen logWarnResponses

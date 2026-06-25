@@ -32,8 +32,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class CharitiesConnector @Inject() (
   httpClient: HttpClientV2,
-  httpClientResponseRegister: HttpClientResponse[Option[RegistrationResponse]],
-  httpClientResponseUserAnswers: HttpClientResponse[Option[UserAnswers]],
+  httpClientResponse: HttpClientResponse,
   implicit val appConfig: FrontendAppConfig
 ) {
   // This is required because backend returns NO_CONTENT instead of NOT_FOUND for when no user answers data is found.
@@ -49,7 +48,7 @@ class CharitiesConnector @Inject() (
     hc: HeaderCarrier,
     ec: ExecutionContext
   ): Future[Either[UpstreamErrorResponse, Option[RegistrationResponse]]] =
-    httpClientResponseRegister.read(
+    httpClientResponse.read(
       httpClient
         .post(url"${appConfig.getCharitiesBackend}/submissions/application/$id")
         .withBody(Json.obj())
@@ -59,14 +58,25 @@ class CharitiesConnector @Inject() (
   def getUserAnswers(
     id: String
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Option[UserAnswers]]] =
-    httpClientResponseUserAnswers.readLogWarn(
+    httpClientResponse.readLogWarn(
       httpClient
         .get(url"${appConfig.getCharitiesBackend}/charities-registration/getUserAnswer/$id")
         .execute[Either[UpstreamErrorResponse, Option[UserAnswers]]]
     )
 
-  // TODO: Amend to return Future[Either
-  def saveUserAnswers(userAnswers: UserAnswers)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Unit] =
+//    def saveUserAnswers(
+//      userAnswers: UserAnswers
+//    )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Unit]] =
+//      httpClientResponseUserAnswers.read(
+//        httpClient
+//          .post(url"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}")
+//          .withBody(Json.toJson(userAnswers))
+//          .execute[Either[UpstreamErrorResponse, Unit]]
+//      )
+
+  def saveUserAnswers(
+    userAnswers: UserAnswers
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Unit] =
     httpClient
       .post(url"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}")
       .withBody(Json.toJson(userAnswers))
@@ -75,7 +85,7 @@ class CharitiesConnector @Inject() (
         case HttpResponse(OK, responseBody, _) =>
           Json.parse(responseBody).validate[SaveStatus] match {
             case JsSuccess(_, _) => (): Unit
-            case JsError(errors)     => throw JsResultException(errors)
+            case JsError(errors) => throw JsResultException(errors)
           }
 
         case error =>

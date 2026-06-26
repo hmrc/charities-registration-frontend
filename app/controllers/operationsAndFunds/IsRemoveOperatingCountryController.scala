@@ -27,9 +27,9 @@ import pages.QuestionPage
 import pages.operationsAndFunds._
 import play.api.data.Form
 import play.api.mvc._
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 import views.html.common.YesNoView
-
+import connectors.CharitiesConnector
 import javax.inject.Inject
 import scala.concurrent.Future
 
@@ -38,7 +38,7 @@ class IsRemoveOperatingCountryController @Inject() (
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
   val formProvider: YesNoFormProvider,
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: FundRaisingNavigator,
   val controllerComponents: MessagesControllerComponents,
   val countryService: CountryService,
@@ -114,7 +114,7 @@ class IsRemoveOperatingCountryController @Inject() (
                       )
                       .flatMap(_.set(IsRemoveOperatingCountryPage, removeOrNot))
                   )
-                _              <- sessionRepository.set(updatedAnswers)
+                _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
               } yield Redirect(
                 navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(index - 1), mode, updatedAnswers)
               )

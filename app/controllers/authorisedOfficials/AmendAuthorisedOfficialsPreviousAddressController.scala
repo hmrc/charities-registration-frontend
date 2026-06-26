@@ -26,9 +26,9 @@ import pages.addressLookup.AuthorisedOfficialPreviousAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.sections.Section7Page
 import play.api.mvc._
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 import views.html.common.AmendAddressView
-
+import connectors.CharitiesConnector
 import javax.inject.Inject
 import scala.concurrent.Future
 
@@ -38,7 +38,7 @@ class AmendAuthorisedOfficialsPreviousAddressController @Inject() (
   val requireData: DataRequiredAction,
   val countryService: CountryService,
   val formProvider: AmendAddressFormProvider,
-  override val sessionRepository: UserAnswerService,
+  override val charitiesConnector: CharitiesConnector,
   override val navigator: AuthorisedOfficialsNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: AmendAddressView

@@ -27,14 +27,14 @@ import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 import views.html.operationsAndFunds.WhatCountryDoesTheCharityOperateInView
-
+import connectors.CharitiesConnector
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class WhatCountryDoesTheCharityOperateInController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: FundRaisingNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -105,7 +105,7 @@ class WhatCountryDoesTheCharityOperateInController @Inject() (
                                     .set(WhatCountryDoesTheCharityOperateInPage(index), value)
                                     .flatMap(_.set(Section5Page, false))
                                 )
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(index), mode, updatedAnswers))
         )
   }

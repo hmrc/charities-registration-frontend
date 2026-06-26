@@ -36,7 +36,7 @@ import play.api.mvc.{AnyContentAsEmpty, Call, MessagesControllerComponents}
 import play.api.test.CSRFTokenHelper.*
 import play.api.test.{FakeRequest, Injecting}
 import repositories.SessionRepository
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 import utils.TimeMachine
 import viewmodels.ErrorHandler
@@ -86,7 +86,7 @@ trait SpecBase
     injector.instanceOf[MessagesControllerComponents]
   lazy val dataRequiredAction: DataRequiredActionImpl                 = injector.instanceOf[DataRequiredActionImpl]
   lazy val mockSessionRepository: SessionRepository                   = mock(classOf[SessionRepository])
-  lazy val mockUserAnswerService: UserAnswerService                   = mock(classOf[UserAnswerService])
+  lazy val mockCharitiesConnector: CharitiesConnector                   = mock(classOf[CharitiesConnector])
 
   implicit val defaultTimeout: FiniteDuration       = 5.seconds
   implicit val frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
@@ -154,7 +154,7 @@ trait SpecBase
     new GuiceApplicationBuilder()
       .overrides(
         bind[SessionRepository].toInstance(mockSessionRepository),
-        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[CharitiesConnector].toInstance(mockCharitiesConnector),
         bind[IdentifierAction].to[FakeIdentifierAction],
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
         bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(userAnswers)),

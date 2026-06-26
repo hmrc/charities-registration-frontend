@@ -26,14 +26,14 @@ import pages.IndexPage
 import pages.regulatorsAndDocuments._
 import pages.sections.Section2Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import viewmodels.regulatorsAndDocuments.{RegulatorsStatusHelper, RegulatorsSummaryHelper}
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
 
 class RegulatorsSummaryController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: RegulatorsAndDocumentsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -64,7 +64,7 @@ class RegulatorsSummaryController @Inject() (
         Future.fromTry(result =
           request.userAnswers.set(Section2Page, RegulatorsStatusHelper.checkComplete(request.userAnswers))
         )
-      _              <- sessionRepository.set(updatedAnswers)
+      _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
     } yield Redirect(navigator.nextPage(RegulatorsSummaryPage, NormalMode, updatedAnswers))
 
   }

@@ -27,7 +27,7 @@ import pages.authorisedOfficials.{AuthorisedOfficialsSummaryPage, IsAddAnotherAu
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper.checkComplete
 import viewmodels.officials.OfficialSummaryRowHelper
 import views.html.common.OfficialsSummaryView
@@ -36,7 +36,7 @@ import javax.inject.Inject
 import scala.concurrent.Future
 
 class AuthorisedOfficialsSummaryController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: AuthorisedOfficialsNavigator,
   val formProvider: YesNoFormProvider,
   identify: AuthIdentifierAction,
@@ -94,7 +94,7 @@ class AuthorisedOfficialsSummaryController @Inject() (
                                      checkComplete(updatedAnswers)
                                    )
                                  )
-              _               <- sessionRepository.set(taskListUpdated)
+              _               <- charitiesConnector.saveUserAnswers(taskListUpdated)
             } yield Redirect(navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, taskListUpdated))
         )
     } else {
@@ -104,7 +104,7 @@ class AuthorisedOfficialsSummaryController @Inject() (
             request.userAnswers
               .set(Section7Page, checkComplete(request.userAnswers))
           )
-        _              <- sessionRepository.set(updatedAnswers)
+        _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
       } yield Redirect(navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, updatedAnswers))
     }
   }

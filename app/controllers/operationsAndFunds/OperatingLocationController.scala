@@ -27,14 +27,14 @@ import pages.operationsAndFunds.OperatingLocationPage
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.operationsAndFunds.OperatingLocationView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class OperatingLocationController @Inject() (
-  sessionRepository: UserAnswerService,
+  charitiesConnector: CharitiesConnector,
   navigator: FundRaisingNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -67,7 +67,7 @@ class OperatingLocationController @Inject() (
               updatedAnswers <-
                 Future
                   .fromTry(request.userAnswers.set(OperatingLocationPage, value).flatMap(_.set(Section5Page, false)))
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(OperatingLocationPage, mode, updatedAnswers))
         )
   }

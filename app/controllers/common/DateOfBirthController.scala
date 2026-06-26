@@ -24,14 +24,14 @@ import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.common.DateOfBirthView
 
 import java.time.LocalDate
 import scala.concurrent.Future
 
 trait DateOfBirthController extends LocalBaseController {
-  protected val sessionRepository: UserAnswerService
+  protected val charitiesConnector: CharitiesConnector
   protected val navigator: BaseNavigator
   protected val controllerComponents: MessagesControllerComponents
   protected val view: DateOfBirthView
@@ -65,7 +65,7 @@ trait DateOfBirthController extends LocalBaseController {
         value =>
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(page, value).flatMap(_.set(section, false)))
-            _              <- sessionRepository.set(updatedAnswers)
+            _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
           } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
       )
 }

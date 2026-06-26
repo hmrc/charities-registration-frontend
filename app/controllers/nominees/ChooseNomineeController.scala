@@ -26,14 +26,14 @@ import pages.nominees.ChooseNomineePage
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.nominees.ChooseNomineeView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class ChooseNomineeController @Inject() (
-  sessionRepository: UserAnswerService,
+  charitiesConnector: CharitiesConnector,
   navigator: NomineesNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -64,7 +64,7 @@ class ChooseNomineeController @Inject() (
             for {
               updatedAnswers <-
                 Future.fromTry(request.userAnswers.set(ChooseNomineePage, value).flatMap(_.set(Section9Page, false)))
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(ChooseNomineePage, mode, updatedAnswers))
         )
   }

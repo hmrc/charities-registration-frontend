@@ -27,7 +27,7 @@ import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficia
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.common.OfficialsPositionView
 
 import javax.inject.Inject
@@ -38,7 +38,7 @@ class AuthorisedOfficialsPositionController @Inject() (
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
   val formProvider: OfficialsPositionFormProvider,
-  override val sessionRepository: UserAnswerService,
+  override val charitiesConnector: CharitiesConnector,
   override val navigator: AuthorisedOfficialsNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: OfficialsPositionView

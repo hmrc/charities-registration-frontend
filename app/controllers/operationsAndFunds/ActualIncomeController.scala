@@ -26,14 +26,14 @@ import pages.operationsAndFunds.ActualIncomePage
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.common.CurrencyView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class ActualIncomeController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: FundRaisingNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -74,7 +74,7 @@ class ActualIncomeController @Inject() (
             for {
               updatedAnswers <-
                 Future.fromTry(request.userAnswers.set(ActualIncomePage, value).flatMap(_.set(Section5Page, false)))
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(ActualIncomePage, mode, updatedAnswers))
         )
   }

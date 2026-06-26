@@ -26,14 +26,14 @@ import pages.regulatorsAndDocuments.CharityCommissionRegistrationNumberPage
 import pages.sections.Section2Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.regulatorsAndDocuments.CharityCommissionRegistrationNumberView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class CharityCommissionRegistrationNumberController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: RegulatorsAndDocumentsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -67,7 +67,7 @@ class CharityCommissionRegistrationNumberController @Inject() (
                                     .set(CharityCommissionRegistrationNumberPage, value)
                                     .flatMap(_.set(Section2Page, false))
                                 )
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(CharityCommissionRegistrationNumberPage, mode, updatedAnswers))
         )
   }

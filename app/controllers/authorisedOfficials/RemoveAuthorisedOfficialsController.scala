@@ -26,7 +26,7 @@ import pages.authorisedOfficials.{AuthorisedOfficialsId, AuthorisedOfficialsName
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import viewmodels.otherOfficials.OtherOfficialStatusHelper.checkComplete
 import views.html.common.YesNoView
 
@@ -38,7 +38,7 @@ class RemoveAuthorisedOfficialsController @Inject() (
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
   val formProvider: YesNoFormProvider,
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: AuthorisedOfficialsNavigator,
   val controllerComponents: MessagesControllerComponents,
   val view: YesNoView
@@ -103,7 +103,7 @@ class RemoveAuthorisedOfficialsController @Inject() (
                                    } else {
                                      updatedAnswers.remove(Section7Page)
                                    })
-                _               <- sessionRepository.set(taskListUpdated)
+                _               <- charitiesConnector.saveUserAnswers(taskListUpdated)
               } yield Redirect(navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, updatedAnswers))
           )
       }

@@ -34,16 +34,17 @@ class CharitiesConnector @Inject() (
   httpClientResponse: HttpClientResponse,
   implicit val appConfig: FrontendAppConfig
 ) {
-
+  // TODO: Keep close to current behaviour until we have error behaviour defined. Should possibly return
+  //  5xx if any 2xx other than 200 returned.
   def registerCharities(id: String)(implicit
     hc: HeaderCarrier,
     ec: ExecutionContext
-  ): Future[Either[UpstreamErrorResponse, Option[RegistrationResponse]]] =
+  ): Future[Either[UpstreamErrorResponse, RegistrationResponse]] =
     httpClientResponse.read(
       httpClient
         .post(url"${appConfig.getCharitiesBackend}/submissions/application/$id")
         .withBody(Json.obj())
-        .execute[Either[UpstreamErrorResponse, Option[RegistrationResponse]]]
+        .execute[Either[UpstreamErrorResponse, RegistrationResponse]]
     )
 
   def getUserAnswers(
@@ -66,11 +67,10 @@ class CharitiesConnector @Inject() (
   def saveUserAnswers(
     userAnswers: UserAnswers
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Unit]] = {
-    // TODO: This is temporary - design ticket created to come up with a more suitable error page.
-    //  Remove this method and redirect upstream errors in saveUserAnswers in situ based on context.
-    //  Using this method results in 2 exceptions being logged (1 in error handler and 1 here). It is
-    //  here for now to ensure that an error page is displayed when registerCharities method fails 
-    //  downstream (previously went to registration success page even if failed).
+    // TODO: Keep current behaviour until we have error behaviour defined.
+    //  Current behaviour is: 2 exceptions are logged (1 in error handler and 1 here).
+    //  I suggest that we remove convertLeftToException and redirect upstream errors in saveUserAnswers
+    //  in situ (i.e. in calling code) based on context and whether it's a 4xx or 5xx response.
     def convertLeftToException[A](
       response: Future[Either[UpstreamErrorResponse, A]]
     )(implicit ec: ExecutionContext): Future[Either[UpstreamErrorResponse, A]] =
@@ -79,6 +79,7 @@ class CharitiesConnector @Inject() (
           throw new RuntimeException(s"Unexpected response returned $message and status $status")
         case rightUpstreamErrorResponse @ Right(_)              => rightUpstreamErrorResponse
       }
+
     convertLeftToException(
       httpClientResponse
         .read(

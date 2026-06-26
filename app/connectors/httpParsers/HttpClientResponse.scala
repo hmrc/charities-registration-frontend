@@ -26,28 +26,31 @@ import scala.util.{Failure, Success, Try}
 
 class HttpClientResponse @Inject() ()(implicit ec: ExecutionContext) extends Logging {
   private def logErrorResponses[A]: PartialFunction[Try[Either[UpstreamErrorResponse, A]], Unit] = {
-    case Failure(exception: HttpException) => logger.error(exception.message)
-    case Success(Left(error))              => logger.error(error.message, error)
-  }
-
-  private def logWarnResponses[A]: PartialFunction[Try[Either[UpstreamErrorResponse, A]], Unit] = {
-    case Failure(exception: HttpException) => logger.error(exception.message)
-    case Success(Left(error))              => logger.warn(error.message, error)
+    case Failure(ex: HttpException) => logger.error(s"HttpException thrown: ${ex.message}", ex)
+    case Success(Left(r))           => logger.error(s"Response of ${r.statusCode} returned", r)
   }
 
   private def recoverHttpException[A]: PartialFunction[Throwable, Either[UpstreamErrorResponse, A]] = {
     case exception: HttpException =>
-      Left(UpstreamErrorResponse(exception.message, BAD_GATEWAY, BAD_GATEWAY))
+      Left(
+        UpstreamErrorResponse(message = exception.message, statusCode = exception.responseCode, reportAs = BAD_GATEWAY)
+      )
   }
 
   def read[A](
     response: Future[Either[UpstreamErrorResponse, A]]
   ): Future[Either[UpstreamErrorResponse, A]] =
     response andThen logErrorResponses recover recoverHttpException
-    
-  // TODO: This is a temporary method to match current behaviour which will change on new ticket
+
+  private def logWarnResponses[A]: PartialFunction[Try[Either[UpstreamErrorResponse, A]], Unit] = {
+    case Failure(ex: HttpException)    => logger.warn(s"HttpException thrown: ${ex.message}", ex)
+    case Success(Left(upstreamErrorResponse)) =>
+      logger.warn(s"Response of ${upstreamErrorResponse.statusCode} returned", upstreamErrorResponse)
+  }
+
+  // TODO: Keep current behaviour until we have error behaviour defined.
   def readLogWarn[A](
     response: Future[Either[UpstreamErrorResponse, A]]
   ): Future[Either[UpstreamErrorResponse, A]] =
-    response recover recoverHttpException andThen logWarnResponses
+    response andThen logWarnResponses recover recoverHttpException
 }

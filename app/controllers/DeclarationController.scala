@@ -22,6 +22,7 @@ import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRe
 import pages.AcknowledgementReferencePage
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.http.{HttpErrorFunctions, UpstreamErrorResponse}
 import views.html.DeclarationView
 
 import javax.inject.Inject
@@ -35,7 +36,8 @@ class DeclarationController @Inject() (
   view: DeclarationView,
   val controllerComponents: MessagesControllerComponents
 )(implicit appConfig: FrontendAppConfig)
-    extends LocalBaseController {
+    extends LocalBaseController
+    with HttpErrorFunctions {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     if (!isAllSectionsCompleted()) {
@@ -51,10 +53,13 @@ class DeclarationController @Inject() (
         charitiesConnector
           .registerCharities(request.internalId)
           .map {
-            case Left(upstreamErrorResponse) =>
-              // TODO: This is temporary - design ticket created to come up with a more suitable error page.
-              Redirect(controllers.routes.PageNotFoundController.onPageLoad())
-            case Right(_)                    => Redirect(controllers.routes.RegistrationSentController.onPageLoad)
+            case Left(UpstreamErrorResponse(_, statusCode, _, _)) if is4xx(statusCode) =>
+              // TODO: Keep current behaviour until we have error behaviour defined - suggest go to unrecoverable error page here
+              Redirect(controllers.routes.RegistrationSentController.onPageLoad)
+            case Left(UpstreamErrorResponse(_, _, _, _)) => // 5xx
+              // TODO: Keep current behaviour until we have error behaviour defined - suggest go to possibly recoverable error page here
+              Redirect(controllers.routes.RegistrationSentController.onPageLoad)
+            case Right(_)                                                              => Redirect(controllers.routes.RegistrationSentController.onPageLoad)
           }
       case Some(_) => Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
       // TODO: Convert Left to Future failed - wrap in DeclarationSubmissionException - then redirect to error page in error handler for this exception type

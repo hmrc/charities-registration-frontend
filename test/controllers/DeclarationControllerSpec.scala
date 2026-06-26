@@ -27,6 +27,7 @@ import pages.sections.*
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.*
+import uk.gov.hmrc.http.UpstreamErrorResponse
 import views.html.DeclarationView
 
 import scala.concurrent.Future
@@ -65,7 +66,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
       .value
   )
 
-  "Declaration Controller" must {
+  "onPageLoad" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -91,11 +92,61 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
+
+    "redirect to Tasklist for a GET if SectionPage is not completed" in {
+      val userAnswers: UserAnswers = emptyUserAnswers
+        .set(Section1Page, false)
+        .flatMap(_.set(Section2Page, true))
+        .success
+        .value
+
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(userAnswers))))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+    }
+  }
+  "onSubmit" must {
+
     "redirect to the next page after valid transformation" in {
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
         .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
       when(mockCharitiesConnector.registerCharities(any())(any(), any())).thenReturn(
         Future.successful(Right(Some(RegistrationResponse("ackRef"))))
+      )
+
+      val result = controller.onSubmit()(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).registerCharities(any())(any(), any())
+    }
+    
+    "redirect to the next page after 4xx returned" in {
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.registerCharities(any())(any(), any())).thenReturn(
+        Future.successful(Left(UpstreamErrorResponse("error", NOT_FOUND)))
+      )
+
+      val result = controller.onSubmit()(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+      verify(mockCharitiesConnector, times(1)).registerCharities(any())(any(), any())
+    }
+    "redirect to the next page after 5xx returned" in {
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.registerCharities(any())(any(), any())).thenReturn(
+        Future.successful(Left(UpstreamErrorResponse("error", INTERNAL_SERVER_ERROR)))
       )
 
       val result = controller.onSubmit()(fakeRequest)
@@ -118,23 +169,9 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
       verify(mockCharitiesConnector, never()).registerCharities(any())(any(), any())
     }
-
-    "redirect to Tasklist for a GET if SectionPage is not completed" in {
-      val userAnswers: UserAnswers = emptyUserAnswers
-        .set(Section1Page, false)
-        .flatMap(_.set(Section2Page, true))
-        .success
-        .value
-
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
-        .thenReturn(Future.successful(Right(Some(userAnswers))))
-
-      val result = controller.onPageLoad()(fakeRequest)
-
-      status(result) mustEqual SEE_OTHER
-
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
-      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
-    }
   }
+  
+  
+  
+  
 }

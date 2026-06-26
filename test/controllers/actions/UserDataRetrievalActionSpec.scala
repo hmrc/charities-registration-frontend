@@ -24,7 +24,8 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.*
 import org.scalatest.concurrent.ScalaFutures
 import play.api.mvc.Result
-
+import uk.gov.hmrc.http.UpstreamErrorResponse
+import play.api.http.Status._
 import scala.concurrent.Future
 
 class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
@@ -67,6 +68,41 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
 
         whenReady(futureResult) { result =>
           result.map(_.userAnswers.isDefined) mustBe Right(true)
+        }
+      }
+    }
+
+    "there is a 4xx returned from user answers call" must {
+
+      "set userAnswers to 'None' in the request" in {
+
+        val charitiesConnector = mock(classOf[CharitiesConnector])
+        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(
+          Left(UpstreamErrorResponse("error", NOT_FOUND))
+        )
+        val action             = new Harness(charitiesConnector)
+
+        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
+
+        whenReady(futureResult) { result =>
+          result.map(_.userAnswers.isEmpty) mustBe Right(true)
+        }
+      }
+    }
+    "there is a 5xx returned from user answers call" must {
+
+      "set userAnswers to 'None' in the request" in {
+
+        val charitiesConnector = mock(classOf[CharitiesConnector])
+        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(
+          Left(UpstreamErrorResponse("error", INTERNAL_SERVER_ERROR))
+        )
+        val action             = new Harness(charitiesConnector)
+
+        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
+
+        whenReady(futureResult) { result =>
+          result.map(_.userAnswers.isEmpty) mustBe Right(true)
         }
       }
     }

@@ -18,9 +18,8 @@ package controllers.actions
 
 import connectors.CharitiesConnector
 import models.requests.{IdentifierRequest, OptionalDataRequest}
-import play.api.mvc.Results.Redirect
 import play.api.mvc.{ActionRefiner, Result}
-import uk.gov.hmrc.http.{HeaderCarrier, UpstreamErrorResponse}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpErrorFunctions, UpstreamErrorResponse}
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import javax.inject.Inject
@@ -28,15 +27,19 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class UserDataRetrievalActionImpl @Inject() (val charitiesConnector: CharitiesConnector)(implicit
   val executionContext: ExecutionContext
-) extends UserDataRetrievalAction {
+) extends UserDataRetrievalAction
+    with HttpErrorFunctions {
 
   override protected def refine[A](request: IdentifierRequest[A]): Future[Either[Result, OptionalDataRequest[A]]] = {
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
     charitiesConnector.getUserAnswers(request.identifier).map {
-      case Left(UpstreamErrorResponse(_, _, _, _)) =>
-        // TODO: This is temporary - design ticket created to come up with a more suitable error page.
-        Left(Redirect(controllers.routes.PageNotFoundController.onPageLoad())) 
-      case Right(optUserAnswers)                   => Right(OptionalDataRequest(request.request, request.identifier, optUserAnswers))
+      case Left(UpstreamErrorResponse(_, statusCode, _, _)) if is4xx(statusCode) =>
+        // TODO: Keep current behaviour until we have error behaviour defined - suggest go to unrecoverable error page here
+        Right(OptionalDataRequest(request.request, request.identifier, None))
+      case Left(UpstreamErrorResponse(_, _, _, _)) => // 5xx
+        // TODO: Keep current behaviour until we have error behaviour defined - suggest go to possibly recoverable error page here
+        Right(OptionalDataRequest(request.request, request.identifier, None))
+      case Right(optUserAnswers)                                                 => Right(OptionalDataRequest(request.request, request.identifier, optUserAnswers))
     }
   }
 }

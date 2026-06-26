@@ -57,7 +57,7 @@ class CharitiesConnector @Inject() (
           case NO_CONTENT => HttpReads.pure(None)
           case _          => HttpReads[A].map(Some.apply)
         })
-    httpClientResponse.readLogWarn(
+    httpClientResponse.readLogWarnExceptFor404(
       httpClient
         .get(url"${appConfig.getCharitiesBackend}/charities-registration/getUserAnswer/$id")
         .execute[Either[UpstreamErrorResponse, Option[UserAnswers]]]

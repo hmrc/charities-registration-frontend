@@ -41,16 +41,21 @@ class HttpClientResponse @Inject() ()(implicit ec: ExecutionContext) extends Log
     response: Future[Either[UpstreamErrorResponse, A]]
   ): Future[Either[UpstreamErrorResponse, A]] =
     response andThen logErrorResponses recover recoverHttpException
-
-  private def logWarnResponses[A]: PartialFunction[Try[Either[UpstreamErrorResponse, A]], Unit] = {
-    case Failure(ex: HttpException)    => logger.warn(s"HttpException thrown: ${ex.message}", ex)
-    case Success(Left(upstreamErrorResponse)) =>
-      logger.warn(s"Response of ${upstreamErrorResponse.statusCode} returned", upstreamErrorResponse)
-  }
-
-  // TODO: Keep current behaviour until we have error behaviour defined.
-  def readLogWarn[A](
+  
+  // TODO: Keep current WARN behaviour until we have error behaviour defined.
+  //  However, log 404s at ERROR level.
+  def readLogWarnExceptFor404[A](
     response: Future[Either[UpstreamErrorResponse, A]]
-  ): Future[Either[UpstreamErrorResponse, A]] =
+  ): Future[Either[UpstreamErrorResponse, A]] = {
+
+    def logWarnResponses: PartialFunction[Try[Either[UpstreamErrorResponse, A]], Unit] = {
+      case Failure(ex: HttpException)    => logger.warn(s"HttpException thrown: ${ex.message}", ex)
+      case Success(Left(upstreamErrorResponse)) if upstreamErrorResponse.statusCode == NOT_FOUND =>
+        logger.error(s"Response of ${upstreamErrorResponse.statusCode} returned", upstreamErrorResponse)
+      case Success(Left(upstreamErrorResponse)) =>
+        logger.warn(s"Response of ${upstreamErrorResponse.statusCode} returned", upstreamErrorResponse)
+    }
+  
     response andThen logWarnResponses recover recoverHttpException
+  }
 }

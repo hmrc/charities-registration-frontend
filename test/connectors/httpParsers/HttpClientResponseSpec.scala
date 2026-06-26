@@ -47,12 +47,12 @@ class HttpClientResponseSpec
     )
   }
 
-  "readLogWarn" must {
+  "readLogWarnExceptFor404" must {
     behave like clientResponseLogger(
-      httpClientResponseUsingMockLogger.readLogWarn,
+      httpClientResponseUsingMockLogger.readLogWarnExceptFor404,
       infoLevel = Set(),
       warnLevel = Set(UNAUTHORIZED, FORBIDDEN, BAD_REQUEST, GATEWAY_TIMEOUT, SERVICE_UNAVAILABLE),
-      errorLevel = Set()
+      errorLevel = Set(NOT_FOUND)
     )
   }
 

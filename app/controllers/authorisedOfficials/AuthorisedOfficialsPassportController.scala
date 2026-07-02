@@ -26,9 +26,9 @@ import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficia
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 import views.html.common.PassportView
-
+import connectors.CharitiesConnector
 import javax.inject.Inject
 import scala.concurrent.Future
 
@@ -38,7 +38,7 @@ class AuthorisedOfficialsPassportController @Inject() (
   val requireData: DataRequiredAction,
   val formProvider: PassportFormProvider,
   override val countryService: CountryService,
-  override val sessionRepository: UserAnswerService,
+  override val charitiesConnector: CharitiesConnector,
   override val navigator: AuthorisedOfficialsNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: PassportView

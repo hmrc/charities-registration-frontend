@@ -26,14 +26,14 @@ import pages.operationsAndFunds.WhyNoBankStatementPage
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.operationsAndFunds.WhyNoBankStatementView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class WhyNoBankStatementController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: FundRaisingNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -65,7 +65,7 @@ class WhyNoBankStatementController @Inject() (
               updatedAnswers <-
                 Future
                   .fromTry(request.userAnswers.set(WhyNoBankStatementPage, value).flatMap(_.set(Section5Page, false)))
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(WhyNoBankStatementPage, mode, updatedAnswers))
         )
   }

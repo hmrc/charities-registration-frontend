@@ -26,7 +26,7 @@ import pages.regulatorsAndDocuments.{SelectGoverningDocumentPage, WhenGoverningD
 import pages.sections.Section3Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.regulatorsAndDocuments.WhenGoverningDocumentApprovedView
 
 import java.time.LocalDate
@@ -34,7 +34,7 @@ import javax.inject.Inject
 import scala.concurrent.Future
 
 class WhenGoverningDocumentApprovedController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: DocumentsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -73,7 +73,7 @@ class WhenGoverningDocumentApprovedController @Inject() (
                                       .set(WhenGoverningDocumentApprovedPage, value)
                                       .flatMap(_.set(Section3Page, false))
                                   )
-                _              <- sessionRepository.set(updatedAnswers)
+                _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
               } yield Redirect(navigator.nextPage(WhenGoverningDocumentApprovedPage, mode, updatedAnswers))
           )
       }

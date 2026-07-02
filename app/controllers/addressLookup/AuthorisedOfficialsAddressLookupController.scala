@@ -24,13 +24,13 @@ import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.sections.Section7Page
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import viewmodels.ErrorHandler
 
 import javax.inject.Inject
 
 class AuthorisedOfficialsAddressLookupController @Inject() (
-  override val sessionRepository: UserAnswerService,
+  override val charitiesConnector: CharitiesConnector,
   override val navigator: AuthorisedOfficialsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

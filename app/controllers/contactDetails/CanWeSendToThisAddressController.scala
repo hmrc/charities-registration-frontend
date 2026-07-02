@@ -26,14 +26,14 @@ import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.contactDetails.CanWeSendToThisAddressPage
 import pages.sections.Section1Page
 import play.api.mvc._
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 import views.html.contactDetails.CanWeSendToThisAddressView
-
+import connectors.CharitiesConnector
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class CanWeSendToThisAddressController @Inject() (
-  sessionRepository: UserAnswerService,
+  charitiesConnector: CharitiesConnector,
   navigator: CharityInformationNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -79,7 +79,7 @@ class CanWeSendToThisAddressController @Inject() (
                 Future.fromTry(
                   request.userAnswers.set(CanWeSendToThisAddressPage, value).flatMap(_.set(Section1Page, false))
                 )
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(CanWeSendToThisAddressPage, mode, updatedAnswers))
         )
   }

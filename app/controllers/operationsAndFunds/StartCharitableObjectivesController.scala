@@ -20,13 +20,13 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.operationsAndFunds.StartCharitableObjectivesView
 
 import javax.inject.Inject
 
 class StartCharitableObjectivesController @Inject() (
-  val userAnswerService: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
   requireData: DataRequiredAction,

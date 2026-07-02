@@ -19,7 +19,7 @@ package stubs
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import models.UserAnswers
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
-import play.api.http.Status.{ACCEPTED, OK}
+import play.api.http.Status.{ACCEPTED, OK, NOT_FOUND, INTERNAL_SERVER_ERROR}
 import play.api.libs.json.{JsObject, Json}
 import utils.WireMockMethods
 
@@ -34,6 +34,11 @@ object CharitiesStub extends WireMockMethods {
   def stubScenario(userId: String): StubMapping =
     when(method = POST, uri = s"$charitiesRegistration$userId")
       .thenReturn(status = ACCEPTED, body = Json.parse("""{"acknowledgementReference":"765432"}"""))
+
+  def stubScenario4xx(userId: String): StubMapping =
+    when(method = POST, uri = s"$charitiesRegistration$userId").thenReturn(status = NOT_FOUND)
+  def stubScenario5xx(userId: String): StubMapping =
+    when(method = POST, uri = s"$charitiesRegistration$userId").thenReturn(status = INTERNAL_SERVER_ERROR)
 
   def stubUserAnswerPost(ua: UserAnswers, userId: String): StubMapping = {
     val requestJson = Json.stringify(

@@ -17,12 +17,13 @@
 package controllers
 
 import config.FrontendAppConfig
+import connectors.CharitiesConnector
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import models.UserAnswers
 import models.requests.OptionalDataRequest
 import pages.AcknowledgementReferencePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
-import service.{CharitiesSectionCompleteService, UserAnswerService}
+import service.CharitiesSectionCompleteService
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import utils.TaskListHelper
 import views.html.TaskList
@@ -34,7 +35,7 @@ class IndexController @Inject() (
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
   charitiesSectionCompleteService: CharitiesSectionCompleteService,
-  userAnswerService: UserAnswerService,
+  charitiesConnector: CharitiesConnector,
   taskListHelper: TaskListHelper,
   view: TaskList,
   val controllerComponents: MessagesControllerComponents
@@ -69,7 +70,7 @@ class IndexController @Inject() (
 
   def keepalive: Action[AnyContent] = (identify andThen getData).async { implicit request =>
     val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
-    userAnswerService.set(userAnswers).map { _ =>
+    charitiesConnector.saveUserAnswers(userAnswers).map { _ =>
       NoContent
     }
   }

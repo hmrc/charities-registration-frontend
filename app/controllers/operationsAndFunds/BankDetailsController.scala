@@ -27,14 +27,14 @@ import pages.operationsAndFunds.BankDetailsPage
 import pages.sections.{Section1Page, Section6Page}
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.operationsAndFunds.BankDetailsView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class BankDetailsController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: BankDetailsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -105,7 +105,7 @@ class BankDetailsController @Inject() (
                 for {
                   updatedAnswers <-
                     Future.fromTry(request.userAnswers.set(BankDetailsPage, value).flatMap(_.set(Section6Page, false)))
-                  _              <- sessionRepository.set(updatedAnswers)
+                  _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
                 } yield Redirect(navigator.nextPage(BankDetailsPage, mode, updatedAnswers))
             )
         case _                 => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))

@@ -22,13 +22,13 @@ import navigation.CharityInformationNavigator
 import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.sections.Section1Page
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import viewmodels.ErrorHandler
 
 import javax.inject.Inject
 
 class CharityOfficialAddressLookupController @Inject() (
-  override val sessionRepository: UserAnswerService,
+  override val charitiesConnector: CharitiesConnector,
   override val navigator: CharityInformationNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

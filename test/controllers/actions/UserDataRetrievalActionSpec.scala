@@ -17,19 +17,23 @@
 package controllers.actions
 
 import base.SpecBase
+import connectors.CharitiesConnector
 import models.UserAnswers
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.concurrent.ScalaFutures
-import service.UserAnswerService
-
+import play.api.mvc.Result
+import uk.gov.hmrc.http.UpstreamErrorResponse
+import play.api.http.Status._
 import scala.concurrent.Future
 
 class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
 
-  class Harness(userAnswerService: UserAnswerService) extends UserDataRetrievalActionImpl(userAnswerService) {
-    def callTransform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = transform(request)
+  class Harness(charitiesConnector: CharitiesConnector) extends UserDataRetrievalActionImpl(charitiesConnector) {
+    def callTransform[A](request: IdentifierRequest[A]): Future[Either[Result, OptionalDataRequest[A]]] = refine(
+      request
+    )
   }
 
   "Data Retrieval Action" when {
@@ -38,14 +42,14 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
 
       "set userAnswers to 'None' in the request" in {
 
-        val userAnswerService = mock(classOf[UserAnswerService])
-        when(userAnswerService.get(any())(any(), any())) `thenReturn` Future(None)
-        val action            = new Harness(userAnswerService)
+        val charitiesConnector = mock(classOf[CharitiesConnector])
+        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(Right(None))
+        val action             = new Harness(charitiesConnector)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
 
         whenReady(futureResult) { result =>
-          result.userAnswers.isEmpty mustBe true
+          result.map(_.userAnswers.isEmpty) mustBe Right(true)
         }
       }
     }
@@ -54,14 +58,51 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
 
       "build a userAnswers object and add it to the request" in {
 
-        val userAnswerService = mock(classOf[UserAnswerService])
-        when(userAnswerService.get(any())(any(), any())) `thenReturn` Future(Some(UserAnswers("id")))
-        val action            = new Harness(userAnswerService)
+        val charitiesConnector = mock(classOf[CharitiesConnector])
+        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(
+          Right(Some(UserAnswers("id")))
+        )
+        val action             = new Harness(charitiesConnector)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
 
         whenReady(futureResult) { result =>
-          result.userAnswers.isDefined mustBe true
+          result.map(_.userAnswers.isDefined) mustBe Right(true)
+        }
+      }
+    }
+
+    "there is a 4xx returned from user answers call" must {
+
+      "set userAnswers to 'None' in the request" in {
+
+        val charitiesConnector = mock(classOf[CharitiesConnector])
+        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(
+          Left(UpstreamErrorResponse("error", NOT_FOUND))
+        )
+        val action             = new Harness(charitiesConnector)
+
+        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
+
+        whenReady(futureResult) { result =>
+          result.map(_.userAnswers.isEmpty) mustBe Right(true)
+        }
+      }
+    }
+    "there is a 5xx returned from user answers call" must {
+
+      "set userAnswers to 'None' in the request" in {
+
+        val charitiesConnector = mock(classOf[CharitiesConnector])
+        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(
+          Left(UpstreamErrorResponse("error", INTERNAL_SERVER_ERROR))
+        )
+        val action             = new Harness(charitiesConnector)
+
+        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
+
+        whenReady(futureResult) { result =>
+          result.map(_.userAnswers.isEmpty) mustBe Right(true)
         }
       }
     }

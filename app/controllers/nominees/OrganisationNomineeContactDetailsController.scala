@@ -27,14 +27,14 @@ import pages.nominees.{OrganisationNomineeContactDetailsPage, OrganisationNomine
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.nominees.OrganisationNomineeContactDetailsView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class OrganisationNomineeContactDetailsController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: NomineesNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -73,7 +73,7 @@ class OrganisationNomineeContactDetailsController @Inject() (
                                       .set(OrganisationNomineeContactDetailsPage, value)
                                       .flatMap(_.set(Section9Page, false))
                                   )
-                _              <- sessionRepository.set(updatedAnswers)
+                _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
               } yield Redirect(navigator.nextPage(OrganisationNomineeContactDetailsPage, mode, updatedAnswers))
           )
       }

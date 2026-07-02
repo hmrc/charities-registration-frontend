@@ -17,7 +17,8 @@
 package controllers.otherOfficials
 
 import config.FrontendAppConfig
-import controllers.actions._
+import connectors.CharitiesConnector
+import controllers.actions.*
 import controllers.common.AmendAddressController
 import forms.common.AmendAddressFormProvider
 import models.{Index, Mode}
@@ -25,8 +26,8 @@ import navigation.OtherOfficialsNavigator
 import pages.addressLookup.OtherOfficialPreviousAddressLookupPage
 import pages.otherOfficials.OtherOfficialsNamePage
 import pages.sections.Section8Page
-import play.api.mvc._
-import service.{CountryService, UserAnswerService}
+import play.api.mvc.*
+import service.CountryService
 import views.html.common.AmendAddressView
 
 import javax.inject.Inject
@@ -38,7 +39,7 @@ class AmendOtherOfficialsPreviousAddressController @Inject() (
   val requireData: DataRequiredAction,
   val countryService: CountryService,
   val formProvider: AmendAddressFormProvider,
-  override val sessionRepository: UserAnswerService,
+  override val charitiesConnector: CharitiesConnector,
   override val navigator: OtherOfficialsNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: AmendAddressView

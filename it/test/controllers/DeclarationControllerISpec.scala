@@ -17,13 +17,14 @@
 package controllers
 
 import models.UserAnswers
-import play.api.libs.json.{JsResultException, JsValue, Json}
+import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.Result
 import play.api.test.Helpers
 import play.api.test.Helpers.*
 import stubs.AuthStub
 import stubs.AuthStub.authorised
 import stubs.CharitiesStub.*
+import uk.gov.hmrc.http.JsValidationException
 import utils.{IntegrationSpecBase, WireMockMethods}
 
 import scala.concurrent.duration.Duration
@@ -49,6 +50,21 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
     stubUserAnswerPost(ua, internalId)
     authorised(internalId)
     stubScenario(internalId)
+
+    route(
+      app,
+      buildPost(routes.DeclarationController.onSubmit.url)
+    ).get
+  }
+  
+  private def runTestWithoutStubScenario(internalId: String): Future[Result] = {
+
+    val requestJsonFileName = s"/$internalId.json"
+    val ua                  = readJsonFromFile(requestJsonFileName).as[UserAnswers]
+
+    stubUserAnswerGet(ua, internalId)
+    stubUserAnswerPost(ua, internalId)
+    authorised(internalId)
 
     route(
       app,
@@ -143,7 +159,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
           authorised(internalId)
           stubScenario(internalId)
 
-          intercept[JsResultException](
+          intercept[JsValidationException](
             Await.result(
               route(
                 app,
@@ -172,6 +188,35 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
           ).get
           status(response) mustBe SEE_OTHER
           Helpers.redirectLocation(response) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
+        }
+      }
+      
+      "submitting the data for charities registration where registration response status is 4xx"    must {
+        "Redirect to registration sent page" in {
+          val internalId = "scenario_7_request"
+          stubScenario4xx(internalId)
+          runTestWithoutStubScenario("scenario_7_request")
+
+          val response = route(
+            app,
+            buildPost(routes.DeclarationController.onSubmit.url)
+          ).get
+          status(response) mustBe SEE_OTHER
+          Helpers.redirectLocation(response) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
+        }
+      }
+      "submitting the data for charities registration where registration response status is 5xx"    must {
+        "Redirect to registration sent page" in {
+          val internalId = "scenario_7_request"
+          stubScenario5xx(internalId)
+          runTestWithoutStubScenario("scenario_7_request")
+
+          val response = route(
+            app,
+            buildPost(routes.DeclarationController.onSubmit.url)
+          ).get
+          status(response) mustBe SEE_OTHER
+          Helpers.redirectLocation(response) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
         }
       }
 

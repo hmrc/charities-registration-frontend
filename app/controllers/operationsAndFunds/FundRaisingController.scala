@@ -27,14 +27,14 @@ import pages.operationsAndFunds.FundRaisingPage
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.operationsAndFunds.FundRaisingView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class FundRaisingController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: FundRaisingNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -66,7 +66,7 @@ class FundRaisingController @Inject() (
             for {
               updatedAnswers <-
                 Future.fromTry(request.userAnswers.set(FundRaisingPage, value).flatMap(_.set(Section5Page, false)))
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(FundRaisingPage, mode, updatedAnswers))
         )
   }

@@ -18,19 +18,20 @@ package controllers.authorisedOfficials
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.actions._
+import connectors.CharitiesConnector
+import controllers.actions.*
 import controllers.common.AddedOfficialController
 import navigation.AuthorisedOfficialsNavigator
 import pages.authorisedOfficials.{AddedAuthorisedOfficialPage, AuthorisedOfficialsNamePage}
 import pages.sections.Section7Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 import views.html.common.AddedOfficialsView
 
 import scala.concurrent.Future
 
 class AddedAuthorisedOfficialController @Inject() (
-  override val sessionRepository: UserAnswerService,
+  override val charitiesConnector: CharitiesConnector,
   override val navigator: AuthorisedOfficialsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

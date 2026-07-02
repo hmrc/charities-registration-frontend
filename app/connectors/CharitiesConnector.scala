@@ -17,79 +17,78 @@
 package connectors
 
 import config.FrontendAppConfig
-import models.{RegistrationResponse, SaveStatus, UserAnswers}
-import play.api.Logger
+import connectors.httpParsers.HttpClientResponse
+import models.{RegistrationResponse, UserAnswers}
 import play.api.http.Status.*
 import play.api.libs.json.*
 import play.api.libs.ws.writeableOf_JsValue
 import uk.gov.hmrc.http.HttpReads.Implicits.*
 import uk.gov.hmrc.http.client.HttpClientV2
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse, StringContextOps, UpstreamErrorResponse}
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class CharitiesConnector @Inject() (httpClient: HttpClientV2, implicit val appConfig: FrontendAppConfig) {
-
-  private val logger = Logger(this.getClass)
+class CharitiesConnector @Inject() (
+  httpClient: HttpClientV2,
+  httpClientResponse: HttpClientResponse,
+  implicit val appConfig: FrontendAppConfig
+) {
+  // TODO: Keep close to current behaviour until we have error behaviour defined. Should possibly return
+  //  5xx if any 2xx other than 200 returned.
   def registerCharities(id: String)(implicit
     hc: HeaderCarrier,
     ec: ExecutionContext
-  ): Future[Option[RegistrationResponse]] =
-    httpClient
-      .post(url"${appConfig.getCharitiesBackend}/submissions/application/$id")
-      .withBody(Json.obj())
-      .execute[HttpResponse]
-      .map { response =>
-        response.status match {
-          case OK    =>
-            response.json.validate[RegistrationResponse] match {
-              case JsSuccess(validResponse, _) => Some(validResponse)
-              case JsError(errors)             =>
-                logger.warn(s"[CharitiesConnector][registerCharities]: Unexpected response, $errors returned")
-                throw JsResultException(errors)
-            }
-          case notOk =>
-            logger.error(
-              s"[CharitiesConnector][registerCharities]: Registration unsuccessful with status $notOk and message ${response.body}"
-            )
-            None
-        }
+  ): Future[Either[UpstreamErrorResponse, RegistrationResponse]] =
+    httpClientResponse.read(
+      httpClient
+        .post(url"${appConfig.getCharitiesBackend}/submissions/application/$id")
+        .withBody(Json.obj())
+        .execute[Either[UpstreamErrorResponse, RegistrationResponse]]
+    )
+
+  def getUserAnswers(
+    id: String
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Option[UserAnswers]]] = {
+    // This is required because backend returns NO_CONTENT instead of NOT_FOUND for when no user answers data is found.
+    implicit def readOptionOfNoContent[A: HttpReads]: HttpReads[Option[A]] =
+      HttpReads[HttpResponse]
+        .flatMap(_.status match {
+          case NO_CONTENT => HttpReads.pure(None)
+          case _          => HttpReads[A].map(Some.apply)
+        })
+    httpClientResponse.readLogWarnExceptFor404(
+      httpClient
+        .get(url"${appConfig.getCharitiesBackend}/charities-registration/getUserAnswer/$id")
+        .execute[Either[UpstreamErrorResponse, Option[UserAnswers]]]
+    )
+  }
+
+  def saveUserAnswers(
+    userAnswers: UserAnswers
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Unit]] = {
+    // TODO: Keep current behaviour until we have error behaviour defined.
+    //  Current behaviour is: 2 exceptions are logged (1 in error handler and 1 here).
+    //  I suggest that we remove convertLeftToException and redirect upstream errors in saveUserAnswers
+    //  in situ (i.e. in calling code) based on context and whether it's a 4xx or 5xx response.
+    def convertLeftToException[A](
+      response: Future[Either[UpstreamErrorResponse, A]]
+    )(implicit ec: ExecutionContext): Future[Either[UpstreamErrorResponse, A]] =
+      response.map {
+        case Left(UpstreamErrorResponse(message, status, _, _)) =>
+          throw new RuntimeException(s"Unexpected response returned $message and status $status")
+        case rightUpstreamErrorResponse @ Right(_)              => rightUpstreamErrorResponse
       }
 
-  def getUserAnswers(id: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[UserAnswers]] =
-    httpClient
-      .get(url"${appConfig.getCharitiesBackend}/charities-registration/getUserAnswer/$id")
-      .execute[HttpResponse]
-      .map { response =>
-        response.status match {
-          case OK =>
-            response.json.validate[UserAnswers] match {
-              case JsSuccess(validResponse, _) => Some(validResponse)
-              case JsError(errors)             =>
-                logger.error(s"[CharitiesConnector][getUserAnswers]: Unexpected response, $errors returned")
-                throw JsResultException(errors)
-            }
-          case _  =>
-            logger.warn(s"[CharitiesConnector][getUserAnswers]: no data found for user $id")
-            None
-        }
-      }
+    convertLeftToException(
+      httpClientResponse
+        .read(
+          httpClient
+            .post(url"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}")
+            .withBody(Json.toJson(userAnswers))
+            .execute[Either[UpstreamErrorResponse, Unit]]
+        )
+    )
+  }
 
-  def saveUserAnswers(userAnswers: UserAnswers)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Boolean] =
-    httpClient
-      .post(url"${appConfig.getCharitiesBackend}/charities-registration/saveUserAnswer/${userAnswers.id}")
-      .withBody(Json.toJson(userAnswers))
-      .execute[HttpResponse]
-      .map {
-        case HttpResponse(OK, responseBody, _) =>
-          Json.parse(responseBody).validate[SaveStatus] match {
-            case JsSuccess(value, _) => value.status
-            case JsError(errors)     => throw JsResultException(errors)
-          }
-
-        case error =>
-          logger.error(s"[CharitiesConnector][saveUserAnswers]: Unexpected response returned " + error)
-          throw new RuntimeException("Unexpected response returned for saveUserAnswers")
-      }
 }

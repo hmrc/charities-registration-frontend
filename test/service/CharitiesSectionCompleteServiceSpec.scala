@@ -29,7 +29,7 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with BeforeAndAfterEa
   implicit val mockAuditService: AuditService = mock(classOf[AuditService])
 
   lazy val service: CharitiesSectionCompleteService =
-    CharitiesSectionCompleteService(mockSessionRepository, mockUserAnswerService, mockAuditService)
+    CharitiesSectionCompleteService(mockSessionRepository, mockCharitiesConnector, mockAuditService)
 
   override def beforeEach(): Unit = {
     super.beforeEach()

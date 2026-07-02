@@ -26,15 +26,15 @@ import pages.IndexPage
 import pages.nominees.{ChooseNomineePage, NomineeDetailsSummaryPage}
 import pages.sections.Section9Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 import viewmodels.nominees.NomineeStatusHelper.checkComplete
 import viewmodels.nominees.{NomineeDetailsSummaryHelper, NomineeIndividualSummaryHelper, NomineeOrganisationSummaryHelper}
 import views.html.nominees.NomineeDetailsSummaryView
-
+import connectors.CharitiesConnector
 import scala.concurrent.Future
 
 class NomineeDetailsSummaryController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: NomineesNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -71,7 +71,7 @@ class NomineeDetailsSummaryController @Inject() (
     for {
       updatedAnswers <-
         Future.fromTry(result = request.userAnswers.set(Section9Page, checkComplete(request.userAnswers)))
-      _              <- sessionRepository.set(updatedAnswers)
+      _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
     } yield Redirect(navigator.nextPage(NomineeDetailsSummaryPage, NormalMode, updatedAnswers))
 
   }

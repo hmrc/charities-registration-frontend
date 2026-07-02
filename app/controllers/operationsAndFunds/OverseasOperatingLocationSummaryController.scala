@@ -26,14 +26,14 @@ import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.{OverseasOperatingLocationSummaryPage, WhatCountryDoesTheCharityOperateInPage}
 import pages.sections.Section5Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 import viewmodels.operationsAndFunds.OverseasOperatingLocationSummaryHelper
 import views.html.operationsAndFunds.OverseasOperatingLocationSummaryView
-
+import connectors.CharitiesConnector
 import scala.concurrent.Future
 
 class OverseasOperatingLocationSummaryController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: FundRaisingNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -74,13 +74,13 @@ class OverseasOperatingLocationSummaryController @Inject() (
                                       .set(OverseasOperatingLocationSummaryPage, value)
                                       .flatMap(_.set(Section5Page, false))
                                   )
-                _              <- sessionRepository.set(updatedAnswers)
+                _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
               } yield Redirect(navigator.nextPage(OverseasOperatingLocationSummaryPage, mode, updatedAnswers))
           )
       } else {
         for {
           updatedAnswers <- Future.fromTry(result = request.userAnswers.set(OverseasOperatingLocationSummaryPage, true))
-          _              <- sessionRepository.set(updatedAnswers)
+          _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
         } yield Redirect(navigator.nextPage(OverseasOperatingLocationSummaryPage, mode, updatedAnswers))
       }
   }

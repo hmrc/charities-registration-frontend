@@ -26,14 +26,14 @@ import pages.operationsAndFunds.IsBankStatementsPage
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.operationsAndFunds.IsBankStatementsView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class IsBankStatementsController @Inject() (
-  sessionRepository: UserAnswerService,
+  charitiesConnector: CharitiesConnector,
   navigator: FundRaisingNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -64,7 +64,7 @@ class IsBankStatementsController @Inject() (
             for {
               updatedAnswers <-
                 Future.fromTry(request.userAnswers.set(IsBankStatementsPage, value).flatMap(_.set(Section5Page, false)))
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(IsBankStatementsPage, mode, updatedAnswers))
         )
   }

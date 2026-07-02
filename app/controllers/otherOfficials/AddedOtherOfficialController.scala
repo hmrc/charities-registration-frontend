@@ -24,13 +24,13 @@ import navigation.OtherOfficialsNavigator
 import pages.otherOfficials.{AddedOtherOfficialPage, OtherOfficialsNamePage}
 import pages.sections.Section8Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 import views.html.common.AddedOfficialsView
-
+import connectors.CharitiesConnector
 import scala.concurrent.Future
 
 class AddedOtherOfficialController @Inject() (
-  override val sessionRepository: UserAnswerService,
+  override val charitiesConnector: CharitiesConnector,
   override val navigator: OtherOfficialsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

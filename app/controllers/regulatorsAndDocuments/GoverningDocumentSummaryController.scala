@@ -26,7 +26,7 @@ import pages.IndexPage
 import pages.regulatorsAndDocuments.GoverningDocumentSummaryPage
 import pages.sections.Section3Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import viewmodels.regulatorsAndDocuments.GoverningDocumentStatusHelper.checkComplete
 import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
 import views.html.CheckYourAnswersView
@@ -34,7 +34,7 @@ import views.html.CheckYourAnswersView
 import scala.concurrent.Future
 
 class GoverningDocumentSummaryController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: DocumentsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -64,7 +64,7 @@ class GoverningDocumentSummaryController @Inject() (
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     for {
       updatedAnswers <- Future.fromTry(request.userAnswers.set(Section3Page, checkComplete(request.userAnswers)))
-      _              <- sessionRepository.set(updatedAnswers)
+      _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
     } yield Redirect(navigator.nextPage(GoverningDocumentSummaryPage, NormalMode, updatedAnswers))
   }
 

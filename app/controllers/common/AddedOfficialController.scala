@@ -23,15 +23,15 @@ import models.{CheckMode, Index, NormalMode}
 import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.mvc.{AnyContent, Call, MessagesControllerComponents, Result}
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 import viewmodels.authorisedOfficials.AddedAuthorisedOfficialHelper
 import viewmodels.otherOfficials.AddedOtherOfficialHelper
 import views.html.common.AddedOfficialsView
-
+import connectors.CharitiesConnector
 import scala.concurrent.Future
 
 trait AddedOfficialController extends LocalBaseController {
-  protected val sessionRepository: UserAnswerService
+  protected val charitiesConnector: CharitiesConnector
   protected val navigator: BaseNavigator
   protected val view: AddedOfficialsView
   protected val controllerComponents: MessagesControllerComponents
@@ -58,7 +58,7 @@ trait AddedOfficialController extends LocalBaseController {
   ): Future[Result] =
     for {
       updatedAnswers <- Future.fromTry(result = request.userAnswers.set(section, false))
-      _              <- sessionRepository.set(updatedAnswers)
+      _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
     } yield Redirect(navigator.nextPage(page, NormalMode, updatedAnswers))
 
 }

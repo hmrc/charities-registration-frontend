@@ -17,8 +17,9 @@
 package controllers.contactDetails
 
 import config.FrontendAppConfig
+import connectors.CharitiesConnector
 import controllers.LocalBaseController
-import controllers.actions._
+import controllers.actions.*
 import forms.contactDetails.CharityNameFormProvider
 import models.{CharityName, Mode}
 import navigation.CharityInformationNavigator
@@ -26,8 +27,7 @@ import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
 import pages.sections.Section1Page
 import play.api.data.Form
-import play.api.mvc._
-import service.UserAnswerService
+import play.api.mvc.*
 import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
 import views.html.contactDetails.CharityNameView
 
@@ -35,7 +35,7 @@ import javax.inject.Inject
 import scala.concurrent.Future
 
 class CharityNameController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: CharityInformationNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -77,7 +77,7 @@ class CharityNameController @Inject() (
                                         .set(CharityNamePage, value)
                                         .flatMap(_.set(Section1Page, checkComplete(updatedBankDetails)))
                                     )
-              _                  <- sessionRepository.set(updatedAnswers)
+              _                  <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(CharityNamePage, mode, updatedAnswers))
         )
   }

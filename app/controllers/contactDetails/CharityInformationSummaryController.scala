@@ -18,15 +18,15 @@ package controllers.contactDetails
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
+import connectors.CharitiesConnector
 import controllers.LocalBaseController
-import controllers.actions._
+import controllers.actions.*
 import models.NormalMode
 import navigation.CharityInformationNavigator
 import pages.IndexPage
-import pages.contactDetails._
+import pages.contactDetails.*
 import pages.sections.Section1Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.UserAnswerService
 import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
 import viewmodels.charityInformation.CharityInformationSummaryHelper
 import views.html.CheckYourAnswersView
@@ -34,7 +34,7 @@ import views.html.CheckYourAnswersView
 import scala.concurrent.Future
 
 class CharityInformationSummaryController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: CharityInformationNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -67,8 +67,7 @@ class CharityInformationSummaryController @Inject() (
           request.userAnswers
             .set(Section1Page, checkComplete(request.userAnswers))
         )
-      _              <- sessionRepository.set(updatedAnswers)
+      _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
     } yield Redirect(navigator.nextPage(CharityInformationSummaryPage, NormalMode, updatedAnswers))
-
   }
 }

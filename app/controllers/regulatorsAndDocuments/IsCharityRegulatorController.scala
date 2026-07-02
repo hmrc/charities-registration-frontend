@@ -26,14 +26,14 @@ import pages.regulatorsAndDocuments.IsCharityRegulatorPage
 import pages.sections.Section2Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.regulatorsAndDocuments.IsCharityRegulatorView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class IsCharityRegulatorController @Inject() (
-  sessionRepository: UserAnswerService,
+  charitiesConnector: CharitiesConnector,
   navigator: RegulatorsAndDocumentsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -64,7 +64,7 @@ class IsCharityRegulatorController @Inject() (
               updatedAnswers <-
                 Future
                   .fromTry(request.userAnswers.set(IsCharityRegulatorPage, value).flatMap(_.set(Section2Page, false)))
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(IsCharityRegulatorPage, mode, updatedAnswers))
         )
   }

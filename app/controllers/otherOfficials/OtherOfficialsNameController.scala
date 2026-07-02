@@ -26,7 +26,7 @@ import pages.otherOfficials.OtherOfficialsNamePage
 import pages.sections.Section8Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.common.NameView
 
 import javax.inject.Inject
@@ -36,7 +36,7 @@ class OtherOfficialsNameController @Inject() (
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
   val formProvider: NameFormProvider,
-  override val sessionRepository: UserAnswerService,
+  override val charitiesConnector: CharitiesConnector,
   override val navigator: OtherOfficialsNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: NameView

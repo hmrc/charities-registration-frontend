@@ -24,13 +24,13 @@ import pages.addressLookup.OrganisationNomineePreviousAddressLookupPage
 import pages.nominees.OrganisationNomineeNamePage
 import pages.sections.Section9Page
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import viewmodels.ErrorHandler
 
 import javax.inject.Inject
 
 class OrganisationNomineePreviousAddressLookupController @Inject() (
-  override val sessionRepository: UserAnswerService,
+  override val charitiesConnector: CharitiesConnector,
   override val navigator: NomineesNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

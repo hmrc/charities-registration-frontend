@@ -17,14 +17,15 @@
 package service
 
 import audit.{AuditService, NormalUserAuditEvent}
+import connectors.CharitiesConnector
 import models.requests.OptionalDataRequest
 import models.UserAnswers
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.contactDetails.CharityNamePage
 import pages.otherOfficials.OtherOfficialsNamePage
-import pages.sections._
+import pages.sections.*
 import play.api.Logger
-import play.api.libs.json._
+import play.api.libs.json.*
 import play.api.mvc.{Call, RequestHeader}
 import repositories.SessionRepository
 import uk.gov.hmrc.http.HeaderCarrier
@@ -39,7 +40,7 @@ import scala.util.Try
 @Singleton
 class CharitiesSectionCompleteService @Inject() (
   sessionRepository: SessionRepository,
-  userAnswerService: UserAnswerService,
+  charitiesConnector: CharitiesConnector,
   auditService: AuditService
 ) {
 
@@ -88,7 +89,7 @@ class CharitiesSectionCompleteService @Inject() (
               .flatMap(userAnswers => isOtherOfficialStatusSectionCompleted(userAnswers))
           )
           .flatMap { updatedUserAnswers =>
-            userAnswerService.set(updatedUserAnswers).map(_ => Right(updatedUserAnswers))
+            charitiesConnector.saveUserAnswers(updatedUserAnswers).map(_ => Right(updatedUserAnswers))
           }
       case (None, Some(sessionId)) =>
         sessionRepository.get(sessionId).flatMap {
@@ -102,7 +103,7 @@ class CharitiesSectionCompleteService @Inject() (
             val userAnswers = UserAnswers(request.internalId)
             logger.warn(s"[CharitiesSectionCompleteService][checkForValidApplicationJourney]: NewUser")
             auditService.sendEvent(NormalUserAuditEvent(Json.obj("id" -> userAnswers.id)))
-            userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
+            charitiesConnector.saveUserAnswers(userAnswers).map(_ => Right(userAnswers))
         }
       case _                       =>
         logger.error(

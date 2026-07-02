@@ -25,7 +25,7 @@ import pages.IndexPage
 import pages.operationsAndFunds.BankDetailsSummaryPage
 import pages.sections.Section6Page
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import viewmodels.operationsAndFunds.BankDetailsStatusHelper.checkComplete
 import viewmodels.operationsAndFunds.BankDetailsSummaryHelper
 import views.html.CheckYourAnswersView
@@ -34,7 +34,7 @@ import javax.inject.Inject
 import scala.concurrent.Future
 
 class BankDetailsSummaryController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: BankDetailsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -68,7 +68,7 @@ class BankDetailsSummaryController @Inject() (
     for {
       updatedAnswers <-
         Future.fromTry(result = request.userAnswers.set(Section6Page, checkComplete(request.userAnswers)))
-      _              <- sessionRepository.set(updatedAnswers)
+      _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
     } yield Redirect(navigator.nextPage(BankDetailsSummaryPage, NormalMode, updatedAnswers))
 
   }

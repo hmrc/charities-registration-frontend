@@ -26,14 +26,14 @@ import pages.regulatorsAndDocuments.ScottishRegulatorRegNumberPage
 import pages.sections.Section2Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.regulatorsAndDocuments.ScottishRegulatorRegNumberView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class ScottishRegulatorRegNumberController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: RegulatorsAndDocumentsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -66,7 +66,7 @@ class ScottishRegulatorRegNumberController @Inject() (
                 Future.fromTry(
                   request.userAnswers.set(ScottishRegulatorRegNumberPage, value).flatMap(_.set(Section2Page, false))
                 )
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(ScottishRegulatorRegNumberPage, mode, updatedAnswers))
         )
   }

@@ -26,14 +26,14 @@ import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.data.Form
 import play.api.mvc._
-import service.{CountryService, UserAnswerService}
+import service.CountryService
 import views.html.common.AmendAddressView
-
+import connectors.CharitiesConnector
 import scala.concurrent.Future
 
 trait AmendAddressController extends LocalBaseController {
   protected val countryService: CountryService
-  protected val sessionRepository: UserAnswerService
+  protected val charitiesConnector: CharitiesConnector
   protected val navigator: BaseNavigator
   protected val controllerComponents: MessagesControllerComponents
   protected val view: AmendAddressView
@@ -75,7 +75,7 @@ trait AmendAddressController extends LocalBaseController {
         for {
           updatedAnswers <-
             Future.fromTry(request.userAnswers.set(page, value.toConfirmableAddress).flatMap(_.set(section, false)))
-          _              <- sessionRepository.set(updatedAnswers)
+          _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
         } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
     )
   }

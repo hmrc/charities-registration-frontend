@@ -26,14 +26,14 @@ import pages.nominees.{OrganisationNomineeNamePage, OrganisationNomineesBankDeta
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.common.BankAccountDetailsView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class OrganisationNomineesBankDetailsController @Inject() (
-  val sessionRepository: UserAnswerService,
+  val charitiesConnector: CharitiesConnector,
   val navigator: NomineesNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -96,7 +96,7 @@ class OrganisationNomineesBankDetailsController @Inject() (
                                     .set(OrganisationNomineesBankDetailsPage, value)
                                     .flatMap(_.set(Section9Page, false))
                                 )
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(OrganisationNomineesBankDetailsPage, mode, updatedAnswers))
         )
   }

@@ -27,14 +27,14 @@ import pages.operationsAndFunds.CharitablePurposesPage
 import pages.sections.Section4Page
 import play.api.data.Form
 import play.api.mvc._
-import service.UserAnswerService
+import connectors.CharitiesConnector
 import views.html.operationsAndFunds.CharitablePurposesView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class CharitablePurposesController @Inject() (
-  sessionRepository: UserAnswerService,
+  charitiesConnector: CharitiesConnector,
   navigator: ObjectivesNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
@@ -67,7 +67,7 @@ class CharitablePurposesController @Inject() (
               updatedAnswers <-
                 Future
                   .fromTry(request.userAnswers.set(CharitablePurposesPage, value).flatMap(_.set(Section4Page, false)))
-              _              <- sessionRepository.set(updatedAnswers)
+              _              <- charitiesConnector.saveUserAnswers(updatedAnswers)
             } yield Redirect(navigator.nextPage(CharitablePurposesPage, mode, updatedAnswers))
         )
   }

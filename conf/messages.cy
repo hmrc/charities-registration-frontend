@@ -236,6 +236,7 @@ registrationSent.heading = Cofrestriad wedi’i anfon
 registrationSent.submissionDate = Cyflwynwyd:
 registrationSent.h2 = Y camau nesaf
 registrationSent.step1 = Cam 1: Paratoi’r dogfennau
+registrationSent.post.p1 = Nawr mae angen i chi anfon eich dogfennau ategol atom drwy’r post.
 registrationSent.p3.beforeRefNo = Mae angen i chi wneud copïau ac ychwanegu’ch cyfeirnod
 registrationSent.p3.afterRefNo = at:
 registrationSent.post.step2 = Cam 2: Postio copïau o’r dogfennau
@@ -1128,6 +1129,9 @@ authorisedOfficialAddress.lookupPage.title = Beth yw cyfeiriad y swyddog awdurdo
 authorisedOfficialAddress.lookupPage.heading = Beth yw cyfeiriad cartref {0}?
 authorisedOfficialAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad cartref y swyddog awdurdodedig god post yn y DU
 
+authorisedOfficialAddress.countryPickerPage.title = Ym mha wlad neu diriogaeth mae cyfeiriad cartref {0}? - Swyddogion ac enwebeion
+authorisedOfficialAddress.countryPickerPage.heading = Ym mha wlad neu diriogaeth mae cyfeiriad cartref {0}?
+
 authorisedOfficialAddress.selectPage.title = Beth yw cyfeiriad llawn y swyddog awdurdodedig? – Swyddogion ac enwebeion
 authorisedOfficialAddress.selectPage.heading = Beth yw cyfeiriad cartref llawn {0}?
 authorisedOfficialAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad cartref y swyddog awdurdodedig â llaw
@@ -1159,6 +1163,9 @@ isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel = Cyfeiriad wedi newid
 authorisedOfficialPreviousAddress.lookupPage.title = Beth yw cyfeiriad cartref blaenorol y swyddog awdurdodedig? – Swyddogion ac enwebeion
 authorisedOfficialPreviousAddress.lookupPage.heading = Beth yw cyfeiriad cartref blaenorol {0}?
 authorisedOfficialPreviousAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad cartref blaenorol y swyddog awdurdodedig god post yn y DU
+
+authorisedOfficialPreviousAddress.countryPickerPage.title = Ym mha wlad neu diriogaeth mae cyfeiriad cartref blaenorol {0}? - Swyddogion ac enwebeion
+authorisedOfficialPreviousAddress.countryPickerPage.heading = Ym mha wlad neu diriogaeth mae cyfeiriad cartref blaenorol {0}?
 
 authorisedOfficialPreviousAddress.selectPage.title = Beth yw cyfeiriad cartref llawn blaenorol y swyddog awdurdodedig? – Swyddogion ac enwebeion
 authorisedOfficialPreviousAddress.selectPage.heading = Beth yw cyfeiriad cartref llawn blaenorol {0}?
@@ -1323,6 +1330,9 @@ otherOfficialAddress.lookupPage.title = Beth yw cyfeiriad cartref y swyddog aral
 otherOfficialAddress.lookupPage.heading = Beth yw cyfeiriad cartref {0}?
 otherOfficialAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad cartref y swyddog arall god post yn y DU
 
+otherOfficialAddress.countryPickerPage.title = Ym mha wlad neu diriogaeth mae cyfeiriad cartref {0}? - Swyddogion ac enwebeion
+otherOfficialAddress.countryPickerPage.heading = Ym mha wlad neu diriogaeth mae cyfeiriad cartref {0}?
+
 otherOfficialAddress.selectPage.title = Beth yw cyfeiriad cartref llawn y swyddog arall? – Swyddogion ac enwebeion
 otherOfficialAddress.selectPage.heading = Beth yw cyfeiriad cartref llawn {0}?
 otherOfficialAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad cartref y swyddog arall â llaw
@@ -1354,6 +1364,9 @@ isOtherOfficialsPreviousAddress.checkYourAnswersLabel = Cyfeiriad wedi newid yn 
 otherOfficialPreviousAddress.lookupPage.title = Beth yw cyfeiriad cartref blaenorol y swyddog arall? – Swyddogion ac enwebeion
 otherOfficialPreviousAddress.lookupPage.heading = Beth yw cyfeiriad cartref blaenorol {0}?
 otherOfficialPreviousAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad cartref blaenorol y swyddog arall god post yn y DU
+
+otherOfficialPreviousAddress.countryPickerPage.title = Ym mha wlad neu diriogaeth mae cyfeiriad cartref blaenorol {0}? - Swyddogion ac enwebeion
+otherOfficialPreviousAddress.countryPickerPage.heading = Ym mha wlad neu diriogaeth mae cyfeiriad cartref blaenorol {0}?
 
 otherOfficialPreviousAddress.selectPage.title = Beth yw cyfeiriad cartref llawn blaenorol y swyddog arall? – Swyddogion ac enwebeion
 otherOfficialPreviousAddress.selectPage.heading = Beth yw cyfeiriad cartref llawn blaenorol {0}?
@@ -1542,6 +1555,9 @@ nomineeIndividualAddress.lookupPage.title = Beth yw cyfeiriad cartref yr enwebai
 nomineeIndividualAddress.lookupPage.heading = Beth yw cyfeiriad cartref {0}?
 nomineeIndividualAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad yr enwebai god post yn y DU
 
+nomineeIndividualAddress.countryPickerPage.title = Ym mha wlad neu diriogaeth mae cyfeiriad cartref {0}? - Swyddogion ac enwebeion
+nomineeIndividualAddress.countryPickerPage.heading = Ym mha wlad neu diriogaeth mae cyfeiriad cartref {0}?
+
 nomineeIndividualAddress.selectPage.title = Beth yw cyfeiriad cartref llawn yr enwebai? – Swyddogion ac enwebeion
 nomineeIndividualAddress.selectPage.heading = Beth yw cyfeiriad cartref llawn {0}?
 nomineeIndividualAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad cartref yr enwebai â llaw
@@ -1573,6 +1589,9 @@ isIndividualNomineePreviousAddress.checkYourAnswersLabel = Cyfeiriad wedi newid 
 nomineeIndividualPreviousAddress.lookupPage.title = Beth yw cyfeiriad cartref blaenorol yr enwebai? – Swyddogion ac enwebeion
 nomineeIndividualPreviousAddress.lookupPage.heading = Beth yw cyfeiriad cartref blaenorol {0}?
 nomineeIndividualPreviousAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad blaenorol yr enwebai god post yn y DU
+
+nomineeIndividualPreviousAddress.countryPickerPage.title = Ym mha wlad neu diriogaeth mae cyfeiriad cartref blaenorol {0}? - Swyddogion ac enwebeion
+nomineeIndividualPreviousAddress.countryPickerPage.heading = Ym mha wlad neu diriogaeth mae cyfeiriad cartref blaenorol {0}?
 
 nomineeIndividualPreviousAddress.selectPage.title = Beth yw cyfeiriad cartref llawn blaenorol yr enwebai? – Swyddogion ac enwebeion
 nomineeIndividualPreviousAddress.selectPage.heading = Beth yw cyfeiriad cartref llawn blaenorol {0}?
@@ -1662,6 +1681,9 @@ organisationNomineeAddress.lookupPage.title = Beth yw cyfeiriad sefydliad yr enw
 organisationNomineeAddress.lookupPage.heading = Beth yw cyfeiriad {0}?
 organisationNomineeAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad y sefydliad god post yn y DU
 
+organisationNomineeAddress.countryPickerPage.title = Ym mha wlad neu diriogaeth mae cyfeiriad cartref {0}? - Swyddogion ac enwebeion
+organisationNomineeAddress.countryPickerPage.heading = Ym mha wlad neu diriogaeth mae cyfeiriad cartref {0}?
+
 organisationNomineeAddress.selectPage.title = Beth yw cyfeiriad llawn sefydliad yr enwebai? – Swyddogion ac enwebeion
 organisationNomineeAddress.selectPage.heading = Beth yw cyfeiriad llawn {0}?
 organisationNomineeAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad y sefydliad â llaw
@@ -1693,6 +1715,9 @@ isOrganisationNomineePreviousAddress.checkYourAnswersLabel = Cyfeiriad wedi newi
 nomineeOrganisationPreviousAddress.lookupPage.title = Beth yw cyfeiriad blaenorol sefydliad yr enwebai? – Swyddogion ac enwebeion
 nomineeOrganisationPreviousAddress.lookupPage.heading = Beth yw cyfeiriad blaenorol {0}?
 nomineeOrganisationPreviousAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad blaenorol y sefydliad god post yn y DU
+
+nomineeOrganisationPreviousAddress.countryPickerPage.title = Ym mha wlad neu diriogaeth mae cyfeiriad cartref blaenorol {0}? - Swyddogion ac enwebeion
+nomineeOrganisationPreviousAddress.countryPickerPage.heading = Ym mha wlad neu diriogaeth mae cyfeiriad cartref blaenorol {0}?
 
 nomineeOrganisationPreviousAddress.selectPage.title = Beth yw cyfeiriad llawn blaenorol sefydliad yr enwebai? – Swyddogion ac enwebeion
 nomineeOrganisationPreviousAddress.selectPage.heading = Beth yw cyfeiriad llawn blaenorol {0}?

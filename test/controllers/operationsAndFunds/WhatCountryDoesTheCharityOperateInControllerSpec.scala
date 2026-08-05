@@ -127,7 +127,7 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("country", gbCountryName))
+      val request = fakeRequest.withFormUrlEncodedBody(("country", thCountryCode))
 
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
         .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))

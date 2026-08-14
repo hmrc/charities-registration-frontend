@@ -56,7 +56,8 @@ class StartDeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
     "return OK and the correct view for a GET" in {
 
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
-          Future.successful(Right(
+        Future.successful(
+          Right(
             Some(
               emptyUserAnswers
                 .set(Section1Page, true)
@@ -97,7 +98,8 @@ class StartDeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
   "redirect to Tasklist for a GET if SectionPage is not completed" in {
 
     when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
-        Future.successful(Right(
+      Future.successful(
+        Right(
           Some(
             emptyUserAnswers
               .set(Section1Page, false)

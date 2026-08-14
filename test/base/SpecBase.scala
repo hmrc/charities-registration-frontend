@@ -86,7 +86,7 @@ trait SpecBase
     injector.instanceOf[MessagesControllerComponents]
   lazy val dataRequiredAction: DataRequiredActionImpl                 = injector.instanceOf[DataRequiredActionImpl]
   lazy val mockSessionRepository: SessionRepository                   = mock(classOf[SessionRepository])
-  lazy val mockCharitiesConnector: CharitiesConnector                   = mock(classOf[CharitiesConnector])
+  lazy val mockCharitiesConnector: CharitiesConnector                 = mock(classOf[CharitiesConnector])
 
   implicit val defaultTimeout: FiniteDuration       = 5.seconds
   implicit val frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]

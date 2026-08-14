@@ -90,7 +90,8 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
       val amendNomineeIndividualPreviousAddress =
         toAmendAddressModel(addressModelMax, town)
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
@@ -117,7 +118,8 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
         .success
         .value
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(userAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(userAnswers))))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
@@ -134,7 +136,8 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
         .success
         .value
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(userAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(userAnswers))))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
@@ -155,8 +158,9 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
 
       val request = fakeRequest.withFormUrlEncodedBody(requestArgs*)
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right((): Unit)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode)(request)
@@ -172,7 +176,8 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode)(request)

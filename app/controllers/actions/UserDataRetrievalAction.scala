@@ -36,7 +36,7 @@ class UserDataRetrievalActionImpl @Inject() (val charitiesConnector: CharitiesCo
       case Left(UpstreamErrorResponse(_, statusCode, _, _)) if is4xx(statusCode) =>
         // TODO: Keep current behaviour until we have error behaviour defined - suggest go to unrecoverable error page here
         Right(OptionalDataRequest(request.request, request.identifier, None))
-      case Left(UpstreamErrorResponse(_, _, _, _)) => // 5xx
+      case Left(UpstreamErrorResponse(_, _, _, _))                               => // 5xx
         // TODO: Keep current behaviour until we have error behaviour defined - suggest go to possibly recoverable error page here
         Right(OptionalDataRequest(request.request, request.identifier, None))
       case Right(optUserAnswers)                                                 => Right(OptionalDataRequest(request.request, request.identifier, optUserAnswers))

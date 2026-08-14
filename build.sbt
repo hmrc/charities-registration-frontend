@@ -3,7 +3,7 @@ import uk.gov.hmrc.DefaultBuildSettings
 lazy val appName: String = "charities-registration-frontend"
 
 ThisBuild / majorVersion := 0
-ThisBuild / scalaVersion := "3.5.2"
+ThisBuild / scalaVersion := "3.3.6"
 
 val commonSettings: Seq[String] = Seq(
   "-unchecked",

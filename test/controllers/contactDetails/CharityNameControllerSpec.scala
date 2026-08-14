@@ -69,7 +69,8 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return OK and the correct view for a GET" in new Setup {
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result: Future[Result] = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -83,7 +84,8 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
       val userAnswers: UserAnswers =
         emptyUserAnswers.set(CharityNamePage, charityName).success.value
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(userAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(userAnswers))))
 
       val result: Future[Result] = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -96,8 +98,9 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
       val request: FakeRequest[AnyContent] =
         fakeRequest.withFormUrlEncodedBody("fullName" -> charityFullName, "operatingName" -> charityOperatingName)
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right((): Unit)))
 
       val result: Future[Result] = controller.onSubmit(NormalMode)(request)
 
@@ -115,8 +118,9 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
         .set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName")))
         .success
         .value
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(userAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(userAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right((): Unit)))
 
       val result: Future[Result] = controller.onSubmit(NormalMode)(request)
 
@@ -130,7 +134,8 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result: Future[Result] = controller.onSubmit(NormalMode)(request)
 

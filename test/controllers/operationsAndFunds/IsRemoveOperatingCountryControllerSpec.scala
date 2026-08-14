@@ -71,7 +71,8 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
     "redirect to correct start page is if country details are not present" in {
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
@@ -81,7 +82,8 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
     "return OK and the correct view for a GET" in {
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
       when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
@@ -103,8 +105,9 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right((): Unit)))
       when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
@@ -120,7 +123,8 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
       when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
@@ -164,7 +168,8 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
       when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)

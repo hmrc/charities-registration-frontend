@@ -17,8 +17,9 @@
 package controllers.operationsAndFunds
 
 import config.FrontendAppConfig
+import connectors.CharitiesConnector
 import controllers.LocalBaseController
-import controllers.actions._
+import controllers.actions.*
 import forms.operationsAndFunds.WhatCountryDoesTheCharityOperateInFormProvider
 import models.requests.DataRequest
 import models.{Index, Mode}
@@ -26,10 +27,10 @@ import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
 import pages.sections.Section5Page
 import play.api.data.Form
-import play.api.mvc._
+import play.api.mvc.*
 import service.CountryService
 import views.html.operationsAndFunds.WhatCountryDoesTheCharityOperateInView
-import connectors.CharitiesConnector
+
 import javax.inject.Inject
 import scala.concurrent.Future
 
@@ -46,7 +47,8 @@ class WhatCountryDoesTheCharityOperateInController @Inject() (
 )(implicit appConfig: FrontendAppConfig)
     extends LocalBaseController {
 
-  private val form: Form[String] = formProvider()
+  private def form(countries: Seq[(String, String)]): Form[String] =
+    formProvider(countries.map(_._1).toSet)
 
   private def getCountries(implicit request: DataRequest[?]): Option[String] = {
 
@@ -69,19 +71,21 @@ class WhatCountryDoesTheCharityOperateInController @Inject() (
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
+      val countries    = countryService.countries()
       val preparedForm = request.userAnswers.get(WhatCountryDoesTheCharityOperateInPage(index)) match {
-        case None        => form
-        case Some(value) => form.fill(value)
+        case None        => form(countries)
+        case Some(value) => form(countries).fill(value)
       }
 
       Ok(
-        view(preparedForm, mode, index, countryService.countries().filter(country => country._1 != "GB"), getCountries)
+        view(preparedForm, mode, index, countries.filter(country => country._1 != "GB"), getCountries)
       )
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      form
+      val countries = countryService.countries()
+      form(countries)
         .bindFromRequest()
         .fold(
           formWithErrors =>
@@ -91,8 +95,7 @@ class WhatCountryDoesTheCharityOperateInController @Inject() (
                   formWithErrors,
                   mode,
                   index,
-                  countryService
-                    .countries()
+                  countries
                     .filter(country => country._1 != "GB"),
                   getCountries
                 )

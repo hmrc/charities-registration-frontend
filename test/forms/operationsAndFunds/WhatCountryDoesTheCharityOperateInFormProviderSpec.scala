@@ -27,6 +27,7 @@ class WhatCountryDoesTheCharityOperateInFormProviderSpec extends StringFieldBeha
 
     val fieldName   = "country"
     val requiredKey = "whatCountryDoesTheCharityOperateIn.error.required"
+    val invalidKey = "whatCountryDoesTheCharityOperateIn.error.invalid"
 
     behave like fieldThatBindsValidData(
       form,
@@ -39,6 +40,23 @@ class WhatCountryDoesTheCharityOperateInFormProviderSpec extends StringFieldBeha
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
     )
+
+    s"not bind invalid country" in {
+      val form: Form[String] = inject[WhatCountryDoesTheCharityOperateInFormProvider].apply(Set("AB"))
+      val formWithValue: Map[String, String] = Map[String, String](
+        fieldName -> "invalid"
+      )
+      val result = form.bind(formWithValue).apply(fieldName)
+      result.errors.headOption mustBe Some(FormError(fieldName, invalidKey))
+    }
+    s"bind valid country" in {
+      val form: Form[String] = inject[WhatCountryDoesTheCharityOperateInFormProvider].apply(Set("AB"))
+      val formWithValue: Map[String, String] = Map[String, String](
+        fieldName -> "AB"
+      )
+      val result = form.bind(formWithValue).apply(fieldName)
+      result.errors.headOption mustBe None
+    }
 
   }
 

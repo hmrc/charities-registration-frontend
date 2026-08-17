@@ -18,13 +18,22 @@ package forms.operationsAndFunds
 
 import forms.mappings.Mappings
 import play.api.data.Form
+import play.api.data.validation.{Constraint, Invalid, Valid}
 
 import javax.inject.Inject
 
 class WhatCountryDoesTheCharityOperateInFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[String] =
+  private def constraints(countryCodes: Set[String]) = Constraint[String]{ input =>
+    if (countryCodes.contains(input)) {
+      Valid
+    } else {
+      Invalid("whatCountryDoesTheCharityOperateIn.error.invalid")
+    }
+  }
+
+  def apply(countryCodes: Set[String] = Set.empty): Form[String] =
     Form(
-      "country" -> text("whatCountryDoesTheCharityOperateIn.error.required")
+      "country" -> text("whatCountryDoesTheCharityOperateIn.error.required").verifying(constraints(countryCodes))
     )
 }

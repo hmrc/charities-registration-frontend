@@ -88,7 +88,8 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
 
           "redirect to the on ramp" in {
 
-            when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+            when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+              .thenReturn(Future.successful(Right(Some(localUserAnswers))))
             when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any()))
               .thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
 
@@ -103,7 +104,8 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
 
           "render ISE" in {
 
-            when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+            when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+              .thenReturn(Future.successful(Right(Some(localUserAnswers))))
             when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any()))
               .thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
 
@@ -142,8 +144,10 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
 
             "redirect to the next page" in {
 
-              when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
-              when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
+              when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+                .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+              when(mockCharitiesConnector.saveUserAnswers(any())(any(), any()))
+                .thenReturn(Future.successful(Right((): Unit)))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
@@ -159,7 +163,8 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
 
             "render ISE for invalid address" in {
 
-              when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+              when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+                .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Left(AddressMalformed)))
 
@@ -175,7 +180,8 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
 
             "render ISE" in {
 
-              when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+              when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+                .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 

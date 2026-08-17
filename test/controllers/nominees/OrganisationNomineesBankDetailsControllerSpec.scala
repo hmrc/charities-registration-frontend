@@ -66,7 +66,8 @@ class OrganisationNomineesBankDetailsControllerSpec extends SpecBase with Before
 
     "return OK and the correct view for a GET" in {
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -85,7 +86,8 @@ class OrganisationNomineesBankDetailsControllerSpec extends SpecBase with Before
 
       val userAnswers = localUserAnswers.set(OrganisationNomineesBankDetailsPage, bankDetails).success.value
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(userAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(userAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -102,8 +104,9 @@ class OrganisationNomineesBankDetailsControllerSpec extends SpecBase with Before
         "rollNumber"    -> rollNumber
       )
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right((): Unit)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -117,7 +120,8 @@ class OrganisationNomineesBankDetailsControllerSpec extends SpecBase with Before
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
 
       val result = controller.onSubmit(NormalMode)(request)
 

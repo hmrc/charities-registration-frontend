@@ -92,7 +92,6 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
     }
 
-
     "redirect to Tasklist for a GET if SectionPage is not completed" in {
       val userAnswers: UserAnswers = emptyUserAnswers
         .set(Section1Page, false)
@@ -127,7 +126,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
       verify(mockCharitiesConnector, times(1)).registerCharities(any())(any(), any())
     }
-    
+
     "redirect to the next page after 4xx returned" in {
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
         .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
@@ -170,8 +169,5 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockCharitiesConnector, never()).registerCharities(any())(any(), any())
     }
   }
-  
-  
-  
-  
+
 }

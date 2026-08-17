@@ -87,7 +87,8 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
       val amendCharitiesPostalAddress =
         toAmendAddressModel(addressModelMin, town)
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad()(fakeRequest)
@@ -113,7 +114,8 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
         .success
         .value
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(userAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(userAnswers))))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad()(fakeRequest)
@@ -127,8 +129,9 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
 
       val request = fakeRequest.withFormUrlEncodedBody(requestArgs*)
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right((): Unit)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode)(request)
@@ -144,7 +147,8 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode)(request)

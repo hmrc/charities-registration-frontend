@@ -61,7 +61,8 @@ class OrganisationNomineeAuthorisedPersonControllerSpec extends SpecBase with Be
 
     "return OK and the correct view for a GET" in {
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -72,7 +73,8 @@ class OrganisationNomineeAuthorisedPersonControllerSpec extends SpecBase with Be
 
     "redirect to Session Expired for a GET if no organisation name is defined" in {
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result = controller.onPageLoad()(fakeRequest)
 

@@ -69,7 +69,8 @@ class OrganisationAuthorisedPersonNinoControllerSpec extends SpecBase with Befor
   "OrganisationAuthorisedPersonNino Controller " must {
 
     "return OK and the correct view for a GET" in {
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -87,7 +88,8 @@ class OrganisationAuthorisedPersonNinoControllerSpec extends SpecBase with Befor
 
       val userAnswers = localUserAnswers.set(OrganisationAuthorisedPersonNinoPage, nino).success.value
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(userAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(userAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -99,8 +101,9 @@ class OrganisationAuthorisedPersonNinoControllerSpec extends SpecBase with Befor
 
       val request = fakeRequest.withFormUrlEncodedBody(requestArgs*)
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right((): Unit)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -114,7 +117,8 @@ class OrganisationAuthorisedPersonNinoControllerSpec extends SpecBase with Befor
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
 
       val result = controller.onSubmit(NormalMode)(request)
 

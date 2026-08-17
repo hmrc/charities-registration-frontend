@@ -64,7 +64,8 @@ class OrganisationAuthorisedPersonNameControllerSpec extends SpecBase with Befor
 
     "return OK and the correct view for a GET" in {
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -84,7 +85,8 @@ class OrganisationAuthorisedPersonNameControllerSpec extends SpecBase with Befor
         .success
         .value
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(userAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(userAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -101,8 +103,9 @@ class OrganisationAuthorisedPersonNameControllerSpec extends SpecBase with Befor
         "lastName"   -> "LName"
       )
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right((): Unit)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -116,7 +119,8 @@ class OrganisationAuthorisedPersonNameControllerSpec extends SpecBase with Befor
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result = controller.onSubmit(NormalMode)(request)
 

@@ -54,7 +54,8 @@ class CharityAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAf
 
     "return OK and the correct view for a GET" in {
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result = controller.onPageLoad()(fakeRequest)
 

@@ -56,7 +56,7 @@ class DeclarationController @Inject() (
             case Left(UpstreamErrorResponse(_, statusCode, _, _)) if is4xx(statusCode) =>
               // TODO DLSN-792: Keep current behaviour until we have error behaviour defined - suggest go to unrecoverable error page here
               Redirect(controllers.routes.RegistrationSentController.onPageLoad)
-            case Left(UpstreamErrorResponse(_, _, _, _)) => // 5xx
+            case Left(UpstreamErrorResponse(_, _, _, _))                               => // 5xx
               // TODO DLSN-792: Keep current behaviour until we have error behaviour defined - suggest go to possibly recoverable error page here
               Redirect(controllers.routes.RegistrationSentController.onPageLoad)
             case Right(_)                                                              => Redirect(controllers.routes.RegistrationSentController.onPageLoad)

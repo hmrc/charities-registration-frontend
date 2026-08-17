@@ -56,7 +56,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
       buildPost(routes.DeclarationController.onSubmit.url)
     ).get
   }
-  
+
   private def runTestWithoutStubScenario(internalId: String): Future[Result] = {
 
     val requestJsonFileName = s"/$internalId.json"
@@ -190,8 +190,8 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
           Helpers.redirectLocation(response) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
         }
       }
-      
-      "submitting the data for charities registration where registration response status is 4xx"    must {
+
+      "submitting the data for charities registration where registration response status is 4xx" must {
         "Redirect to registration sent page" in {
           val internalId = "scenario_7_request"
           stubScenario4xx(internalId)
@@ -205,7 +205,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
           Helpers.redirectLocation(response) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
         }
       }
-      "submitting the data for charities registration where registration response status is 5xx"    must {
+      "submitting the data for charities registration where registration response status is 5xx" must {
         "Redirect to registration sent page" in {
           val internalId = "scenario_7_request"
           stubScenario5xx(internalId)

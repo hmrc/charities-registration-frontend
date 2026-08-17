@@ -34,7 +34,7 @@ class CharitiesConnector @Inject() (
   httpClientResponse: HttpClientResponse,
   implicit val appConfig: FrontendAppConfig
 ) {
-  // TODO: Keep close to current behaviour until we have error behaviour defined. Should possibly return
+  // TODO DLSN-792: Keep close to current behaviour until we have error behaviour defined. Should possibly return
   //  5xx if any 2xx other than 200 returned.
   def registerCharities(id: String)(implicit
     hc: HeaderCarrier,
@@ -67,7 +67,7 @@ class CharitiesConnector @Inject() (
   def saveUserAnswers(
     userAnswers: UserAnswers
   )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[UpstreamErrorResponse, Unit]] = {
-    // TODO: Keep current behaviour until we have error behaviour defined.
+    // TODO DLSN-792: Keep current behaviour until we have error behaviour defined.
     //  Current behaviour is: 2 exceptions are logged (1 in error handler and 1 here).
     //  I suggest that we remove convertLeftToException and redirect upstream errors in saveUserAnswers
     //  in situ (i.e. in calling code) based on context and whether it's a 4xx or 5xx response.

@@ -70,7 +70,8 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
 
     "redirect to correct start page is if Authorised officials details are not present" in {
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
 
       val result = controller.onPageLoad(Index(0))(fakeRequest)
 
@@ -79,7 +80,8 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
 
     "return OK and the correct view for a GET" in {
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
 
       val result = controller.onPageLoad(Index(0))(fakeRequest)
 
@@ -97,7 +99,9 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(
-        Future.successful(Right(Some(localUserAnswers.set(IsAuthorisedOfficialNinoPage(0), true).getOrElse(emptyUserAnswers))))
+        Future.successful(
+          Right(Some(localUserAnswers.set(IsAuthorisedOfficialNinoPage(0), true).getOrElse(emptyUserAnswers)))
+        )
       )
 
       val result = controller.onPageLoad(Index(0))(fakeRequest)
@@ -110,8 +114,9 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right((): Unit)))
 
       val result = controller.onSubmit(Index(0))(request)
 
@@ -131,8 +136,9 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
           .success
           .value
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
-      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(():Unit)))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right((): Unit)))
 
       val result = controller.onSubmit(Index(0))(request)
 
@@ -146,7 +152,8 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-      when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(Some(localUserAnswers))))
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(localUserAnswers))))
 
       val result = controller.onSubmit(Index(0))(request)
 

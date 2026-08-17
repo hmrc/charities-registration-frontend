@@ -19,7 +19,7 @@ package stubs
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import models.UserAnswers
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
-import play.api.http.Status.{ACCEPTED, OK, NOT_FOUND, INTERNAL_SERVER_ERROR}
+import play.api.http.Status.{ACCEPTED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK}
 import play.api.libs.json.{JsObject, Json}
 import utils.WireMockMethods
 

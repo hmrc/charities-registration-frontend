@@ -42,7 +42,7 @@ class HttpClientResponse @Inject() ()(implicit ec: ExecutionContext) extends Log
   ): Future[Either[UpstreamErrorResponse, A]] =
     response andThen logErrorResponses recover recoverHttpException
 
-  // TODO: Keep current WARN behaviour until we have error behaviour defined.
+  // TODO DLSN-792: Keep current WARN behaviour until we have error behaviour defined.
   //  However, log 404s at ERROR level.
   def readLogWarnExceptFor404[A](
     response: Future[Either[UpstreamErrorResponse, A]]

@@ -1,6 +1,15 @@
 {
   "_id": "scenario_1_request",
   "data": {
+    "isSection1Completed": true,
+    "isSection2Completed": true,
+    "isSection3Completed": true,
+    "isSection4Completed": true,
+    "isSection5Completed": true,
+    "isSection6Completed": true,
+    "isSection7Completed": true,
+    "isSection8Completed": true,
+    "isSection9Completed": true,
     "charityContactDetails": {
       "daytimePhone": "__DAYTIMEPHONE__",
       "mobilePhone": "__MOBILEPHONE__",

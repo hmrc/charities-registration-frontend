@@ -111,10 +111,22 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
     }
   }
   "onSubmit" must {
-
+    "redirect to Tasklist for a GET if SectionPage is not completed" in {
+      val userAnswers: UserAnswers = emptyUserAnswers
+        .set(Section1Page, false)
+        .flatMap(_.set(Section2Page, true))
+        .success
+        .value
+      when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
+        .thenReturn(Future.successful(Right(Some(userAnswers))))
+      val result                   = controller.onSubmit()(fakeRequest)
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(any())(any(), any())
+    }
     "redirect to the next page after valid transformation" in {
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
-        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+        .thenReturn(Future.successful(Right(localUserAnswers)))
       when(mockCharitiesConnector.registerCharities(any())(any(), any())).thenReturn(
         Future.successful(Right(Some(RegistrationResponse("ackRef"))))
       )
@@ -129,7 +141,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "redirect to the next page after 4xx returned" in {
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
-        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+        .thenReturn(Future.successful(Right(localUserAnswers)))
       when(mockCharitiesConnector.registerCharities(any())(any(), any())).thenReturn(
         Future.successful(Left(UpstreamErrorResponse("error", NOT_FOUND)))
       )
@@ -143,7 +155,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
     }
     "redirect to the next page after 5xx returned" in {
       when(mockCharitiesConnector.getUserAnswers(any())(any(), any()))
-        .thenReturn(Future.successful(Right(Some(emptyUserAnswers))))
+        .thenReturn(Future.successful(Right(localUserAnswers)))
       when(mockCharitiesConnector.registerCharities(any())(any(), any())).thenReturn(
         Future.successful(Left(UpstreamErrorResponse("error", INTERNAL_SERVER_ERROR)))
       )

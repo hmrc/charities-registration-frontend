@@ -50,17 +50,21 @@ class DeclarationController @Inject() (
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     request.userAnswers.get(AcknowledgementReferencePage) match {
       case None    =>
-        charitiesConnector
-          .registerCharities(request.internalId)
-          .map {
-            case Left(UpstreamErrorResponse(_, statusCode, _, _)) if is4xx(statusCode) =>
-              // TODO DLSN-792: Keep current behaviour until we have error behaviour defined - suggest go to unrecoverable error page here
-              Redirect(controllers.routes.RegistrationSentController.onPageLoad)
-            case Left(UpstreamErrorResponse(_, _, _, _))                               => // 5xx
-              // TODO DLSN-792: Keep current behaviour until we have error behaviour defined - suggest go to possibly recoverable error page here
-              Redirect(controllers.routes.RegistrationSentController.onPageLoad)
-            case Right(_)                                                              => Redirect(controllers.routes.RegistrationSentController.onPageLoad)
-          }
+        if (!isAllSectionsCompleted()) {
+          Future(Redirect(controllers.routes.IndexController.onPageLoad(None)))
+        } else {
+          charitiesConnector
+            .registerCharities(request.internalId)
+            .map {
+              case Left(UpstreamErrorResponse(_, statusCode, _, _)) if is4xx(statusCode) =>
+                // TODO DLSN-792: Keep current behaviour until we have error behaviour defined - suggest go to unrecoverable error page here
+                Redirect(controllers.routes.RegistrationSentController.onPageLoad)
+              case Left(UpstreamErrorResponse(_, _, _, _))                               => // 5xx
+                // TODO DLSN-792: Keep current behaviour until we have error behaviour defined - suggest go to possibly recoverable error page here
+                Redirect(controllers.routes.RegistrationSentController.onPageLoad)
+              case Right(_)                                                              => Redirect(controllers.routes.RegistrationSentController.onPageLoad)
+            }
+        }
       case Some(_) => Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
       // TODO DLSN-792: Convert Left to Future failed - wrap in DeclarationSubmissionException - then redirect to error page in error handler for this exception type
     }

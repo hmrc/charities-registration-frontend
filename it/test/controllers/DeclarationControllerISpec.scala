@@ -17,7 +17,7 @@
 package controllers
 
 import models.UserAnswers
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{JsObject, JsValue, Json}
 import play.api.mvc.Result
 import play.api.test.Helpers
 import play.api.test.Helpers.*
@@ -147,6 +147,69 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
         }
       }
 
+      "not submit the data for charities registration when not all sections are completed" must {
+        "redirects to task list page" in {
+          val data = s"""| {
+                              |    "isSection1Completed": true,
+                              |    "isSection2Completed": true,
+                              |    "isSection3Completed": true,
+                              |    "isSection4Completed": true,
+                              |    "isSection5Completed": true,
+                              |    "isSection6Completed": true,
+                              |    "isSection7Completed": true,
+                              |    "isSection8Completed": true,
+                              |    "isSection9Completed": false
+                              |  }
+                              |""".stripMargin
+          val ua = UserAnswers("id", Json.parse(data).as[JsObject])
+          stubUserAnswerGet(ua, "id")
+          authorised("id")
+
+          route(
+            app,
+            buildPost(routes.DeclarationController.onSubmit.url)
+          ).get
+
+          val response = route(
+            app,
+            buildPost(routes.DeclarationController.onSubmit.url)
+          ).get
+          status(response) mustBe SEE_OTHER
+          Helpers.redirectLocation(response) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
+        }
+      }
+
+      "not submit the data for charities registration when section complete data is missing" must {
+        "redirects to task list page" in {
+          val data =
+            s"""| {
+                |    "isSection1Completed": true,
+                |    "isSection2Completed": true,
+                |    "isSection3Completed": true,
+                |    "isSection4Completed": true,
+                |    "isSection5Completed": true,
+                |    "isSection6Completed": true,
+                |    "isSection7Completed": true,
+                |    "isSection8Completed": true
+                |  }
+                |""".stripMargin
+          val ua = UserAnswers("id", Json.parse(data).as[JsObject])
+          stubUserAnswerGet(ua, "id")
+          authorised("id")
+
+          route(
+            app,
+            buildPost(routes.DeclarationController.onSubmit.url)
+          ).get
+
+          val response = route(
+            app,
+            buildPost(routes.DeclarationController.onSubmit.url)
+          ).get
+          status(response) mustBe SEE_OTHER
+          Helpers.redirectLocation(response) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
+        }
+      }
       "submitting the data for charities registration where user answers json invalid" must {
         "throw jsresultexception" in {
           val internalId = "scenario_7_request"

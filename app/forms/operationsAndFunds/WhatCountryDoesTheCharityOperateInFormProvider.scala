@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 class WhatCountryDoesTheCharityOperateInFormProvider @Inject() extends Mappings {
 
-  private def constraints(countryCodes: Set[String]) = Constraint[String]{ input =>
+  private def constraints(countryCodes: Set[String]) = Constraint[String] { input =>
     if (countryCodes.contains(input)) {
       Valid
     } else {

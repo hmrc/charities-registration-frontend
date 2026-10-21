@@ -6,3 +6,4 @@ service-type: Frontend
 test-repositories:
   - charities-registration-performance-tests
   - charities-registration-journey-tests
+serviceNowMapping: SNSVC0005325

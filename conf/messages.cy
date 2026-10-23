@@ -220,7 +220,6 @@ declaration.warning = Gellir eich erlid am roi gwybodaeth anwir neu gamarweiniol
 # Required documents bullets Messages
 # ----------------------------------------------------------
 requiredDocuments.governingDocumentName.answerTrue = dogfennau llywodraethol ac unrhyw newidiadau arfaethedig
-requiredDocuments.isCharityRegulator.answerTrue = hysbysiad o gofrestriad  – y dystysgrif a gafodd yr elusen ar ôl cofrestru gyda’r rheoleiddiwr
 requiredDocuments.isCharityRegulator.answerAlternative = tystiolaeth o weithgareddau – rhai deunydd hyrwyddo sy’n esbonio’r hyn y mae’r elusen yn ei wneud
 requiredDocuments.isFinancialAccounts.answerTrue = cyfrifon ariannol cymeradwy – megis yr hyn y byddech yn ei anfon at reolydd neu Dŷ’r Cwmnïau
 requiredDocuments.isBankStatements.answerTrue = copïau o gyfriflenni banc yr elusen ar gyfer y 3 mis diwethaf

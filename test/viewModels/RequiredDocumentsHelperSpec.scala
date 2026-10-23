@@ -52,25 +52,6 @@ class RequiredDocumentsHelperSpec extends SpecBase {
 
   "RequiredDocumentsHelper" must {
 
-    "checkPageCondition" should {
-
-      "return the correct message if page condition is as expected" in {
-
-        RequiredDocumentsHelper.checkPageCondition(userAnswersForeignAuthOfficial1, IsCharityRegulatorPage, true) mustBe
-          Some("requiredDocuments.isCharityRegulator.answerTrue")
-      }
-
-      "return None if page condition is not as expected" in {
-
-        RequiredDocumentsHelper.checkPageCondition(
-          userAnswersForeignAuthOfficial1,
-          IsCharityRegulatorPage,
-          false
-        ) mustBe
-          None
-      }
-    }
-
     "getNamePageFromAddressPage" should {
 
       "return auth official's name page if given auth official's address page" in {
@@ -143,7 +124,7 @@ class RequiredDocumentsHelperSpec extends SpecBase {
       "return the correct sequence" in {
 
         RequiredDocumentsHelper.getRequiredDocuments(userAnswersForeignAuthOfficial1) mustBe
-          Seq("requiredDocuments.governingDocumentName.answerTrue", "requiredDocuments.isCharityRegulator.answerTrue")
+          Seq("requiredDocuments.governingDocumentName.answerTrue")
       }
     }
 
@@ -194,7 +175,6 @@ class RequiredDocumentsHelperSpec extends SpecBase {
         RequiredDocumentsHelper.getRequiredDocuments(docs) mustBe
           Seq(
             "requiredDocuments.governingDocumentName.answerTrue",
-            "requiredDocuments.isCharityRegulator.answerTrue",
             "requiredDocuments.isFinancialAccounts.answerTrue",
             "requiredDocuments.isBankStatements.answerTrue",
             "requiredDocuments.noRegulatorUniformedYouthGroup.answerTrue"

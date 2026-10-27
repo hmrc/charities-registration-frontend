@@ -220,7 +220,6 @@ declaration.warning = You can be prosecuted for knowingly providing false or mis
 # Required documents bullets Messages
 # ----------------------------------------------------------
 requiredDocuments.governingDocumentName.answerTrue = governing documents and any proposed changes
-requiredDocuments.isCharityRegulator.answerTrue = notification of registration - the certificate the charity got after registering with the regulator
 requiredDocuments.isCharityRegulator.answerAlternative = evidence of activities - some promotional material that explains what the charity does
 requiredDocuments.isFinancialAccounts.answerTrue = approved financial accounts - like you would send to a regulator or Companies House
 requiredDocuments.isBankStatements.answerTrue = the charity’s bank statements for the last 3 months

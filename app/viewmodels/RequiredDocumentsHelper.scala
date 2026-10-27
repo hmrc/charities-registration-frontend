@@ -81,7 +81,6 @@ object RequiredDocumentsHelper {
   def getRequiredDocuments(userAnswers: UserAnswers): Seq[String] =
     Seq(
       Some(s"${requiredDocumentsKey}governingDocumentName.answerTrue"),
-      checkPageCondition(userAnswers, IsCharityRegulatorPage, true),
       checkPageCondition(userAnswers, SelectWhyNoRegulatorPage, SelectWhyNoRegulator.UniformedYouthGroup),
       checkPageCondition(userAnswers, IsCharityRegulatorPage, false, ".answerAlternative"),
       checkPageCondition(userAnswers, IsFinancialAccountsPage, true),
@@ -107,6 +106,7 @@ object RequiredDocumentsHelper {
         (documentType, answer) match {
           case ("isFinancialAccounts", false)            => None
           case ("noRegulatorUniformedYouthGroup", false) => None
+          case ("isCharityRegulator", true) => None
           case _                                         => Some(requiredDocumentsKey + documentType + (if (answer) ".answerTrue" else ".answerAlternative"))
         }
       }

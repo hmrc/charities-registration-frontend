@@ -28,7 +28,7 @@
 
 @(mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm("checkIfYouCanRegister.title", None)), signOut = false) {
+@govukLayout(pageTitle = Some(titleNoForm("checkIfYouCanRegister.title", None)), signOut = false, showUserResearchBanner = true) {
 
     @h1(messages("checkIfYouCanRegister.heading"))
 

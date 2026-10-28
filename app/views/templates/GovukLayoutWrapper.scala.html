@@ -48,7 +48,8 @@
     backLink: Boolean = true,
     customBackLinkUrl: Option[String] = None,
     showDeskproLink: Boolean = true,
-    timeout: Boolean = true
+    timeout: Boolean = true,
+    showUserResearchBanner: Boolean = false
 )(contentBlock: Html)(implicit requestHeader: RequestHeader, messages: Messages, appConfig: config.FrontendAppConfig)
 
 @head = {
@@ -113,7 +114,10 @@
         signOutUrl = if(signOut) Some(controllers.routes.SignOutController.signOut().url) else None,
         serviceName = Some(messages("service.name")),
         serviceUrl = if(signOut) Some(controllers.routes.IndexController.onPageLoad(None).url) else Some(appConfig.signOutUrl),
-        isWelshTranslationAvailable = true
+        isWelshTranslationAvailable = true,
+        userResearchBanner = if (showUserResearchBanner) Some(UserResearchBanner(
+          url = appConfig.userResearchBanner
+        )) else None
  )),
   beforeContentBlock = Some(beforeContentBlock),
   scriptsBlock = Some(hmrcScripts(Some(autocompleteJavascript()))),

@@ -96,18 +96,18 @@ class CharitiesSectionCompleteService @Inject() (
           case None    =>
             logger
               .warn(
-                s"[CharitiesSectionCompleteService][checkForValidApplicationJourney] No eligibility user-answers found from frontend mongo"
+                "No eligibility user-answers found from frontend mongo"
               )
             Future(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
           case Some(_) =>
             val userAnswers = UserAnswers(request.internalId)
-            logger.warn(s"[CharitiesSectionCompleteService][checkForValidApplicationJourney]: NewUser")
+            logger.warn(s" NewUser")
             auditService.sendEvent(NormalUserAuditEvent(Json.obj("id" -> userAnswers.id)))
             charitiesConnector.saveUserAnswers(userAnswers).map(_ => Right(userAnswers))
         }
       case _                       =>
         logger.error(
-          s"[CharitiesSectionCompleteService][checkForValidApplicationJourney] No charities backend user answers found and no current session id/data"
+          "No charities backend user answers found and no current session id/data"
         )
         Future(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
     }

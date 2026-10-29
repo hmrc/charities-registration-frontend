@@ -39,7 +39,7 @@ class InputFilterSpec extends SpecBase with InputFilter {
       val thrown = intercept[RuntimeException] {
         applyFilters(None.orNull, "abc")
       }
-      thrown.getMessage mustBe "[InputFilter][applyFilters] Unable to match filters"
+      thrown.getMessage mustBe "Unable to match filters"
     }
   }
 }

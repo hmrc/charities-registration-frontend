@@ -36,14 +36,14 @@ object ConfirmedAddressHttpParser {
           response.json.validate[AddressModel](AddressModel.responseReads) match {
             case JsSuccess(address, _) => Right(address)
             case JsError(errors)       =>
-              logger.error(s"[ConfirmedAddressReads][read] Json validation errors $errors")
+              logger.error(s"Json validation errors $errors")
               Left(AddressMalformed)
           }
         case NOT_FOUND =>
-          logger.error(s"[ConfirmedAddressReads][read] Address could not be found")
+          logger.error(s"Address could not be found")
           Left(AddressNotFound)
         case status    =>
-          logger.warn(s"[ConfirmedAddressReads][read]: Unexpected response, status $status returned")
+          logger.warn(s" Unexpected response, status $status returned")
           Left(UnexpectedFailure(status))
       }
   }

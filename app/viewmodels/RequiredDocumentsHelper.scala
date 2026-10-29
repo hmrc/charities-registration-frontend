@@ -62,7 +62,7 @@ object RequiredDocumentsHelper {
       case OrganisationNomineeAddressLookupPage       => OrganisationAuthorisedPersonNamePage
       case _                                          =>
         throw new RuntimeException(
-          "[RequiredDocumentsHelper][getNamePageFromAddressPage] could not match address to a question page"
+          "could not match address to a question page"
         )
     }
 

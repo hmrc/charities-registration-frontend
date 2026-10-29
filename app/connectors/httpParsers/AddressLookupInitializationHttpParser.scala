@@ -36,11 +36,11 @@ object AddressLookupInitializationHttpParser {
             case Some(locationURL) =>
               Right(AddressLookupOnRamp(locationURL))
             case None              =>
-              logger.warn(s"[AddressLookupInitializationReads][read]: No Location Header returned from Address Lookup")
+              logger.warn(" No Location Header returned from Address Lookup")
               Left(NoLocationHeaderReturned)
           }
         case status   =>
-          logger.error(s"[AddressLookupInitializationReads][read]: Unexpected response, status $status returned")
+          logger.error(s" Unexpected response, status $status returned")
           Left(UnexpectedFailure(status))
       }
   }

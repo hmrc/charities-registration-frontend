@@ -73,13 +73,13 @@ trait BaseAddressController extends LocalBaseController {
             } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
           case _              =>
             logger.error(
-              s"[BaseAddressController][addressLookupCallback][$page] error was returned on callback from address lookup"
+              "error was returned on callback from address lookup"
             )
             errorHandler.internalServerErrorTemplate.map(html => InternalServerError(html))
         }
       case _               =>
         logger.error(
-          s"[BaseAddressController][addressLookupCallback][$page] No ID was returned on callback from address lookup"
+          "No ID was returned on callback from address lookup"
         )
         errorHandler.internalServerErrorTemplate.map(html => InternalServerError(html))
     }

@@ -16,6 +16,7 @@
 
 package controllers.addressLookup
 
+import connectors.CharitiesConnector
 import connectors.addressLookup.AddressLookupConnector
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
 import controllers.LocalBaseController
@@ -24,21 +25,18 @@ import models.requests.DataRequest
 import models.{Mode, NormalMode}
 import navigation.BaseNavigator
 import pages.QuestionPage
-import play.api.Logger
+import play.api.Logging
 import play.api.mvc.{AnyContent, Result}
-import connectors.CharitiesConnector
 import viewmodels.ErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait BaseAddressController extends LocalBaseController {
+trait BaseAddressController extends LocalBaseController with Logging {
   protected val addressLookupConnector: AddressLookupConnector
   protected val errorHandler: ErrorHandler
   protected val charitiesConnector: CharitiesConnector
   protected val navigator: BaseNavigator
   protected val messagePrefix: String
-
-  private val logger = Logger(this.getClass)
 
   def addressLookupInitialize(
     callbackUrl: String,

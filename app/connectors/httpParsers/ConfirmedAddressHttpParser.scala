@@ -17,16 +17,14 @@
 package connectors.httpParsers
 
 import models.addressLookup.AddressModel
-import play.api.Logger
-import play.api.http.Status._
+import play.api.Logging
+import play.api.http.Status.*
 import play.api.libs.json.{JsError, JsSuccess}
 import uk.gov.hmrc.http.{HttpReads, HttpResponse}
 
-object ConfirmedAddressHttpParser {
+object ConfirmedAddressHttpParser extends Logging {
 
   type ConfirmedAddressResponse = Either[ErrorResponse, AddressModel]
-
-  private val logger = Logger(this.getClass)
 
   implicit object ConfirmedAddressReads extends HttpReads[ConfirmedAddressResponse] {
 
@@ -43,7 +41,7 @@ object ConfirmedAddressHttpParser {
           logger.error(s"Address could not be found")
           Left(AddressNotFound)
         case status    =>
-          logger.warn(s" Unexpected response, status $status returned")
+          logger.warn(s"Unexpected response, status $status returned")
           Left(UnexpectedFailure(status))
       }
   }

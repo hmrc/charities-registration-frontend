@@ -18,13 +18,13 @@ package service
 
 import audit.{AuditService, NormalUserAuditEvent}
 import connectors.CharitiesConnector
-import models.requests.OptionalDataRequest
 import models.UserAnswers
+import models.requests.OptionalDataRequest
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.contactDetails.CharityNamePage
 import pages.otherOfficials.OtherOfficialsNamePage
 import pages.sections.*
-import play.api.Logger
+import play.api.Logging
 import play.api.libs.json.*
 import play.api.mvc.{Call, RequestHeader}
 import repositories.SessionRepository
@@ -42,9 +42,7 @@ class CharitiesSectionCompleteService @Inject() (
   sessionRepository: SessionRepository,
   charitiesConnector: CharitiesConnector,
   auditService: AuditService
-) {
-
-  private val logger = Logger(this.getClass)
+) extends Logging {
 
   private[service] def isCharityInformationStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] = {
     val sectionPredicate =

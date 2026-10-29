@@ -18,9 +18,9 @@ package audit
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import play.api.Logger
+import play.api.Logging
 import play.api.mvc.RequestHeader
-import uk.gov.hmrc.play.audit.AuditExtensions._
+import uk.gov.hmrc.play.audit.AuditExtensions.*
 import uk.gov.hmrc.play.audit.http.connector.{AuditConnector, AuditResult}
 import uk.gov.hmrc.play.audit.model.ExtendedDataEvent
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
@@ -29,9 +29,7 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.language.implicitConversions
 import scala.util.{Failure, Success}
 
-class AuditService @Inject() (config: FrontendAppConfig, connector: AuditConnector) {
-
-  private val logger = Logger(this.getClass)
+class AuditService @Inject() (config: FrontendAppConfig, connector: AuditConnector) extends Logging {
 
   def sendEvent(event: NormalUserAuditEvent)(implicit rh: RequestHeader, ec: ExecutionContext): Unit = {
 
@@ -54,10 +52,10 @@ class AuditService @Inject() (config: FrontendAppConfig, connector: AuditConnect
 
     result.onComplete {
       case Success(_) =>
-        logger.info(s"[AuditService][sendEvent] successfully sent ${event.auditType}")
+        logger.info(s"Successfully sent ${event.auditType}")
 
       case Failure(exception) =>
-        logger.error(s"[AuditService][sendEvent] failed to send event ${event.auditType}", exception)
+        logger.error(s"Failed to send event ${event.auditType}", exception)
     }
   }
 }

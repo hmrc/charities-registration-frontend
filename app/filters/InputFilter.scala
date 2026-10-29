@@ -39,7 +39,7 @@ trait InputFilter {
     filters match {
       case Nil            => sanitizedOutput.filterNot(_ == '|')
       case filter :: tail => applyFilters(tail, filter.matcher(sanitizedOutput).replaceAll(""))
-      case _              => throw new RuntimeException("[InputFilter][applyFilters] Unable to match filters")
+      case _              => throw new RuntimeException("Unable to match filters")
     }
 
   def filter(input: String): String = applyFilters(filters, input)

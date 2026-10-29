@@ -16,16 +16,14 @@
 
 package connectors.httpParsers
 
-import play.api.Logger
+import play.api.Logging
 import play.api.http.HeaderNames
-import play.api.http.Status._
+import play.api.http.Status.*
 import uk.gov.hmrc.http.{HttpReads, HttpResponse}
 
-object AddressLookupInitializationHttpParser {
+object AddressLookupInitializationHttpParser extends Logging {
 
   type AddressLookupInitializationResponse = Either[ErrorResponse, AddressLookupOnRamp]
-
-  private val logger = Logger(this.getClass)
 
   implicit object AddressLookupInitializationReads extends HttpReads[AddressLookupInitializationResponse] {
 
@@ -36,11 +34,11 @@ object AddressLookupInitializationHttpParser {
             case Some(locationURL) =>
               Right(AddressLookupOnRamp(locationURL))
             case None              =>
-              logger.warn(s"[AddressLookupInitializationReads][read]: No Location Header returned from Address Lookup")
+              logger.warn("No Location Header returned from Address Lookup")
               Left(NoLocationHeaderReturned)
           }
         case status   =>
-          logger.error(s"[AddressLookupInitializationReads][read]: Unexpected response, status $status returned")
+          logger.error(s"Unexpected response, status $status returned")
           Left(UnexpectedFailure(status))
       }
   }

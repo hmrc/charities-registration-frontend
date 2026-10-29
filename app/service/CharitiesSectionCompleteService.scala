@@ -18,13 +18,13 @@ package service
 
 import audit.{AuditService, NormalUserAuditEvent}
 import connectors.CharitiesConnector
-import models.requests.OptionalDataRequest
 import models.UserAnswers
+import models.requests.OptionalDataRequest
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.contactDetails.CharityNamePage
 import pages.otherOfficials.OtherOfficialsNamePage
 import pages.sections.*
-import play.api.Logger
+import play.api.Logging
 import play.api.libs.json.*
 import play.api.mvc.{Call, RequestHeader}
 import repositories.SessionRepository
@@ -42,9 +42,7 @@ class CharitiesSectionCompleteService @Inject() (
   sessionRepository: SessionRepository,
   charitiesConnector: CharitiesConnector,
   auditService: AuditService
-) {
-
-  private val logger = Logger(this.getClass)
+) extends Logging {
 
   private[service] def isCharityInformationStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] = {
     val sectionPredicate =
@@ -96,18 +94,18 @@ class CharitiesSectionCompleteService @Inject() (
           case None    =>
             logger
               .warn(
-                s"[CharitiesSectionCompleteService][checkForValidApplicationJourney] No eligibility user-answers found from frontend mongo"
+                "No eligibility user-answers found from frontend mongo"
               )
             Future(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
           case Some(_) =>
             val userAnswers = UserAnswers(request.internalId)
-            logger.warn(s"[CharitiesSectionCompleteService][checkForValidApplicationJourney]: NewUser")
+            logger.warn(s" NewUser")
             auditService.sendEvent(NormalUserAuditEvent(Json.obj("id" -> userAnswers.id)))
             charitiesConnector.saveUserAnswers(userAnswers).map(_ => Right(userAnswers))
         }
       case _                       =>
         logger.error(
-          s"[CharitiesSectionCompleteService][checkForValidApplicationJourney] No charities backend user answers found and no current session id/data"
+          "No charities backend user answers found and no current session id/data"
         )
         Future(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
     }

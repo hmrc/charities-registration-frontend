@@ -36,10 +36,6 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.appName mustBe "charities-registration-frontend"
       }
 
-      "govUK" in {
-        frontendAppConfig.govUK mustBe "https://www.gov.uk"
-      }
-
       "contactFormServiceIdentifier" in {
         frontendAppConfig.contactFormServiceIdentifier mustBe "iCharities"
       }
@@ -119,6 +115,10 @@ class FrontendAppConfigSpec extends SpecBase {
 
       "getRecognition" in {
         frontendAppConfig.getRecognition mustBe "https://www.gov.uk/charities-and-tax/get-recognition"
+      }
+
+      "userResearchBanner" in {
+        frontendAppConfig.userResearchBanner mustBe "https://survey.take-part-in-research.service.gov.uk/jfe/form/SV_74GjifgnGv6GsMC?Source=BannerList_HMRC_Register_Charity"
       }
 
       "getCharitiesBackend" in {

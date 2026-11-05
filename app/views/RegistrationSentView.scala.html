@@ -33,7 +33,7 @@
 @(sendBeforeDate: String, submissionDate: String, acknowledgementReference: String, requiredDocuments: Seq[String], foreignAddresses: Option[(String, String)]
     )(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm("registrationSent.title", Some(s"declaration.section"))), backLink = false) {
+@govukLayout(pageTitle = Some(titleNoForm("registrationSent.title", Some(s"declaration.section"))), backLink = false, showUserResearchBanner = true) {
 
 
     <div class="govuk-panel govuk-panel--confirmation">

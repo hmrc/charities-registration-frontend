@@ -27,11 +27,10 @@ import scala.util.Try
 @Singleton
 class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
 
-  lazy val host: String              = servicesConfig.getString("host")
-  lazy val appName: String           = servicesConfig.getString("appName")
-  lazy val govUK: String             = servicesConfig.getString("urls.govUK")
-  lazy val basGatewayBaseUrl: String = servicesConfig.getString("bas-gateway.host")
-  lazy val feedbackFrontend: String  = servicesConfig.getString("feedback-frontend.host")
+  lazy val host: String               = servicesConfig.getString("host")
+  lazy val appName: String            = servicesConfig.getString("appName")
+  lazy val basGatewayBaseUrl: String  = servicesConfig.getString("bas-gateway.host")
+  lazy val feedbackFrontend: String   = servicesConfig.getString("feedback-frontend.host")
 
   private val contactHost: String = servicesConfig.getString("contact-frontend.host")
 
@@ -72,6 +71,7 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
   def languageMap: Map[String, Lang] = Map("en" -> Lang("en"), "cy" -> Lang("cy"))
 
   lazy val getRecognition: String = servicesConfig.getString("urls.getRecognition")
+  lazy val userResearchBanner: String = servicesConfig.getString("urls.userResearchBanner")
 
   lazy val getCharitiesBackend: String = servicesConfig.baseUrl("charities")
 

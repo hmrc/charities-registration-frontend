@@ -16,11 +16,9 @@
 
 package pages.contactDetails
 
-import models.UserAnswers
 import models.addressLookup.AddressModel
 import pages.addressLookup.CharityPostalAddressLookupPage
 import pages.behaviours.PageBehaviours
-import play.api.libs.json.Json
 
 class CanWeSendToThisAddressPageSpec extends PageBehaviours {
 
@@ -32,7 +30,7 @@ class CanWeSendToThisAddressPageSpec extends PageBehaviours {
 
     "cleanup" when {
 
-      val userAnswer = UserAnswers("id", Json.obj())
+      val userAnswer = baseInternalUserAnswers
         .set(
           CharityPostalAddressLookupPage,
           address

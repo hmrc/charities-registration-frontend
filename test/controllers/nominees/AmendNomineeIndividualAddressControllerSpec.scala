@@ -40,8 +40,8 @@ import scala.concurrent.Future
 
 class AmendNomineeIndividualAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService        = mock(classOf[CountryService])
+  override val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+  lazy val mockCountryService: CountryService   = mock(classOf[CountryService])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

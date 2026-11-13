@@ -17,9 +17,8 @@
 package pages.regulatorsAndDocuments
 
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
-import models.{CharityOtherRegulatorDetails, UserAnswers}
+import models.CharityOtherRegulatorDetails
 import pages.behaviours.PageBehaviours
-import play.api.libs.json.Json
 
 class IsCharityRegulatorPageSpec extends PageBehaviours {
 
@@ -31,7 +30,7 @@ class IsCharityRegulatorPageSpec extends PageBehaviours {
 
     "cleanup" when {
 
-      val userAnswer = UserAnswers("id", Json.obj())
+      val userAnswer = baseInternalUserAnswers
         .set(CharityRegulatorPage, CharityRegulator.values.toSet)
         .flatMap(
           _.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber)

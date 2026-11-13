@@ -19,7 +19,7 @@ package viewmodels.nominees
 import base.SpecBase
 import base.data.messages.BaseMessages
 import controllers.nominees.{routes => nomineesRoutes}
-import models.{CheckMode, UserAnswers}
+import models.CheckMode
 import pages.nominees.{ChooseNomineePage, IsAuthoriseNomineePage}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
@@ -27,7 +27,7 @@ import viewmodels.SummaryListRowHelper
 class NomineeDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val helperWithOrganisation = new NomineeDetailsSummaryHelper(
-    UserAnswers("id")
+    baseInternalUserAnswers
       .set(IsAuthoriseNomineePage, true)
       .flatMap(_.set(ChooseNomineePage, false))
       .success
@@ -35,7 +35,7 @@ class NomineeDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper
   )
 
   private val helperNoNominee = new NomineeDetailsSummaryHelper(
-    UserAnswers("id")
+    baseInternalUserAnswers
       .set(IsAuthoriseNomineePage, false)
       .success
       .value

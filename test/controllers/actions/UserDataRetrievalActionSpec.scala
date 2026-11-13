@@ -18,7 +18,6 @@ package controllers.actions
 
 import base.SpecBase
 import connectors.CharitiesConnector
-import models.UserAnswers
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.*
@@ -46,7 +45,7 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
         when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(Right(None))
         val action             = new Harness(charitiesConnector)
 
-        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
+        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, internalId))
 
         whenReady(futureResult) { result =>
           result.map(_.userAnswers.isEmpty) mustBe Right(true)
@@ -60,11 +59,11 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
 
         val charitiesConnector = mock(classOf[CharitiesConnector])
         when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(
-          Right(Some(UserAnswers("id")))
+          Right(Some(baseInternalUserAnswers))
         )
         val action             = new Harness(charitiesConnector)
 
-        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
+        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, internalId))
 
         whenReady(futureResult) { result =>
           result.map(_.userAnswers.isDefined) mustBe Right(true)
@@ -82,7 +81,7 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
         )
         val action             = new Harness(charitiesConnector)
 
-        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
+        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, internalId))
 
         whenReady(futureResult) { result =>
           result.map(_.userAnswers.isEmpty) mustBe Right(true)
@@ -99,7 +98,7 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
         )
         val action             = new Harness(charitiesConnector)
 
-        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
+        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, internalId))
 
         whenReady(futureResult) { result =>
           result.map(_.userAnswers.isEmpty) mustBe Right(true)

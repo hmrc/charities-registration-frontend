@@ -42,7 +42,7 @@ import javax.inject.Inject
 import scala.concurrent.Future
 
 class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
-  override lazy val userAnswers: Option[UserAnswers]             = Some(emptyUserAnswers)
+  override val userAnswers: Option[UserAnswers]                  = Some(emptyUserAnswers)
   private val mockAddressLookupConnector: AddressLookupConnector = mock(classOf[AddressLookupConnector])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
@@ -139,7 +139,9 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
                 .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
               val result =
-                controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some("id"))(request)
+                controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some(internalId))(
+                  request
+                )
 
               status(result) mustEqual SEE_OTHER
               redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -157,7 +159,9 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
                 .thenReturn(Future.successful(Left(AddressMalformed)))
 
               val result =
-                controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some("id"))(request)
+                controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some(internalId))(
+                  request
+                )
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
               contentAsString(result) mustBe errorHandler

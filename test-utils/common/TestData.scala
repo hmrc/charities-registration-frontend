@@ -16,13 +16,23 @@
 
 package common
 
-import models.{BankDetails, CharityContactDetails, CharityName, CharityOtherRegulatorDetails, Country, FcoCountry, Name, Passport, PhoneNumber, SelectTitle, withNameToString}
+import models.{BankDetails, CharityContactDetails, CharityName, CharityOtherRegulatorDetails, Country, FcoCountry, Name, Passport, PhoneNumber, SelectTitle, UserAnswers, withNameToString}
 import models.nominees.OrganisationNomineeContactDetails
 import models.addressLookup.{AddressModel, AmendAddressModel, CountryModel}
+import play.api.libs.json.Json
 
-import java.time.LocalDate
+import java.time.temporal.ChronoUnit
+import java.time.{LocalDate, LocalDateTime}
 
 trait TestData extends ModelGenerators {
+  val internalId: String = "id"
+
+  val baseInternalUserAnswers: UserAnswers =
+    UserAnswers(internalId, Json.obj(), LocalDateTime.now, LocalDateTime.now.plusSeconds(900))
+  val emptyUserAnswers: UserAnswers        = baseInternalUserAnswers.copy(
+    lastUpdated = baseInternalUserAnswers.lastUpdated.truncatedTo(ChronoUnit.MILLIS),
+    expiresAt = baseInternalUserAnswers.expiresAt.truncatedTo(ChronoUnit.MILLIS)
+  )
 
   val sortCode: String            = sortCodeGen.sample.get
   val sortCodeWithSpaces: String  = s"${sortCode.slice(0, 2)} ${sortCode.slice(2, 4)} ${sortCode.slice(4, 6)}"

@@ -145,7 +145,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
           )
 
           val expectedResult = Right(ConfirmedAddressConstants.address)
-          val actualResult   = await(addressLookupConnector.retrieveAddress("id")(hc, ec))
+          val actualResult   = await(addressLookupConnector.retrieveAddress(internalId)(hc, ec))
 
           actualResult mustBe expectedResult
 
@@ -167,7 +167,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
           )
 
           val expectedResult = Left(AddressMalformed)
-          val actualResult   = await(addressLookupConnector.retrieveAddress("id")(hc, ec))
+          val actualResult   = await(addressLookupConnector.retrieveAddress(internalId)(hc, ec))
 
           actualResult mustBe expectedResult
 
@@ -182,7 +182,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
           )
 
           val expectedResult = Left(AddressNotFound)
-          val actualResult   = await(addressLookupConnector.retrieveAddress("id")(hc, ec))
+          val actualResult   = await(addressLookupConnector.retrieveAddress(internalId)(hc, ec))
 
           actualResult mustBe expectedResult
 
@@ -200,7 +200,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
           )
 
           val expectedResult = Left(UnexpectedFailure(INTERNAL_SERVER_ERROR))
-          val actualResult   = await(addressLookupConnector.retrieveAddress("id")(hc, ec))
+          val actualResult   = await(addressLookupConnector.retrieveAddress(internalId)(hc, ec))
 
           actualResult mustBe expectedResult
 

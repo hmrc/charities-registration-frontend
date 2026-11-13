@@ -17,7 +17,6 @@
 package controllers.actions
 
 import base.SpecBase
-import models.UserAnswers
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures
@@ -38,10 +37,10 @@ class DataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "set userAnswers to 'None' in the request" in {
 
         val sessionRepository = mock(classOf[SessionRepository])
-        when(sessionRepository.get("id")) `thenReturn` Future(None)
+        when(sessionRepository.get(internalId)) `thenReturn` Future(None)
         val action            = new Harness(sessionRepository)
 
-        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
+        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, internalId))
 
         whenReady(futureResult) { result =>
           result.userAnswers.isEmpty mustBe true
@@ -54,10 +53,10 @@ class DataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "build a userAnswers object and add it to the request" in {
 
         val sessionRepository = mock(classOf[SessionRepository])
-        when(sessionRepository.get("id")) `thenReturn` Future.successful(Some(UserAnswers("id")))
+        when(sessionRepository.get(internalId)) `thenReturn` Future.successful(Some(baseInternalUserAnswers))
         val action            = new Harness(sessionRepository)
 
-        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
+        val futureResult = action.callTransform(IdentifierRequest(fakeRequest, internalId))
 
         whenReady(futureResult) { result =>
           result.userAnswers.isDefined mustBe true

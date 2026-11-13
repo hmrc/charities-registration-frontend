@@ -41,7 +41,7 @@ import scala.concurrent.Future
 
 class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+  override val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
   private class Setup {
     val controller: CharityNameController = appBuilder.injector.instanceOf[CharityNameController]
   }

@@ -16,12 +16,13 @@
 
 package utils
 
-import java.nio.charset.StandardCharsets
-import java.time._
+import common.TestData
 
+import java.nio.charset.StandardCharsets
+import java.time.*
 import models.UserAnswers
-import org.scalacheck.Arbitrary._
-import org.scalacheck.Gen._
+import org.scalacheck.Arbitrary.*
+import org.scalacheck.Gen.*
 import org.scalacheck.{Arbitrary, Gen, Shrink}
 import org.scalatest.TryValues
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
@@ -30,7 +31,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.immutable.NumericRange
 
-trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
+trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks with TestData {
 
   implicit override val generatorDrivenConfig: PropertyCheckConfiguration =
     PropertyCheckConfiguration(minSuccessful = 1)
@@ -45,7 +46,7 @@ trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
       for {
         id   <- nonEmptyString
         data <- Gen.const(Map[QuestionPage[?], JsValue]())
-      } yield UserAnswers(
+      } yield baseInternalUserAnswers.copy(
         id = id,
         data = data.foldLeft(Json.obj()) { case (obj, (path, value)) =>
           obj.setObject(path.path, value).get

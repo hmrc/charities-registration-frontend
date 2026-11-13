@@ -20,7 +20,7 @@ import base.SpecBase
 import base.data.messages.BaseMessages
 import controllers.operationsAndFunds.{routes => operations}
 import models.operations.CharitablePurposes
-import models.{CheckMode, UserAnswers}
+import models.CheckMode
 import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, PublicBenefitsPage}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
@@ -28,7 +28,7 @@ import viewmodels.SummaryListRowHelper
 class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val helper = new CharityObjectivesSummaryHelper(
-    UserAnswers("id")
+    baseInternalUserAnswers
       .set(CharitableObjectivesPage, charityObjective)
       .flatMap(_.set(CharitablePurposesPage, CharitablePurposes.values.toSet))
       .flatMap(_.set(PublicBenefitsPage, "Public Benefits"))

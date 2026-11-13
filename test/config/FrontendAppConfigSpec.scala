@@ -128,6 +128,10 @@ class FrontendAppConfigSpec extends SpecBase {
       "timeToLiveInDays" in {
         frontendAppConfig.timeToLiveInDays mustBe 28
       }
+
+      "sessionTimeoutInSeconds" in {
+        frontendAppConfig.sessionTimeoutInSeconds mustBe 900
+      }
     }
   }
 

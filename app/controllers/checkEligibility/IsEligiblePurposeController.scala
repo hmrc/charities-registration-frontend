@@ -58,7 +58,8 @@ class IsEligiblePurposeController @Inject() (
         formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
         value =>
           for {
-            updatedAnswers <- Future.fromTry(UserAnswers(request.internalId).set(IsEligiblePurposePage, value))
+            updatedAnswers <-
+              Future.fromTry(UserAnswers.empty(request.internalId, appConfig).set(IsEligiblePurposePage, value))
             _              <- sessionRepository.upsert(updatedAnswers)
           } yield Redirect(navigator.nextPage(IsEligiblePurposePage, mode, updatedAnswers))
       )

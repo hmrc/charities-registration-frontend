@@ -25,7 +25,7 @@ import views.html.checkEligibility.EligibleCharityView
 
 class EligibleCharityControllerSpec extends SpecBase {
 
-  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+  override val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   private val view: EligibleCharityView = injector.instanceOf[EligibleCharityView]
 

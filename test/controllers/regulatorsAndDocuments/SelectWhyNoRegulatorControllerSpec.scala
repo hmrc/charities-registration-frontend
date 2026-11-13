@@ -40,7 +40,7 @@ import scala.concurrent.Future
 
 class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+  override val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -115,7 +115,7 @@ class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEac
         .flatMap(_.set(WhyNotRegisteredWithCharityPage, "abcd"))
         .success
         .value
-      when(mockCharitiesConnector.getUserAnswers(meq("id"))(any(), any()))
+      when(mockCharitiesConnector.getUserAnswers(meq(internalId))(any(), any()))
         .thenReturn(Future.successful(Right(Some(userAnswer))))
       when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right((): Unit)))
 
@@ -123,8 +123,8 @@ class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEac
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockCharitiesConnector, times(1)).getUserAnswers(meq("id"))(any(), any())
-      theUserAnswers.id mustBe "id"
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(meq(internalId))(any(), any())
+      theUserAnswers.id mustBe internalId
       theUserAnswers.data mustBe Json.parse("""{"isSection2Completed" : false,
           |"selectWhyNoRegulator" : "5"
           |}""".stripMargin)

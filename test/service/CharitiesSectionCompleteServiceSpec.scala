@@ -18,8 +18,9 @@ package service
 
 import audit.AuditService
 import base.SpecBase
+import config.FrontendAppConfig
 import models.UserAnswers
-import org.mockito.Mockito.{mock, reset}
+import org.mockito.Mockito.{mock, reset, when}
 import org.scalatest.BeforeAndAfterEach
 import pages.sections.{Section1Page, Section7Page, Section8Page}
 import play.api.libs.json.*
@@ -27,9 +28,12 @@ import play.api.libs.json.*
 class CharitiesSectionCompleteServiceSpec extends SpecBase with BeforeAndAfterEach {
 
   implicit val mockAuditService: AuditService = mock(classOf[AuditService])
+  val mockAppConfig: FrontendAppConfig        = mock(classOf[FrontendAppConfig])
+
+  when(mockAppConfig.sessionTimeoutInSeconds).thenReturn(600)
 
   lazy val service: CharitiesSectionCompleteService =
-    CharitiesSectionCompleteService(mockSessionRepository, mockCharitiesConnector, mockAuditService)
+    CharitiesSectionCompleteService(mockSessionRepository, mockCharitiesConnector, mockAuditService, mockAppConfig)
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -56,7 +60,7 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with BeforeAndAfterEa
 
       "return false when sections are not completed" in {
 
-        val ua: UserAnswers = UserAnswers("8799940975137654", data)
+        val ua: UserAnswers = baseInternalUserAnswers
 
         val result = service.isCharityInformationStatusSectionCompleted(ua)
 
@@ -65,9 +69,8 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with BeforeAndAfterEa
 
       "return false when all sections are completed and charity name is more than 60 characters" in {
 
-        val ua: UserAnswers = UserAnswers(
-          "8799940975137654",
-          data ++ Json.obj("canWeSendLettersToThisAddress" -> false)
+        val ua: UserAnswers = baseInternalUserAnswers.copy(
+          data = data ++ Json.obj("canWeSendLettersToThisAddress" -> false)
             ++ Json.obj(
               "charityName" -> Json.parse(
                 s"""{"fullName":"${charityName.copy(fullName = "a".repeat(61)).fullName}"}"""
@@ -83,7 +86,7 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with BeforeAndAfterEa
       "return true when all sections are completed" in {
 
         val ua: UserAnswers =
-          UserAnswers("8799940975137654", data ++ Json.obj("canWeSendLettersToThisAddress" -> false))
+          baseInternalUserAnswers.copy(data = data ++ Json.obj("canWeSendLettersToThisAddress" -> false))
 
         val result = service.isCharityInformationStatusSectionCompleted(ua)
 
@@ -93,7 +96,7 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with BeforeAndAfterEa
 
     "isAuthorisedOfficialsSectionCompleted" must {
       "remove Section7Page when AuthorisedOfficialsNamePage(0) is not present" in {
-        val ua = UserAnswers("id")
+        val ua = baseInternalUserAnswers
 
         val result = service.isAuthorisedOfficialsSectionCompleted(ua)
 
@@ -103,7 +106,7 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with BeforeAndAfterEa
 
     "isOtherOfficialStatusSectionCompleted" must {
       "remove Section8Page when OtherOfficialsNamePage(0) is not present" in {
-        val ua = UserAnswers("id")
+        val ua = baseInternalUserAnswers
 
         val result = service.isOtherOfficialStatusSectionCompleted(ua)
 

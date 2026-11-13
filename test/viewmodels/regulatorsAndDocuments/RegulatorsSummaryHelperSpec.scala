@@ -21,7 +21,7 @@ import base.data.messages.BaseMessages
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import models.regulators.SelectWhyNoRegulator.EnglandWalesUnderThreshold
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
-import models.{CharityOtherRegulatorDetails, CheckMode, UserAnswers}
+import models.{CharityOtherRegulatorDetails, CheckMode}
 import pages.regulatorsAndDocuments._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
@@ -29,7 +29,7 @@ import viewmodels.SummaryListRowHelper
 class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val helper = new RegulatorsSummaryHelper(
-    UserAnswers("id")
+    baseInternalUserAnswers
       .set(IsCharityRegulatorPage, true)
       .flatMap(_.set(CharityRegulatorPage, CharityRegulator.values.toSet))
       .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))

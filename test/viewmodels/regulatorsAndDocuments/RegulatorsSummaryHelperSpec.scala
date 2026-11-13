@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.regulatorsAndDocuments
+package viewmodels.regulatorsAndDocuments
 
 import base.SpecBase
 import base.data.messages.BaseMessages
@@ -25,7 +25,6 @@ import models.{CharityOtherRegulatorDetails, CheckMode, UserAnswers}
 import pages.regulatorsAndDocuments._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
-import viewmodels.regulatorsAndDocuments.RegulatorsSummaryHelper
 
 class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.nominees
+package viewmodels.nominees
 
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
@@ -22,7 +22,6 @@ import models.nominees.OrganisationNomineeContactDetails
 import models.{BankDetails, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import pages.addressLookup._
 import pages.nominees._
-import viewmodels.nominees.NomineeStatusHelper
 
 import java.time.LocalDate
 

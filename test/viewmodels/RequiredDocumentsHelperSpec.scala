@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels
+package viewmodels
 
 import base.SpecBase
 import models.Name
@@ -24,7 +24,6 @@ import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.{IndividualNomineeNamePage, OrganisationAuthorisedPersonNamePage}
 import pages.otherOfficials.OtherOfficialsNamePage
 import pages.regulatorsAndDocuments.IsCharityRegulatorPage
-import viewmodels.RequiredDocumentsHelper
 
 class RequiredDocumentsHelperSpec extends SpecBase {
 

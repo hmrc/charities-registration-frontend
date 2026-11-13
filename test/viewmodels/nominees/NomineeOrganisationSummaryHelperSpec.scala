@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.nominees
+package viewmodels.nominees
 
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
@@ -29,7 +29,6 @@ import pages.nominees.*
 import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
-import viewmodels.nominees.NomineeOrganisationSummaryHelper
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.otherOfficials
+package viewmodels.otherOfficials
 
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
@@ -30,7 +30,6 @@ import play.api.test.FakeRequest
 import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
-import viewmodels.otherOfficials.AddedOtherOfficialHelper
 
 import java.time.LocalDate
 

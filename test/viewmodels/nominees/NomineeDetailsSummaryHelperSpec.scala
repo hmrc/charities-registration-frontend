@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.nominees
+package viewmodels.nominees
 
 import base.SpecBase
 import base.data.messages.BaseMessages
@@ -23,7 +23,6 @@ import models.{CheckMode, UserAnswers}
 import pages.nominees.{ChooseNomineePage, IsAuthoriseNomineePage}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
-import viewmodels.nominees.NomineeDetailsSummaryHelper
 
 class NomineeDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 

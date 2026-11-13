@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.operationsAndFunds
+package viewmodels.operationsAndFunds
 
 import base.SpecBase
 import base.data.messages.BaseMessages
@@ -23,7 +23,6 @@ import models.{BankDetails, CheckMode, UserAnswers}
 import pages.operationsAndFunds.BankDetailsPage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
-import viewmodels.operationsAndFunds.BankDetailsSummaryHelper
 
 class BankDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 

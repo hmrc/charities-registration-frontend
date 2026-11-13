@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package viewModels.operationsAndFunds
+package viewmodels.operationsAndFunds
 
 import base.SpecBase
 import models.operations.CharitablePurposes
 import models.operations.CharitablePurposes.AmateurSport
 import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, PublicBenefitsPage}
-import viewmodels.operationsAndFunds.CharityObjectivesStatusHelper
 
 class CharityObjectivesStatusHelperSpec extends SpecBase {
 

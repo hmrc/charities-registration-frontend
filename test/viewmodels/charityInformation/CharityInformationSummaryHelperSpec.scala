@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.charityInformation
+package viewmodels.charityInformation
 
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
@@ -28,7 +28,6 @@ import play.api.mvc.Cookie
 import play.api.test.FakeRequest
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
-import viewmodels.charityInformation.CharityInformationSummaryHelper
 
 class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 

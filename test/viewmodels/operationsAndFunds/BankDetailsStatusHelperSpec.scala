@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package viewModels.operationsAndFunds
+package viewmodels.operationsAndFunds
 
 import base.SpecBase
 import models.BankDetails
 import pages.operationsAndFunds.BankDetailsPage
-import viewmodels.operationsAndFunds.BankDetailsStatusHelper
 
 class BankDetailsStatusHelperSpec extends SpecBase {
   "BankDetailsStatusHelper" must {

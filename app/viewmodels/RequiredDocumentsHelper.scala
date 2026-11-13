@@ -106,7 +106,7 @@ object RequiredDocumentsHelper {
         (documentType, answer) match {
           case ("isFinancialAccounts", false)            => None
           case ("noRegulatorUniformedYouthGroup", false) => None
-          case ("isCharityRegulator", true) => None
+          case ("isCharityRegulator", true)              => None
           case _                                         => Some(requiredDocumentsKey + documentType + (if (answer) ".answerTrue" else ".answerAlternative"))
         }
       }

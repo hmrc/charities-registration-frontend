@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.authorisedOfficials
+package viewmodels.authorisedOfficials
 
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
@@ -29,7 +29,6 @@ import pages.authorisedOfficials.*
 import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
-import viewmodels.authorisedOfficials.AddedAuthorisedOfficialHelper
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

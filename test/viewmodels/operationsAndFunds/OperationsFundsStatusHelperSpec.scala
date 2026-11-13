@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.operationsAndFunds
+package viewmodels.operationsAndFunds
 
 import java.time.MonthDay
 
@@ -22,7 +22,6 @@ import base.SpecBase
 import models.operations.{CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
 import models.{MongoDateTimeFormats, UserAnswers}
 import pages.operationsAndFunds._
-import viewmodels.operationsAndFunds.OperationsFundsStatusHelper
 
 class OperationsFundsStatusHelperSpec extends SpecBase {
 

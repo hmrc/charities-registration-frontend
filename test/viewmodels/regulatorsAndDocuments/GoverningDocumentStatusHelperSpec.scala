@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package viewModels.regulatorsAndDocuments
+package viewmodels.regulatorsAndDocuments
 
 import base.SpecBase
 import models.regulators.SelectGoverningDocument
 import pages.regulatorsAndDocuments._
-import viewmodels.regulatorsAndDocuments.GoverningDocumentStatusHelper
 
 import java.time.LocalDate
 

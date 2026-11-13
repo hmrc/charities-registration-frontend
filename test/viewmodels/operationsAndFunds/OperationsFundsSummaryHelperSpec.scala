@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.operationsAndFunds
+package viewmodels.operationsAndFunds
 
 import java.time.{LocalDate, MonthDay}
 
@@ -30,7 +30,6 @@ import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import utils.CurrencyFormatter
 import viewmodels.SummaryListRowHelper
-import viewmodels.operationsAndFunds.OperationsFundsSummaryHelper
 
 class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 

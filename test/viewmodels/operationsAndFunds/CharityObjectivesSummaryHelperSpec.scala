@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.operationsAndFunds
+package viewmodels.operationsAndFunds
 
 import base.SpecBase
 import base.data.messages.BaseMessages
@@ -24,7 +24,6 @@ import models.{CheckMode, UserAnswers}
 import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, PublicBenefitsPage}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
-import viewmodels.operationsAndFunds.CharityObjectivesSummaryHelper
 
 class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 

@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package viewModels.charityInformation
+package viewmodels.charityInformation
 
 import base.SpecBase
 import models.addressLookup.AddressModel
 import models.{CharityContactDetails, CharityName}
 import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
-import viewmodels.charityInformation.CharityInformationStatusHelper
 
 class CharityInformationStatusHelperSpec extends SpecBase {
 

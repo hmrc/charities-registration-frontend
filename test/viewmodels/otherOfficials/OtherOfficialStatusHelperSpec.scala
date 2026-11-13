@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.otherOfficials
+package viewmodels.otherOfficials
 
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
@@ -22,7 +22,6 @@ import models.authOfficials.OfficialsPosition
 import models.{Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
-import viewmodels.otherOfficials.OtherOfficialStatusHelper
 
 import java.time.LocalDate
 

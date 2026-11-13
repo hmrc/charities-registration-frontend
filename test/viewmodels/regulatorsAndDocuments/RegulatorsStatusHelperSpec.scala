@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.regulatorsAndDocuments
+package viewmodels.regulatorsAndDocuments
 
 import base.SpecBase
 import models.CharityOtherRegulatorDetails
@@ -22,7 +22,6 @@ import models.regulators.CharityRegulator
 import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other, Scottish}
 import models.regulators.SelectWhyNoRegulator.EnglandWalesUnderThreshold
 import pages.regulatorsAndDocuments._
-import viewmodels.regulatorsAndDocuments.RegulatorsStatusHelper
 
 class RegulatorsStatusHelperSpec extends SpecBase {
 

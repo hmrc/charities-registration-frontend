@@ -161,7 +161,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
                               |    "isSection9Completed": false
                               |  }
                               |""".stripMargin
-          val ua = UserAnswers("id", Json.parse(data).as[JsObject])
+          val ua   = UserAnswers("id", Json.parse(data).as[JsObject])
           stubUserAnswerGet(ua, "id")
           authorised("id")
 
@@ -193,7 +193,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
                 |    "isSection8Completed": true
                 |  }
                 |""".stripMargin
-          val ua = UserAnswers("id", Json.parse(data).as[JsObject])
+          val ua   = UserAnswers("id", Json.parse(data).as[JsObject])
           stubUserAnswerGet(ua, "id")
           authorised("id")
 
@@ -210,7 +210,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
           Helpers.redirectLocation(response) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
         }
       }
-      "submitting the data for charities registration where user answers json invalid" must {
+      "submitting the data for charities registration where user answers json invalid"       must {
         "throw jsresultexception" in {
           val internalId = "scenario_7_request"
 
@@ -233,7 +233,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
           )
         }
       }
-      "getting user answers data for charities registration where status is not OK"    must {
+      "getting user answers data for charities registration where status is not OK"          must {
         "Redirect to page not found page" in {
           val internalId = "scenario_7_request"
 

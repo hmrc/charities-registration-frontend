@@ -17,139 +17,139 @@
 package config
 
 object Constants {
-  val maxAddressLineLength: Int = 35
-  val maxAccountNameLength: Int = 60
-  val maxRollNumberLength: Int  = 18
+  inline val maxAddressLineLength = 35
+  inline val maxAccountNameLength = 60
+  inline val maxRollNumberLength  = 18
 
-  val minAgeYears: Int       = 16
-  val earliestBirthYear: Int = 1900
+  inline val minAgeYears       = 16
+  inline val earliestBirthYear = 1900
 
-  val maxNameLength: Int = 100
+  inline val maxNameLength = 100
 
-  val maxCountryLength: Int  = 50
-  val maxPassportLength: Int = 30
+  inline val maxCountryLength  = 50
+  inline val maxPassportLength = 30
 
-  val maxEmailLength: Int = 160
+  inline val maxEmailLength = 160
 
-  val maxOperatingNameLength: Int    = 160
-  val maxOrganisationNameLength: Int = 160
-  val maxCharityNameLength: Int      = 60
+  inline val maxOperatingNameLength    = 160
+  inline val maxOrganisationNameLength = 160
+  inline val maxCharityNameLength      = 60
 
-  val maxCharitableObjectivesLength: Int = 500
+  inline val maxCharitableObjectivesLength = 500
 
-  val maxOtherFundraisingLength: Int = 95
+  inline val maxOtherFundraisingLength = 95
 
-  val maxPublicBenefitsLength: Int = 500
+  inline val maxPublicBenefitsLength = 500
 
-  val maxWhyNoBankStatementsReasonLength: Int = 350
+  inline val maxWhyNoBankStatementsReasonLength = 350
 
-  val maxRegulatorNameLength: Int      = 100
-  val maxRegistrationNumberLength: Int = 20
+  inline val maxRegulatorNameLength      = 100
+  inline val maxRegistrationNumberLength = 20
 
-  val earliestGoverningDocumentYear: Int = 1800
+  inline val earliestGoverningDocumentYear = 1800
 
-  val maxGoverningDocumentNameLength: Int            = 50
-  val maxSectionsChangedGoverningDocumentLength: Int = 350
-  val maxWhyNotRegisteredWithCharityReason: Int      = 100
+  inline val maxGoverningDocumentNameLength            = 50
+  inline val maxSectionsChangedGoverningDocumentLength = 350
+  inline val maxWhyNotRegisteredWithCharityReason      = 100
 
-  val maxOperatingCountries: Int = 5
+  inline val maxOperatingCountries = 5
 
   object Css {
-    val bodyCssClass = "govuk-body"
+    inline val bodyCssClass = "govuk-body"
 
-    val linkCssClass = "govuk-link"
+    inline val linkCssClass = "govuk-link"
 
-    val hintCssClass = "govuk-hint"
+    inline val hintCssClass = "govuk-hint"
 
-    val buttonCssClass = "govuk-button"
+    inline val buttonCssClass = "govuk-button"
 
-    val radiosCssClass       = "govuk-radios"
-    val inlineRadiosCssClass = "govuk-radios--inline"
+    inline val radiosCssClass       = "govuk-radios"
+    inline val inlineRadiosCssClass = "govuk-radios--inline"
 
-    val insetTextCssClass = "govuk-inset-text"
+    inline val insetTextCssClass = "govuk-inset-text"
 
-    val sectionBreakCssClass        = "govuk-section-break"
-    val sectionBreakVisibleCssClass = "govuk-section-break--visible"
+    inline val sectionBreakCssClass        = "govuk-section-break"
+    inline val sectionBreakVisibleCssClass = "govuk-section-break--visible"
 
-    val oneHalfCssClass       = "govuk-!-width-one-half"
-    val threeQuartersCssClass = "govuk-!-width-three-quarters"
+    inline val oneHalfCssClass       = "govuk-!-width-one-half"
+    inline val threeQuartersCssClass = "govuk-!-width-three-quarters"
 
-    val fontSize19Class = "govuk-!-font-size-19"
+    inline val fontSize19Class = "govuk-!-font-size-19"
 
-    val boldFontCssClass = "govuk-!-font-weight-bold"
+    inline val boldFontCssClass = "govuk-!-font-weight-bold"
 
-    val hmrcTagCssClass = "hmrc-status-tag"
-    val tagCssClass     = "govuk-tag"
+    inline val hmrcTagCssClass = "hmrc-status-tag"
+    inline val tagCssClass     = "govuk-tag"
 
-    val yellowTagCssClass    = "govuk-tag--yellow"
-    val turquoiseTagCssClass = "govuk-tag--turquoise"
-    val greyTagCssClass      = "govuk-tag--grey"
+    inline val yellowTagCssClass    = "govuk-tag--yellow"
+    inline val turquoiseTagCssClass = "govuk-tag--turquoise"
+    inline val greyTagCssClass      = "govuk-tag--grey"
 
-    val headingXLCssClass = "govuk-heading-xl"
-    val headingLCssClass  = "govuk-heading-l"
-    val headingMCssClass  = "govuk-heading-m"
+    inline val headingXLCssClass = "govuk-heading-xl"
+    inline val headingLCssClass  = "govuk-heading-l"
+    inline val headingMCssClass  = "govuk-heading-m"
 
-    val labelCssClass        = "govuk-label"
-    val labelWrapperCssClass = "govuk-label-wrapper"
-    val labelXLCssClass      = "govuk-label--xl"
+    inline val labelCssClass        = "govuk-label"
+    inline val labelWrapperCssClass = "govuk-label-wrapper"
+    inline val labelXLCssClass      = "govuk-label--xl"
 
-    val fieldsetLegendClass = "govuk-fieldset__legend"
+    inline val fieldsetLegendClass = "govuk-fieldset__legend"
 
-    val fieldsetLegendXLCssClass = "govuk-fieldset__legend--xl"
-    val fieldsetLegendMCssClass  = "govuk-fieldset__legend--m"
+    inline val fieldsetLegendXLCssClass = "govuk-fieldset__legend--xl"
+    inline val fieldsetLegendMCssClass  = "govuk-fieldset__legend--m"
 
-    val textAreaCssClass       = "govuk-textArea"
-    val characterCountCssClass = "govuk-js-character-count"
+    inline val textAreaCssClass       = "govuk-textArea"
+    inline val characterCountCssClass = "govuk-js-character-count"
 
-    val marginTop5CssClass = "govuk-!-margin-top-5"
-    val marginTop6CssClass = "govuk-!-margin-top-6"
+    inline val marginTop5CssClass = "govuk-!-margin-top-5"
+    inline val marginTop6CssClass = "govuk-!-margin-top-6"
 
-    val marginBottom3CssClass = "govuk-!-margin-bottom-3"
-    val marginBottom4CssClass = "govuk-!-margin-bottom-4"
-    val marginBottom6CssClass = "govuk-!-margin-bottom-6"
-    val marginBottom7CssClass = "govuk-!-margin-bottom-7"
+    inline val marginBottom3CssClass = "govuk-!-margin-bottom-3"
+    inline val marginBottom4CssClass = "govuk-!-margin-bottom-4"
+    inline val marginBottom6CssClass = "govuk-!-margin-bottom-6"
+    inline val marginBottom7CssClass = "govuk-!-margin-bottom-7"
 
-    val inputCssClass      = "govuk-input"
-    val inputErrorCssClass = "govuk-input--error"
+    inline val inputCssClass      = "govuk-input"
+    inline val inputErrorCssClass = "govuk-input--error"
 
-    val inputWidth2CssClass  = "govuk-input--width-2"
-    val inputWidth4CssClass  = "govuk-input--width-4"
-    val inputWidth5CssClass  = "govuk-input--width-5"
-    val inputWidth10CssClass = "govuk-input--width-10"
-    val inputWidth20CssClass = "govuk-input--width-20"
+    inline val inputWidth2CssClass  = "govuk-input--width-2"
+    inline val inputWidth4CssClass  = "govuk-input--width-4"
+    inline val inputWidth5CssClass  = "govuk-input--width-5"
+    inline val inputWidth10CssClass = "govuk-input--width-10"
+    inline val inputWidth20CssClass = "govuk-input--width-20"
 
-    val bulletListCssClass = "govuk-list govuk-list--bullet"
+    inline val bulletListCssClass = "govuk-list govuk-list--bullet"
 
-    val panelCssClass             = "govuk-panel"
-    val panelConfirmationCssClass = "govuk-panel--confirmation"
-    val panelTitleCssClass        = "govuk-panel__title"
-    val panelBodyCssClass         = "govuk-panel__body"
+    inline val panelCssClass             = "govuk-panel"
+    inline val panelConfirmationCssClass = "govuk-panel--confirmation"
+    inline val panelTitleCssClass        = "govuk-panel__title"
+    inline val panelBodyCssClass         = "govuk-panel__body"
 
-    val visuallyHiddenCssClass = "govuk-visually-hidden"
+    inline val visuallyHiddenCssClass = "govuk-visually-hidden"
 
-    val formGroupCssClass      = "govuk-form-group"
-    val formGroupErrorCssClass = "govuk-form-group--error"
+    inline val formGroupCssClass      = "govuk-form-group"
+    inline val formGroupErrorCssClass = "govuk-form-group--error"
 
-    val addToAListCssClass                = "hmrc-add-to-a-list"
-    val addToAListShortClass              = "hmrc-add-to-a-list--short"
-    val addToAListContentsCssClass        = "hmrc-add-to-a-list__contents"
-    val addToAListChangeCssClass          = "hmrc-add-to-a-list__change"
-    val addToAListRemoveCssClass          = "hmrc-add-to-a-list__remove"
-    val addToAListIdentifierCssClass      = "hmrc-add-to-a-list__identifier"
-    val addToAListIdentifierLightCssClass = "hmrc-add-to-a-list__identifier--light"
+    inline val addToAListCssClass                = "hmrc-add-to-a-list"
+    inline val addToAListShortClass              = "hmrc-add-to-a-list--short"
+    inline val addToAListContentsCssClass        = "hmrc-add-to-a-list__contents"
+    inline val addToAListChangeCssClass          = "hmrc-add-to-a-list__change"
+    inline val addToAListRemoveCssClass          = "hmrc-add-to-a-list__remove"
+    inline val addToAListIdentifierCssClass      = "hmrc-add-to-a-list__identifier"
+    inline val addToAListIdentifierLightCssClass = "hmrc-add-to-a-list__identifier--light"
 
-    val currencyInputCssClass           = "govuk-currency-input"
-    val currencyInputInnerCssClass      = "govuk-currency-input__inner"
-    val currencyInputInnerInputCssClass = "govuk-currency-input__inner__input"
-    val currencyInputUnitCssClass       = "hmrc-currency-input__unit"
+    inline val currencyInputCssClass           = "govuk-currency-input"
+    inline val currencyInputInnerCssClass      = "govuk-currency-input__inner"
+    inline val currencyInputInnerInputCssClass = "govuk-currency-input__inner__input"
+    inline val currencyInputUnitCssClass       = "hmrc-currency-input__unit"
 
-    val taskListCssClass              = "app-task-list"
-    val taskListSectionCssClass       = "app-task-list__section"
-    val taskListSectionNumberCssClass = "app-task-list__section-number"
-    val taskListItemCssClass          = "app-task-list__item"
-    val taskListItemsCssClass         = "app-task-list__items"
-    val taskListTaskNameCssClass      = "app-task-list__task-name"
+    inline val taskListCssClass              = "app-task-list"
+    inline val taskListSectionCssClass       = "app-task-list__section"
+    inline val taskListSectionNumberCssClass = "app-task-list__section-number"
+    inline val taskListItemCssClass          = "app-task-list__item"
+    inline val taskListItemsCssClass         = "app-task-list__items"
+    inline val taskListTaskNameCssClass      = "app-task-list__task-name"
 
-    val autocompleteWrapperCssClass = "autocomplete-wrapper"
+    inline val autocompleteWrapperCssClass = "autocomplete-wrapper"
   }
 }

@@ -16,19 +16,17 @@
 
 package forms.regulatorsAndDocuments
 
+import config.Constants
 import forms.mappings.Mappings
 import play.api.data.Form
 
 import javax.inject.Inject
 
 class GoverningDocumentNameFormProvider @Inject() extends Mappings {
-
-  private[regulatorsAndDocuments] val maxLength = 50
-
   def apply(): Form[String] =
     Form(
       "name" -> text("governingDocumentName.error.required")
-        .verifying(maxLength(maxLength, "governingDocumentName.error.length"))
+        .verifying(maxLength(Constants.maxGoverningDocumentNameLength, "governingDocumentName.error.length"))
         .verifying(regexpIncludingForeignCharacters("governingDocumentName.error.format"))
     )
 }

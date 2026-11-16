@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import config.Constants.Css
+
 @this(govukCheckboxes: GovukCheckboxes)
 
 @(
@@ -30,7 +32,7 @@
             legend = Some(Legend(
                 content = Text(messages(legend)),
                 isPageHeading = legendAsHeading,
-                classes = "govuk-fieldset__legend--xl"
+                classes = Css.fieldsetLegendXLCssClass
             ))
         )),
         hint = hint.map(hintHtml => Hint(

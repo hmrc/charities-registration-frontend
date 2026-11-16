@@ -16,19 +16,19 @@
 
 package forms.regulatorsAndDocuments
 
+import config.Constants
 import forms.mappings.Mappings
 import play.api.data.Form
 
 import javax.inject.Inject
 
 class WhyNotRegisteredWithCharityFormProvider @Inject() extends Mappings {
-
-  private[regulatorsAndDocuments] val maxLength = 100
-
   def apply(): Form[String] =
     Form(
       "value" -> text("whyNotRegisteredWithCharity.error.required")
-        .verifying(maxLengthTextArea(maxLength, "whyNotRegisteredWithCharity.error.length"))
+        .verifying(
+          maxLengthTextArea(Constants.maxWhyNotRegisteredWithCharityReason, "whyNotRegisteredWithCharity.error.length")
+        )
         .verifying(regexpIncludingForeignCharactersAndNewLine("whyNotRegisteredWithCharity.error.format"))
     )
 }

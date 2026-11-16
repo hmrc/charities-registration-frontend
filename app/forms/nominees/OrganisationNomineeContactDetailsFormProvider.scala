@@ -16,16 +16,15 @@
 
 package forms.nominees
 
+import config.Constants
 import forms.mappings.Mappings
 import models.nominees.OrganisationNomineeContactDetails
 import play.api.data.Form
-import play.api.data.Forms._
+import play.api.data.Forms.*
 
 import javax.inject.Inject
 
 class OrganisationNomineeContactDetailsFormProvider @Inject() extends Mappings {
-
-  private val maxEmailLength: Int = 160
 
   def apply(): Form[OrganisationNomineeContactDetails] =
     Form(
@@ -33,7 +32,7 @@ class OrganisationNomineeContactDetailsFormProvider @Inject() extends Mappings {
         "phoneNumber" -> text("organisationContactDetails.phoneNumber.error.required")
           .verifying(regexp(validateTelephoneNumber, "organisationContactDetails.phoneNumber.error.format")),
         "email"       -> text("organisationContactDetails.email.error.required")
-          .verifying(maxLength(maxEmailLength, "organisationContactDetails.email.error.length"))
+          .verifying(maxLength(Constants.maxEmailLength, "organisationContactDetails.email.error.length"))
           .verifying(regexp(validateEmailAddress, "organisationContactDetails.email.error.format"))
           .verifying(
             "charityContactDetails.emailAddress.error.format",

@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import config.Constants.Css
+
 @this(govukRadios: GovukRadios)
 
 @(      form: Form[_],
@@ -21,12 +23,12 @@
         items: Seq[RadioItem],
         legendAsHeading: Boolean = true,
         hint: Option[Html] = None,
-        classes: String = "govuk-fieldset__legend--xl",
+        classes: String = Css.fieldsetLegendXLCssClass,
         inline: Boolean = false
 )(implicit messages: Messages)
 
 @govukRadios(Radios(
-    classes = s"${if(inline){"govuk-radios--inline"}}",
+    classes = s"${if(inline){Css.inlineRadiosCssClass}}",
     name = "value",
     fieldset = Some(Fieldset(
         legend = Some(Legend(

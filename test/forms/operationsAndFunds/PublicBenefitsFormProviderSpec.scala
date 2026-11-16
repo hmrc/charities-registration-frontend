@@ -16,6 +16,7 @@
 
 package forms.operationsAndFunds
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.{Form, FormError}
 
@@ -29,7 +30,6 @@ class PublicBenefitsFormProviderSpec extends StringFieldBehaviours {
     val requiredKey = "publicBenefits.error.required"
     val lengthKey   = "publicBenefits.error.length"
     val invalidKey  = "publicBenefits.error.format"
-    val maxLength   = 500
     val fieldName   = "value"
 
     behave like fieldThatBindsValidData(
@@ -47,8 +47,8 @@ class PublicBenefitsFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxPublicBenefitsLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxPublicBenefitsLength))
     )
 
     behave like fieldWithRegex(

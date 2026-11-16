@@ -15,6 +15,7 @@
  *@
 
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -28,7 +29,7 @@
 
     @h1(messages("technicalDifficultiesError.heading"))
 
-    <p class="govuk-body">@messages(s"technicalDifficultiesError.p1")</p>
-    <p class="govuk-body">@messages(s"technicalDifficultiesError.p2")</p>
+    <p class="@Css.bodyCssClass">@messages("technicalDifficultiesError.p1")</p>
+    <p class="@Css.bodyCssClass">@messages("technicalDifficultiesError.p2")</p>
 
 }

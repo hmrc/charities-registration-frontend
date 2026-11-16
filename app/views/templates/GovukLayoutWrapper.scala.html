@@ -14,13 +14,14 @@
  * limitations under the License.
  *@
 
+@import config.Constants.Css
 @import views.components.FooterLinks
+@import views.html.helper.CSPNonce
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.Header
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageSelect
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
 @import uk.gov.hmrc.hmrcfrontend.views.html.components._
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.{Footer => CustomFooter, Meta => HmrcMeta}
-@import views.html.helper.CSPNonce
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcAccessibleAutocompleteCss
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcAccessibleAutocompleteJavascript
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
@@ -98,7 +99,7 @@
 }
 
 @content = {
-<div class="govuk-!-margin-bottom-6">
+<div class="@Css.marginBottom6CssClass">
     @contentBlock
 </div>
 @if(showDeskproLink){

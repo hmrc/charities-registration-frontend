@@ -14,11 +14,13 @@
  * limitations under the License.
  *@
 
+@import config.Constants.Css
+
 @import views.html.helper.CSPNonce
 
 @this()
 
 @(messageKey: String, id: String)(implicit messages: Messages, request: RequestHeader)
 
-<a id=@id href="#" class="govuk-link">@messages(messageKey)</a>
+<a id=@id href="#" class="@Css.linkCssClass">@messages(messageKey)</a>
 <script @{CSPNonce.attr}>document.getElementById("@id").addEventListener("click", () => window.print());</script>

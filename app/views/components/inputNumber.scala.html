@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import config.Constants.Css
+
 @this(govukInput: GovukInput)
 
 @(form: Form[_],
@@ -35,7 +37,7 @@
     label = Label(
         content = Text(messages(label)),
         isPageHeading = isPageHeading,
-        classes = labelClasses.getOrElse("") + (if(isPageHeading) "govuk-label--xl" else "")
+        classes = labelClasses.getOrElse("") + (if(isPageHeading) Css.labelXLCssClass else "")
     ),
     hint = hint.map(hintKey => Hint(
         content = HtmlContent(messages(hintKey))

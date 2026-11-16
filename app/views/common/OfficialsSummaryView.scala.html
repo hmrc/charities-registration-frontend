@@ -15,6 +15,7 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import config.Constants.Css
 @import viewmodels.OfficialSummaryListRow
 
 @this(
@@ -42,8 +43,8 @@
 }
 
 @getTagClass(isCompleted: Boolean) = @{isCompleted match {
-    case true => "govuk-tag govuk-tag--turquoise"
-    case _ => "govuk-tag govuk-tag--yellow"
+    case true => s"${Css.tagCssClass} ${Css.turquoiseTagCssClass}"
+    case _ => s"${Css.tagCssClass} ${Css.yellowTagCssClass}"
     }
 }
 
@@ -53,25 +54,25 @@
 
     @h1(messages(s"$section.checkYourAnswers.heading.$suffix"))
 
-    <dl class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
+    <dl class="@Css.addToAListCssClass @Css.addToAListShortClass">
         @for(official <- officialAnswers) {
-            <div class="hmrc-add-to-a-list__contents">
-                <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
+            <div class="@Css.addToAListContentsCssClass">
+                <dt class="@Css.addToAListIdentifierCssClass @Css.addToAListIdentifierLightCssClass">
                     @{official.name.getFullName}
                 </dt>
-                <dd class="hmrc-add-to-a-list__change">
-                    <a class="govuk-link" href="@{official.changeCall}">
-                        @{messages(s"$section.checkYourAnswers.change")}<span class="govuk-visually-hidden"> @{official.name.getFullName}</span>
+                <dd class="@Css.addToAListChangeCssClass">
+                    <a class="@Css.linkCssClass" href="@{official.changeCall}">
+                        @{messages(s"$section.checkYourAnswers.change")}<span class="@Css.visuallyHiddenCssClass"> @{official.name.getFullName}</span>
                     </a>
                 </dd>
-                <dd class="hmrc-add-to-a-list__remove">
-                    <a class="govuk-link" href="@{official.removeCall}">
-                        @{messages(s"$section.checkYourAnswers.remove")}<span class="govuk-visually-hidden"> @{official.name.getFullName}</span>
+                <dd class="@Css.addToAListRemoveCssClass">
+                    <a class="@Css.linkCssClass" href="@{official.removeCall}">
+                        @{messages(s"$section.checkYourAnswers.remove")}<span class="@Css.visuallyHiddenCssClass"> @{official.name.getFullName}</span>
                     </a>
                 </dd>
-                <dd class="hmrc-add-to-a-list__remove">
+                <dd class="@Css.addToAListRemoveCssClass">
                     <strong class="@getTagClass(official.isCompleted)">
-                        <span class="govuk-visually-hidden">@{official.name.getFullName}</span> @messages(if(official.isCompleted){"index.section.completed"} else {"index.section.inProgress"})
+                        <span class="@Css.visuallyHiddenCssClass">@{official.name.getFullName}</span> @messages(if(official.isCompleted){"index.section.completed"} else {"index.section.inProgress"})
                     </strong>
                 </dd>
             </div>

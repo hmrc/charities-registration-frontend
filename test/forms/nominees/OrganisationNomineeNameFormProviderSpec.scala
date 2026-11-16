@@ -16,6 +16,7 @@
 
 package forms.nominees
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.{Form, FormError}
 
@@ -29,7 +30,6 @@ class OrganisationNomineeNameFormProviderSpec extends StringFieldBehaviours {
     val requiredKey = "nameOfOrganisation.error.required"
     val invalidKey  = "nameOfOrganisation.error.format"
     val lengthKey   = "nameOfOrganisation.error.length"
-    val maxLength   = 160
     val fieldName   = "name"
 
     behave like fieldThatBindsValidData(
@@ -47,8 +47,8 @@ class OrganisationNomineeNameFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxOrganisationNameLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxOrganisationNameLength))
     )
 
     behave like fieldWithRegex(

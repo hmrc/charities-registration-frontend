@@ -21,13 +21,12 @@ import connectors.CharitiesConnector
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.*
-import org.scalatest.concurrent.ScalaFutures
 import play.api.mvc.Result
 import uk.gov.hmrc.http.UpstreamErrorResponse
 import play.api.http.Status._
 import scala.concurrent.Future
 
-class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
+class UserDataRetrievalActionSpec extends SpecBase {
 
   class Harness(charitiesConnector: CharitiesConnector) extends UserDataRetrievalActionImpl(charitiesConnector) {
     def callTransform[A](request: IdentifierRequest[A]): Future[Either[Result, OptionalDataRequest[A]]] = refine(
@@ -42,7 +41,7 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "set userAnswers to 'None' in the request" in {
 
         val charitiesConnector = mock(classOf[CharitiesConnector])
-        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(Right(None))
+        when(charitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
         val action             = new Harness(charitiesConnector)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, internalId))
@@ -58,9 +57,8 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "build a userAnswers object and add it to the request" in {
 
         val charitiesConnector = mock(classOf[CharitiesConnector])
-        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(
-          Right(Some(baseInternalUserAnswers))
-        )
+        when(charitiesConnector.getUserAnswers(any())(any(), any()))
+          .thenReturn(Future.successful(Right(Some(baseInternalUserAnswers))))
         val action             = new Harness(charitiesConnector)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, internalId))
@@ -76,10 +74,10 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "set userAnswers to 'None' in the request" in {
 
         val charitiesConnector = mock(classOf[CharitiesConnector])
-        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(
-          Left(UpstreamErrorResponse("error", NOT_FOUND))
-        )
-        val action             = new Harness(charitiesConnector)
+        when(charitiesConnector.getUserAnswers(any())(any(), any()))
+          .thenReturn(Future.successful(Left(UpstreamErrorResponse("error", NOT_FOUND))))
+
+        val action = new Harness(charitiesConnector)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, internalId))
 
@@ -93,10 +91,10 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "set userAnswers to 'None' in the request" in {
 
         val charitiesConnector = mock(classOf[CharitiesConnector])
-        when(charitiesConnector.getUserAnswers(any())(any(), any())) `thenReturn` Future.successful(
-          Left(UpstreamErrorResponse("error", INTERNAL_SERVER_ERROR))
-        )
-        val action             = new Harness(charitiesConnector)
+        when(charitiesConnector.getUserAnswers(any())(any(), any()))
+          .thenReturn(Future.successful(Left(UpstreamErrorResponse("error", INTERNAL_SERVER_ERROR))))
+
+        val action = new Harness(charitiesConnector)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, internalId))
 

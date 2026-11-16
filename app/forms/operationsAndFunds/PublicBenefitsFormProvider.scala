@@ -16,19 +16,17 @@
 
 package forms.operationsAndFunds
 
+import config.Constants
 import forms.mappings.Mappings
 import play.api.data.Form
 
 import javax.inject.Inject
 
 class PublicBenefitsFormProvider @Inject() extends Mappings {
-
-  private[operationsAndFunds] val maxLength = 500
-
   def apply(): Form[String] =
     Form(
       "value" -> text("publicBenefits.error.required")
-        .verifying(maxLengthTextArea(maxLength, "publicBenefits.error.length"))
+        .verifying(maxLengthTextArea(Constants.maxPublicBenefitsLength, "publicBenefits.error.length"))
         .verifying(regexpIncludingForeignCharactersAndNewLine("publicBenefits.error.format"))
     )
 }

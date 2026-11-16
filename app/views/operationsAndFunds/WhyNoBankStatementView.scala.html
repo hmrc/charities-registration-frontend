@@ -17,8 +17,9 @@
 @import controllers.operationsAndFunds.routes._
 @import models.Mode
 @import views.ViewUtils._
+@import config.Constants
+@import config.Constants.Css
 @import config.FrontendAppConfig
-
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
@@ -44,10 +45,10 @@ link: components.link
                 name = "value",
                 rows = 5,
                 value = Some("value"),
-                maxLength = Some(350),
+                maxLength = Some(Constants.maxWhyNoBankStatementsReasonLength),
                 isPageHeading = true,
                 label = messages("whyNoBankStatement.heading"),
-                countMessageClasses = Some("govuk-textArea govuk-js-character-count"),
+                countMessageClasses = Some(s"${Css.textAreaCssClass} ${Css.characterCountCssClass}")
             )
 
 @button("site.saveAndContinue")
@@ -57,7 +58,7 @@ link: components.link
     id = Some("taskListLink"),
     messageKey = messages("site.returnToTaskList"),
     link = controllers.routes.IndexController.onPageLoad(None).url,
-    classes = "govuk-!-font-size-19"
+    classes = Css.fontSize19Class
     )
 </div>
 

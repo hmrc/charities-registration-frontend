@@ -149,18 +149,18 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
 
       "not submit the data for charities registration when not all sections are completed" must {
         "redirects to task list page" in {
-          val data = s"""| {
-                              |    "isSection1Completed": true,
-                              |    "isSection2Completed": true,
-                              |    "isSection3Completed": true,
-                              |    "isSection4Completed": true,
-                              |    "isSection5Completed": true,
-                              |    "isSection6Completed": true,
-                              |    "isSection7Completed": true,
-                              |    "isSection8Completed": true,
-                              |    "isSection9Completed": false
-                              |  }
-                              |""".stripMargin
+          val data = """| {
+                        |    "isSection1Completed": true,
+                        |    "isSection2Completed": true,
+                        |    "isSection3Completed": true,
+                        |    "isSection4Completed": true,
+                        |    "isSection5Completed": true,
+                        |    "isSection6Completed": true,
+                        |    "isSection7Completed": true,
+                        |    "isSection8Completed": true,
+                        |    "isSection9Completed": false
+                        |  }
+                        |""".stripMargin
           val ua   = baseInternalUserAnswers.copy(data = Json.parse(data).as[JsObject])
           stubUserAnswerGet(ua, internalId)
           authorised(internalId)

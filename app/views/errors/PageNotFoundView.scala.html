@@ -15,6 +15,7 @@
  *@
 
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -34,7 +35,7 @@
   @p{@messages("pageNotFound.p2")}
   @p{@messages("pageNotFound.p3") @link(appConfig.contactUrl, "pageNotFound.p3.link", id=Some("reportLink")).}
 
-  <div class="govuk-!-font-size-19">
+  <div class="@Css.fontSize19Class">
     @link(controllers.routes.PageNotFoundController.redirectToStartOfJourney().url, "pageNotFound.back.start.link", id=Some("startLink"))
   </div>
 }

@@ -38,7 +38,7 @@ object ConfirmedAddressHttpParser extends Logging {
               Left(AddressMalformed)
           }
         case NOT_FOUND =>
-          logger.error(s"Address could not be found")
+          logger.error("Address could not be found")
           Left(AddressNotFound)
         case status    =>
           logger.warn(s"Unexpected response, status $status returned")

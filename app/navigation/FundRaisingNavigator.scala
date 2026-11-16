@@ -16,14 +16,15 @@
 
 package navigation
 
-import controllers.operationsAndFunds.{routes => operationFundsRoutes}
+import config.Constants
+import controllers.operationsAndFunds.routes as operationFundsRoutes
 import controllers.routes
 import models.MongoDateTimeFormats.localDayMonthRead
-import models._
+import models.*
 import models.operations.FundRaisingOptions.Other
 import models.operations.OperatingLocationOptions.Overseas
 import pages.Page
-import pages.operationsAndFunds._
+import pages.operationsAndFunds.*
 import play.api.mvc.Call
 
 class FundRaisingNavigator extends BaseNavigator {
@@ -88,14 +89,16 @@ class FundRaisingNavigator extends BaseNavigator {
           case _    =>
             userAnswers.get(OverseasOperatingLocationSummaryPage) match {
               case Some(true) =>
-                val result = for (i <- 0 to 4) yield userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
+                val result =
+                  for (i <- 0 until Constants.maxOperatingCountries)
+                    yield userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
                 val index  = result.filter(_.nonEmpty).flatten.length
 
                 index match {
-                  case lessThanFive if lessThanFive < 5 =>
+                  case numCountries if numCountries < Constants.maxOperatingCountries =>
                     operationFundsRoutes.WhatCountryDoesTheCharityOperateInController
                       .onPageLoad(NormalMode, Index(index))
-                  case _                                => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
+                  case _                                                              => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
                 }
 
               case Some(false) => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
@@ -216,8 +219,10 @@ class FundRaisingNavigator extends BaseNavigator {
       (userAnswers: UserAnswers) =>
         userAnswers.get(OverseasOperatingLocationSummaryPage) match {
           case Some(true)                                            =>
-            val result = for (i <- 0 to 4) yield userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
-            if (result.flatten.length < 5) {
+            val result =
+              for (i <- 0 until Constants.maxOperatingCountries)
+                yield userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
+            if (result.flatten.length < Constants.maxOperatingCountries) {
               operationFundsRoutes.WhatCountryDoesTheCharityOperateInController
                 .onPageLoad(CheckMode, Index(result.flatten.length))
             } else {

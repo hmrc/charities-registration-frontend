@@ -41,7 +41,7 @@ class WhatCountryDoesTheCharityOperateInFormProviderSpec extends StringFieldBeha
       requiredError = FormError(fieldName, requiredKey)
     )
 
-    s"not bind invalid country" in {
+    "not bind invalid country" in {
       val form: Form[String]                 = inject[WhatCountryDoesTheCharityOperateInFormProvider].apply(Set("AB"))
       val formWithValue: Map[String, String] = Map[String, String](
         fieldName -> "invalid"
@@ -49,7 +49,8 @@ class WhatCountryDoesTheCharityOperateInFormProviderSpec extends StringFieldBeha
       val result                             = form.bind(formWithValue).apply(fieldName)
       result.errors.headOption mustBe Some(FormError(fieldName, invalidKey))
     }
-    s"bind valid country" in {
+
+    "bind valid country" in {
       val form: Form[String]                 = inject[WhatCountryDoesTheCharityOperateInFormProvider].apply(Set("AB"))
       val formWithValue: Map[String, String] = Map[String, String](
         fieldName -> "AB"

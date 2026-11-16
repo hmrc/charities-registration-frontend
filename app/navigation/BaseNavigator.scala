@@ -16,6 +16,7 @@
 
 package navigation
 
+import config.Constants
 import controllers.routes
 import forms.mappings.Mappings
 import models.addressLookup.AddressModel
@@ -45,7 +46,7 @@ trait BaseNavigator extends Mappings {
     val isValidAddressLines = address.lines.length >= 2
 
     !isValidAddressLines || address.lines.exists(addr =>
-      addr.length > 35 || !addr.matches(validateFieldIncludingForeignCharacters)
+      addr.length > Constants.maxAddressLineLength || !addr.matches(validateFieldIncludingForeignCharacters)
     ) ||
     (postcode.nonEmpty && !postcode.matches(validateFieldIncludingForeignCharacters))
 

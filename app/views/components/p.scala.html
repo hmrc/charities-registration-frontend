@@ -14,9 +14,11 @@
  * limitations under the License.
  *@
 
+@import config.Constants.Css
+
 @this()
 
-@(content: Html, classes: String = "govuk-body", id: Option[String] = None)(implicit messages: Messages)
+@(content: Html, classes: String = Css.bodyCssClass, id: Option[String] = None)(implicit messages: Messages)
 
 @if(id.isDefined){
     <p class="@classes", id ="@id">@content</p>

@@ -176,7 +176,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
         assert(
           warningElement.select("span").text == "Warning",
-          s"\n Warning assistance text missing"
+          "\n Warning assistance text missing"
         )
         assert(
           warningElement.first().ownText() == msg,

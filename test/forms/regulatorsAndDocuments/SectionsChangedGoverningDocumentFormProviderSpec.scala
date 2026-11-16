@@ -16,6 +16,7 @@
 
 package forms.regulatorsAndDocuments
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.{Form, FormError}
 
@@ -30,7 +31,6 @@ class SectionsChangedGoverningDocumentFormProviderSpec extends StringFieldBehavi
     val requiredKey = "sectionsChangedGoverningDocument.error.required"
     val lengthKey   = "sectionsChangedGoverningDocument.error.length"
     val invalidKey  = "sectionsChangedGoverningDocument.error.format"
-    val maxLength   = 350
     val fieldName   = "value"
 
     behave like fieldThatBindsValidData(
@@ -48,8 +48,8 @@ class SectionsChangedGoverningDocumentFormProviderSpec extends StringFieldBehavi
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxSectionsChangedGoverningDocumentLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxSectionsChangedGoverningDocumentLength))
     )
 
     behave like fieldWithRegex(

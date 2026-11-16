@@ -67,7 +67,7 @@ class OverseasOperatingLocationSummaryHelper(
       summaryListRow(
         label = messages("overseasOperatingLocationSummary.checkYourAnswersLabel"),
         value = HtmlContent(ans.foldLeft("")((accumulator, code) => accumulator + "<div>" + code + "</div>")),
-        visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.checkYourAnswersLabel")),
+        visuallyHiddenText = Some(messages("overseasOperatingLocationSummary.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
     }

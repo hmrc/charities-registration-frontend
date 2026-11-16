@@ -19,12 +19,11 @@ package controllers.actions
 import base.SpecBase
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 import org.mockito.Mockito._
-import org.scalatest.concurrent.ScalaFutures
 import repositories.SessionRepository
 
 import scala.concurrent.Future
 
-class DataRetrievalActionSpec extends SpecBase with ScalaFutures {
+class DataRetrievalActionSpec extends SpecBase {
 
   class Harness(sessionRepository: SessionRepository) extends DataRetrievalActionImpl(sessionRepository) {
     def callTransform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = transform(request)
@@ -37,7 +36,7 @@ class DataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "set userAnswers to 'None' in the request" in {
 
         val sessionRepository = mock(classOf[SessionRepository])
-        when(sessionRepository.get(internalId)) `thenReturn` Future(None)
+        when(sessionRepository.get(internalId)).thenReturn(Future(None))
         val action            = new Harness(sessionRepository)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, internalId))
@@ -53,8 +52,9 @@ class DataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "build a userAnswers object and add it to the request" in {
 
         val sessionRepository = mock(classOf[SessionRepository])
-        when(sessionRepository.get(internalId)) `thenReturn` Future.successful(Some(baseInternalUserAnswers))
-        val action            = new Harness(sessionRepository)
+        when(sessionRepository.get(internalId)).thenReturn(Future.successful(Some(baseInternalUserAnswers)))
+
+        val action = new Harness(sessionRepository)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, internalId))
 

@@ -16,6 +16,7 @@
 
 package forms.regulatorsAndDocuments
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.{Form, FormError}
 
@@ -29,7 +30,6 @@ class GoverningDocumentNameFormProviderSpec extends StringFieldBehaviours {
     val requiredKey = "governingDocumentName.error.required"
     val invalidKey  = "governingDocumentName.error.format"
     val lengthKey   = "governingDocumentName.error.length"
-    val maxLength   = 50
     val fieldName   = "name"
 
     behave like fieldThatBindsValidData(
@@ -47,8 +47,8 @@ class GoverningDocumentNameFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxGoverningDocumentNameLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxGoverningDocumentNameLength))
     )
 
     behave like fieldWithRegex(

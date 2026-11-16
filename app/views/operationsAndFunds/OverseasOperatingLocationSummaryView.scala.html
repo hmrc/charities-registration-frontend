@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import config.Constants
+@import config.Constants.Css
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 
@@ -42,14 +44,14 @@
 
     @formHelper(action = controllers.operationsAndFunds.routes.OverseasOperatingLocationSummaryController.onSubmit(mode), Symbol("autoComplete") -> "off") {
 
-        @if(answers.length < 5) {
+        @if(answers.length < Constants.maxOperatingCountries) {
 
             @summaryYesNo(form,
                 h2Message = Some("overseasOperatingLocationSummary.addAnotherCountry.h2"),
                 hintMessage = Some("overseasOperatingLocationSummary.addAnotherCountry.hint")
             )
 
-         } else { @p(Html(messages("overseasOperatingLocationSummary.addAnotherCountry.warn")), classes= "govuk-body govuk-hint")}
+         } else { @p(Html(messages("overseasOperatingLocationSummary.addAnotherCountry.warn")), classes=s"${Css.bodyCssClass} ${Css.hintCssClass}")}
 
         @button("site.confirmAndContinue")
 

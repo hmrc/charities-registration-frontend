@@ -16,6 +16,7 @@
 
 @import play.api.mvc.Call
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -36,11 +37,11 @@
 
     <div id="address">
         @for((line, index) <- address.zipWithIndex) {
-        <span class="govuk-body">@line</span><br>
+        <span class="@Css.bodyCssClass">@line</span><br>
         }
     </div>
 
-    <p class="govuk-!-font-size-19 govuk-!-margin-bottom-6">@link(changeLink.url, s"$messagePrefix.confirmPage.changeLinkText", Some("linkButton"))</p>
+    <p class="@Css.fontSize19Class @Css.marginBottom6CssClass">@link(changeLink.url, s"$messagePrefix.confirmPage.changeLinkText", Some("linkButton"))</p>
 
     @linkAsButton(submitCall.url, "site.confirmAndContinue", id=Some("confirmAndContinue"))
 }

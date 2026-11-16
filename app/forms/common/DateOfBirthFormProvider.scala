@@ -16,6 +16,7 @@
 
 package forms.common
 
+import config.Constants
 import forms.mappings.Mappings
 import play.api.data.Form
 import utils.TimeMachine
@@ -24,11 +25,6 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 class DateOfBirthFormProvider @Inject() (timeMachine: TimeMachine) extends Mappings {
-
-  private val minYears  = 16
-  private val startYear = 1900
-  private val dayMonth  = 1
-
   def apply(messagePrefix: String): Form[LocalDate] =
     Form(
       "date" -> localDate(
@@ -38,10 +34,16 @@ class DateOfBirthFormProvider @Inject() (timeMachine: TimeMachine) extends Mappi
         requiredKey = s"$messagePrefix.error.required.one",
         nonNumericKey = s"$messagePrefix.error.nonNumeric"
       ).verifying(
-        maxDate(timeMachine.now().minusYears(minYears), s"$messagePrefix.error.minimum", "day", "month", "year")
+        maxDate(
+          timeMachine.now().minusYears(Constants.minAgeYears),
+          s"$messagePrefix.error.minimum",
+          "day",
+          "month",
+          "year"
+        )
       ).verifying(
         minDate(
-          LocalDate.of(startYear, dayMonth, dayMonth),
+          LocalDate.of(Constants.earliestBirthYear, 1, 1),
           s"$messagePrefix.error.dateBetween",
           "day",
           "month",

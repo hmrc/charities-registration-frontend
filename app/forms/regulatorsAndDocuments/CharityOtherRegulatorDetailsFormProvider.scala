@@ -16,6 +16,7 @@
 
 package forms.regulatorsAndDocuments
 
+import config.Constants
 import forms.mappings.Mappings
 import models.CharityOtherRegulatorDetails
 import play.api.data.Form
@@ -24,19 +25,20 @@ import play.api.data.Forms.*
 import javax.inject.Inject
 
 class CharityOtherRegulatorDetailsFormProvider @Inject() extends Mappings {
-
-  private[regulatorsAndDocuments] val maxLengthRegulatorName      = 100
-  private[regulatorsAndDocuments] val maxLengthRegistrationNumber = 20
-
   def apply(): Form[CharityOtherRegulatorDetails] =
     Form(
       mapping(
         "regulatorName"      -> text("charityOtherRegulatorDetails.regulatorName.error.required")
-          .verifying(maxLength(maxLengthRegulatorName, "charityOtherRegulatorDetails.regulatorName.error.length"))
+          .verifying(
+            maxLength(Constants.maxRegulatorNameLength, "charityOtherRegulatorDetails.regulatorName.error.length")
+          )
           .verifying(regexpIncludingForeignCharacters("charityOtherRegulatorDetails.regulatorName.error.format")),
         "registrationNumber" -> text("charityOtherRegulatorDetails.registrationNumber.error.required")
           .verifying(
-            maxLength(maxLengthRegistrationNumber, "charityOtherRegulatorDetails.registrationNumber.error.length")
+            maxLength(
+              Constants.maxRegistrationNumberLength,
+              "charityOtherRegulatorDetails.registrationNumber.error.length"
+            )
           )
           .verifying(regexp(validateFieldNo, "charityOtherRegulatorDetails.registrationNumber.error.format"))
       )(CharityOtherRegulatorDetails.apply)(o => Some(Tuple.fromProductTyped(o)))

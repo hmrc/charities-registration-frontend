@@ -14,11 +14,13 @@
  * limitations under the License.
  *@
 
+@import config.Constants.Css
+
 @this()
 
 @(itemMsgKeys: String*)(messagesWithParams: Option[(String, String)]*)(implicit messages: Messages)
 
-<ul class="govuk-list govuk-list--bullet">
+<ul class="@Css.bulletListCssClass">
  @itemMsgKeys.map { msgKey =>
   <li>@messages(msgKey)</li>
  }

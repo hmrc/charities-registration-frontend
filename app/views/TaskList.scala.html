@@ -16,6 +16,7 @@
 
 @import views.ViewUtils._
 @import viewmodels.TaskListRow
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 
@@ -34,31 +35,31 @@
     @h1(messages("index.heading"))
 
     @isSwitchOver.map{ _ =>
-        <div class="govuk-inset-text govuk-!-font-weight-bold" id="isSwitchOver">
+        <div class="@Css.insetTextCssClass @Css.boldFontCssClass" id="isSwitchOver">
             @messages("index.isSwitchOver")
         </div>
     }
 
-    <p class="govuk-body">@messages("index.guidance")</p>
+    <p class="@Css.bodyCssClass">@messages("index.guidance")</p>
 
-    <p class="govuk-body"><br></p>
-    <ol class="app-task-list">
+    <p class="@Css.bodyCssClass"><br></p>
+    <ol class="@Css.taskListCssClass">
         <li>
             @getH2("index.section.numbers1", "index.section1.label")
-            <ul class="app-task-list__items">
+            <ul class="@Css.taskListItemsCssClass">
                 @getSection(result(0), "charity-info")
             </ul>
         </li>
         <li>
             @getH2("index.section.numbers2", "index.section2.label")
-            <ul class="app-task-list__items">
+            <ul class="@Css.taskListItemsCssClass">
                 @getSection(result(1), "name-regulator")
                 @getSection(result(2), "governing-doc-info")
             </ul>
         </li>
         <li>
             @getH2("index.section.numbers3", "index.section3.label")
-            <ul class="app-task-list__items">
+            <ul class="@Css.taskListItemsCssClass">
                 @getSection(result(3), "charity-objective")
                 @getSection(result(4), "fundraising-info")
                 @getSection(result(5), "bank-details")
@@ -66,7 +67,7 @@
         </li>
         <li>
             @getH2("index.section.numbers4", "index.section4.label")
-            <ul class="app-task-list__items">
+            <ul class="@Css.taskListItemsCssClass">
                 @getSection(result(6), "authorised-officials")
                 @getSection(result(7), "other-officials")
                 @getSection(result(8), "nominee-info")
@@ -74,7 +75,7 @@
         </li>
         <li>
             @getH2("index.section.numbers5", "index.section5.label")
-            <ul class="app-task-list__items">
+            <ul class="@Css.taskListItemsCssClass">
                 @getSection(result(9), "declaration-info")
             </ul>
         </li>
@@ -82,14 +83,14 @@
 }
 
 @getH2(number: String, label: String) = {
-    <h2 class="app-task-list__section">
-        <span class="app-task-list__section-number">@messages(number) </span> @messages(label)
+    <h2 class="@Css.taskListSectionCssClass">
+        <span class="@Css.taskListSectionNumberCssClass">@messages(number) </span> @messages(label)
     </h2>
 }
 
 @getSection(taskListRow: TaskListRow, id: String) = {
-    <li class="app-task-list__item">
-      <span class="app-task-list__task-name">
+    <li class="@Css.taskListItemCssClass">
+      <span class="@Css.taskListTaskNameCssClass">
         @getConditionalSectionLink(taskListRow, id)
       </span>
       <strong class="@getTagClass(taskListRow)">@messages(taskListRow.state)</strong>
@@ -107,8 +108,8 @@
 }
 
 @getTagClass(taskListRow: TaskListRow) = @{taskListRow.state match {
-        case "index.section.completed" => "hmrc-status-tag govuk-tag govuk-tag--turquoise"
-        case "index.section.inProgress" => "hmrc-status-tag govuk-tag govuk-tag--yellow"
-        case _ => "hmrc-status-tag govuk-tag govuk-tag--grey"
+        case "index.section.completed" => s"${Css.hmrcTagCssClass} ${Css.tagCssClass} ${Css.turquoiseTagCssClass}"
+        case "index.section.inProgress" => s"${Css.hmrcTagCssClass} ${Css.tagCssClass} ${Css.yellowTagCssClass}"
+        case _ => s"${Css.hmrcTagCssClass} ${Css.tagCssClass} ${Css.greyTagCssClass}"
     }
 }

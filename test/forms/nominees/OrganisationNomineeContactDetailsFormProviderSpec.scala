@@ -16,6 +16,7 @@
 
 package forms.nominees
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import models.nominees.OrganisationNomineeContactDetails
 import play.api.data.{Form, FormError}
@@ -72,13 +73,11 @@ class OrganisationNomineeContactDetailsFormProviderSpec extends StringFieldBehav
       FormError(fieldName, invalidKey, Seq(formProvider.validateEmailAddress))
     )
 
-    val maxNumberOfChars = 160
-
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxNumberOfChars,
-      FormError(fieldName, tooLongKey, Seq(maxNumberOfChars))
+      Constants.maxEmailLength,
+      FormError(fieldName, tooLongKey, Seq(Constants.maxEmailLength))
     )
   }
 

@@ -79,10 +79,10 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
 
         helper.overseasOperatingLocationSummaryRow(0, onwardRoute) mustBe Some(
           summaryListRow(
-            label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1"),
+            label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1"),
             value = HtmlContent(thCountryName),
             visuallyHiddenText =
-              Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1")),
+              Some(messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1")),
             onwardRoute -> BaseMessages.delete
           )
         )
@@ -95,42 +95,42 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
 
         helper.rows mustBe List(
           summaryListRow(
-            label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1"),
+            label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1"),
             value = HtmlContent(thCountryName),
             visuallyHiddenText =
-              Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1")),
+              Some(messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1")),
             operationFundsRoutes.IsRemoveOperatingCountryController
               .onPageLoad(NormalMode, Index(0)) -> BaseMessages.delete
           ),
           summaryListRow(
-            label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.2"),
+            label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.2"),
             value = HtmlContent(inCountryName),
             visuallyHiddenText =
-              Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.2")),
+              Some(messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.2")),
             operationFundsRoutes.IsRemoveOperatingCountryController
               .onPageLoad(NormalMode, Index(1)) -> BaseMessages.delete
           ),
           summaryListRow(
-            label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.3"),
+            label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.3"),
             value = HtmlContent(frCountryName),
             visuallyHiddenText =
-              Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.3")),
+              Some(messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.3")),
             operationFundsRoutes.IsRemoveOperatingCountryController
               .onPageLoad(NormalMode, Index(2)) -> BaseMessages.delete
           ),
           summaryListRow(
-            label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.4"),
+            label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.4"),
             value = HtmlContent(usCountryName),
             visuallyHiddenText =
-              Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.4")),
+              Some(messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.4")),
             operationFundsRoutes.IsRemoveOperatingCountryController
               .onPageLoad(NormalMode, Index(3)) -> BaseMessages.delete
           ),
           summaryListRow(
-            label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.5"),
+            label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.5"),
             value = HtmlContent(chCountryName),
             visuallyHiddenText =
-              Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.5")),
+              Some(messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.5")),
             operationFundsRoutes.IsRemoveOperatingCountryController
               .onPageLoad(NormalMode, Index(4)) -> BaseMessages.delete
           )
@@ -148,7 +148,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
           summaryListRow(
             label = messages("overseasOperatingLocationSummary.checkYourAnswersLabel"),
             value = HtmlContent(countries),
-            visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.checkYourAnswersLabel")),
+            visuallyHiddenText = Some(messages("overseasOperatingLocationSummary.checkYourAnswersLabel")),
             onwardRoute -> BaseMessages.changeLink
           )
         )

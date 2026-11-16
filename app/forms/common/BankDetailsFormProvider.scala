@@ -16,6 +16,7 @@
 
 package forms.common
 
+import config.Constants
 import forms.mappings.Mappings
 import models.BankDetails
 import play.api.data.Form
@@ -27,9 +28,6 @@ import javax.inject.Inject
 class BankDetailsFormProvider @Inject() extends Mappings {
 
   private[common] val rollNumberPattern: String = "^[a-zA-Z0-9- \\/.]*$".r.anchored.toString
-
-  private[common] val maxLengthAccountName = 60
-  private[common] val maxLengthRollNumber  = 18
 
   private def sortCodeCharactersConstraint(fieldName: String): Constraint[String] = Constraint { input =>
     if (input.forall(char => char.isDigit || Character.isWhitespace(char) || char == '-')) Valid
@@ -58,7 +56,7 @@ class BankDetailsFormProvider @Inject() extends Mappings {
     Form(
       mapping(
         "accountName"   -> text(s"$messagePrefix.accountName.error.required")
-          .verifying(maxLength(maxLengthAccountName, s"$messagePrefix.accountName.error.length"))
+          .verifying(maxLength(Constants.maxAccountNameLength, s"$messagePrefix.accountName.error.length"))
           .verifying(regexpIncludingForeignCharacters(s"$messagePrefix.accountName.error.format")),
         "sortCode"      -> text(s"$messagePrefix.sortCode.error.required")
           .verifying(sortCodeCharactersConstraint(s"$messagePrefix.sortCode"))
@@ -70,7 +68,7 @@ class BankDetailsFormProvider @Inject() extends Mappings {
           .verifying(accountNumberLengthConstraint(s"$messagePrefix.accountNumber")),
         "rollNumber"    -> optional(
           textWithOneSpace()
-            .verifying(maxLength(maxLengthRollNumber, s"$messagePrefix.rollNumber.error.length"))
+            .verifying(maxLength(Constants.maxRollNumberLength, s"$messagePrefix.rollNumber.error.length"))
             .verifying(regexp(rollNumberPattern, s"$messagePrefix.rollNumber.error.format"))
         )
       )(BankDetails.apply)(o => Some(Tuple.fromProductTyped(o)))
@@ -90,7 +88,7 @@ class BankDetailsFormProvider @Inject() extends Mappings {
           .verifying(accountNumberLengthConstraint(s"$messagePrefix.accountNumber")),
         "rollNumber"    -> optional(
           textWithOneSpace()
-            .verifying(maxLength(maxLengthRollNumber, s"$messagePrefix.rollNumber.error.length"))
+            .verifying(maxLength(Constants.maxRollNumberLength, s"$messagePrefix.rollNumber.error.length"))
             .verifying(regexp(rollNumberPattern, s"$messagePrefix.rollNumber.error.format"))
         )
       )(BankDetails.apply)(o => Some(Tuple.fromProductTyped(o)))

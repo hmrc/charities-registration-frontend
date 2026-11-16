@@ -14,8 +14,10 @@
  * limitations under the License.
  *@
 
+@import config.Constants.Css
+
 @this()
 
 @(msg: String)(implicit messages: Messages)
 
-<h2 class="govuk-heading-m">@messages(msg)</h2>
+<h2 class="@Css.headingMCssClass">@messages(msg)</h2>

@@ -16,6 +16,7 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -35,16 +36,16 @@
 @govukLayout(pageTitle = Some(titleNoForm("beingProcessedOldSubmission.title", None)), backLink = false) {
 
 
-    <div class="govuk-panel govuk-panel--confirmation">
-        <h1 class="govuk-panel__title">
+    <div class="@Css.panelCssClass @Css.panelConfirmationCssClass">
+        <h1 class="@Css.panelTitleCssClass">
         @messages("beingProcessedOldSubmission.heading")
         </h1>
-        <div class="govuk-panel__body">
+        <div class="@Css.panelBodyCssClass">
             <div>@messages("registrationSent.p1")</div>
             <strong>@acknowledgementReference</strong>
         </div>
         <br>
-        <div class="govuk-panel__body">
+        <div class="@Css.panelBodyCssClass">
             <div>@messages("registrationSent.submissionDate")</div>
             <strong>@submissionDate</strong>
         </div>

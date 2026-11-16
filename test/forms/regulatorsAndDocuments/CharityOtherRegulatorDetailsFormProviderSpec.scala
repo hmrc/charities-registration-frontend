@@ -16,14 +16,12 @@
 
 package forms.regulatorsAndDocuments
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import models.CharityOtherRegulatorDetails
 import play.api.data.{Form, FormError}
 
 class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours {
-
-  private val maxLengthRegulatorName                                 = 100
-  private val maxLengthRegistrationNumber                            = 20
   private val formProvider: CharityOtherRegulatorDetailsFormProvider = inject[CharityOtherRegulatorDetailsFormProvider]
   private val form: Form[CharityOtherRegulatorDetails]               = formProvider()
 
@@ -49,8 +47,8 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLengthRegulatorName,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLengthRegulatorName))
+      maxLength = Constants.maxRegulatorNameLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxRegulatorNameLength))
     )
 
     behave like fieldWithRegex(
@@ -89,8 +87,8 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLengthRegistrationNumber,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLengthRegistrationNumber))
+      maxLength = Constants.maxRegistrationNumberLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxRegistrationNumberLength))
     )
 
     behave like fieldWithRegex(

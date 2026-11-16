@@ -16,19 +16,17 @@
 
 package forms.operationsAndFunds
 
+import config.Constants
 import forms.mappings.Mappings
 import play.api.data.Form
 
 import javax.inject.Inject
 
 class OtherFundRaisingFormProvider @Inject() extends Mappings {
-
-  private[operationsAndFunds] val maxLength = 95
-
   def apply(): Form[String] =
     Form(
       "value" -> text("otherFundRaising.error.required")
-        .verifying(maxLength(maxLength, "otherFundRaising.error.length"))
+        .verifying(maxLength(Constants.maxOtherFundraisingLength, "otherFundRaising.error.length"))
         .verifying(regexpIncludingForeignCharacters("otherFundRaising.error.format"))
     )
 }

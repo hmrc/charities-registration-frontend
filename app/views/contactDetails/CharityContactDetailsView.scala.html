@@ -17,6 +17,7 @@
 @import controllers.contactDetails.routes._
 @import models.Mode
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -40,7 +41,6 @@
 
         @fieldset("charityContactDetails.heading") {
 
-
             @inputText(
                 form,
                 id = "mainPhoneNumber",
@@ -48,7 +48,7 @@
                 label = "charityContactDetails.mainPhoneNumber.label",
                 hint = Some(Html(messages("charityContactDetails.mainPhoneNumber.hint"))),
                 isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half")
+                classes = Some(s"${Css.inputCssClass} ${Css.oneHalfCssClass}")
             )
 
             @inputText(
@@ -58,7 +58,7 @@
                 label = "charityContactDetails.alternativePhoneNumber.label",
                 hint = Some(Html(messages("charityContactDetails.alternativePhoneNumber.hint"))),
                 isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half")
+                classes = Some(s"${Css.inputCssClass} ${Css.oneHalfCssClass}")
             )
 
             @inputText(
@@ -67,7 +67,7 @@
                 name = "emailAddress",
                 label = "charityContactDetails.emailAddress.label",
                 isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half"),
+                classes = Some(s"${Css.inputCssClass} ${Css.oneHalfCssClass}"),
                 inputType = "email"
             )
         }
@@ -79,7 +79,7 @@
     id = Some("taskListLink"),
     messageKey = messages("site.returnToTaskList"),
     link = controllers.routes.IndexController.onPageLoad(None).url,
-    classes = "govuk-!-font-size-19"
+    classes = Css.fontSize19Class
     )
 </div>
 

@@ -16,7 +16,7 @@
 
 package models.addressLookup
 
-import config.FrontendAppConfig
+import config.{Constants, FrontendAppConfig}
 import play.api.i18n.{Lang, MessagesApi}
 import play.api.libs.json.{Json, Writes}
 
@@ -63,10 +63,10 @@ object AddressLookupConfigurationModel {
           timeoutUrl = fullSignOutURL
         ),
         manualAddressEntryConfig = ManualAddressEntryConfigModel(
-          line1MaxLength = 35,
-          line2MaxLength = 35,
-          line3MaxLength = 35,
-          townMaxLength = 35,
+          line1MaxLength = Constants.maxAddressLineLength,
+          line2MaxLength = Constants.maxAddressLineLength,
+          line3MaxLength = Constants.maxAddressLineLength,
+          townMaxLength = Constants.maxAddressLineLength,
           mandatoryFields = MandatoryFields(
             addressLine1 = true,
             addressLine2 = false,

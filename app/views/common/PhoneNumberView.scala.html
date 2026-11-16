@@ -16,6 +16,7 @@
 
 @import play.api.mvc.Call
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -45,7 +46,7 @@ link: components.link
                 name = "mainPhoneNumber",
                 label = s"$messagePrefix.mainPhoneNumber.label",
                 isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half"),
+                classes = Some("s${Css.inputCssClass} ${Css.oneHalfCssClass}"),
                 hint = Some(Html(messages(s"$messagePrefix.mainPhoneNumber.hint"))),
                 inputType = "tel",
                 isTelephone = true
@@ -57,7 +58,7 @@ link: components.link
                 name = "alternativePhoneNumber",
                 label = s"$messagePrefix.alternativePhoneNumber.label",
                 isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half"),
+                classes = Some(s"${Css.inputCssClass} ${Css.oneHalfCssClass}"),
                 hint = Some(Html(messages(s"$messagePrefix.alternativePhoneNumber.hint"))),
                 inputType = "tel",
                 isTelephone = true
@@ -71,7 +72,7 @@ link: components.link
     id = Some("taskListLink"),
     messageKey = messages("site.returnToTaskList"),
     link = controllers.routes.IndexController.onPageLoad(None).url,
-    classes = "govuk-!-font-size-19"
+    classes = Css.fontSize19Class
     )
 </div>
 

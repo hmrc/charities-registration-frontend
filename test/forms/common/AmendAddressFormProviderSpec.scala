@@ -16,6 +16,7 @@
 
 package forms.common
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import models.addressLookup.AmendAddressModel
 import play.api.data.{Form, FormError}
@@ -25,7 +26,6 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
   private val messagePrefix: String                  = "amendAddress"
   private val formProvider: AmendAddressFormProvider = inject[AmendAddressFormProvider]
   private val form: Form[AmendAddressModel]          = formProvider(messagePrefix)
-  private val maxLength                              = 35
 
   ".line1" must {
 
@@ -43,8 +43,8 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxAddressLineLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxAddressLineLength))
     )
 
     behave like mandatoryField(
@@ -82,8 +82,8 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxAddressLineLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxAddressLineLength))
     )
 
     behave like fieldWithRegex(
@@ -115,8 +115,8 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxAddressLineLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxAddressLineLength))
     )
 
     behave like fieldWithRegex(
@@ -149,8 +149,8 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxAddressLineLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxAddressLineLength))
     )
 
     behave like mandatoryField(

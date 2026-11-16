@@ -16,6 +16,7 @@
 
 package forms.operationsAndFunds
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.{Form, FormError}
 
@@ -26,7 +27,6 @@ class OtherFundRaisingFormProviderSpec extends StringFieldBehaviours {
   val requiredKey = "otherFundRaising.error.required"
   val invalidKey  = "otherFundRaising.error.format"
   val lengthKey   = "otherFundRaising.error.length"
-  val maxLength   = 95
 
   ".value"                       must {
     val fieldName = "value"
@@ -44,8 +44,8 @@ class OtherFundRaisingFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxOtherFundraisingLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxOtherFundraisingLength))
     )
 
     behave like fieldWithRegex(

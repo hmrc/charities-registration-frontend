@@ -16,6 +16,7 @@
 
 package forms.common
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import models.BankDetails
 import org.scalacheck.Gen
@@ -38,7 +39,6 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
   ".accountName" must {
 
     val fieldName   = "accountName"
-    val maxLength   = 60
     val requiredKey = s"$messagePrefix.accountName.error.required"
     val lengthKey   = s"$messagePrefix.accountName.error.length"
     val invalidKey  = s"$messagePrefix.accountName.error.format"
@@ -52,8 +52,8 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxAccountNameLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxAccountNameLength))
     )
 
     behave like mandatoryField(
@@ -188,8 +188,6 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
   }
 
   ".rollNumber" must {
-
-    val maxLength  = 18
     val fieldName  = "rollNumber"
     val lengthKey  = s"$messagePrefix.rollNumber.error.length"
     val invalidKey = s"$messagePrefix.rollNumber.error.format"
@@ -203,8 +201,8 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxRollNumberLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxRollNumberLength))
     )
 
     behave like fieldWithRegex(
@@ -214,7 +212,7 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       FormError(fieldName, invalidKey, Seq(formProvider.rollNumberPattern))
     )
 
-    "bind roll number for string haveing letters a to z, numbers, hyphens, spaces and full stops" in {
+    "bind roll number for string having letters a to z, numbers, hyphens, spaces and full stops" in {
       val result = form.bind(Map(fieldName -> "roll-Number, .")).apply(fieldName)
       result.value.value mustBe "roll-Number, ."
     }
@@ -226,8 +224,10 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       result.errors.head.key mustEqual expectedError.key
     }
 
-    "not bind strings with more than 18 characters" in {
-      val result        = form.bind(Map(fieldName -> "01234567890123456789")).apply(fieldName)
+    s"not bind strings with more than ${Constants.maxRollNumberLength} characters" in {
+      val result        = form
+        .bind(Map(fieldName -> (0 to Constants.maxRollNumberLength).map(n => (n % 10).toString).mkString))
+        .apply(fieldName)
       val expectedError =
         FormError(fieldName, s"$messagePrefix.rollNumber.error.length", Seq(formProvider.rollNumberPattern))
       result.errors.head.key mustEqual expectedError.key

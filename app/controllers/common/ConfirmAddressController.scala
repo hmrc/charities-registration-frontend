@@ -16,12 +16,12 @@
 
 package controllers.common
 
-import config.FrontendAppConfig
+import config.{Constants, FrontendAppConfig}
 import controllers.LocalBaseController
 import models.addressLookup.AddressModel
 import models.requests.DataRequest
 import pages.QuestionPage
-import play.api.mvc._
+import play.api.mvc.*
 import service.CountryService
 import views.html.common.ConfirmAddressView
 
@@ -41,7 +41,7 @@ trait ConfirmAddressController extends LocalBaseController {
     name: Option[String] = None
   )(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] =
     getAddress(page) { (addressLine, country) =>
-      val submitCall                      = if (addressLine.exists(_.length > 35)) {
+      val submitCall                      = if (addressLine.exists(_.length > Constants.maxAddressLineLength)) {
         amendAddressCall
       } else {
         submissionCall

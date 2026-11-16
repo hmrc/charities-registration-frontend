@@ -16,19 +16,22 @@
 
 package forms.regulatorsAndDocuments
 
+import config.Constants
 import forms.mappings.Mappings
 import play.api.data.Form
 
 import javax.inject.Inject
 
 class SectionsChangedGoverningDocumentFormProvider @Inject() extends Mappings {
-
-  private[regulatorsAndDocuments] val maxLength = 350
-
   def apply(): Form[String] =
     Form(
       "value" -> text("sectionsChangedGoverningDocument.error.required")
-        .verifying(maxLengthTextArea(maxLength, "sectionsChangedGoverningDocument.error.length"))
+        .verifying(
+          maxLengthTextArea(
+            Constants.maxSectionsChangedGoverningDocumentLength,
+            "sectionsChangedGoverningDocument.error.length"
+          )
+        )
         .verifying(regexpIncludingForeignCharactersAndNewLine("sectionsChangedGoverningDocument.error.format"))
     )
 }

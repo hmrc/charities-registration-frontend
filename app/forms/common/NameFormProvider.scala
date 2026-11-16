@@ -16,30 +16,29 @@
 
 package forms.common
 
+import config.Constants
 import forms.mappings.Mappings
 import models.{Name, SelectTitle}
 import play.api.data.Form
-import play.api.data.Forms._
+import play.api.data.Forms.*
 
 import javax.inject.Inject
 
 class NameFormProvider @Inject() extends Mappings {
-  private[common] val maxLength = 100
-
   def apply(messagePrefix: String): Form[Name] =
     Form(
       mapping(
         "value"      -> enumerable[SelectTitle](s"$messagePrefix.title.error.required"),
         "firstName"  -> text(s"$messagePrefix.firstName.error.required")
-          .verifying(maxLength(maxLength, s"$messagePrefix.firstName.error.length"))
+          .verifying(maxLength(Constants.maxNameLength, s"$messagePrefix.firstName.error.length"))
           .verifying(regexpIncludingForeignCharacters(s"$messagePrefix.firstName.error.format")),
         "middleName" -> optional(
           text()
-            .verifying(maxLength(maxLength, s"$messagePrefix.middleName.error.length"))
+            .verifying(maxLength(Constants.maxNameLength, s"$messagePrefix.middleName.error.length"))
             .verifying(regexpIncludingForeignCharacters(s"$messagePrefix.middleName.error.format"))
         ),
         "lastName"   -> text(s"$messagePrefix.lastName.error.required")
-          .verifying(maxLength(maxLength, s"$messagePrefix.lastName.error.length"))
+          .verifying(maxLength(Constants.maxNameLength, s"$messagePrefix.lastName.error.length"))
           .verifying(regexpIncludingForeignCharacters(s"$messagePrefix.lastName.error.format"))
       )(Name.apply)(o => Some(Tuple.fromProductTyped(o)))
     )

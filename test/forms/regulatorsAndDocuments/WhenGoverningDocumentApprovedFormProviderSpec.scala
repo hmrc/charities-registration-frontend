@@ -16,6 +16,7 @@
 
 package forms.regulatorsAndDocuments
 
+import config.Constants
 import forms.behaviours.DateBehaviours
 import play.api.data.{Form, FormError}
 import utils.TimeMachine
@@ -26,15 +27,12 @@ class WhenGoverningDocumentApprovedFormProviderSpec extends DateBehaviours {
 
   private val timeMachine: TimeMachine = inject[TimeMachine]
   private val form: Form[LocalDate]    = inject[WhenGoverningDocumentApprovedFormProvider].apply()
-  private val year: Int                = 1800
-  private val month: Int               = 1
-  private val dayOfMonth: Int          = 1
   private val fakeNow: LocalDate       = timeMachine.now()
 
   ".value" should {
 
     val validData = datesBetween(
-      min = LocalDate.of(year, month, dayOfMonth),
+      min = LocalDate.of(Constants.earliestGoverningDocumentYear, 1, 1),
       max = fakeNow
     )
 
@@ -57,8 +55,8 @@ class WhenGoverningDocumentApprovedFormProviderSpec extends DateBehaviours {
     behave like dateFieldWithMin(
       form,
       "date",
-      min = LocalDate.of(year, month, dayOfMonth),
-      FormError("date", s"whenGoverningDocumentApproved.error.dateBetween", List(fakeNow.getYear.toString))
+      min = LocalDate.of(Constants.earliestGoverningDocumentYear, 1, 1),
+      FormError("date", "whenGoverningDocumentApproved.error.dateBetween", List(fakeNow.getYear.toString))
     )
   }
 }

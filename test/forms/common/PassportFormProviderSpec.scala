@@ -16,6 +16,7 @@
 
 package forms.common
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import models.Passport
 import play.api.data.{Form, FormError}
@@ -27,8 +28,6 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
   private val messagePrefix: String              = "authorisedOfficialsPassport"
   private val formProvider: PassportFormProvider = inject[PassportFormProvider]
   private val form: Form[Passport]               = formProvider(messagePrefix)
-  private val maxLengthCountry                   = 50
-  private val maxLengthPassport                  = 30
 
   ".passportNumber" must {
 
@@ -46,8 +45,8 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLengthPassport,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLengthPassport))
+      maxLength = Constants.maxPassportLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxPassportLength))
     )
 
     behave like mandatoryField(
@@ -80,8 +79,8 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLengthCountry,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLengthCountry))
+      maxLength = Constants.maxCountryLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxCountryLength))
     )
 
     behave like mandatoryField(
@@ -119,7 +118,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
       )
     }
 
-    s"fail to bind today's date" in {
+    "fail to bind today's date" in {
 
       val data = Map(
         "passportNumber"    -> passportNumber,
@@ -134,7 +133,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
       result.errors must contain only FormError(fieldName, s"$messagePrefix.error.minimum", Seq("day", "month", "year"))
     }
 
-    s"fail to bind date in past" in {
+    "fail to bind date in past" in {
 
       val data = Map(
         "passportNumber"    -> passportNumber,
@@ -149,7 +148,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
       result.errors must contain only FormError(fieldName, s"$messagePrefix.error.minimum", Seq("day", "month", "year"))
     }
 
-    s"fail to bind date with five digits" in {
+    "fail to bind date with five digits" in {
 
       val data = Map(
         "passportNumber"    -> passportNumber,
@@ -164,7 +163,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
       result.errors must contain only FormError(fieldName, s"$messagePrefix.error.format")
     }
 
-    s"bind valid data if date is in future" in {
+    "bind valid data if date is in future" in {
       val data = Map(
         "passportNumber"    -> passportNumber,
         "country"           -> passport.country,

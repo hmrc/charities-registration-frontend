@@ -16,6 +16,7 @@
 
 @import play.api.mvc.Call
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -43,7 +44,7 @@ link: components.link
             isPageHeading = true,
             label = messages(s"$messagePrefix.heading", fullName),
             hint = Some(Html(messages(s"$messagePrefix.hint"))),
-            classes = Some("govuk-input govuk-input--width-10")
+            classes = Some(s"${Css.inputCssClass} ${Css.inputWidth10CssClass}")
         )
 
 @button("site.saveAndContinue")
@@ -53,7 +54,7 @@ link: components.link
     id = Some("taskListLink"),
     messageKey = messages("site.returnToTaskList"),
     link = controllers.routes.IndexController.onPageLoad(None).url,
-    classes = "govuk-!-font-size-19"
+    classes = Css.fontSize19Class
     )
 </div>
     }

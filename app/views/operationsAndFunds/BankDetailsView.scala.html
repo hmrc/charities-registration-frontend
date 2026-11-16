@@ -17,6 +17,7 @@
 @import controllers.nominees.routes._
 @import models._
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -47,20 +48,20 @@ link: components.link
                 @p{@messages("bankDetails.p1")}
             }
 
-            <hr aria-hidden="true" class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-3">
+            <hr aria-hidden="true" class="@Css.sectionBreakCssClass @Css.sectionBreakVisibleCssClass @Css.marginTop6CssClass @Css.marginBottom3CssClass">
 
-            <div id="account-name-hint" class="govuk-hint">
-                <div class="govuk-label"><strong>@messages("bankDetails.accountName")</strong></div>
+            <div id="account-name-hint" class="@Css.hintCssClass">
+                <div class="@Css.labelCssClass"><strong>@messages("bankDetails.accountName")</strong></div>
                 @messages("bankDetails.accountName.hint")
             </div>
-            <div class="govuk-label">@charityName</div>
-            <div class="govuk-!-font-size-19">
-                <a id="changeLink" class="govuk-link" href="@{controllers.contactDetails.routes.CharityNameController.onPageLoad(PlaybackMode).url}">
-                    @messages("site.edit")<span class="govuk-visually-hidden">@messages("bankDetails.accountName")</span>
+            <div class="@Css.labelCssClass">@charityName</div>
+            <div class="Css.fontSize19Class">
+                <a id="changeLink" class="@Css.linkCssClass" href="@{controllers.contactDetails.routes.CharityNameController.onPageLoad(PlaybackMode).url}">
+                    @messages("site.edit")<span class="@Css.visuallyHiddenCssClass">@messages("bankDetails.accountName")</span>
                 </a>
             </div>
 
-            <hr aria-hidden="true" class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-3">
+            <hr aria-hidden="true" class="@Css.sectionBreakCssClass @Css.sectionBreakVisibleCssClass @Css.marginTop6CssClass @Css.marginBottom3CssClass">
 
             @inputNumber(
                 form,
@@ -69,12 +70,12 @@ link: components.link
                 label = s"$messagePrefix.sortCode",
                 isPageHeading = false,
                 hint = Some(Html(messages(s"$messagePrefix.sortCode.hint"))),
-                classes = Some("govuk-input govuk-input--width-5"),
+                classes = Some(s"${Css.inputCssClass} ${Css.inputWidth5CssClass}"),
                 isDecimal = false,
-                labelClasses = Some("govuk-!-font-weight-bold")
+                labelClasses = Some(Css.boldFontCssClass)
             )
 
-            <hr aria-hidden="true" class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-3">
+            <hr aria-hidden="true" class="@Css.sectionBreakCssClass @Css.sectionBreakVisibleCssClass @Css.marginTop6CssClass @Css.marginBottom3CssClass">
 
             @inputNumber(
                 form,
@@ -83,12 +84,12 @@ link: components.link
                 label = s"$messagePrefix.accountNumber",
                 isPageHeading = false,
                 hint = Some(Html(messages(s"$messagePrefix.accountNumber.hint"))),
-                classes = Some("govuk-input govuk-input govuk-input--width-10"),
+                classes = Some(s"${Css.inputCssClass} ${Css.inputWidth10CssClass}"),
                 isDecimal = false,
-                labelClasses = Some("govuk-!-font-weight-bold")
+                labelClasses = Some(Css.boldFontCssClass)
             )
 
-            <hr aria-hidden="true" class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-3">
+            <hr aria-hidden="true" class="@Css.sectionBreakCssClass @Css.sectionBreakVisibleCssClass @Css.marginTop6CssClass @Css.marginBottom3CssClass">
 
             @inputText(
                 form,
@@ -97,11 +98,11 @@ link: components.link
                 label = s"$messagePrefix.rollNumber",
                 isPageHeading = false,
                 hint = Some(Html(messages(s"$messagePrefix.rollNumber.hint"))),
-                classes = Some("govuk-input govuk-!-width-one-half"),
-                labelClasses = Some("govuk-!-font-weight-bold")
+                classes = Some(s"${Css.inputCssClass} ${Css.oneHalfCssClass}"),
+                labelClasses = Some(Css.boldFontCssClass)
             )
 
-            <hr aria-hidden="true" class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-3">
+            <hr aria-hidden="true" class="@Css.sectionBreakCssClass @Css.sectionBreakVisibleCssClass @Css.marginTop6CssClass @Css.marginBottom3CssClass">
 
         }
 
@@ -114,7 +115,7 @@ link: components.link
     id = Some("taskListLink"),
     messageKey = messages("site.returnToTaskList"),
     link = controllers.routes.IndexController.onPageLoad(None).url,
-    classes = "govuk-!-font-size-19"
+    classes = Css.fontSize19Class
     )
 </div>
 

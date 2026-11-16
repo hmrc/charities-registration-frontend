@@ -15,6 +15,7 @@
  *@
 
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -29,7 +30,7 @@
 
     @h1(messages("we_deleted_answers.heading"))
 
-    <p class="govuk-body">@messages("we_deleted_answers.status")</p>
+    <p class="@Css.bodyCssClass">@messages("we_deleted_answers.status")</p>
 
     @link(appConfig.signOutUrl, messages("deleted_answers.startAgain"), Some("linkButton"))
 

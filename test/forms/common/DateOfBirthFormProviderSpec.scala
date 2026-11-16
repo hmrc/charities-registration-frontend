@@ -16,6 +16,7 @@
 
 package forms.common
 
+import config.Constants
 import forms.behaviours.DateBehaviours
 import play.api.data.{Form, FormError}
 
@@ -25,12 +26,9 @@ class DateOfBirthFormProviderSpec extends DateBehaviours {
 
   private val messagePrefix: String = "authorisedOfficialsDOB"
   private val form: Form[LocalDate] = inject[DateOfBirthFormProvider].apply(messagePrefix)
-  private val startYear             = 1900
-  private val dayMonth              = 1
 
   ".value" should {
-    val minYear   = 16
-    val validDate = today.minusYears(minYear)
+    val validDate = today.minusYears(Constants.minAgeYears)
 
     behave like dateField(form, "date", validDate)
 
@@ -48,7 +46,7 @@ class DateOfBirthFormProviderSpec extends DateBehaviours {
     behave like dateFieldWithMin(
       form,
       "date",
-      min = LocalDate.of(startYear, dayMonth, dayMonth),
+      min = LocalDate.of(Constants.earliestBirthYear, 1, 1),
       FormError("date", s"$messagePrefix.error.dateBetween", List("day", "month", "year"))
     )
   }

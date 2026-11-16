@@ -16,6 +16,7 @@
 
 @import views.html.helper.CSPNonce
 
+@import config.Constants.Css
 @import uk.gov.hmrc.govukfrontend.views.html.{components => hmrcComponent}
 @import uk.gov.hmrc.govukfrontend.views.html.components.{toClasses => govukToClasses}
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
@@ -38,22 +39,22 @@
   hintText: String,
   countries: Seq[(String, String)])(implicit messages: Messages, requestHeader: RequestHeader)
 
-<div class="@govukToClasses("govuk-form-group", if(form(id).hasErrors) "govuk-form-group--error" else "")">
+<div class="@govukToClasses(Css.formGroupCssClass, if(form(id).hasErrors) Css.formGroupErrorCssClass else "")">
 
 @if(isPageHeading) {
-    <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--xl" for=@name>
+    <h1 class="@Css.labelWrapperCssClass">
+        <label class="@Css.labelCssClass @Css.labelXLCssClass" for=@name>
             @messages(label, headingMessageArgs*)
         </label>
     </h1>
 } else {
-    <label class="govuk-label" for=@id>
+    <label class="@Css.labelCssClass" for=@id>
         @messages(label, headingMessageArgs*)
     </label>
 }
 
-@if(isPageHint){<span id="@id-hint" class="govuk-hint">@hint</span>}
-@if(isPageHintText){<span id="@id-hintText" class="govuk-hint">@hintText</span>}
+@if(isPageHint){<span id="@id-hint" class="@Css.hintCssClass">@hint</span>}
+@if(isPageHintText){<span id="@id-hintText" class="@Css.hintCssClass">@hintText</span>}
 @defining(Seq(
     if(isPageHint) Some(s"$id-hint") else None,
     if(isPageHintText) Some(s"$id-hintText") else None
@@ -69,7 +70,7 @@
     selected = k == form("country").value.getOrElse(""),
     attributes = Map("id" → s"country-$k"))
     },
-    formGroup = FormGroup(classes = Some("autocomplete-wrapper govuk-!-width-three-quarters")),
+    formGroup = FormGroup(classes = Some(s"${Css.autocompleteWrapperCssClass} ${Css.threeQuartersCssClass}")),
     attributes = if(describedBy.nonEmpty) Map("aria-describedby" → describedBy) else Map.empty
 ).asAccessibleAutocomplete())
 }

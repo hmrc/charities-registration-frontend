@@ -17,7 +17,7 @@
 package controllers.operationsAndFunds
 
 import com.google.inject.Inject
-import config.FrontendAppConfig
+import config.{Constants, FrontendAppConfig}
 import controllers.LocalBaseController
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import forms.operationsAndFunds.OverseasOperatingLocationSummaryFormProvider
@@ -30,6 +30,7 @@ import service.CountryService
 import viewmodels.operationsAndFunds.OverseasOperatingLocationSummaryHelper
 import views.html.operationsAndFunds.OverseasOperatingLocationSummaryView
 import connectors.CharitiesConnector
+
 import scala.concurrent.Future
 
 class OverseasOperatingLocationSummaryController @Inject() (
@@ -61,7 +62,7 @@ class OverseasOperatingLocationSummaryController @Inject() (
     implicit request =>
       val summaryHelper = new OverseasOperatingLocationSummaryHelper(request.userAnswers, countryService, mode)
 
-      if (summaryHelper.rows.length < 5) {
+      if (summaryHelper.rows.length < Constants.maxOperatingCountries) {
 
         form
           .bindFromRequest()

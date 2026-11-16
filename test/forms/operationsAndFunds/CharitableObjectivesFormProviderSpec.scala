@@ -16,6 +16,7 @@
 
 package forms.operationsAndFunds
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.{Form, FormError}
 
@@ -29,7 +30,6 @@ class CharitableObjectivesFormProviderSpec extends StringFieldBehaviours {
     val requiredKey = "charitableObjectives.error.required"
     val lengthKey   = "charitableObjectives.error.length"
     val invalidKey  = "charitableObjectives.error.format"
-    val maxLength   = 500
     val fieldName   = "value"
 
     behave like fieldThatBindsValidData(
@@ -47,8 +47,8 @@ class CharitableObjectivesFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxCharitableObjectivesLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxCharitableObjectivesLength))
     )
 
     behave like fieldWithRegex(

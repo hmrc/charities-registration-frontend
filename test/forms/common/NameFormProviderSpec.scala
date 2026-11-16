@@ -16,13 +16,12 @@
 
 package forms.common
 
+import config.Constants
 import forms.behaviours.{OptionFieldBehaviours, StringFieldBehaviours}
 import models.{Name, SelectTitle}
 import play.api.data.{Form, FormError}
 
 class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehaviours {
-
-  private val maxLength                      = 100
   private val messagePrefix: String          = "authorisedOfficialsName"
   private val formProvider: NameFormProvider = inject[NameFormProvider]
   private val form: Form[Name]               = formProvider(messagePrefix)
@@ -62,8 +61,8 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxNameLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxNameLength))
     )
 
     behave like mandatoryField(
@@ -101,8 +100,8 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxNameLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxNameLength))
     )
 
     behave like fieldWithRegex(
@@ -135,8 +134,8 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxNameLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxNameLength))
     )
 
     behave like mandatoryField(

@@ -16,19 +16,17 @@
 
 package forms.nominees
 
+import config.Constants
 import forms.mappings.Mappings
 import play.api.data.Form
 
 import javax.inject.Inject
 
 class OrganisationNomineeNameFormProvider @Inject() extends Mappings {
-
-  private[nominees] val maxLength = 160
-
   def apply(): Form[String] =
     Form(
       "name" -> text("nameOfOrganisation.error.required")
-        .verifying(maxLength(maxLength, "nameOfOrganisation.error.length"))
+        .verifying(maxLength(Constants.maxOrganisationNameLength, "nameOfOrganisation.error.length"))
         .verifying(regexpIncludingForeignCharacters("nameOfOrganisation.error.format"))
     )
 }

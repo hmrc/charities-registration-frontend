@@ -16,13 +16,12 @@
 
 package forms.contactDetails
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import models.CharityContactDetails
 import play.api.data.{Form, FormError}
 
 class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
-
-  private val maxLength                                       = 160
   private val formProvider: CharityContactDetailsFormProvider = inject[CharityContactDetailsFormProvider]
   private val form: Form[CharityContactDetails]               = formProvider()
 
@@ -52,6 +51,7 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
       FormError(fieldName, invalidKey, Seq(formProvider.validateTelephoneNumber))
     )
   }
+
   ".alternativePhoneNumber" must {
 
     val fieldName = "alternativePhoneNumber"
@@ -96,8 +96,8 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxEmailLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxEmailLength))
     )
 
     behave like fieldWithRegex(

@@ -17,6 +17,7 @@
 @import controllers.checkEligibility.routes._
 @import models.Mode
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.http.SessionId
 
@@ -32,7 +33,7 @@
 
     @h1(messages("eligibleCharity.heading"))
 
-    <p class="govuk-body govuk-!-margin-bottom-7">@(messages("eligibleCharity.p1"))</p>
+    <p class="@Css.bodyCssClass @Css.marginBottom7CssClass">@(messages("eligibleCharity.p1"))</p>
 
     @link(sessionId.fold(controllers.routes.IndexController.onPageLoad(None).url)(id => controllers.routes.IndexController.onPageLoad(Some(id.value)).url), "site.continue",Some("linkButton"))
 }

@@ -16,19 +16,17 @@
 
 package forms.operationsAndFunds
 
+import config.Constants
 import forms.mappings.Mappings
 import play.api.data.Form
 
 import javax.inject.Inject
 
 class WhyNoBankStatementFormProvider @Inject() extends Mappings {
-
-  private[operationsAndFunds] val maxLength = 350
-
   def apply(): Form[String] =
     Form(
       "value" -> text("whyNoBankStatement.error.required")
-        .verifying(maxLengthTextArea(maxLength, "whyNoBankStatement.error.length"))
+        .verifying(maxLengthTextArea(Constants.maxWhyNoBankStatementsReasonLength, "whyNoBankStatement.error.length"))
         .verifying(regexpIncludingForeignCharactersAndNewLine("whyNoBankStatement.error.format"))
     )
 }

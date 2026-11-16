@@ -16,10 +16,11 @@
 
 package forms.contactDetails
 
+import config.Constants
 import forms.mappings.Mappings
 import models.CharityName
 import play.api.data.Form
-import play.api.data.Forms._
+import play.api.data.Forms.*
 
 import javax.inject.Inject
 
@@ -32,11 +33,11 @@ class CharityNameFormProvider @Inject() extends Mappings {
     Form(
       mapping(
         "fullName"      -> text("charityName.fullName.error.required")
-          .verifying(maxLength(fullNameMaxLength, "charityName.fullName.error.length"))
+          .verifying(maxLength(Constants.maxCharityNameLength, "charityName.fullName.error.length"))
           .verifying(regexpIncludingForeignCharacters("charityName.fullName.error.format")),
         "operatingName" -> optional(
           text()
-            .verifying(maxLength(maxLength, "charityName.operatingName.error.length"))
+            .verifying(maxLength(Constants.maxOperatingNameLength, "charityName.operatingName.error.length"))
             .verifying(regexpIncludingForeignCharacters("charityName.operatingName.error.format"))
         )
       )(CharityName.apply)(o => Some(Tuple.fromProductTyped(o)))

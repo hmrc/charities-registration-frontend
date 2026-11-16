@@ -17,6 +17,7 @@
 @import controllers.regulatorsAndDocuments.routes._
 @import models.Mode
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -52,7 +53,7 @@ link: components.link
     id = Some("taskListLink"),
     messageKey = messages("site.returnToTaskList"),
     link = controllers.routes.IndexController.onPageLoad(None).url,
-    classes = "govuk-!-font-size-19"
+    classes = Css.fontSize19Class
     )
 </div>
 
@@ -60,6 +61,6 @@ link: components.link
 }
 
 @hint = {
-    <p class="govuk-body">@messages("WhenGoverningDocumentApproved.p1")</p>
+    <p class="@Css.bodyCssClass">@messages("WhenGoverningDocumentApproved.p1")</p>
     <p>@messages("WhenGoverningDocumentApproved.hint")</p>
 }

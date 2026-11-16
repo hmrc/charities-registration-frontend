@@ -16,6 +16,7 @@
 
 package forms.operationsAndFunds
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.{Form, FormError}
 
@@ -29,7 +30,6 @@ class WhyNoBankStatementFormProviderSpec extends StringFieldBehaviours {
     val requiredKey = "whyNoBankStatement.error.required"
     val lengthKey   = "whyNoBankStatement.error.length"
     val invalidKey  = "whyNoBankStatement.error.format"
-    val maxLength   = 350
     val fieldName   = "value"
 
     behave like fieldThatBindsValidData(
@@ -47,8 +47,8 @@ class WhyNoBankStatementFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxWhyNoBankStatementsReasonLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxWhyNoBankStatementsReasonLength))
     )
 
     behave like fieldWithRegex(

@@ -68,7 +68,7 @@ class DateBehaviours extends FieldBehaviours {
     }
 
   def dayMonthFieldFailOn29Feb(form: Form[?], key: String, formError: FormError): Unit =
-    s"not bind valid data for 29/02/2000" in {
+    "not bind valid data for 29/02/2000" in {
       val data = Map(
         s"$key.day"   -> "29",
         s"$key.month" -> "02"

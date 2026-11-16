@@ -14,12 +14,14 @@
  * limitations under the License.
  *@
 
+@import config.Constants.Css
+
 @this(govukDateInput: GovukDateInput)
 
 @(
   form: Form[_],
   legendContent: String,
-  legendClasses: String = "govuk-fieldset__legend--xl",
+  legendClasses: String = Css.fieldsetLegendXLCssClass,
   id: String = "date",
   hintText: Option[String] = None,
   legendAsPageHeading: Boolean = true)(implicit messages: Messages)
@@ -38,22 +40,22 @@
     items = Seq(
         InputItem(
             id = s"$id.day",
-            classes = s"govuk-input--width-2${if(
+            classes = s"${Css.inputWidth2CssClass}${if(
                 form(s"$id.day").hasErrors
                         || form.errors.exists(_.key.isEmpty)
                         || form.errors.exists(_.args.isEmpty)
-                        || form.errors.exists(_.args.contains("day")))" govuk-input--error" else ""}",
+                        || form.errors.exists(_.args.contains("day"))) s" ${Css.inputErrorCssClass}" else ""}",
             name = s"$id.day",
             label = Some(messages("date.day")),
             value = form(s"$id.day").value
         ),
         InputItem(
             id = s"$id.month",
-            classes = s"govuk-input--width-2${if(
+            classes = s"${Css.inputWidth2CssClass}${if(
                 form(s"$id.month").hasErrors
                         || form.errors.exists(_.key.isEmpty)
                         || form.errors.exists(_.args.isEmpty)
-                        || form.errors.exists(_.args.contains("day")))" govuk-input--error" else ""}",
+                        || form.errors.exists(_.args.contains("day"))) s" ${Css.inputErrorCssClass}" else ""}",
             name = s"$id.month",
             label = Some(messages("date.month")),
             value = form(s"$id.month").value

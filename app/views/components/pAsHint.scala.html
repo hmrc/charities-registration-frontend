@@ -14,11 +14,13 @@
  * limitations under the License.
  *@
 
+@import config.Constants.Css
+
 @this()
 
 @(messagePrefix: String, messageSuffix: String, messageArg: String = "", messageSecondArg: Option[String] = None)(implicit messages: Messages)
 
-<p class="govuk-body govuk-!-margin-top-5">
+<p class="@Css.bodyCssClass @Css.marginTop5CssClass">
     <span>@messageSecondArg.fold(messages(s"$messagePrefix.$messageSuffix", messageArg))(
         nonEmptySecondArg => messages(s"$messagePrefix.$messageSuffix", messageArg, nonEmptySecondArg))</span><br>
 </p>

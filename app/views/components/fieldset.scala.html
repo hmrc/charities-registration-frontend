@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import config.Constants.Css
+
 @this(govukFieldset: GovukFieldset)
 
 @(
@@ -26,7 +28,7 @@
     Fieldset(
         legend = Some(Legend(
             content = Text(messages(legend, headingMessageArgs*)),
-            classes = if(asHeading) "govuk-fieldset__legend--xl" else "",
+            classes = if(asHeading) Css.fieldsetLegendXLCssClass else "",
             isPageHeading = asHeading
             )),
         html = content

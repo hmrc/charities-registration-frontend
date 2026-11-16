@@ -16,6 +16,7 @@
 
 package forms.regulatorsAndDocuments
 
+import config.Constants
 import forms.mappings.Mappings
 import play.api.data.Form
 import utils.TimeMachine
@@ -24,10 +25,6 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 class WhenGoverningDocumentApprovedFormProvider @Inject() (timeMachine: TimeMachine) extends Mappings {
-
-  private val startYear = 1800
-  private val dayMonth  = 1
-
   def apply(): Form[LocalDate] =
     Form(
       "date" -> localDate(
@@ -39,7 +36,7 @@ class WhenGoverningDocumentApprovedFormProvider @Inject() (timeMachine: TimeMach
       ).verifying(maxDate(timeMachine.now(), "whenGoverningDocumentApproved.error.future", "day", "month", "year"))
         .verifying(
           minDate(
-            LocalDate.of(startYear, dayMonth, dayMonth),
+            LocalDate.of(Constants.earliestGoverningDocumentYear, 1, 1),
             "whenGoverningDocumentApproved.error.dateBetween",
             timeMachine.now().getYear.toString
           )

@@ -17,6 +17,7 @@
 @import controllers.nominees.routes._
 @import models.Mode
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -46,7 +47,7 @@
     label = "organisationContactDetails.phoneNumber.label",
     isPageHeading = false,
     hint = Some(Html(messages("organisationContactDetails.phoneNumber.hint"))),
-    classes = Some("govuk-input govuk-input--width-20"),
+    classes = Some(s"${Css.inputCssClass} ${Css.inputWidth20CssClass}"),
     inputType = "tel",
     isTelephone = true
    )
@@ -57,7 +58,7 @@
     name = "email",
     label = "organisationContactDetails.email.label",
     isPageHeading = false,
-    classes = Some("govuk-input govuk-input--width-20"),
+    classes = Some(s"${Css.inputCssClass} ${Css.inputWidth20CssClass}"),
     inputType = "email"
    )
   }
@@ -69,7 +70,7 @@
  id = Some("taskListLink"),
  messageKey = messages("site.returnToTaskList"),
  link = controllers.routes.IndexController.onPageLoad(None).url,
- classes = "govuk-!-font-size-19"
+ classes = Css.fontSize19Class
  )
 </div>
 

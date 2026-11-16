@@ -17,6 +17,7 @@
 @import controllers.regulatorsAndDocuments.routes._
 @import models.Mode
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -49,7 +50,7 @@ link: components.link
                 name = "regulatorName",
                 label=messages("charityOtherRegulatorDetails.regulatorName.label"),
                 isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half")
+                classes = Some("s${Css.inputCssClass} ${Css.oneHalfCssClass}")
             )
 
              @inputText(
@@ -58,7 +59,7 @@ link: components.link
                 name = "registrationNumber",
                 label=messages("charityOtherRegulatorDetails.registrationNumber.label"),
                 isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half")
+                classes = Some("s${Css.inputCssClass} ${Css.oneHalfCssClass}")
             )
         }
 
@@ -69,7 +70,7 @@ link: components.link
     id = Some("taskListLink"),
     messageKey = messages("site.returnToTaskList"),
     link = controllers.routes.IndexController.onPageLoad(None).url,
-    classes = "govuk-!-font-size-19"
+    classes = Css.fontSize19Class
     )
 </div>
 

@@ -15,6 +15,7 @@
  *@
 
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -30,9 +31,9 @@
 
     @h1("incorrect-details.heading")
 
-    <p class="govuk-body">@messages("incorrect-details.notAnOrganisation.p1") <a class="govuk-link" href="@routes.IndexController.signInDifferentAccount">@messages("incorrect-details.notAnOrganisation.p1.link")</a>
+    <p class="@Css.bodyCssClass">@messages("incorrect-details.notAnOrganisation.p1") <a class="@Css.linkCssClass" href="@routes.IndexController.signInDifferentAccount">@messages("incorrect-details.notAnOrganisation.p1.link")</a>
     </p>
 
-    <p class="govuk-body">@messages("incorrect-details.notAnOrganisation.p2") <a class="govuk-link" href="@routes.IndexController.registerNewAccount">@messages("incorrect-details.notAnOrganisation.p2.link")</a>
+    <p class="@Css.bodyCssClass">@messages("incorrect-details.notAnOrganisation.p2") <a class="@Css.linkCssClass" href="@routes.IndexController.registerNewAccount">@messages("incorrect-details.notAnOrganisation.p2.link")</a>
     </p>
 }

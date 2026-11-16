@@ -81,7 +81,7 @@ object LookupPageMessagesModel {
     LookupPageMessagesModel(
       title = MessageOption(s"$messagePrefix.lookupPage.title", lang),
       heading = MessageOption(s"$messagePrefix.lookupPage.heading", lang, fullName.getOrElse("")),
-      postcodeLabel = MessageOption(s"commonAddress.LookupPage.postcodeLabel", lang)
+      postcodeLabel = MessageOption("commonAddress.LookupPage.postcodeLabel", lang)
     )
 }
 
@@ -101,8 +101,8 @@ object SelectPageMessagesModel {
     SelectPageMessagesModel(
       title = MessageOption(s"$messagePrefix.selectPage.title", lang),
       heading = MessageOption(s"$messagePrefix.selectPage.heading", lang, fullName.getOrElse("")),
-      headingWithPostcode = MessageOption(s"commonAddress.selectPage.headingWithPostcode", lang),
-      submitLabel = MessageOption(s"commonAddress.selectPage.submitLabel", lang)
+      headingWithPostcode = MessageOption("commonAddress.selectPage.headingWithPostcode", lang),
+      submitLabel = MessageOption("commonAddress.selectPage.submitLabel", lang)
     )
 }
 
@@ -122,10 +122,10 @@ object EditPageMessagesModel {
     EditPageMessagesModel(
       title = MessageOption(s"$messagePrefix.editPage.title", lang),
       heading = MessageOption(s"$messagePrefix.editPage.heading", lang, fullName.getOrElse("Sample")),
-      townLabel = MessageOption(s"commonAddress.editPage.townLabel", lang),
+      townLabel = MessageOption("commonAddress.editPage.townLabel", lang),
       postcodeLabel =
-        if (international) MessageOption(s"commonAddress.internationalEditPage.postcodeLabel", lang)
-        else MessageOption(s"commonAddress.editPage.postcodeLabel", lang)
+        if (international) MessageOption("commonAddress.internationalEditPage.postcodeLabel", lang)
+        else MessageOption("commonAddress.editPage.postcodeLabel", lang)
     )
 }
 
@@ -144,7 +144,7 @@ object ConfirmPageMessagesModel {
     ConfirmPageMessagesModel(
       title = MessageOption(s"$messagePrefix.confirmPage.title", lang),
       heading = MessageOption(s"$messagePrefix.confirmPage.heading", lang, fullName.getOrElse("")),
-      submitLabel = MessageOption(s"commonAddress.confirmPage.submitLabel", lang)
+      submitLabel = MessageOption("commonAddress.confirmPage.submitLabel", lang)
     )
 }
 

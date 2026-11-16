@@ -16,6 +16,7 @@
 
 @import play.api.mvc.Call
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -51,7 +52,7 @@ link: components.link
                 name = "line1",
                 label = "commonAddress.amendPage.line1Label",
                 isPageHeading = false,
-                classes = Some("govuk-input--width-20")
+                classes = Some(Css.inputWidth20CssClass)
             )
 
             @inputText(
@@ -60,7 +61,7 @@ link: components.link
                 name = "line2",
                 label = "commonAddress.amendPage.line2Label",
                 isPageHeading = false,
-                classes = Some("govuk-input--width-20")
+                classes = Some(Css.inputWidth20CssClass)
             )
 
             @inputText(
@@ -69,7 +70,7 @@ link: components.link
                 name = "line3",
                 label = "commonAddress.amendPage.line3Label",
                 isPageHeading = false,
-                classes = Some("govuk-input--width-20")
+                classes = Some(Css.inputWidth20CssClass)
             )
 
             @inputText(
@@ -78,7 +79,7 @@ link: components.link
                 name = "town",
                 label = "commonAddress.amendPage.townLabel",
                 isPageHeading = false,
-                classes = Some("govuk-input--width-20")
+                classes = Some(Css.inputWidth20CssClass)
             )
 
             @inputText(
@@ -87,7 +88,7 @@ link: components.link
                 name = "postcode",
                 label = "commonAddress.amendPage.postcodeLabel",
                 isPageHeading = false,
-                classes = Some("govuk-input--width-10")
+                classes = Some(Css.inputWidth10CssClass)
             )
 
             @country(
@@ -111,7 +112,7 @@ link: components.link
     id = Some("taskListLink"),
     messageKey = messages("site.returnToTaskList"),
     link = controllers.routes.IndexController.onPageLoad(None).url,
-    classes = "govuk-!-font-size-19"
+    classes = Css.fontSize19Class
     )
 </div>
 

@@ -133,9 +133,9 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       theUserAnswers.id mustBe internalId
       theUserAnswers.data mustBe Json.parse(s"""{"isSection2Completed":false,
-          |"charityRegulator":["ccew"],
-          |"charityCommissionRegistrationNumber":"$charityCommissionRegistrationNumber"
-          |}""".stripMargin)
+            |"charityRegulator":["ccew"],
+            |"charityCommissionRegistrationNumber":"$charityCommissionRegistrationNumber"
+            |}""".stripMargin)
 
       def theUserAnswers: UserAnswers = {
         val captor: ArgumentCaptor[UserAnswers] = ArgumentCaptor.forClass(classOf[UserAnswers])

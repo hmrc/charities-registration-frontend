@@ -16,6 +16,7 @@
 
 package forms.regulatorsAndDocuments
 
+import config.Constants
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.{Form, FormError}
 
@@ -29,7 +30,6 @@ class WhyNotRegisteredWithCharityFormProviderSpec extends StringFieldBehaviours 
     val requiredKey = "whyNotRegisteredWithCharity.error.required"
     val lengthKey   = "whyNotRegisteredWithCharity.error.length"
     val invalidKey  = "whyNotRegisteredWithCharity.error.format"
-    val maxLength   = 100
     val fieldName   = "value"
 
     behave like fieldThatBindsValidData(
@@ -47,8 +47,8 @@ class WhyNotRegisteredWithCharityFormProviderSpec extends StringFieldBehaviours 
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = Constants.maxWhyNotRegisteredWithCharityReason,
+      lengthError = FormError(fieldName, lengthKey, Seq(Constants.maxWhyNotRegisteredWithCharityReason))
     )
 
     behave like fieldWithRegex(

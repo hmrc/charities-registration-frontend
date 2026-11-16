@@ -16,6 +16,7 @@
 
 package forms.common
 
+import config.Constants
 import forms.mappings.Mappings
 import models.Passport
 import play.api.data.Form
@@ -26,18 +27,14 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 class PassportFormProvider @Inject() (timeMachine: TimeMachine) extends Mappings {
-
-  private[common] val maxLengthCountry  = 50
-  private[common] val maxLengthPassport = 30
-
   def apply(messagePrefix: String): Form[Passport] =
     Form(
       mapping(
         "passportNumber" -> textWithOneSpace(s"$messagePrefix.passportNumber.error.required")
-          .verifying(maxLength(maxLengthPassport, s"$messagePrefix.passportNumber.error.length"))
+          .verifying(maxLength(Constants.maxPassportLength, s"$messagePrefix.passportNumber.error.length"))
           .verifying(regexp(validateFieldNo, s"$messagePrefix.passportNumber.error.format")),
         "country"        -> text(s"$messagePrefix.country.error.required")
-          .verifying(maxLength(maxLengthCountry, s"$messagePrefix.country.error.length"))
+          .verifying(maxLength(Constants.maxCountryLength, s"$messagePrefix.country.error.length"))
           .verifying(regexp(validateFieldCountry, s"$messagePrefix.country.error.format")),
         "expiryDate"     -> localDate(
           invalidKey = s"$messagePrefix.error.invalid",

@@ -16,6 +16,7 @@
 
 @import play.api.mvc.Call
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 @import scala.util.Try
 @import java.time.LocalDate
@@ -48,7 +49,7 @@ link: components.link
                 name = "passportNumber",
                 label = s"$messagePrefix.passportNumber.label",
                 isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-three-quarters")
+                classes = Some(s"${Css.linkCssClass} ${Css.threeQuartersCssClass}")
             )
 
             @country(form,
@@ -66,7 +67,7 @@ link: components.link
                 form,
                 id = "expiryDate",
                 legendContent = messages(s"$messagePrefix.expiryDate.label"),
-                legendClasses = "govuk-label govuk-!-margin-bottom-4",
+                legendClasses = s"${Css.labelCssClass} ${Css.marginBottom4CssClass}",
                 hintMessage= None,
                 hintHtml = Some(Html(messages(s"$messagePrefix.hint", (LocalDate.now().getYear + 10).toString ))),
                 legendAsPageHeading = false
@@ -81,7 +82,7 @@ link: components.link
     id = Some("taskListLink"),
     messageKey = messages("site.returnToTaskList"),
     link = controllers.routes.IndexController.onPageLoad(None).url,
-    classes = "govuk-!-font-size-19"
+    classes = Css.fontSize19Class
     )
 </div>
 

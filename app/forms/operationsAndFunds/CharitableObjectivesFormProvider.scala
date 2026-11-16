@@ -16,19 +16,17 @@
 
 package forms.operationsAndFunds
 
+import config.Constants
 import forms.mappings.Mappings
 import play.api.data.Form
 
 import javax.inject.Inject
 
 class CharitableObjectivesFormProvider @Inject() extends Mappings {
-
-  private[operationsAndFunds] val maxLength = 500
-
   def apply(): Form[String] =
     Form(
       "value" -> text("charitableObjectives.error.required")
-        .verifying(maxLengthTextArea(maxLength, "charitableObjectives.error.length"))
+        .verifying(maxLengthTextArea(Constants.maxCharitableObjectivesLength, "charitableObjectives.error.length"))
         .verifying(regexpIncludingForeignCharactersAndNewLine("charitableObjectives.error.format"))
     )
 }

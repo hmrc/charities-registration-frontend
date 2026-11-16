@@ -15,6 +15,7 @@
  *@
 
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -29,7 +30,7 @@
 
     @h1(messages("signed_out.heading"))
 
-    <p class="govuk-body">@messages("signed_out.status")</p>
+    <p class="@Css.bodyCssClass">@messages("signed_out.status")</p>
 
     @link(controllers.routes.IndexController.onPageLoad(None).url, messages("signed_out.signIn"), Some("linkButton") )
 

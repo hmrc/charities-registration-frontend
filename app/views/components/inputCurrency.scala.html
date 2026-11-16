@@ -14,6 +14,7 @@
  * limitations under the License.
  *@
 
+@import config.Constants.Css
 @import uk.gov.hmrc.govukfrontend.views.html.components.{toClasses => govukToClasses}
 
 @this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel)
@@ -27,12 +28,12 @@
         classes: Option[String] = None
 )(implicit messages: Messages)
 
-<div class="@govukToClasses("govuk-form-group", if(form(id).hasErrors) "govuk-form-group--error" else "")">
+<div class="@govukToClasses(Css.formGroupCssClass, if(form(id).hasErrors) Css.formGroupErrorCssClass else "")">
 
         @govukLabel(Label(
         forAttr = Some(id),
         isPageHeading = isPageHeading,
-        classes = if(isPageHeading) "govuk-label--xl" else "govuk-visually-hidden",
+        classes = if(isPageHeading) Css.labelXLCssClass else Css.visuallyHiddenCssClass,
         content = Text(messages(label))
         ))
 
@@ -69,10 +70,10 @@
 @defining {
     id="@id" name="@name" type="text" inputmode="decimal" @form(s"$id").value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
 } { attrs =>
-        <div class="govuk-currency-input govuk-body">
-            <div class="govuk-currency-input__inner">
-                <span class="hmrc-currency-input__unit">&pound;</span>
-                <input class="@govukToClasses("govuk-input", "govuk-input--width-10", "govuk-currency-input__inner__input", classes.fold("")(x => x), if(form(id).hasErrors) "govuk-input--error" else "")" @attrs>
+        <div class="@Css.currencyInputCssClass @Css.bodyCssClass">
+            <div class="@Css.currencyInputInnerCssClass">
+                <span class="@Css.currencyInputUnitCssClass">&pound;</span>
+                <input class="@govukToClasses(Css.currencyInputCssClass, Css.inputWidth10CssClass, Css.currencyInputInnerInputCssClass, classes.fold("")(x => x), if(form(id).hasErrors) Css.inputErrorCssClass else "")" @attrs>
             </div>
         </div>
     }

@@ -59,8 +59,7 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with BeforeAndAfterEa
       )
 
       "return false when sections are not completed" in {
-
-        val ua: UserAnswers = baseInternalUserAnswers
+        val ua: UserAnswers = baseInternalUserAnswers.copy(data = data)
 
         val result = service.isCharityInformationStatusSectionCompleted(ua)
 

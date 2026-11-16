@@ -17,6 +17,7 @@
 @import controllers.nominees.routes._
 @import models.Mode
 @import views.ViewUtils._
+@import config.Constants.Css
 @import config.FrontendAppConfig
 
 @this(
@@ -53,7 +54,7 @@ link: components.link
                 label = s"$messagePrefix.accountName",
                 isPageHeading = false,
                 hint = Some(Html(messages(s"$messagePrefix.accountName.hint"))),
-                classes = Some("govuk-input govuk-!-width-one-half")
+                classes = Some(s"${Css.inputCssClass} ${Css.oneHalfCssClass}")
             )
 
             @inputNumber(
@@ -63,7 +64,7 @@ link: components.link
                 label = s"$messagePrefix.sortCode",
                 isPageHeading = false,
                 hint = Some(Html(messages(s"$messagePrefix.sortCode.hint"))),
-                classes = Some("govuk-input govuk-input--width-5"),
+                classes = Some(s"${Css.inputCssClass} ${Css.inputWidth5CssClass}"),
                 isDecimal = false
             )
 
@@ -74,7 +75,7 @@ link: components.link
                 label = s"$messagePrefix.accountNumber",
                 isPageHeading = false,
                 hint = Some(Html(messages(s"$messagePrefix.accountNumber.hint"))),
-                classes = Some("govuk-input govuk-input govuk-input--width-10"),
+                classes = Some(s"${Css.inputCssClass} ${Css.inputWidth10CssClass}"),
                 isDecimal = false
             )
 
@@ -85,7 +86,7 @@ link: components.link
                 label = s"$messagePrefix.rollNumber",
                 isPageHeading = false,
                 hint = Some(Html(messages(s"$messagePrefix.rollNumber.hint"))),
-                classes = Some("govuk-input govuk-!-width-one-half")
+                classes = Some(s"${Css.inputCssClass} ${Css.oneHalfCssClass}")
             )
         }
 
@@ -98,7 +99,7 @@ link: components.link
     id = Some("taskListLink"),
     messageKey = messages("site.returnToTaskList"),
     link = controllers.routes.IndexController.onPageLoad(None).url,
-    classes = "govuk-!-font-size-19"
+    classes = Css.fontSize19Class
     )
 </div>
 

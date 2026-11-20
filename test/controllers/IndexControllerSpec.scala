@@ -18,6 +18,7 @@ package controllers
 
 import audit.AuditService
 import base.SpecBase
+import config.FrontendAppConfig
 import connectors.CharitiesConnector
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
@@ -37,8 +38,11 @@ import scala.concurrent.Future
 
 class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockAuditService: AuditService            = mock(classOf[AuditService])
+  override val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+  val mockAuditService: AuditService            = mock(classOf[AuditService])
+  val mockAppConfig: FrontendAppConfig          = mock(classOf[FrontendAppConfig])
+
+  when(mockAppConfig.sessionTimeoutInSeconds).thenReturn(600)
 
   class FakeCharitiesSectionCompleteService @Inject() (
     sessionRepository: SessionRepository,
@@ -47,7 +51,8 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
   ) extends CharitiesSectionCompleteService(
         sessionRepository,
         charitiesConnector,
-        auditService
+        auditService,
+        mockAppConfig
       )
 
   lazy val service =

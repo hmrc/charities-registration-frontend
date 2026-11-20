@@ -92,9 +92,9 @@ class NomineeStatusHelperSpec extends SpecBase {
   private val nomineeOrganisationContactDetailsEmptyEmail: OrganisationNomineeContactDetails =
     OrganisationNomineeContactDetails(daytimePhone, "")
 
-  private val noNominee = UserAnswers("id").set(IsAuthoriseNomineePage, false).success.value
+  private val noNominee = baseInternalUserAnswers.set(IsAuthoriseNomineePage, false).success.value
 
-  private val nomineeIndividual: UserAnswers = UserAnswers("id")
+  private val nomineeIndividual: UserAnswers = baseInternalUserAnswers
     .set(IsAuthoriseNomineePage, true)
     .flatMap(_.set(ChooseNomineePage, true))
     .flatMap(_.set(IndividualNomineeNamePage, personNameWithoutMiddle))
@@ -108,7 +108,7 @@ class NomineeStatusHelperSpec extends SpecBase {
     .success
     .value
 
-  private val nomineeOrganisation: UserAnswers = UserAnswers("id")
+  private val nomineeOrganisation: UserAnswers = baseInternalUserAnswers
     .set(IsAuthoriseNomineePage, true)
     .flatMap(_.set(ChooseNomineePage, false))
     .flatMap(_.set(OrganisationNomineeNamePage, "Company Inc"))
@@ -146,7 +146,7 @@ class NomineeStatusHelperSpec extends SpecBase {
       "return false nominee details are not defined" in {
 
         helper.checkComplete(
-          UserAnswers("id")
+          baseInternalUserAnswers
             .set(IsAuthoriseNomineePage, true)
             .flatMap(_.set(ChooseNomineePage, false))
             .success
@@ -401,7 +401,7 @@ class NomineeStatusHelperSpec extends SpecBase {
         }
 
         "return true when for nominee with correct title" in {
-          val nomineeIndividual: UserAnswers = UserAnswers("id")
+          val nomineeIndividual: UserAnswers = baseInternalUserAnswers
             .set(IsAuthoriseNomineePage, true)
             .flatMap(
               _.set(ChooseNomineePage, true)
@@ -416,7 +416,7 @@ class NomineeStatusHelperSpec extends SpecBase {
         }
 
         "return false when for nominee with unsupported title" in {
-          val nomineeIndividual: UserAnswers = UserAnswers("id")
+          val nomineeIndividual: UserAnswers = baseInternalUserAnswers
             .set(IsAuthoriseNomineePage, true)
             .flatMap(
               _.set(ChooseNomineePage, true)
@@ -434,7 +434,7 @@ class NomineeStatusHelperSpec extends SpecBase {
         }
 
         "return true when for nominee with correct title and email" in {
-          val nomineeOrganisation: UserAnswers = UserAnswers("id")
+          val nomineeOrganisation: UserAnswers = baseInternalUserAnswers
             .set(IsAuthoriseNomineePage, true)
             .flatMap(_.set(ChooseNomineePage, false))
             .flatMap(
@@ -456,7 +456,7 @@ class NomineeStatusHelperSpec extends SpecBase {
         }
 
         "return false when for nominee with unsupported title and correct email" in {
-          val nomineeOrganisation: UserAnswers = UserAnswers("id")
+          val nomineeOrganisation: UserAnswers = baseInternalUserAnswers
             .set(IsAuthoriseNomineePage, true)
             .flatMap(_.set(ChooseNomineePage, false))
             .flatMap(
@@ -478,7 +478,7 @@ class NomineeStatusHelperSpec extends SpecBase {
         }
 
         "return false when for nominee with unsupported title and blank email" in {
-          val nomineeOrganisation: UserAnswers = UserAnswers("id")
+          val nomineeOrganisation: UserAnswers = baseInternalUserAnswers
             .set(IsAuthoriseNomineePage, true)
             .flatMap(_.set(ChooseNomineePage, false))
             .flatMap(_.set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetailsEmptyEmail))
@@ -495,7 +495,7 @@ class NomineeStatusHelperSpec extends SpecBase {
         }
 
         "return false when for nominee with correct title and blank email" in {
-          val nomineeOrganisation: UserAnswers = UserAnswers("id")
+          val nomineeOrganisation: UserAnswers = baseInternalUserAnswers
             .set(IsAuthoriseNomineePage, true)
             .flatMap(_.set(ChooseNomineePage, false))
             .flatMap(_.set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetailsEmptyEmail))
@@ -512,7 +512,7 @@ class NomineeStatusHelperSpec extends SpecBase {
         }
 
         "return true when missing nominee" in {
-          val nomineeOrganisation: UserAnswers = UserAnswers("id")
+          val nomineeOrganisation: UserAnswers = baseInternalUserAnswers
             .set(IsAuthoriseNomineePage, true)
             .flatMap(_.set(ChooseNomineePage, false))
             .flatMap(
@@ -528,7 +528,7 @@ class NomineeStatusHelperSpec extends SpecBase {
         }
 
         "return true when missing authorised person" in {
-          val nomineeOrganisation: UserAnswers = UserAnswers("id")
+          val nomineeOrganisation: UserAnswers = baseInternalUserAnswers
             .set(IsAuthoriseNomineePage, true)
             .flatMap(_.set(ChooseNomineePage, false))
             .flatMap(_.set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetailsEmptyEmail))

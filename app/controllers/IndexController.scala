@@ -69,7 +69,7 @@ class IndexController @Inject() (
   }
 
   def keepalive: Action[AnyContent] = (identify andThen getData).async { implicit request =>
-    val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
+    val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers.empty(request.internalId, appConfig))
     charitiesConnector.saveUserAnswers(userAnswers).map { _ =>
       NoContent
     }

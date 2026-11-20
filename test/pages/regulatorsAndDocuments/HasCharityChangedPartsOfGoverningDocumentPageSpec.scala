@@ -16,9 +16,7 @@
 
 package pages.regulatorsAndDocuments
 
-import models.UserAnswers
 import pages.behaviours.PageBehaviours
-import play.api.libs.json.Json
 
 class HasCharityChangedPartsOfGoverningDocumentPageSpec extends PageBehaviours {
 
@@ -32,7 +30,7 @@ class HasCharityChangedPartsOfGoverningDocumentPageSpec extends PageBehaviours {
 
     "cleanup" when {
 
-      val userAnswer = UserAnswers("id", Json.obj())
+      val userAnswer = baseInternalUserAnswers
         .set(HasCharityChangedPartsOfGoverningDocumentPage, true)
         .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Section One"))
         .success

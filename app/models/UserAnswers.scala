@@ -16,8 +16,9 @@
 
 package models
 
-import pages._
-import play.api.libs.json._
+import config.FrontendAppConfig
+import pages.*
+import play.api.libs.json.*
 
 import java.time.LocalDateTime
 import scala.annotation.tailrec
@@ -87,15 +88,20 @@ object UserAnswers {
 
   def apply(
     id: String,
-    data: JsObject = Json.obj(),
-    lastUpdated: LocalDateTime = LocalDateTime.now,
-    expiresAt: LocalDateTime = calculateExpireTime
+    data: JsObject,
+    lastUpdated: LocalDateTime,
+    expiresAt: LocalDateTime
   ): UserAnswers =
     new UserAnswers(id, data, lastUpdated, expiresAt)
 
-  private lazy val expireMinutes = 15
+  def empty(
+    id: String,
+    config: FrontendAppConfig
+  ): UserAnswers =
+    new UserAnswers(id, Json.obj(), LocalDateTime.now, calculateExpireTime(config))
 
-  private def calculateExpireTime: LocalDateTime = LocalDateTime.now.plusMinutes(expireMinutes)
+  private def calculateExpireTime(appConfig: FrontendAppConfig): LocalDateTime =
+    LocalDateTime.now.plusSeconds(appConfig.sessionTimeoutInSeconds)
 
   implicit lazy val reads: Reads[UserAnswers] = {
 

@@ -56,13 +56,8 @@ trait SpecBase
     with EitherValues
     with TestData {
 
-  lazy val injector: Injector                   = app.injector
-  lazy val internalId: String                   = "id"
-  lazy val baseInternalUserAnswers: UserAnswers = UserAnswers(internalId, Json.obj())
-  lazy val emptyUserAnswers: UserAnswers        = baseInternalUserAnswers.copy(
-    lastUpdated = baseInternalUserAnswers.lastUpdated.truncatedTo(ChronoUnit.MILLIS),
-    expiresAt = baseInternalUserAnswers.expiresAt.truncatedTo(ChronoUnit.MILLIS)
-  )
+  lazy val injector: Injector = app.injector
+
   protected def userAnswersWithRegisteredApplication(
     foreignOfficials: List[Name] = Nil,
     requiredDocs: Map[String, Boolean] = Map.empty
@@ -80,7 +75,7 @@ trait SpecBase
     )
   }
 
-  lazy val userAnswers: Option[UserAnswers] = None
+  val userAnswers: Option[UserAnswers] = None
 
   lazy val messagesControllerComponents: MessagesControllerComponents =
     injector.instanceOf[MessagesControllerComponents]

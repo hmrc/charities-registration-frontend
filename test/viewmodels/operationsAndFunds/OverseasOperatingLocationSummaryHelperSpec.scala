@@ -23,7 +23,7 @@ import base.data.messages.BaseMessages
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import models.operations.OperatingLocationOptions.{England, Overseas}
 import models.operations.{FundRaisingOptions, OperatingLocationOptions}
-import models.{Index, MongoDateTimeFormats, NormalMode, UserAnswers}
+import models.{Index, MongoDateTimeFormats, NormalMode}
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.{mock, when}
 import pages.operationsAndFunds._
@@ -37,7 +37,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
   private lazy val mockCountryService: CountryService = mock(classOf[CountryService])
 
   private val helper = new OverseasOperatingLocationSummaryHelper(
-    UserAnswers("id")
+    baseInternalUserAnswers
       .set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet)
       .flatMap(_.set(OperatingLocationPage, Set[OperatingLocationOptions](England, Overseas)))
       .flatMap(_.set(IsFinancialAccountsPage, true))

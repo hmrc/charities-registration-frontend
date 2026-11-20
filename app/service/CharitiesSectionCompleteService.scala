@@ -17,6 +17,7 @@
 package service
 
 import audit.{AuditService, NormalUserAuditEvent}
+import config.FrontendAppConfig
 import connectors.CharitiesConnector
 import models.UserAnswers
 import models.requests.OptionalDataRequest
@@ -41,13 +42,15 @@ import scala.util.Try
 class CharitiesSectionCompleteService @Inject() (
   sessionRepository: SessionRepository,
   charitiesConnector: CharitiesConnector,
-  auditService: AuditService
+  auditService: AuditService,
+  appConfig: FrontendAppConfig
 ) extends Logging {
 
+  // TODO(DLSN-1210) - this method is unused aside from testing - test helper? (move to test), unneeded (remove), needed (call it)...
   private[service] def isCharityInformationStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] = {
     val sectionPredicate =
       CharityInformationStatusHelper.checkComplete(userAnswers) &&
-        userAnswers.get(CharityNamePage).fold(false)(_.fullName.length < 60)
+        userAnswers.get(CharityNamePage).fold(false)(_.fullName.length <= 60)
 
     userAnswers.set(Section1Page, sectionPredicate)
   }
@@ -98,7 +101,7 @@ class CharitiesSectionCompleteService @Inject() (
               )
             Future(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
           case Some(_) =>
-            val userAnswers = UserAnswers(request.internalId)
+            val userAnswers = UserAnswers.empty(request.internalId, appConfig)
             logger.warn(s" NewUser")
             auditService.sendEvent(NormalUserAuditEvent(Json.obj("id" -> userAnswers.id)))
             charitiesConnector.saveUserAnswers(userAnswers).map(_ => Right(userAnswers))

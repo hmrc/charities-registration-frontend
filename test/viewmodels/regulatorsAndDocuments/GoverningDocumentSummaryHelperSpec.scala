@@ -21,7 +21,7 @@ import base.data.messages.BaseMessages
 import controllers.regulatorsAndDocuments.routes as regulatorDocsRoutes
 import models.regulators.SelectGoverningDocument
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
-import models.{CheckMode, UserAnswers}
+import models.CheckMode
 import pages.regulatorsAndDocuments.*
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
@@ -32,7 +32,7 @@ import utils.ImplicitDateFormatter
 class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHelper with ImplicitDateFormatter {
 
   private val helper = new GoverningDocumentSummaryHelper(
-    UserAnswers("id")
+    baseInternalUserAnswers
       .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head)
       .flatMap(_.set(GoverningDocumentNamePage, governingDocument))
       .flatMap(_.set(WhenGoverningDocumentApprovedPage, govDocApprovedDate))

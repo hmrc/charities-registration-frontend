@@ -19,7 +19,7 @@ package viewmodels.operationsAndFunds
 import base.SpecBase
 import base.data.messages.BaseMessages
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
-import models.{BankDetails, CheckMode, UserAnswers}
+import models.{BankDetails, CheckMode}
 import pages.operationsAndFunds.BankDetailsPage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
@@ -27,7 +27,7 @@ import viewmodels.SummaryListRowHelper
 class BankDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val helper = new BankDetailsSummaryHelper(
-    UserAnswers("id")
+    baseInternalUserAnswers
       .set(BankDetailsPage, bankDetails)
       .success
       .value

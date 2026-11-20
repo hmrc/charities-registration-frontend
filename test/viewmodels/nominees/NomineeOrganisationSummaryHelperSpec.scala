@@ -44,7 +44,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
   lazy val mockCountryService: CountryService = mock(classOf[CountryService])
   when(mockCountryService.find(meq(gbCountryCode))(any())).thenReturn(Some(gbCountry))
 
-  private lazy val baseUserAnswers: UserAnswers = UserAnswers("id")
+  private lazy val baseUserAnswers: UserAnswers = baseInternalUserAnswers
     .set(OrganisationNomineeNamePage, "Company Inc")
     .flatMap(
       _.set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetails)

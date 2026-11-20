@@ -16,9 +16,7 @@
 
 package pages.regulatorsAndDocuments
 
-import models.UserAnswers
 import pages.behaviours.PageBehaviours
-import play.api.libs.json.Json
 
 class IsApprovedGoverningDocumentPageSpec extends PageBehaviours {
 
@@ -32,7 +30,7 @@ class IsApprovedGoverningDocumentPageSpec extends PageBehaviours {
 
     "cleanup" when {
 
-      val userAnswer = UserAnswers("id", Json.obj())
+      val userAnswer = baseInternalUserAnswers
         .set(IsApprovedGoverningDocumentPage, true)
         .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
         .flatMap(_.set(SectionsChangedGoverningDocumentPage, "change"))

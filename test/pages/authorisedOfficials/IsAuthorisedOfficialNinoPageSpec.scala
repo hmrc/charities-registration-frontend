@@ -16,9 +16,8 @@
 
 package pages.authorisedOfficials
 
-import models.{Passport, UserAnswers}
+import models.Passport
 import pages.behaviours.PageBehaviours
-import play.api.libs.json.Json
 
 class IsAuthorisedOfficialNinoPageSpec extends PageBehaviours {
 
@@ -31,7 +30,7 @@ class IsAuthorisedOfficialNinoPageSpec extends PageBehaviours {
 
   "cleanup" when {
 
-    val userAnswer = UserAnswers("id", Json.obj())
+    val userAnswer = baseInternalUserAnswers
       .set(IsAuthorisedOfficialNinoPage(0), true)
       .flatMap(_.set(AuthorisedOfficialsPassportPage(0), passport))
       .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))

@@ -41,7 +41,7 @@ import scala.concurrent.Future
 
 class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers: Option[UserAnswers]             = Some(emptyUserAnswers)
+  override val userAnswers: Option[UserAnswers]                  = Some(emptyUserAnswers)
   private val mockAddressLookupConnector: AddressLookupConnector = mock(classOf[AddressLookupConnector])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
@@ -151,7 +151,7 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
-              val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeDataRequest)
+              val result = controller.callback(Index(0), NormalMode, Some(internalId))(fakeDataRequest)
 
               status(result) mustEqual SEE_OTHER
               redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -168,7 +168,7 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Left(AddressMalformed)))
 
-              val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeDataRequest)
+              val result = controller.callback(Index(0), NormalMode, Some(internalId))(fakeDataRequest)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
               contentAsString(result) mustBe errorHandler
@@ -200,7 +200,7 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
 
             when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
-            val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeRequest)
+            val result = controller.callback(Index(0), NormalMode, Some(internalId))(fakeRequest)
 
             status(result) mustBe SEE_OTHER
             redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)

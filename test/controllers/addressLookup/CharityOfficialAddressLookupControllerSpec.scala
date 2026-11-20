@@ -38,7 +38,7 @@ import scala.concurrent.Future
 
 class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers: Option[UserAnswers]             = Some(emptyUserAnswers)
+  override val userAnswers: Option[UserAnswers]                  = Some(emptyUserAnswers)
   private val mockAddressLookupConnector: AddressLookupConnector = mock(classOf[AddressLookupConnector])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
@@ -139,7 +139,7 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
-              val result = controller.callback(Some("id"))(fakeDataRequest)
+              val result = controller.callback(Some(internalId))(fakeDataRequest)
 
               status(result) mustEqual SEE_OTHER
               redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -156,7 +156,7 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Left(AddressMalformed)))
 
-              val result = controller.callback(Some("id"))(fakeDataRequest)
+              val result = controller.callback(Some(internalId))(fakeDataRequest)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
               contentAsString(result) mustBe errorHandler
@@ -188,7 +188,7 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
 
             when(mockCharitiesConnector.getUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right(None)))
 
-            val result = controller.callback(Some("id"))(fakeRequest)
+            val result = controller.callback(Some(internalId))(fakeRequest)
 
             status(result) mustBe SEE_OTHER
             redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)

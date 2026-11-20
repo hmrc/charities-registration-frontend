@@ -16,12 +16,10 @@
 
 package pages.regulatorsAndDocuments
 
-import models.UserAnswers
 import models.regulators.SelectGoverningDocument
 import models.regulators.SelectGoverningDocument.{MemorandumArticlesAssociation, Other}
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
-import play.api.libs.json.Json
 
 class SelectGoverningDocumentPageSpec extends PageBehaviours {
 
@@ -37,7 +35,7 @@ class SelectGoverningDocumentPageSpec extends PageBehaviours {
 
     "cleanup" when {
 
-      val userAnswer = UserAnswers("id", Json.obj())
+      val userAnswer = baseInternalUserAnswers
         .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head)
         .flatMap(_.set(GoverningDocumentNamePage, governingDocument))
         .success

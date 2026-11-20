@@ -161,9 +161,9 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
                               |    "isSection9Completed": false
                               |  }
                               |""".stripMargin
-          val ua   = UserAnswers("id", Json.parse(data).as[JsObject])
-          stubUserAnswerGet(ua, "id")
-          authorised("id")
+          val ua   = baseInternalUserAnswers.copy(data = Json.parse(data).as[JsObject])
+          stubUserAnswerGet(ua, internalId)
+          authorised(internalId)
 
           route(
             app,
@@ -193,9 +193,9 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
                 |    "isSection8Completed": true
                 |  }
                 |""".stripMargin
-          val ua   = UserAnswers("id", Json.parse(data).as[JsObject])
-          stubUserAnswerGet(ua, "id")
-          authorised("id")
+          val ua   = baseInternalUserAnswers.copy(data = Json.parse(data).as[JsObject])
+          stubUserAnswerGet(ua, internalId)
+          authorised(internalId)
 
           route(
             app,

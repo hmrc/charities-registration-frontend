@@ -27,10 +27,10 @@ import scala.util.Try
 @Singleton
 class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
 
-  lazy val host: String              = servicesConfig.getString("host")
-  lazy val appName: String           = servicesConfig.getString("appName")
-  lazy val basGatewayBaseUrl: String = servicesConfig.getString("bas-gateway.host")
-  lazy val feedbackFrontend: String  = servicesConfig.getString("feedback-frontend.host")
+  lazy val host: String                     = servicesConfig.getString("host")
+  lazy val appName: String                  = servicesConfig.getString("appName")
+  lazy val basGatewayBaseUrl: String        = servicesConfig.getString("bas-gateway.host")
+  private lazy val feedbackFrontend: String = servicesConfig.getString("feedback-frontend.host")
 
   private val contactHost: String = servicesConfig.getString("contact-frontend.host")
 
@@ -52,6 +52,7 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
   lazy val registrationContinueKey: String          = servicesConfig.getString("urls.registration")
   lazy val timeout: Int                             = servicesConfig.getInt("timeout.timeout")
   lazy val countdown: Int                           = servicesConfig.getInt("timeout.countdown")
+  lazy val sessionTimeoutInSeconds: Int             = servicesConfig.getInt("session.timeoutSeconds")
 
   // Address lookup
   lazy val addressLookupFrontend: String = servicesConfig.baseUrl("address-lookup-frontend")

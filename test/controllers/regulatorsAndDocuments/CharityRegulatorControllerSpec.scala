@@ -40,7 +40,7 @@ import scala.concurrent.Future
 
 class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+  override val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -121,7 +121,7 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
         .success
         .value
 
-      when(mockCharitiesConnector.getUserAnswers(meq("id"))(any(), any()))
+      when(mockCharitiesConnector.getUserAnswers(meq(internalId))(any(), any()))
         .thenReturn(Future.successful(Right(Some(userAnswer))))
       when(mockCharitiesConnector.saveUserAnswers(any())(any(), any())).thenReturn(Future.successful(Right((): Unit)))
 
@@ -129,9 +129,9 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockCharitiesConnector, times(1)).getUserAnswers(meq("id"))(any(), any())
+      verify(mockCharitiesConnector, times(1)).getUserAnswers(meq(internalId))(any(), any())
 
-      theUserAnswers.id mustBe "id"
+      theUserAnswers.id mustBe internalId
       theUserAnswers.data mustBe Json.parse(s"""{"isSection2Completed":false,
           |"charityRegulator":["ccew"],
           |"charityCommissionRegistrationNumber":"$charityCommissionRegistrationNumber"

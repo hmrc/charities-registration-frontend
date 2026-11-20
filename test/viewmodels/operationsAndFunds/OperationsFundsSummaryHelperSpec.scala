@@ -23,7 +23,7 @@ import base.data.messages.BaseMessages
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import models.operations.CharityEstablishedOptions.England
 import models.operations.{CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
-import models.{CheckMode, MongoDateTimeFormats, UserAnswers}
+import models.{CheckMode, MongoDateTimeFormats}
 import org.mockito.Mockito.mock
 import pages.operationsAndFunds._
 import service.CountryService
@@ -36,7 +36,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
   private lazy val mockCountryService: CountryService = mock(classOf[CountryService])
 
   private val helper = new OperationsFundsSummaryHelper(
-    UserAnswers("id")
+    baseInternalUserAnswers
       .set(FundRaisingPage, FundRaisingOptions.valuesIndexed.toSet)
       .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.values.head))
       .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))

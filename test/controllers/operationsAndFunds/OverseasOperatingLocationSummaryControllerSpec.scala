@@ -34,8 +34,8 @@ import scala.concurrent.Future
 
 class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService        = mock(classOf[CountryService])
+  override val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+  lazy val mockCountryService: CountryService   = mock(classOf[CountryService])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
